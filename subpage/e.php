@@ -29,48 +29,57 @@
 <body class="adminbody">
 
 <div id="main">
-	<div class="container" >
-		<img src="" alt="">
-	</div>
-		<div class="container-fluid ">
-			<div class="container text-center">
-				<div class="row">
-					<div class="col-md-3"></div>
-					<div class="col-md-6 text-center">						
-						<div class="card mb-3">
-							<div class="card-header">
-								<h3><i class="fa fa-square-o"></i> Header and footer</h3>
-								Add an optional header and/or footer within a card. <a target="_blank" href="http://getbootstrap.com/docs/4.0/components/card/#header-and-footer">(more info)</a>
-							</div>
-								
-							<div class="card-body">
-								<div class="card">
-								  <div class="card-header">
-									Card Header Content
-								  </div>
-								  <div class="card-body">
-									<h4 class="card-title">Special title treatment</h4>
-									<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" class="btn btn-primary">Go somewhere</a>
-								  </div>
-								  <div class="card-footer text-muted">
-									Card footer content
-								  </div>
-								</div>
-								
-							</div>							
-						</div><!-- end card-->					
-                    </div>
-					<div class="col-md-3"></div>
 
-				</div>
-		
-			</div>
+<?php require 'menu/navmenu.php' ?>
+
+
+    <div class="content-page">
 	
-		
-		</div>
+		<!-- Start content -->
+        <div class="content">
+            
+			<div class="container-fluid">
+					
+						<div class="row">
+									
+						
+							<div class="row">
+									
+							</div>
+							<!-- end row -->
 
+
+							
+							<div class="row">
+							
+									
+							</div>
+							<!-- end row -->
+							
+							
+							<div class="row">
+
+									
+									
+							</div>			
+
+            </div>
+			<!-- END container-fluid -->
+
+		</div>
+		<!-- END content -->
+
+    </div>
+	<!-- END content-page -->
     
+	<footer class="footer">
+		<span class="text-right">
+		Copyright <a target="_blank" href="#">Your Website</a>
+		</span>
+		<span class="float-right">
+		Powered by <a target="_blank" href="#"><b>Pike Admin</b></a>
+		</span>
+	</footer>
 
 </div>
 <!-- END main -->
