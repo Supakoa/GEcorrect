@@ -1,214 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<title>Admin Template</title>
-		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
-		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Log-in Admin SSRU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Mitr:400,500" rel="stylesheet">
+    <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
+    <style>
 
-		<!-- Bootstrap CSS -->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Font Awesome CSS -->
-		<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Custom CSS -->
-		<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
-		
-		<!-- BEGIN CSS for this page -->
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
-		<!-- END CSS for this page -->
-		
-</head>
+        .login-page {
+        width: 360px;
+        padding: 8% 0 0;
+        margin: auto;
+        }
+        .form {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 360px;
+        margin: 0 auto 100px;
+        padding: 45px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+        .form input {
+            font-family: 'Mitr', sans-serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        }
+        .form button {
+            font-family: 'Mitr', sans-serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: #4CAF50;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+        -webkit-transition: all 0.3 ease;
+        transition: all 0.3 ease;
+        cursor: pointer;
+        }
+        .form button:hover,.form button:active,.form button:focus {
+        background: #43A047;
+        }
+        .form .message {
+        margin: 15px 0 0;
+        color: #b3b3b3;
+        font-size: 12px;
+        }
+        .form .message a {
+        color: #4CAF50;
+        text-decoration: none;
+        }
+        .form .register-form {
+        display: none;
+        }
+        .container {
+        position: relative;
+        z-index: 1;
+        max-width: 300px;
+        margin: 0 auto;
+        }
+        .container:before, .container:after {
+        content: "";
+        display: block;
+        clear: both;
+        }
+        .container .info {
+        margin: 50px auto;
+        text-align: center;
+        }
+        .container .info h1 {
+        margin: 0 0 15px;
+        padding: 0;
+        font-size: 36px;
+        font-weight: 300;
+        color: #1a1a1a;
+        }
+        .container .info span {
+        color: #4d4d4d;
+        font-size: 12px;
+        }
+        .container .info span a {
+        color: #000000;
+        text-decoration: none;
+        }
+        .container .info span .fa {
+        color: #EF3B3A;
+        }
+        
+    </style>
+<body>
+    <div class="container-fluid">
+    <div class="container">
+    </div>
+            <div class="login-page">
+            <h2 style="text-align:center">Admin SSRU</h2>
 
-<body class="adminbody">
+             <div class="form">
+            <form action="" method="post" class="login-form">
+                <input type="text" name="username" placeholder="username"/>
+                <input type="password" name="password" placeholder="password"/>
+                <button type="submit">login</button>
+            </form>
 
-<div id="main">
-	<div class="container" >
-		<img src="" alt="">
-	</div>
-		<div class="container-fluid ">
-			<div class="container text-center">
-				<div class="row">
-					<div class="col-md-3"></div>
-					<div class="col-md-6 text-center">						
-						<div class="card mb-3">
-							<div class="card-header">
-								<h3><i class="fa fa-square-o"></i> Header and footer</h3>
-								Add an optional header and/or footer within a card. <a target="_blank" href="http://getbootstrap.com/docs/4.0/components/card/#header-and-footer">(more info)</a>
-							</div>
-								
-							<div class="card-body">
-								<div class="card">
-								  <div class="card-header">
-									Card Header Content
-								  </div>
-								  <div class="card-body">
-									<h4 class="card-title">Special title treatment</h4>
-									<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" class="btn btn-primary">Go somewhere</a>
-								  </div>
-								  <div class="card-footer text-muted">
-									Card footer content
-								  </div>
-								</div>
-								
-							</div>							
-						</div><!-- end card-->					
-                    </div>
-					<div class="col-md-3"></div>
-
-				</div>
-		
-			</div>
-	
-		
-		</div>
-
+        </div>
+        </div>
     
-
-</div>
-<!-- END main -->
-
-<script src="assets/js/modernizr.min.js"></script>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/moment.min.js"></script>
-		
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-
-<script src="assets/js/detect.js"></script>
-<script src="assets/js/fastclick.js"></script>
-<script src="assets/js/jquery.blockUI.js"></script>
-<script src="assets/js/jquery.nicescroll.js"></script>
-
-<!-- App js -->
-<script src="assets/js/pikeadmin.js"></script>
-
-<!-- BEGIN Java Script for this page -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-
-	<!-- Counter-Up-->
-	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
-	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
-
-	<script>
-		$(document).ready(function() {
-			// data-tables
-			$('#example1').DataTable();
-					
-			// counter-up
-			$('.counter').counterUp({
-				delay: 10,
-				time: 600
-			});
-		} );		
-	</script>
-	
-	<script>
-	var ctx1 = document.getElementById("lineChart").getContext('2d');
-	var lineChart = new Chart(ctx1, {
-		type: 'bar',
-		data: {
-			labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-			datasets: [{
-					label: 'Dataset 1',
-					backgroundColor: '#3EB9DC',
-					data: [10, 14, 6, 7, 13, 9, 13, 16, 11, 8, 12, 9] 
-				}, {
-					label: 'Dataset 2',
-					backgroundColor: '#EBEFF3',
-					data: [12, 14, 6, 7, 13, 6, 13, 16, 10, 8, 11, 12]
-				}]
-				
-		},
-		options: {
-						tooltips: {
-							mode: 'index',
-							intersect: false
-						},
-						responsive: true,
-						scales: {
-							xAxes: [{
-								stacked: true,
-							}],
-							yAxes: [{
-								stacked: true
-							}]
-						}
-					}
-	});
-
-
-	var ctx2 = document.getElementById("pieChart").getContext('2d');
-	var pieChart = new Chart(ctx2, {
-		type: 'pie',
-		data: {
-				datasets: [{
-					data: [12, 19, 3, 5, 2, 3],
-					backgroundColor: [
-						'rgba(255,99,132,1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)'
-					],
-					label: 'Dataset 1'
-				}],
-				labels: [
-					"Red",
-					"Orange",
-					"Yellow",
-					"Green",
-					"Blue"
-				]
-			},
-			options: {
-				responsive: true
-			}
-	 
-	});
-
-
-	var ctx3 = document.getElementById("doughnutChart").getContext('2d');
-	var doughnutChart = new Chart(ctx3, {
-		type: 'doughnut',
-		data: {
-				datasets: [{
-					data: [12, 19, 3, 5, 2, 3],
-					backgroundColor: [
-						'rgba(255,99,132,1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)'
-					],
-					label: 'Dataset 1'
-				}],
-				labels: [
-					"Red",
-					"Orange",
-					"Yellow",
-					"Green",
-					"Blue"
-				]
-			},
-			options: {
-				responsive: true
-			}
-	 
-	});
-	</script>
-<!-- END Java Script for this page -->
-
+    </div>
 </body>
+<script>
+    $('.message a').click(function(){
+   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+});
+</script>
+
 </html>
