@@ -3,7 +3,7 @@
 
 		<!-- LOGO -->
         <div class="headerbar-left">
-			<a href="index.php" class="logo"><span>Admin SSRU</span></a>
+			<a href="main.php" class="logo"><span>Admin SSRU</span></a>
         </div>
 
         <nav class="navbar-custom">
@@ -12,7 +12,7 @@
 
                         <li class="list-inline-item ">
                             <a class="nav-link  arrow-none" data-toggle="dropdown" href="#" role="button" >
-                                <i class="fa fa-fw fa-user-o"></i><span class="notif-bullet">Active Now</span>
+                                <i class="fa fa-fw fa-bullseye"></i><span class="notif-bullet">Active Now</span>
                             </a>
                             
                         </li>
@@ -51,7 +51,7 @@
 
 
 					<li class="submenu">
-                        <a href="menu/a.php"><i class="fa fa-fw fa-area-chart"></i><span> ข้อมูลนักศึกษา </span> </a>
+                        <a href="a.php"><i class="fa fa-fw fa-area-chart"></i><span> ข้อมูลนักศึกษา </span> </a>
                     </li>
 					
 					<li class="submenu">
