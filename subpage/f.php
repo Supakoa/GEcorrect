@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<title>Admin Template</title>
+		<title>Admin Template-footer</title>
 		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
 		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
@@ -39,29 +39,167 @@
         <div class="content">
             
 			<div class="container-fluid">
+				<form action="">
+					<div class="card">
+						<div class="card-header text-center"><!--paper-->
+							<h2>แก้ไข เอกสารที่เกี่ยวข้อง</h2>
+						</div>
+						<div class="card-body">
+							<div class="text-center">
+								<h4>เว็บไซต์ที่เกี่ยวข้อง</h4>
+							</div>
+									<div class="row"><!--left-->
+										<div class="col-xl-6">
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="Check1">
+												<label class="custom-control-label" for="Check1">(คลิกเพื่อแสดง)</label>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="custom-control ">
+												<br>
+												<input class="form-control" type="text" placeholder="Default input" id="01">
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-xl-6">
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="Check2">
+												<label class="custom-control-label" for="Check2">(คลิกเพื่อแสดง)</label>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="custom-control">
+												<br>
+												<input class="form-control" type="text" placeholder="Default input" id="02">
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-xl-6">
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="Check3">
+												<label class="custom-control-label" for="Check3">(คลิกเพื่อแสดง)</label>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="custom-control ">
+											<br>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-xl-6">
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="Check4">
+												<label class="custom-control-label" for="Check4">(คลิกเพื่อแสดง)</label>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="custom-control ">
+											<br>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+									</div><!--end left--> <hr>
+									<div class="text-center">
+										<h4>เอกสารที่เผยแพร่</h4>
+									</div>
+								<div class="row"><!-- right-->
+										<div class="col-xl-6">
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="Check5">
+												<label class="custom-control-label" for="Check5">(คลิกเพื่อแสดง)</label>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="custom-control ">
+											<br>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-xl-6">
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="Check6">
+												<label class="custom-control-label" for="Check6">(คลิกเพื่อแสดง)</label>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="custom-control ">
+											<br>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-xl-6">
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="Check7">
+												<label class="custom-control-label" for="Check7">(คลิกเพื่อแสดง)</label>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="custom-control ">
+											<br>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-xl-6">
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="Check8">
+												<label class="custom-control-label" for="Check8">(คลิกเพื่อแสดง)</label>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="custom-control ">
+											<br>
+												<input class="form-control" type="text" placeholder="Default input">
+											</div>
+										</div>
+									</div><!--end right-->
+						</div><!--end paper-->
+					</div>
+				</form>
+				
+				<br><hr><br>
+
+				<form action="">
+					<div class="card">
+						<div class="card-header text-center"><!--footer-->
+							<h2>แก้ไข Footer</h2>
+						</div>
+						<div class="card-body">
+							<div class="input-group">
+								<textarea class="form-control" aria-label="With textarea" rows="4"></textarea>
+							</div><br><br>
+							<div class="text-center">
+								<button type="submit" class="btn btn-success">Upload</button>
+							</div>
+						</div><!--end footer-->
+					</div>
+				</form>
+				
 					
-						<div class="row">
-									
-						
-							<div class="row">
-									
-							</div>
-							<!-- end row -->
-
-
-							
-							<div class="row">
-							
-									
-							</div>
-							<!-- end row -->
-							
-							
-							<div class="row">
-
-									
-									
-							</div>			
 
             </div>
 			<!-- END container-fluid -->

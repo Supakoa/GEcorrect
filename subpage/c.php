@@ -39,30 +39,33 @@
         <div class="content">
             
 			<div class="container-fluid">
-					
-						<div class="row">
-									
-						
-							<div class="row">
-									
+					<div class="card mb-3">
+						<div class="card-header text-center">
+							<h3>นำเข้าข้อมูลนักศึกษา</h3>
+						</div>
+						<div class="card-body">
+							<form  action="" method="POST" enctype="multipart/form-data" required>
+							<div class="form-section">
+								<div class="row">
+									<div class="col-xl-12">
+										<input class="btn btn-light btn-md form-control" type="file" name="filee" required><br><br>
+									</div>
+									<div class="col-xl-6">
+										<label for="st">เริ่มอ่านบรรทัดที่ </label>
+										<input class="form-control" id="st" type="number" name="StartRow" required>
+									</div>
+									<div class="col-xl-6">
+										<label for="end">ถึงบรรทัดที่ </label>
+										<input class="form-control" id="end" type="number" name="EndRow" required>
+									</div>
+								</div>
+										<div class="text-center"><br>
+											<button type="submit" class="btn btn-primary" name="sub">นำเข้า</button>
+										</div>
 							</div>
-							<!-- end row -->
-
-
-							
-							<div class="row">
-							
-									
-							</div>
-							<!-- end row -->
-							
-							
-							<div class="row">
-
-									
-									
-							</div>			
-
+							</form>
+						</div>
+					</div>
             </div>
 			<!-- END container-fluid -->
 
