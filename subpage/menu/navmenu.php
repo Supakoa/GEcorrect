@@ -48,8 +48,6 @@
 			<div id="sidebar-menu">
         
 			<ul>
-
-
 					<li class="submenu">
                         <a href="a.php"><i class="fa fa-fw fa-user-o"></i><span> ข้อมูลนักศึกษา </span> </a>
                     </li>
@@ -85,13 +83,6 @@
                             </ul>
                     </li>
             </ul>
-
-            <div class="clearfix"></div>
-
-			</div>
-        
-			<div class="clearfix"></div>
-
 		</div>
 
 	</div>
