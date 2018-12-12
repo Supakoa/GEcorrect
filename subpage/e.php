@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<title>Admin Template</title>
+		<title>Admin Template- แบรนเนอร์</title>
 		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
 		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
@@ -12,13 +12,13 @@
 		<link rel="shortcut icon" href="assets/images/favicon.ico">
 
 		<!-- Bootstrap CSS -->
-		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		
 		<!-- Font Awesome CSS -->
-		<link href="../assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+		<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 		
 		<!-- Custom CSS -->
-		<link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 		
 		<!-- BEGIN CSS for this page -->
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
@@ -30,74 +30,105 @@
 
 <div id="main">
 
-<?php require 'menu/navmenu.php' ?>
+	<?php require 'menu/navmenu.php' ?>
 
 
-    <div class="content-page">
-	
-		<!-- Start content -->
-        <div class="content">
-            
-			<div class="container-fluid">
-					
-						<div class="row">
-									
-						
-							<div class="row">
-									
-							</div>
-							<!-- end row -->
+    <div class="content-page"><!-- content-page -->
+
+		<div class="content"><!-- content -->
+
+			<div class="container-fluid"><!--container-fluid -->
+					<div class="card mb-3">
+						<div class="card-header">
+							<h4 class="text-center">ตั้งค่าแบรนเนอร์</h4>
+						</div>
+						<div class="card-body">
+							<div class="container text-center">
+								<form method="POST" action="" enctype="multipart/form-data">
+									<input class="btn btn-light btn-md form-control" type="file" name="image" required/>
+									<br><br><button type="submit" class="btn btn-primary" name="submit" >Upload</button>
+								</form>
+							</div><br>
+							<div class="container-fluid text-center"><!-- display-->
+								<div class="jumbotron" >
 
 
-							
-							<div class="row">
-							
-									
-							</div>
-							<!-- end row -->
-							
-							
-							<div class="row">
+								</div>
+								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">ตกลง</button>
+									<!-- Modal -->
+									<div class="modal fade" id="myModal" role="dialog">
+										<div class="modal-dialog modal-sm">
+										<div class="modal-content">
+											<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+											<div class="modal-body">
+												<?php
+												if (!isset($c)) {
+													echo "<center><p>กรุณาอัพโหลดรูปภาพ</p></center>";
+													unset($_SESSION['shownow']);
+													unset($image2);
+													unset($c);
+												} else {
 
-									
-									
-							</div>			
 
-            </div>
-			<!-- END container-fluid -->
+													echo "<center><p>อัพเดตข้อมูลเรียบร้อย</p></center>";
 
-		</div>
-		<!-- END content -->
+													if (isset($_SESSION['shownow'])) {
+														$insert2 = $con->query(" UPDATE `baner` SET `name_baner`='$image2'WHERE id = 1");
+														if ($insert2) {
 
+															echo "<center><p>File uploaded successfully.</p></center>";
+														} else {
+															echo "<center><p>File upload failed, please try again.</p></center>";
+														}
+														unset($_SESSION['shownow']);
+														unset($image2);
+														unset($c);
+
+													}
+												}
+
+												?>
+
+											</div>
+											<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal" href="setting.php">Close</button>
+											</div>
+										</div>
+										</div>
+									</div>
+									<!--Modal-->
+
+							</div><!--end display -->
+						</div><!--end card-->
+					</div>
+            </div><!-- END container-fluid -->
+		</div><!--end content-->
     </div>
 	<!-- END content-page -->
     
 	<footer class="footer">
-		<span class="text-right">
-		Copyright <a target="_blank" href="#">Your Website</a>
-		</span>
-		<span class="float-right">
-		Powered by <a target="_blank" href="#"><b>Pike Admin</b></a>
-		</span>
+		
 	</footer>
 
 </div>
 <!-- END main -->
 
-<script src="../assets/js/modernizr.min.js"></script>
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/moment.min.js"></script>
+<script src="assets/js/modernizr.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/moment.min.js"></script>
 		
-<script src="../assets/js/popper.min.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 
-<script src="../assets/js/detect.js"></script>
-<script src="../assets/js/fastclick.js"></script>
-<script src="../assets/js/jquery.blockUI.js"></script>
-<script src="../assets/js/jquery.nicescroll.js"></script>
+<script src="assets/js/detect.js"></script>
+<script src="assets/js/fastclick.js"></script>
+<script src="assets/js/jquery.blockUI.js"></script>
+<script src="assets/js/jquery.nicescroll.js"></script>
 
 <!-- App js -->
-<script src="../assets/js/pikeadmin.js"></script>
+<script src="assets/js/pikeadmin.js"></script>
 
 <!-- BEGIN Java Script for this page -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -105,8 +136,8 @@
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
 	<!-- Counter-Up-->
-	<script src="../assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
-	<script src="../assets/plugins/counterup/jquery.counterup.min.js"></script>			
+	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
 
 	<script>
 		$(document).ready(function() {
