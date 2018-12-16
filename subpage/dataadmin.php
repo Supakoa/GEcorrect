@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<title>Pike Admin - Free Bootstrap 4 Admin Template</title>
+		<title>Admin Template-ข้อมูลแอดมิน</title>
 		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
 		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
@@ -34,15 +34,22 @@
 
 
     <div class="content-page"><!-- content-page -->
-
 		<div class="content"><!-- content -->
-
 			<div class="container-fluid"><!--container-fluid -->
-					
-            </div>
-			<!-- END container-fluid -->
-		</div>
-
+				<div class="card mb-3">
+					<div class="card-header">
+						<h3 class="text-center">ตารางข้อมูพนักงาน</h3>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="admin" class="table table-bordered">
+								
+							</table>
+						</div>
+					</div>
+				</div>
+            </div><!-- END container-fluid -->
+		</div><!--end content-->
     </div>
 	<!-- END content-page -->
     
@@ -80,13 +87,11 @@
 	<script>
 		$(document).ready(function() {
 			// data-tables
-			$('#example1').DataTable();
+			$('#admin').DataTable();
 					
 			
 		} );		
 	</script>
-	
-	
 <!-- END Java Script for this page -->
 
 </body>

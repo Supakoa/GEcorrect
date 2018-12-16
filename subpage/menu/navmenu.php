@@ -45,37 +45,45 @@
 			<div id="sidebar-menu">
                 <ul>
                         <li class="submenu">
-                            <a href="a.php"><i class="fa fa-fw fa-user-o"></i><span> ข้อมูลนักศึกษา </span> </a>
-                        </li>
-                        
-                        <li class="submenu">
-                            <a href="b.php"><i class="fa fa-fw fa-file-o"></i> <span> รายงาน </span> </a>
-                                
+                            <a><i class="fa fa-fw fa-user-o"></i><span>ค้นหา</span><span class="menu-arrow"></span> </a>
+                            <ul class="list-unstyled">								
+                                    <li><a href="search1.php"> ค้นหาทั่วไป </a></li>
+                                    <li><a href="search2.php"> ค้นหาแบบกลุ่มวิชา </a></li>
+                                    <li><a href="search3.php"> ค้นหาแบบกลุ่มวิชาบุคคล </a></li>	
+                                </ul>
                         </li>
                                             
                         <li class="submenu">
-                            <a href="c.php"><i class="fa fa-fw fa-user-plus"></i> <span> นำเข้าข้อมูลนักศึกษา </span></a>
+                            <a><i class="fa fa-fw fa-user-plus"></i> <span> นำเข้าข้อมูล </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">								
+                                    <li><a href="imstudent.php"> นำเข้าข้อมูลนักศึกษา </a></li>
+                                    <li><a href="imgroup.php"> นำเข้าข้อมูลแบบกลุ่มเรียน </a></li>	
+                                </ul>
                         </li>
 
+                        <li class="submenu">
+                            <a href="report.php"><i class="fa fa-fw fa-file-o"></i> <span> รายงาน </span> </a>
+                                
+                        </li>
 
                         <li class="submenu">
-                            <a href="d.php"><i class="fa fa-fw fa-address-card-o"></i> <span> พนักงาน </span></a>
+                            <a href="dataadmin.php"><i class="fa fa-fw fa-address-card-o"></i> <span> พนักงาน </span></a>
                         </li>
                         
                         <li class="submenu">
-                            <a href="g.php"><i class="fa fa-fw fa-location-arrow"></i> <span> สถานที่สอบ </span></a>
+                            <a href="location.php"><i class="fa fa-fw fa-location-arrow"></i> <span> สถานที่สอบ </span></a>
                         </li>
 
                         
                         <li class="submenu">
-                            <a href="h.php"><i class="fa fa-fw fa-graduation-cap"></i> <span> วิชาที่สอบ </span></a>
+                            <a href="subject.php"><i class="fa fa-fw fa-graduation-cap"></i> <span> วิชาที่สอบ </span></a>
                         </li>
                         
                         <li class="submenu">
                             <a ><i class="fa fa-fw fa-cogs"></i><span> ตั้งค่า </span><span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">								
-                                    <li><a href="e.php"> Banner </a></li>
-                                    <li><a href="f.php"> Footer </a></li>	
+                                    <li><a href="banner.php"> Banner </a></li>
+                                    <li><a href="footer.php"> Footer </a></li>	
                                 </ul>
                         </li>
                 </ul>

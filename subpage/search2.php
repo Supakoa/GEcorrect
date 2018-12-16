@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<title>Pike Admin - Free Bootstrap 4 Admin Template</title>
+		<title>Admin Template-ค้นหาทั่วไป</title>
 		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
 		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
@@ -30,19 +30,14 @@
 
 <div id="main">
 
-	<?php require 'menu/navmenu.php' ?>
+	<?php require 'menu/navmenu.php'; ?>
 
 
-    <div class="content-page"><!-- content-page -->
+    <div class="content-page"><!-- start content-page-->
+		<div class="content"><!--content-->
 
-		<div class="content"><!-- content -->
-
-			<div class="container-fluid"><!--container-fluid -->
-					
-            </div>
-			<!-- END container-fluid -->
-		</div>
-
+		
+		</div><!--end content-->
     </div>
 	<!-- END content-page -->
     
@@ -52,6 +47,11 @@
 
 </div>
 <!-- END main -->
+
+<div><!--modal-->
+
+
+</div>
 
 <script src="assets/js/modernizr.min.js"></script>
 <script src="assets/js/jquery.min.js"></script>
@@ -82,6 +82,7 @@
 			// data-tables
 			$('#example1').DataTable();
 					
+		
 			
 		} );		
 	</script>
