@@ -43,137 +43,148 @@
 							<h3 class="text-center">เอกสารที่เผยแพร่และเว็บไซต์ที่เกี่ยวข้อง</h3>
 						</div>
 						<div class="card-body">
-								<h4 class="text-center">เว็บไซต์ที่เกี่ยวข้อง</h4>
-							<div class="table-responsive">
-								<table class="table"><!-- table 1 -->
-									<thead>
-										<tr>
-											<th>ลำดับ</th>
-											<th>ข้อความ</th>
-											<th>ที่อยู่</th>
-											<th>แสดงหน้าเว็บ</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>1.</td>
-											<td><input class="form-control" type="text"></td>
-											<td><input class="form-control" type="text"></td>
-											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-										</tr>
-										<tr>
-											<td>2.</td>
-											<td><input class="form-control" type="text"></td>
-											<td><input class="form-control" type="text"></td>
-											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-										</tr>
-										<tr>
-											<td>3.</td>
-											<td><input class="form-control" type="text"></td>
-											<td><input class="form-control" type="text"></td>
-											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-										</tr>
-										<tr>
-											<td>4.</td>
-											<td><input class="form-control" type="text"></td>
-											<td><input class="form-control" type="text"></td>
-											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-										</tr>
-									</tbody>
-								</table><br>
-									<div class="text-center">
-										<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10 btn-sm" data-target="#up0" data-toggle="modal">Update</a>
-									
-									<!-- Modal -->
-											<div class="modal fade bd-example-modal-sm" id="up0" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
-											<div class="modal-dialog " role="document">
-												<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel2">ยืนยัน</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-													</button>
+							<div class="card"><!-- card table 1 -->
+								<div class="card-body">
+										<h4 class="text-center">เว็บไซต์ที่เกี่ยวข้อง</h4>
+									<div class="table-responsive">
+										<table class="table"><!-- table 1 -->
+											<thead>
+												<tr>
+													<th>ลำดับ</th>
+													<th>ข้อความ</th>
+													<th>ที่อยู่</th>
+													<th>แสดงหน้าเว็บ</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1.</td>
+													<td><input class="form-control" type="text"></td>
+													<td><input class="form-control" type="text"></td>
+													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
+												</tr>
+												<tr>
+													<td>2.</td>
+													<td><input class="form-control" type="text"></td>
+													<td><input class="form-control" type="text"></td>
+													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
+												</tr>
+												<tr>
+													<td>3.</td>
+													<td><input class="form-control" type="text"></td>
+													<td><input class="form-control" type="text"></td>
+													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
+												</tr>
+												<tr>
+													<td>4.</td>
+													<td><input class="form-control" type="text"></td>
+													<td><input class="form-control" type="text"></td>
+													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
+												</tr>
+											</tbody>
+										</table><br>
+											<div class="text-center">
+												<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10 btn-sm" data-target="#up0" data-toggle="modal">Update</a>
+											
+											<!-- Modal -->
+													<div class="modal fade bd-example-modal-sm" id="up0" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
+													<div class="modal-dialog " role="document">
+														<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel2">ยืนยัน</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
+														</div>
+														<div class="modal-footer text-center">
+															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+															<button type="button" class="btn btn-primary btn-sm">Yes</button>
+														</div>
+														</div>
+													</div>
+													</div>
 												</div>
-												<div class="modal-body">
-													<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
-												</div>
-												<div class="modal-footer text-center">
-													<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary btn-sm">Yes</button>
-												</div>
-												</div>
-											</div>
-											</div>
-										</div>
-							</div><!--end table 1 --> <hr>
-								<h4 class="text-center">เอกสารที่เผยแพร่</h4>
-							<div class="table-responsive">
-							<table class="table"><!-- table 2 -->
-									<thead>
-										<tr>
-											<th>ลำดับ</th>
-											<th>ข้อความ</th>
-											<th>ชื่อไฟล์</th>
-											<th>เพิ่มไฟล์ PDF</th>
-											<th>แสดงหน้าเว็บ</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>1.</td>
-											<td><input class="form-control" type="text"></td>
-											<td></td>
-											<td><input class="form-control btn" type="file"></td>
-											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-										</tr>
-										<tr>
-											<td>2.</td>
-											<td><input class="form-control" type="text"></td>
-											<td></td>
-											<td><input class="form-control btn" type="file"></td>
-											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-										</tr>
-										<tr>
-											<td>3.</td>
-											<td><input class="form-control" type="text"></td>
-											<td></td>
-											<td><input class="form-control btn" type="file"></td>
-											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-										</tr>
-										<tr>
-											<td>4.</td>
-											<td><input class="form-control" type="text"></td>
-											<td></td>
-											<td><input class="form-control btn"  type="file"></td>
-											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-										</tr>
-									</tbody>
-								</table><br>
-									<div class="text-center">
-										<!-- Small modal -->
-										<a role="button" href="#"  class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm">Upload</a>
+									</div><!--end table 1 --> 
+								</div>
+							</div><!--end card table 1 -->
 
-											<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-											<div class="modal-dialog modal-sm">
-												<div class="modal-content">
-													<div class="modal-header">
-													<h5 class="modal-title">ยืนยันการอัพข้อมูล</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-													</button>
+							<hr>
+							<div class="card"><!-- card table 2 -->
+								<div class="card-body">
+										<h4 class="text-center">เอกสารที่เผยแพร่</h4>
+									<div class="table-responsive">
+									<table class="table"><!-- table 2 -->
+											<thead>
+												<tr>
+													<th>ลำดับ</th>
+													<th>ข้อความ</th>
+													<th>ชื่อไฟล์</th>
+													<th>เพิ่มไฟล์ PDF</th>
+													<th>แสดงหน้าเว็บ</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1.</td>
+													<td><input class="form-control" type="text"></td>
+													<td></td>
+													<td><input class="form-control btn" type="file"></td>
+													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
+												</tr>
+												<tr>
+													<td>2.</td>
+													<td><input class="form-control" type="text"></td>
+													<td></td>
+													<td><input class="form-control btn" type="file"></td>
+													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
+												</tr>
+												<tr>
+													<td>3.</td>
+													<td><input class="form-control" type="text"></td>
+													<td></td>
+													<td><input class="form-control btn" type="file"></td>
+													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
+												</tr>
+												<tr>
+													<td>4.</td>
+													<td><input class="form-control" type="text"></td>
+													<td></td>
+													<td><input class="form-control btn"  type="file"></td>
+													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
+												</tr>
+											</tbody>
+										</table><br>
+											<div class="text-center">
+												<!-- Small modal -->
+												<a role="button" href="#"  class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm">Upload</a>
+
+													<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+													<div class="modal-dialog modal-sm">
+														<div class="modal-content">
+															<div class="modal-header">
+															<h5 class="modal-title">ยืนยันการอัพข้อมูล</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+															</button>
+															</div>
+															<div class="modal-body">
+																<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
+															</div>
+															<div class="modal-footer text-center">
+															<button type="button" class="btn btn-danger btn-sm">Yes</button>
+															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+														</div>
+														</div>
 													</div>
-													<div class="modal-body">
-														<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
-													</div>
-													<div class="modal-footer text-center">
-													<button type="button" class="btn btn-danger btn-sm">Yes</button>
-													<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
-												</div>
-												</div>
+													</div><!--end modal 3-->
 											</div>
-											</div><!--end modal 3-->
-									</div>
-							</div><!--end table 2 --> <hr>
+									</div><!--end table 2 -->
+								</div>
+							</div><!--end card table 2 -->
+							<hr>
 						</div>
 					</div>
 					<div class="card mb-3">

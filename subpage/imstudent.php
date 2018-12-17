@@ -41,23 +41,29 @@
 					<h4 class="text-center">นำเข้าข้อมูลนักศึกษา</h4>
 				</div>
 				<div class="card-body">
-						<div class="row ">
-							<div class="col-lg-4"></div>
-							<div class="col-lg-4 text-center">
-								<input class="form-control btn" type="file">
+					<div class="container">
+						<div class="card">
+							<div class="card-body">
+								<div class="row ">
+									<div class="col-lg-4"></div>
+									<div class="col-lg-4 text-center">
+										<input class="form-control btn" type="file">
+									</div>
+									<div class="col-lg-4"></div>
+								</div><br>
+								<div class="text-center">
+									<button class="btn btn-success btn-sm" type="submit">Upload</button>
+								</div>
+								<div class="row ">
+									<div class="col-lg-4"></div>
+									<div class="col-lg-4"></div>
+									<div class="col-lg-4 text-right"><br>
+										<p>* หน้านำเข้าข้อมูลนักศึกษา<br>* ข้อมูลนักศึกษาที่นำเข้า  <br>- รหัสนักศึกษา <br>- ซื่อนักศึกษา<br>- Username <br>- Password</p>
+									</div>
+								</div>
 							</div>
-							<div class="col-lg-4"></div>
-						</div><br>
-						<div class="text-center">
-							<button class="btn btn-success btn-sm" type="submit">Upload</button>
 						</div>
-						<div class="row ">
-							<div class="col-lg-4"></div>
-							<div class="col-lg-4"></div>
-							<div class="col-lg-4 text-right"><br>
-								<p>* หน้านำเข้าข้อมูลนักศึกษา<br>* ข้อมูลนักศึกษาที่นำเข้า  <br>- รหัสนักศึกษา <br>- ซื่อนักศึกษา<br>- Username <br>- Password</p>
-							</div>
-						</div>
+					</div>
 				</div>
 			</div>
 		</div><!--end content-->

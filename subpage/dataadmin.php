@@ -49,6 +49,8 @@
 													<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#adddata">
 														<i class="fa fa-plus"></i> เพิ่มข้อมูล
 													</a>
+													<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i> ลบที่เลือก</a>
+															
 												</div>
 												
 												<!-- Modal -->
@@ -111,6 +113,26 @@
 														</div>
 													</div>
 												</div><!--end modal 1-->	
+															
+															
+															<!-- Small modal -->
+															<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+																<div class="modal-dialog modal-sm">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																		<h5 class="modal-title">ลบข้อมูล</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																		</button>
+																		</div>
+																		
+																		<div class="modal-footer">
+																		<button type="button" class="btn btn-danger btn-sm">Yes</button>
+																		<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+																	</div>
+																	</div>
+																</div>
+															</div><!--end modal -->
 										<th></th>
 										<th>รหัสพนักงาน</th>
 										<th>ชื่อ</th>
@@ -119,16 +141,21 @@
 										<th>Password</th>
 										<th>ระดับ</th>
 										<th>active</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td class="text-center">
+										<td >
 											<!-- Button trigger modal -->
-																
-											<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
+																<div class="text-center">
+																	<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
 																	<i class="fa fa-pencil"></i>
 																	</a>
+																	<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+
+																</div>
+											
 																
 															
 															<!-- Modal -->
@@ -193,8 +220,6 @@
 														
 														
 															<!-- Small modal -->
-																<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
-
 																<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
 																<div class="modal-dialog modal-sm">
 																	<div class="modal-content">
@@ -220,6 +245,11 @@
 										<td></td>
 										<td></td>
 										<td></td>
+										<td class="text-center">
+											<div class="form-check">
+												<input type="checkbox" class="form-check-input">
+											</div>
+										</td>
 									</tr>
 								</tbody>
 							</table>

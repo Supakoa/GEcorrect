@@ -53,6 +53,8 @@
 													<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addloc">
 														<i class="fa fa-plus"></i> เพิ่มข้อมูล
 													</a>
+													<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i> ลบที่เลือก</a>
+															
 												</div>
 												
 												<!-- Modal -->
@@ -66,8 +68,12 @@
 																</button>
 															</div>
 															<div class="modal-body">
-																		<label for="loc">ชื่อสถานที่</label>
-																		<input class="form-control" id="loc" type="text">
+																<label for="loc0">สถานที่สอบ</label>
+																<select name="" id="loc0" class="form-control select2">
+																			<option>1701</option>
+																			<option>1702</option>
+																			<option>3111</option>
+																	</select>
 																		<label for="url-loc">URL</label>
 																		<input class="form-control" id="url-loc" type="text">
 															</div>
@@ -78,19 +84,43 @@
 														</div>
 													</div>
 												</div><!--end modal 1-->
+															
+															<!-- Small modal -->
+															<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+																<div class="modal-dialog modal-sm">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																		<h5 class="modal-title">ลบข้อมูล</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																		</button>
+																		</div>
+																		
+																		<div class="modal-footer">
+																		<button type="button" class="btn btn-danger btn-sm">Yes</button>
+																		<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+																	</div>
+																	</div>
+																</div>
+															</div><!--end modal -->
 											<th></th>
 											<th>ชื่อสถานที่</th>
 											<th>URL</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td class="text-center">
+											<td >
 														<!-- Button trigger modal -->
-																
-														<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editloc">
+																<div class="text-center">
+																	<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editloc">
 																	<i class="fa fa-pencil"></i>
 																	</a>
+																	<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+
+																</div>
+														
 																
 															
 															<!-- Modal -->
@@ -104,8 +134,12 @@
 																		</button>
 																	</div>
 																	<div class="modal-body">
-																	<label for="loc1">ชื่อสถานที่</label>
-																	<input class="form-control" id="loc1" type="text">
+																		<label for="loc1">สถานที่สอบ</label>
+																		<select name="" id="loc1" class="form-control select2">
+																				<option>1701</option>
+																				<option>1702</option>
+																				<option>3111</option>
+																			</select>
 																	<label for="url-loc1">URL</label>
 																	<input class="form-control" id="url-loc1" type="text">
 
@@ -119,8 +153,6 @@
 															</div><!--end modal 2-->
 
 															<!-- Small modal 3-->
-															<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
-
 															<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
 															<div class="modal-dialog modal-sm">
 																<div class="modal-content">
@@ -142,6 +174,11 @@
 											</td>
 											<td>เป็นไรก็ได้</td>
 											<td>www.nunoi.com</td>
+											<td class="text-center">
+												<div class="form-check">
+													<input type="checkbox" class="form-check-input">
+												</div>
+											</td>
 										</tr>
 									</tbody>
 								</table>
