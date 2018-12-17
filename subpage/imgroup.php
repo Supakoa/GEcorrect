@@ -36,7 +36,106 @@
     <div class="content-page"><!-- content-page -->
 
 		<div class="content"><!-- content -->
-		
+			<div class="card mb-3">
+				<div class="card-header">
+					<h4 class="text-center">นำเข้าข้อมูลแบบกลุ่มเรียน</h4>
+				</div>
+				<div class="card-body"><!-- card-body -->
+					<div class="container">
+						<div class="container">
+							<div class="row"><!-- filter -->
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="year">ปีการศึกษา</label>
+										<select id="year" class="form-control select2">
+											<option>2561</option>
+											<option>2560</option>
+											<option>2559</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="subj">วิชา(รหัส)</label>
+										<select id="subj" class="form-control select2">
+											<option>GEL1101</option>
+											<option>GEL1102</option>
+											<option>GEL1103</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="group">กลุ่มเรียน</label>
+										<select id="group" class="form-control select2">
+											<option>101</option>
+											<option>201</option>
+											<option>302</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="time">เวลา</label>
+										<select id="time" class="form-control select2">
+											<option>08.00 - 11.00 น.</option>
+											<option>11.00 - 14.00 น.</option>
+											<option>14.00 - 17.00 น.</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="date">วันที่</label>
+										<input id="date" type="date" class="form-control " name="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="cate">ประเภท</label>
+										<select id="cate" class="form-control select2">
+											<option>Tablat</option>
+											<option>Computer</option>
+										</select>
+									</div>
+								</div>
+							</div><hr><!--end filter -->
+
+							<div class="row">
+								<div class="col-md-4 form-group"><!-- room & Value -->
+									<label for="room">ห้อง</label>
+										<select name="" id="room" class="form-control select2">
+											<option>1701</option>
+											<option>1702</option>
+											<option>3111</option>
+										</select><hr>
+										<select name="" class="form-control select2">
+														<option>1701</option>
+														<option>1702</option>
+														<option>3111</option>
+										</select><hr>
+								</div>
+								<div class="col-md-4"></div>
+								<div class="col-md-4 form-group">
+									<label for="value">จำนวน</label>
+									<input id="value" class="form-control" type="text" placeholder="1."><hr>
+									<input  class="form-control" type="text" placeholder="2."><hr>
+								</div><!--end room & Value -->
+
+								<div class="col-md-4"></div><!-- button add collum -->
+								<div class="col-md-4 text-center">
+									<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
+								</div>
+								<div class="col-md-4"></div><!-- end button add collum -->
+							</div><hr>
+							<div class="text-center"><!-- up file -->
+								<input class="btn btn-md" type="file">
+								<button class="btn btn-sm btn-success" type="submit">submit</button>
+							</div><!--end up file -->
+						</div>
+					</div>
+				</div><!-- end card-body -->
+			</div>
 		</div><!--end content-->
 
     </div>
@@ -77,7 +176,8 @@
 		$(document).ready(function() {
 			// data-tables
 			$('#example1').DataTable();
-					
+    		$('.select2').select2();
+
 		} );		
 	</script>
 	

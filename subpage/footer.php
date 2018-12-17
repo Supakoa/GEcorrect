@@ -40,10 +40,10 @@
 			<div class="container-fluid"><!--container-fluid -->
 					<div class="card mb-3">
 						<div class="card-header">
-							<h2 class="text-center">เอกสารที่เผยแพร่และเว็บไซต์ที่เกี่ยวข้อง</h2>
+							<h3 class="text-center">เอกสารที่เผยแพร่และเว็บไซต์ที่เกี่ยวข้อง</h3>
 						</div>
 						<div class="card-body">
-								<h4 class="text-center">เว็บไซตืที่เกี่ยวข้อง</h4>
+								<h4 class="text-center">เว็บไซต์ที่เกี่ยวข้อง</h4>
 							<div class="table-responsive">
 								<table class="table"><!-- table 1 -->
 									<thead>
@@ -123,28 +123,28 @@
 											<td>1.</td>
 											<td><input class="form-control" type="text"></td>
 											<td></td>
-											<td><input  type="file"></td>
+											<td><input class="form-control btn" type="file"></td>
 											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
 										</tr>
 										<tr>
 											<td>2.</td>
 											<td><input class="form-control" type="text"></td>
 											<td></td>
-											<td><input  type="file"></td>
+											<td><input class="form-control btn" type="file"></td>
 											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
 										</tr>
 										<tr>
 											<td>3.</td>
 											<td><input class="form-control" type="text"></td>
 											<td></td>
-											<td><input type="file"></td>
+											<td><input class="form-control btn" type="file"></td>
 											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
 										</tr>
 										<tr>
 											<td>4.</td>
 											<td><input class="form-control" type="text"></td>
 											<td></td>
-											<td><input  type="file"></td>
+											<td><input class="form-control btn"  type="file"></td>
 											<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
 										</tr>
 									</tbody>

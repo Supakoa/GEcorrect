@@ -35,7 +35,159 @@
 
     <div class="content-page"><!-- start content-page-->
 		<div class="content"><!--content-->
+			<div class="card mb-3">
+				<div class="card-header">
+					<h4 class="text-center">ค้นหาทั่วไป</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive"><!-- table -->
+						<table id="search1" class="table table-bordered">
+							<thead> 
+								<tr>
+												<div class="text-center">
+													<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
+														<i class="fa fa-plus"></i> เพิ่มข้อมูล
+													</a>
+												</div>
+												
+												<!-- Modal -->
+												<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<div class="container">
+																	<div class="form-group">
+																		<div class="row">
+																			<div class="col-md-7">
+																				<label for="id1">รหัสนักศึกษา</label>
+																				<input id="id1" class="form-control" type="text" >
+																			</div>
+																			<div class="col-md-6">
+																				<label for="fname1">ชื่อ</label>
+																				<input id="fname1" class="form-control" type="text">
+																			</div>
+																			<div class="col-md-6">
+																				<label for="lname1">นามสกุล</label>
+																				<input id="lname1" class="form-control" type="text">
+																			</div>
+																			<div class="col-md-6">
+																				<label for="user1">Username</label>
+																				<input id="user1" class="form-control" type="text">
+																			</div>
+																			<div class="col-md-6">
+																				<label for="pas1s">Password</label>
+																				<input id="pass1" class="form-control" type="text">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																		
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary btn-sm">Save</button>
+															</div>
+														</div>
+													</div>
+												</div><!--end modal -->
+									<th></th>
+									<th>รหัสนักศึกษา</th>
+									<th>ชื่อ-นามสกุล</th>
+									<th>Username</th>
+									<th>Password</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="text-center">
+													<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
+														<i class="fa fa-pencil"></i>
+													</a>
+												
+												<!-- Modal 1-->
+												<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<div class="container">
+																	<div class="form-group">
+																		<div class="row">
+																			<div class="col-md-7">
+																				<label for="id">รหัสนักศึกษา</label>
+																				<input id="id" class="form-control" type="text" >
+																			</div>
+																			<div class="col-md-6">
+																				<label for="fname">ชื่อ</label>
+																				<input id="fname" class="form-control" type="text">
+																			</div>
+																			<div class="col-md-6">
+																				<label for="lname">นามสกุล</label>
+																				<input id="lname" class="form-control" type="text">
+																			</div>
+																			<div class="col-md-6">
+																				<label for="user">Username</label>
+																				<input id="user" class="form-control" type="text">
+																			</div>
+																			<div class="col-md-6">
+																				<label for="pass">Password</label>
+																				<input id="pass" class="form-control" type="text">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																		
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary btn-sm">Save</button>
+															</div>
+														</div>
+													</div>
+												</div><!--end modal 1-->
 
+												<!-- Small modal 3-->
+												<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+
+												<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+												<div class="modal-dialog modal-sm">
+													<div class="modal-content">
+														<div class="modal-header">
+														<h5 class="modal-title">ลบข้อมูล</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+														</div>
+														
+														<div class="modal-footer">
+														<button type="button" class="btn btn-danger btn-sm">Yes</button>
+														<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+													</div>
+													</div>
+												</div>
+												</div><!--end modal 3-->
+									</td>
+									<td>59122519023</td>
+									<td>นายศุภกิจ กิจนะบำรุงศักดิ์</td>
+									<td>s59122519023</td>
+									<td>ssru59122519023</td>
+								</tr>
+							</tbody>
+						</table>
+					</div><!--end table -->
+				</div>
+			</div>
 		
 		</div><!--end content-->
     </div>
@@ -80,7 +232,7 @@
 	<script>
 		$(document).ready(function() {
 			// data-tables
-			$('#example1').DataTable();
+			$('#search1').DataTable();
 					
 			
 		} );		

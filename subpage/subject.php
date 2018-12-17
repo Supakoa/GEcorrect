@@ -40,52 +40,53 @@
 			<div class="container-fluid"><!--container-fluid -->
 					<div class="card md-3">
 						<div class="card-header">
-							<h4 class="text-center">วิชา</h4>
+							<h4 class="text-center">วิชาทที่สอบ</h4>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table id="subject" class="table table-bordered">
 									<thead>
 										<tr>
-											<th>
 													<!-- Button trigger modal -->
-													<div class="text-center">
-														<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
-														<i class="fa fa-plus"></i>
+													<div class="text-center" >
+														<a  role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
+															<i class="fa fa-plus"></i> เพิ่มข้อมูล
 														</a>
 													</div>
-												
-												<!-- Modal -->
-												<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-																<label for="subj">ชื่อวิชา</label>
-																<input class="form-control" id="subj" type="text">
-																<label for="id-subj">รหัสวิชา</label>
-																<input class="form-control" id="id-subj" type="text">
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-														<button type="button" class="btn btn-primary btn-sm">Save</button>
-													</div>
-													</div>
-												</div>
-												</div><!--end modal 1-->
-											</th>
+														
+																
+														<!-- Modal -->
+														<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+															<div class="modal-dialog" role="document">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">
+																				<label for="subj">ชื่อวิชา</label>
+																				<input class="form-control" id="subj" type="text">
+																				<label for="id-subj">รหัสวิชา</label>
+																				<input class="form-control" id="id-subj" type="text">
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																		<button type="button" class="btn btn-primary btn-sm">Save</button>
+																	</div>
+																</div>
+															</div>
+														</div><!--end modal 1-->
+														
+											<th></th>
 											<th>รหัสวิชา</th>
 											<th>ชื่อวิชา</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td>
+											<td class="text-center">
 																<!-- Button trigger modal -->
 																
 																	<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">

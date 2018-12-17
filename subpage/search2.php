@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<title>Admin Template-ค้นหาทั่วไป</title>
+		<title>Admin Template-ค้นหาแบบกลุ่มสอบ</title>
 		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
 		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
@@ -80,7 +80,7 @@
 	<script>
 		$(document).ready(function() {
 			// data-tables
-			$('#example1').DataTable();
+			$('#search2').DataTable();
 					
 		
 			

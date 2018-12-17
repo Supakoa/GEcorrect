@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<title>Admin Template-ค้นหาทั่วไป</title>
+		<title>Admin Template-ค้นหาบุคคล</title>
 		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
 		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
@@ -35,8 +35,84 @@
 
     <div class="content-page"><!-- start content-page-->
 		<div class="content"><!--content-->
+			<div class="card mb-3"><!--card 1-->
+				<div class="card-header">
+					<h4 class="text-center">ค้นหาบุคคล</h4>
+				</div>
+				<div class="card-body">
+					<div class="contain"><!-- filter -->
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="card">
+									<div class="card-body">
+										<div class="row"><!-- row 1 -->
+											<div class="col-md-6">
+												<label for="subject">วิชา</label>
+												<input id="subject" class="form-control" type="text">
+											</div>
+											<div class="col-md-6">
+												<label for="group">กลุ่มเรียน</label>
+													<select name="" id="group" class="form-control select2">
+														<option>001</option>
+														<option>002</option>
+														<option>003</option>
+													</select>
+											</div>
+											<div class="col-md-6">
+												<label for="year">ปีการศึกษา</label>
+													<select id="year" class="form-control select2">
+														<option>2561</option>
+														<option>2560</option>
+														<option>2559</option>
+													</select>
+											</div>
+											<div class="col-md-6">
+												<label for="time">เวลา</label>
+												<select name="" id="time" class="form-control select2">
+													<option>08.00-11.00</option>
+													<option>011.00-14.00</option>
+													<option>04.00-17.00</option>
+												</select>
+											</div>
+											<div class="col-md-6">
+												<label for="room">ห้อง</label>
+													<select name="" id="room" class="form-control select2">
+														<option>1701</option>
+														<option>1702</option>
+														<option>3111</option>
+													</select>
+											</div>
+										</div><!--end row 1 -->
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="card">
+									<div class="card-body">
+										<div class="row"><!-- row 2 -->
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="id">รหัสนักศึกษา</label>
+													<input id="id" class="form-control" type="text">
+												</div>
+											</div>
+											<div class="col-md-6"></div>
+										</div><!--end row 2 -->
+									</div>
+								</div>
+							</div>
+						</div><br>
+						<div class="text-center">
+							<button class="btn btn-sm btn-info" type="submit">submit</button>
+						</div>
+					</div><!--end filter -->
+				</div>
+			</div><!--end card 1-->
+			<div class="card"><!--card 2-->
+				<div class="card-body">
 
-		
+				</div>
+			</div><!--end card 2-->
 		</div><!--end content-->
     </div>
 	<!-- END content-page -->
@@ -80,8 +156,8 @@
 	<script>
 		$(document).ready(function() {
 			// data-tables
-			$('#example1').DataTable();
-					
+			$('#search3').DataTable();
+			$('.select2').select2();
 			
 		} );		
 	</script>

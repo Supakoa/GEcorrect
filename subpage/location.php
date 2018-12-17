@@ -38,19 +38,115 @@
 		<div class="content"><!-- content -->
 
 			<div class="container-fluid"><!--container-fluid -->
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>
-										
-									
-									</th>
-									<th>ชื่อสถานที่</th>
-									<th>URL</th>
-								</tr>
-							</thead>
-						</table>
+					<div class="card mb-3">
+						<div class="card-header">
+							<h4 class="text-center">
+								สถานที่สอบ
+							</h4>
+						</div>
+						<div class="card-body">
+						<div class="table-responsive">
+								<table id="locat" class="table table-bordered">
+									<thead>
+										<tr>
+												<div class="text-center">
+													<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addloc">
+														<i class="fa fa-plus"></i> เพิ่มข้อมูล
+													</a>
+												</div>
+												
+												<!-- Modal -->
+												<div class="modal fade" id="addloc" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																		<label for="loc">ชื่อสถานที่</label>
+																		<input class="form-control" id="loc" type="text">
+																		<label for="url-loc">URL</label>
+																		<input class="form-control" id="url-loc" type="text">
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary btn-sm">Save</button>
+															</div>
+														</div>
+													</div>
+												</div><!--end modal 1-->
+											<th></th>
+											<th>ชื่อสถานที่</th>
+											<th>URL</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center">
+														<!-- Button trigger modal -->
+																
+														<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editloc">
+																	<i class="fa fa-pencil"></i>
+																	</a>
+																
+															
+															<!-- Modal -->
+																<div class="modal fade" id="editloc" tabindex="-1" role="dialog" aria-labelledby="locat" aria-hidden="true">
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																	<div class="modal-header">
+																		<h5 class="modal-title" id="locat">แก้ไข</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">
+																	<label for="loc1">ชื่อสถานที่</label>
+																	<input class="form-control" id="loc1" type="text">
+																	<label for="url-loc1">URL</label>
+																	<input class="form-control" id="url-loc1" type="text">
+
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																		<button type="button" class="btn btn-primary btn-sm">Save changes</button>
+																	</div>
+																	</div>
+																</div>
+															</div><!--end modal 2-->
+
+															<!-- Small modal 3-->
+															<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+
+															<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+															<div class="modal-dialog modal-sm">
+																<div class="modal-content">
+																	<div class="modal-header">
+																	<h5 class="modal-title">ลบข้อมูล</h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																	</button>
+																	</div>
+																	
+																	<div class="modal-footer">
+																	<button type="button" class="btn btn-danger btn-sm">Yes</button>
+																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+																</div>
+																</div>
+															</div>
+															</div><!--end modal 3-->
+
+											</td>
+											<td>เป็นไรก็ได้</td>
+											<td>www.nunoi.com</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
             </div><!-- END container-fluid -->
 		</div><!--end content-->
