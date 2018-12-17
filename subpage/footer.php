@@ -82,11 +82,11 @@
 									</tbody>
 								</table><br>
 									<div class="text-center">
-										<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10" data-target="#up0" data-toggle="modal">Update</a>
+										<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10 btn-sm" data-target="#up0" data-toggle="modal">Update</a>
 									
 									<!-- Modal -->
-											<div class="modal fade custom-modal" id="up0" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
-											<div class="modal-dialog" role="document">
+											<div class="modal fade bd-example-modal-sm" id="up0" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
+											<div class="modal-dialog " role="document">
 												<div class="modal-content">
 												<div class="modal-header">
 													<h5 class="modal-title" id="exampleModalLabel2">ยืนยัน</h5>
@@ -95,11 +95,11 @@
 													</button>
 												</div>
 												<div class="modal-body">
-												<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
+													<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
 												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Yes</button>
+												<div class="modal-footer text-center">
+													<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary btn-sm">Yes</button>
 												</div>
 												</div>
 											</div>
@@ -150,29 +150,29 @@
 									</tbody>
 								</table><br>
 									<div class="text-center">
-										<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10" data-target="#up1" data-toggle="modal">Update</a>
-									
-									<!-- Modal -->
-											<div class="modal fade custom-modal" id="up1" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
-											<div class="modal-dialog" role="document">
+										<!-- Small modal -->
+										<a role="button" href="#"  class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm">Upload</a>
+
+											<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+											<div class="modal-dialog modal-sm">
 												<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel2">ยืนยัน</h5>
+													<div class="modal-header">
+													<h5 class="modal-title">ยืนยันการอัพข้อมูล</h5>
 													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 													</button>
-												</div>
-												<div class="modal-body">
-												<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Yes</button>
+													</div>
+													<div class="modal-body">
+														<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
+													</div>
+													<div class="modal-footer text-center">
+													<button type="button" class="btn btn-danger btn-sm">Yes</button>
+													<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
 												</div>
 												</div>
 											</div>
-											</div>
-										</div>
+											</div><!--end modal 3-->
+									</div>
 							</div><!--end table 2 --> <hr>
 						</div>
 					</div>
@@ -188,10 +188,10 @@
 										<textarea class="form-control" name="" id="foot" col="10" rows="10"></textarea>
 									</div><br>
 										<div class="text-center">
-										<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10" data-target="#up2" data-toggle="modal">Update</a>
+										<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10 btn-sm" data-target="#up2" data-toggle="modal">Update</a>
 									
 									<!-- Modal -->
-											<div class="modal fade custom-modal" id="up2" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
+											<div class="modal fade" id="up2" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
 											<div class="modal-dialog" role="document">
 												<div class="modal-content">
 												<div class="modal-header">
@@ -204,8 +204,8 @@
 												<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Yes</button>
+													<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary btn-sm">Yes</button>
 												</div>
 												</div>
 											</div>

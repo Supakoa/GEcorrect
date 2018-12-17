@@ -46,7 +46,7 @@
 							<div class="container text-center">
 								<form method="POST" action="" enctype="multipart/form-data">
 									<input class="btn btn-light btn-md form-control" type="file" name="image" required/>
-									<br><br><button type="submit" class="btn btn-primary" name="submit" >Upload</button>
+									<br><br><button type="submit" class="btn btn-primary btn-sm" name="submit" >Upload</button>
 								</form>
 							</div><br>
 							<div class="container-fluid text-center"><!-- display-->
@@ -54,46 +54,20 @@
 
 
 								</div>
-								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">ตกลง</button>
+								<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">ตกลง</button>
 									<!-- Modal -->
 									<div class="modal fade" id="myModal" role="dialog">
 										<div class="modal-dialog modal-sm">
 										<div class="modal-content">
 											<div class="modal-header">
+												<h3>ยืนยัน ?</h3>
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
 											</div>
-											<div class="modal-body">
-												<?php
-												if (!isset($c)) {
-													echo "<center><p>กรุณาอัพโหลดรูปภาพ</p></center>";
-													unset($_SESSION['shownow']);
-													unset($image2);
-													unset($c);
-												} else {
-
-
-													echo "<center><p>อัพเดตข้อมูลเรียบร้อย</p></center>";
-
-													if (isset($_SESSION['shownow'])) {
-														$insert2 = $con->query(" UPDATE `baner` SET `name_baner`='$image2'WHERE id = 1");
-														if ($insert2) {
-
-															echo "<center><p>File uploaded successfully.</p></center>";
-														} else {
-															echo "<center><p>File upload failed, please try again.</p></center>";
-														}
-														unset($_SESSION['shownow']);
-														unset($image2);
-														unset($c);
-
-													}
-												}
-
-												?>
-
-											</div>
+											
 											<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal" href="setting.php">Close</button>
+											<button type="submit" class="btn btn-success btn-sm" name="submit" >Yes</button>
+											<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" href="setting.php">Close</button>
+
 											</div>
 										</div>
 										</div>

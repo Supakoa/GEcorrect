@@ -38,7 +38,20 @@
 		<div class="content"><!-- content -->
 
 			<div class="container-fluid"><!--container-fluid -->
-					
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>
+										
+									
+									</th>
+									<th>ชื่อสถานที่</th>
+									<th>URL</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
             </div><!-- END container-fluid -->
 		</div><!--end content-->
     </div>
@@ -78,7 +91,7 @@
 	<script>
 		$(document).ready(function() {
 			// data-tables
-			$('#example1').DataTable();
+			$('#locat').DataTable();
 			
 		} );		
 	</script>

@@ -40,52 +40,111 @@
 			<div class="container-fluid"><!--container-fluid -->
 					<div class="card md-3">
 						<div class="card-header">
-							<h4>วิชาที่สอบ</h4>
+							<h4 class="text-center">วิชา</h4>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered">
+								<table id="subject" class="table table-bordered">
 									<thead>
 										<tr>
 											<th>
-												<a href="#custom-modal" class="btn btn-primary btn-sm" data-target="#customModal" data-toggle="modal"><i class="fa fa-plus"></i></a>
-														
-														<!-- Modal -->
-												<div class="modal fade custom-modal" id="customModal" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
-													<div class="modal-dialog" role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="exampleModalLabel2">เพิ่มข้อมูลวิชา</h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<div class="form-section container-fluid">
-																		<div class="container">
-																			<div class="row">
-																				<div class="col-lg-6">
-																					<p>ชื่อ : </p><input class="form-control" type="text" name="fname" required>
-																				</div>
-																				<div class="col-lg-6">
-																					<p>นามสกุล : </p><input class="form-control" type="text" name="lname" required>
-																				</div>
-																				</div>
-																		</div><br>
-																		
-																</div>
-																	<!--General information-->
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Save changes</button>
-																</div>
-														</div>
+													<!-- Button trigger modal -->
+													<div class="text-center">
+														<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
+														<i class="fa fa-plus"></i>
+														</a>
+													</div>
+												
+												<!-- Modal -->
+												<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+																<label for="subj">ชื่อวิชา</label>
+																<input class="form-control" id="subj" type="text">
+																<label for="id-subj">รหัสวิชา</label>
+																<input class="form-control" id="id-subj" type="text">
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-primary btn-sm">Save</button>
+													</div>
 													</div>
 												</div>
+												</div><!--end modal 1-->
 											</th>
+											<th>รหัสวิชา</th>
+											<th>ชื่อวิชา</th>
 										</tr>
 									</thead>
+									<tbody>
+										<tr>
+											<td>
+																<!-- Button trigger modal -->
+																
+																	<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
+																	<i class="fa fa-pencil"></i>
+																	</a>
+																
+															
+															<!-- Modal -->
+																<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																	<div class="modal-header">
+																		<h5 class="modal-title" id="exampleModalLabel">แก้ไข</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">
+																	<label for="subj1">ชื่อวิชา</label>
+																	<input class="form-control" id="subj1" type="text">
+																	<label for="id-subj1">รหัสวิชา</label>
+																	<input class="form-control" id="id-subj1" type="text">
+
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																		<button type="button" class="btn btn-primary btn-sm">Save changes</button>
+																	</div>
+																	</div>
+																</div>
+															</div><!--end modal 2-->
+														
+														
+															<!-- Small modal -->
+																<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+
+																<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+																<div class="modal-dialog modal-sm">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																		<h5 class="modal-title">ลบข้อมูล</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																		</button>
+																		</div>
+																		
+																		<div class="modal-footer">
+																		<button type="button" class="btn btn-danger btn-sm">Yes</button>
+																		<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+																	</div>
+																	</div>
+																</div>
+																</div><!--end modal 3-->
+													
+											</td>
+											<td>GEL1102</td>
+											<td>......</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
 						</div>
@@ -131,7 +190,7 @@
 	<script>
 		$(document).ready(function() {
 			// data-tables
-			$('#example1').DataTable();
+			$('#subject').DataTable();
 					
 			
 		} );		
