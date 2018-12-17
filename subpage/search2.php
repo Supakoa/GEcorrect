@@ -42,7 +42,7 @@
 					<div class="card-body">
 						<div class="container"><!-- container -->
 							<div class="row"><!-- row -->
-								<div class="col-lg-6">
+								<div class="col-lg-8">
 									<div class="card"><!-- card 1 -->
 										<div class="card-body">
 											<div class="row">

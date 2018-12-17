@@ -172,7 +172,7 @@
 															</div><!--end modal 3-->
 
 											</td>
-											<td>เป็นไรก็ได้</td>
+											<td>สักที่</td>
 											<td>www.nunoi.com</td>
 											<td class="text-center">
 												<div class="form-check">
