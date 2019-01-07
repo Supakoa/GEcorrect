@@ -38,38 +38,20 @@
 		<div class="content"><!-- content -->
 			<div class="card mb-3">
 				<div class="card-header">
-					<h4 class="text-center">นำเข้าข้อมูลแบบกลุ่มเรียน</h4>
+					<h4 class="text-center">นำเข้าข้อมูลแบบกลุ่มเรียน (หลายวิชา)</h4>
 				</div>
 				<div class="card-body"><!-- card-body -->
 						<div class="container">
 							<div class="card">
 								<div class="card-body">
 									<div class="row"><!-- filter -->
-										<div class="col-md-2">
-											<label for="term">เทอม</label>
-											<select id="term" class="form-control select2">
-												<option>1</option>
-												<option>2</option>
-											</select>
-										</div>
-										<div class="col-md-1">
-											<br><br><center><label style="text-align:center;">/</label></center>
-										</div>
-											<div class="col-md-3">
-												<label for="year">ปีการศึกษา</label>
-													<select id="year" class="form-control select2">
-														<option>2561</option>
-														<option>2560</option>
-														<option>2559</option>
-													</select>
-										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label for="subj">วิชา(รหัส)</label>
-												<select id="subj" class="form-control select2">
-													<option>GEL1101</option>
-													<option>GEL1102</option>
-													<option>GEL1103</option>
+												<label for="year">ปีการศึกษา</label>
+												<select id="year" class="form-control select2">
+													<option>2561</option>
+													<option>2560</option>
+													<option>2559</option>
 												</select>
 											</div>
 										</div>
@@ -106,8 +88,8 @@
 													<option>กลางภาค</option>
 													<option>ปลายภาค</option>
                                                     <option>แก้ไอ</option>	
-                                                    <option>ย้อนหลัง</option>
-												</select>
+                                                    <option>ย้อนหลัง</option>											
+                                                </select>
 											</div>
 										</div>
 									</div><!--end filter -->
@@ -135,7 +117,21 @@
 																		<option>3111</option>
 														</select><hr>
 												</div>
-												<div class="col-md-4"></div>
+												<div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="subj">วิชา(รหัส)</label>
+                                                        <select id="subj" class="form-control select2">
+                                                            <option>GEL1101</option>
+                                                            <option>GEL1102</option>
+                                                            <option>GEL1103</option>
+                                                        </select><hr>
+                                                        <select id="subj" class="form-control select2">
+                                                            <option>GEL1101</option>
+                                                            <option>GEL1102</option>
+                                                            <option>GEL1103</option>
+                                                        </select><hr>
+                                                    </div>
+                                                </div>
 												<div class="col-md-4 form-group">
 													<label for="value">จำนวน</label>
 													<input id="value" class="form-control" type="text" placeholder="1."><hr>
@@ -169,7 +165,21 @@
 																		<option>3111</option>
 														</select><hr>
 												</div>
-												<div class="col-md-4"></div>
+												<div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="subj">วิชา(รหัส)</label>
+                                                        <select id="subj" class="form-control select2">
+                                                            <option>GEL1101</option>
+                                                            <option>GEL1102</option>
+                                                            <option>GEL1103</option>
+                                                        </select><hr>
+                                                        <select id="subj" class="form-control select2">
+                                                            <option>GEL1101</option>
+                                                            <option>GEL1102</option>
+                                                            <option>GEL1103</option>
+                                                        </select><hr>
+                                                    </div>
+                                                </div>
 												<div class="col-md-4 form-group">
 													<label for="value">จำนวน</label>
 													<input id="value" class="form-control" type="text" placeholder="1."><hr>

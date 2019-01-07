@@ -62,14 +62,24 @@
 														<option>003</option>
 													</select>
 											</div>
-											<div class="col-md-6">
-												<label for="year">ปีการศึกษา</label>
-													<select id="year" class="form-control select2">
-														<option>2561</option>
-														<option>2560</option>
-														<option>2559</option>
+												<div class="col-md-2">
+													<label for="term">เทอม</label>
+													<select id="term" class="form-control select2">
+															<option>1</option>
+															<option>2</option>
 													</select>
-											</div>
+												</div>
+												<div class="col-md-1">
+													<br><br><center><label style="text-align:center;">/</label></center>
+												</div>
+												<div class="col-md-3">
+													<label for="year">ปีการศึกษา</label>
+														<select id="year" class="form-control select2">
+															<option>2561</option>
+															<option>2560</option>
+															<option>2559</option>
+														</select>
+												</div>
 											<div class="col-md-6">
 												<label for="time">เวลา</label>
 												<select name="" id="time" class="form-control select2">
@@ -86,7 +96,11 @@
 														<option>3111</option>
 													</select>
 											</div>
+												<div class="text-center" style="margin-top:30px;margin-left:150px;">
+													<button class="btn btn-sm btn-info" type="submit">submit</button>
+												</div>
 										</div><!--end row 1 -->
+										<br><button class="btn btn-sm btn-info" type="submit">submit</button>
 									</div>
 								</div>
 							</div>
@@ -101,14 +115,15 @@
 												</div>
 											</div>
 											<div class="col-md-6"></div>
+												<div class="text-center">
+													<button class="btn btn-sm btn-info" type="submit">submit</button>
+												</div>
 										</div><!--end row 2 -->
+										<button class="btn btn-sm btn-info" type="submit">submit</button>
 									</div>
 								</div>
 							</div>
 						</div><br>
-						<div class="text-center">
-							<button class="btn btn-sm btn-info" type="submit">submit</button>
-						</div>
 					</div><!--end filter -->
 				</div>
 			</div><!--end card 1-->
@@ -189,15 +204,26 @@
 															</div><!--end modal -->
 								<tr>
 									<th></th>
+									<th></th>
 									<th>รหัสนักศึกษา</th>
 									<th>ห้อง</th>
-									<th>Detail</th>
+									<th>วิชา</th>
+									<th>กลุ่มเรียน</th>
+									<th>ที่นั่ง</th>
+									<th>วันที่</th>
+									<th>เวลา</th>
+									<th>ปีการศึกษา</th>
+									<th>ประเภท</th>
 									<th><span class="text-danger">*</span>หมายเหตุ</th>
-									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
+									<td class="text-center">
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input">
+										</div>
+									</td>
 									<td>
 												
 												<div class="text-center">
@@ -231,7 +257,11 @@
 																				<input id="room01" class="form-control" type="text">
 																			</div>
 																			<div class="col-md-6">
-																				<label for="detail0">Detail</label>
+																				<label for="detail0">วิชา</label>
+																				<input id="detail0" class="form-control" type="text">
+																			</div>
+																			<div class="col-md-6">
+																				<label for="detail0">ที่นั่งสอบ</label>
 																				<input id="detail0" class="form-control" type="text">
 																			</div>
 																			<div class="col-md-6">
@@ -272,13 +302,14 @@
 									</td>
 									<td>59122519023</td>
 									<td>1701</td>
+									<td>ge2011</td>
+									<td>001</td>
+									<td>23</td>
+									<td>03-09-2562</td>
+									<td>08.00-11.00</td>
+									<td>2561</td>
+									<td>ปลายภาค</td>
 									<td></td>
-									<td></td>
-									<td class="text-center">
-										<div class="form-check">
-											<input type="checkbox" class="form-check-input">
-										</div>
-									</td>
 								</tr>
 							</tbody>
 						</table>

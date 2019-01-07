@@ -57,7 +57,8 @@
                             <a><i class="fa fa-fw fa-user-plus"></i> <span> นำเข้าข้อมูล </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">								
                                     <li><a href="imstudent.php"> นำเข้าข้อมูลนักศึกษา </a></li>
-                                    <li><a href="imgroup.php"> นำเข้าข้อมูลแบบกลุ่มเรียน </a></li>	
+                                    <li><a href="imgroup.php"> นำเข้าข้อมูลกลุ่มเรียน</a></li>
+                                    <li><a href="imgroup_multi.php">นำเข้าข้อมูลกลุ่มเรียน<br>(หลายวิชา)</a></li>	
                                 </ul>
                         </li>
 
