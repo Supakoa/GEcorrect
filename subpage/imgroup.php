@@ -45,15 +45,23 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="row"><!-- filter -->
-										<div class="col-md-6">
-											<div class="form-group">
+										<div class="col-md-2">
+											<label for="term">เทอม</label>
+											<select id="term" class="form-control select2">
+												<option>1</option>
+												<option>2</option>
+											</select>
+										</div>
+										<div class="col-md-1">
+											<br><br><center><label style="text-align:center;">/</label></center>
+										</div>
+											<div class="col-md-3">
 												<label for="year">ปีการศึกษา</label>
-												<select id="year" class="form-control select2">
-													<option>2561</option>
-													<option>2560</option>
-													<option>2559</option>
-												</select>
-											</div>
+													<select id="year" class="form-control select2">
+														<option>2561</option>
+														<option>2560</option>
+														<option>2559</option>
+													</select>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">

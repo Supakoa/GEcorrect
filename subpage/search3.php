@@ -62,14 +62,24 @@
 														<option>003</option>
 													</select>
 											</div>
-											<div class="col-md-6">
-												<label for="year">ปีการศึกษา</label>
-													<select id="year" class="form-control select2">
-														<option>2561</option>
-														<option>2560</option>
-														<option>2559</option>
+												<div class="col-md-2">
+													<label for="term">เทอม</label>
+													<select id="term" class="form-control select2">
+															<option>1</option>
+															<option>2</option>
 													</select>
-											</div>
+												</div>
+												<div class="col-md-1">
+													<br><br><center><label style="text-align:center;">/</label></center>
+												</div>
+												<div class="col-md-3">
+													<label for="year">ปีการศึกษา</label>
+														<select id="year" class="form-control select2">
+															<option>2561</option>
+															<option>2560</option>
+															<option>2559</option>
+														</select>
+												</div>
 											<div class="col-md-6">
 												<label for="time">เวลา</label>
 												<select name="" id="time" class="form-control select2">
@@ -86,6 +96,9 @@
 														<option>3111</option>
 													</select>
 											</div>
+												<div class="text-center" style="margin-top:30px;margin-left:150px;">
+													<button class="btn btn-sm btn-info" type="submit">submit</button>
+												</div>
 										</div><!--end row 1 -->
 									</div>
 								</div>
@@ -101,14 +114,14 @@
 												</div>
 											</div>
 											<div class="col-md-6"></div>
+												<div class="text-center">
+													<button class="btn btn-sm btn-info" type="submit">submit</button>
+												</div>
 										</div><!--end row 2 -->
 									</div>
 								</div>
 							</div>
 						</div><br>
-						<div class="text-center">
-							<button class="btn btn-sm btn-info" type="submit">submit</button>
-						</div>
 					</div><!--end filter -->
 				</div>
 			</div><!--end card 1-->

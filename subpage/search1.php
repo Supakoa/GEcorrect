@@ -23,6 +23,9 @@
 		<!-- BEGIN CSS for this page -->
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
 		<!-- END CSS for this page -->
+
+		<!-- w3.css -->
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		
 </head>
 
@@ -39,6 +42,19 @@
 				<div class="card-header">
 					<h4 class="text-center">ค้นหาทั่วไป</h4>
 				</div>
+
+				<div class="card-body">
+					<div class="container">
+						<div class="form-group">
+							<label for="id">รหัสนักศึกษา</label>
+							<div class="row">
+								<div class="col-sm-10"><input id="id" class="form-control" type="text"></div>
+								<div class="col-sm-2"><input class="w3-btn w3-green" type="submit" value="Submit"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div class="card-body">
 					<div class="table-responsive"><!-- table -->
 						<table id="search1" class="table table-bordered">
