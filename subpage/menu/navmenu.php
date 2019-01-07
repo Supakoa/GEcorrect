@@ -2,7 +2,7 @@
 	<div class="headerbar">
 	
         <div class="headerbar-left">
-			<a href="main.php" class="logo"><span>Admin SSRU</span></a>
+			<a href="index.php" class="logo"><span>Admin SSRU</span></a>
         </div>
 
         <nav class="navbar-custom">
