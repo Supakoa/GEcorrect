@@ -96,9 +96,7 @@
 														<option>3111</option>
 													</select>
 											</div>
-												<div class="text-center" style="margin-top:30px;margin-left:150px;">
-													<button class="btn btn-sm btn-info" type="submit">submit</button>
-												</div>
+											
 										</div><!--end row 1 -->
 										<br><button class="btn btn-sm btn-info" type="submit">submit</button>
 									</div>
@@ -115,9 +113,7 @@
 												</div>
 											</div>
 											<div class="col-md-6"></div>
-												<div class="text-center">
-													<button class="btn btn-sm btn-info" type="submit">submit</button>
-												</div>
+												
 										</div><!--end row 2 -->
 										<button class="btn btn-sm btn-info" type="submit">submit</button>
 									</div>
