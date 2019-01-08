@@ -1,5 +1,17 @@
+<?php 
 
 
+if(isset($_POST['create_pdf'])){
+	require_once __DIR__ . '/vendor/autoload.php';
+
+	$mpdf = new \Mpdf\Mpdf();
+	$mpdf->WriteHTML('<h1>Hello world!</h1>');
+	$mpdf->Output();
+
+}
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +51,120 @@
     <div class="content-page"><!-- content-page -->
 		<div class="content"><!-- content -->
 			<div class="container-fluid"><!--container-fluid -->
-					
+
+					<div class="card mb-3"><!-- filter card -->
+						<div class="card-header">
+							<h4 class="text-center">รายงาน PDF</h4>
+						</div>
+						<div class="card-body">
+							<div class="container"><!-- container -->
+								<div class="row"><!-- row -->
+									<div class="col-lg-8">
+										<div class="card"><!-- card 1 -->
+											<div class="card-body">
+												<div class="row">
+													<div class="col-md-3">
+														<label for="term">เทอม</label>
+														<select id="term" class="form-control select2">
+																<option>1</option>
+																<option>2</option>
+														</select>
+													</div>
+													<div class="col-md-1">
+														<br><br><label >/</label>
+													</div>
+													<div class="col-md-7">
+														<label for="year">ปีการศึกษา</label>
+															<select id="year" class="form-control select2">
+																<option>2561</option>
+																<option>2560</option>
+																<option>2559</option>
+															</select>
+													</div>
+													<div class="col-md-7">
+														<label for="subject">วิชา</label>
+														<select name="" id="subject" class="form-control select2">
+															<option>GEL1101</option>
+															<option>GRL1102</option>
+															<option>GEL2203</option>
+														</select>
+													</div>
+													<div class="col-md-7">
+														<label for="group">กลุ่มเรียน</label>
+															<select name="" id="group" class="form-control select2">
+																<option>001</option>
+																<option>002</option>
+																<option>003</option>
+															</select>
+													</div>
+												</div>
+											</div>
+										</div><!--end card 1 --> <br>
+									</div>
+								</div><!-- end row -->
+									<div class="text-center">
+										<button class="btn btn-sm btn-success" type="submit">submit</button>
+									</div>
+							</div><!--end container -->
+						</div>
+					</div><!--end filter card -->
+
+					<div class="card mb-3"><!-- table card-->
+						<div class="card-body">
+							<div class="table-responsive">
+								<table id="report" class="table table-bordered">
+									<thead>
+										<tr>
+											<th></th>
+											<th>ปีการศึกษา</th>
+											<th>กลุ่มเรียน</th>
+											<th>เวลา</th>
+											<th>วันที่</th>
+											<th>ประเภท</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center"> <!-- btn PDF -->
+												<form method="POST" action="report.php">
+													<input name="create_pdf" type="submit" class="btn btn-sm btn-info" value="Create PDF">
+												</form>
+											</td><!-- end btn PDF -->
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div><!--end table card-->
+
+					<div class="crad mb-3"><!-- signature card-->
+						<div class="card-header">
+							<h4 class="text-center">signature</h4>
+						</div>
+						<div class="card-body">
+							<div class="container">
+								<div class="row">
+									<div class="col-xl-12 ">
+										<div class="mx-auto" style="width: 40px;">
+											<img src="..." class="rounded mx-auto d-block"><br><br>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="text-center">
+											<button class="btn btn-sm btn-success">Upload Signature</button>
+											<p>Size 200*200 <br>Type*PNG*</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><!--end signature card-->
+
             </div><!-- END container-fluid -->
 		</div><!--end content-->
     </div>
@@ -79,7 +204,7 @@
 	<script>
 		$(document).ready(function() {
 			// data-tables
-			$('#example1').DataTable();
+			$('#report').DataTable();
 					
 			
 		} );		

@@ -52,7 +52,9 @@
 										</form>
 									</div><br><!--end container -->
 									<div class="container-fluid text-center"><!-- display-->
-										<div class="jumbotron" ></div>
+										<div class="jumbotron" >
+											<img src="..." class="img-fluid" alt="Responsive image">
+										</div>
 
 											<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">ตกลง</button>
 											<!-- Modal -->
