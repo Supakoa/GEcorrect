@@ -4,9 +4,113 @@
 if(isset($_POST['create_pdf'])){
 	require_once __DIR__ . '/vendor/autoload.php';
 
-	$mpdf = new \Mpdf\Mpdf();
-	$mpdf->WriteHTML('<h1>Hello world!</h1>');
-	$mpdf->Output();
+	$mpdf = new \Mpdf\Mpdf([ 
+		'default_font_size' => 11,
+		'default_font' => 'sarabun',
+		"sarabun" => 'B',
+		'format' => 'A4',
+		'margin_left' => 1,
+		'margin_right' => 1,
+		'mode' => 'utf-8',
+		]);
+	
+		$keep_table_proportions = true;		
+		$ignore_table_percents = true;
+		$ignore_table_width = true;
+		$mpdf->shrink_tables_to_fit = 1;
+
+$head = '
+<html>
+<head>
+<style>
+    @page {
+      size: auto;
+      odd-header-name: html_MyHeader1;
+	}
+	
+	table,th,td{
+		border: 1pt solid black;
+		border-collapse: collapse;
+		margin-top:1pt;
+		margin-button:1pt;
+		padding: 2pt;
+	
+	}
+	table.layout {
+		text-align:center;
+		margin-left:1;
+		margin-right:1;
+		border-collapse: collapse;
+	}
+	td.layout {
+		border: 1pt solid black;
+	}
+	th{
+		text-align:center;
+	}
+</style>
+</head>
+<body>
+    <htmlpageheader name="MyHeader1">
+		<div style="text-align: center; font-weight: bold; font-size: 11pt;">
+			 <span>รายชื่อนักศึกษาสอบ '.$type.' ภาคเรียนที่ '.$term.'/'.$year.'</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ '.$exam_date.' เวลา '.$exam_time.' น. ห้อง '.$exam_location.'</span>
+		</div>
+	</htmlpageheader>
+';
+
+
+$body = '
+	<div class="container"  >
+		<table autosize="1" style="width:100%;">
+		<thead name="tablehead">
+			<tr>
+				<th>ลำดับ</th>
+				<th>รหัสนักศึกษา</th>
+				<th>ชื่อ-นามสกุล</th>
+				<th>วิชาที่สอบ</th>
+				<th>วันที่สอบ</th>
+				<th>เวลาที่สอบ</th>
+				<th>ห้องสอบ</th>
+				<th style="width:80pt;">ลายเซ็น</th>
+			</tr>
+		</thead>
+			<tbody>
+			<tr>
+				<td class="text-center"> <!-- btn PDF -->
+					dsfgsdrg
+				</td><!-- end btn PDF -->
+				<td>dsfgsdfg</td>
+				<td>dsfgsdfg</td>
+				<td>dsfgsdfg</td>
+				<td>dsfgsdfg</td>
+				<td>dfsgsdfg</td>
+				<td>dfsgsdfg</td>
+				<td>dfsgsdfg</td>
+			</tr>
+			</tbody>
+
+		</table>
+	</di>
+
+';
+$footer = '<br>
+<div style="text-align:right;">
+<span>กรรมการคุมสอบ...................................................................................................</span><br>
+<span>กรรมการคุมสอบ...................................................................................................</span><br>
+<span>กรรมการคุมสอบ...................................................................................................</span><br>
+<span>จำนวนนักศึกษาที่เข้าสอบ.................................................................................................คน</span><br>
+<span>จำนวนนักศึกษาที่ขาดสอบ.................................................................................................คน</span>
+
+</div>
+</body>
+</html>
+';
+
+$mpdf->WriteHTML($head);
+$mpdf->WriteHTML($body);
+$mpdf->WriteHTML($footer);
+$mpdf->Output();
+
 
 }
 
