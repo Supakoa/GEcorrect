@@ -1,3 +1,10 @@
+<?php 
+
+echo "<br><br><br><br><br><br><br><br>.........................................................................................................................Hello World !!! ";
+if(isset($_POST['eiei'])){
+	echo "<br><br><br><br><br><br><br><br>.........................................................................................................................Hello World !!! ".$_POST['eiei'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,31 +63,19 @@
 													<th>แสดงหน้าเว็บ</th>
 												</tr>
 											</thead>
+											<form action="" method="post">
 											<tbody>
-												<tr>
+											<?php 
+												while ($a <= 10) { // วนไปปปปปปปปปปป
+												
+											?>
+												<tr>	
 													<td>1.</td>
-													<td><input class="form-control" type="text"></td>
-													<td><input class="form-control" type="text"></td>
-													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
+													<td><input class="form-control" type="text" name ="web_text_1" ></td>
+													<td><input class="form-control" type="text" name ="web_url_1"></td>
+													<td class="text-center"><input type="checkbox" class="form-checkbox" name = "web_check_1"></td>
 												</tr>
-												<tr>
-													<td>2.</td>
-													<td><input class="form-control" type="text"></td>
-													<td><input class="form-control" type="text"></td>
-													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-												</tr>
-												<tr>
-													<td>3.</td>
-													<td><input class="form-control" type="text"></td>
-													<td><input class="form-control" type="text"></td>
-													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-												</tr>
-												<tr>
-													<td>4.</td>
-													<td><input class="form-control" type="text"></td>
-													<td><input class="form-control" type="text"></td>
-													<td class="text-center"><input type="checkbox" class="form-checkbox"></td>
-												</tr>
+												<?php } ?>
 											</tbody>
 										</table><br>
 											<div class="text-center">
@@ -101,12 +96,13 @@
 														</div>
 														<div class="modal-footer text-center">
 															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-															<button type="button" class="btn btn-primary btn-sm">Yes</button>
+															<button type="submit" class="btn btn-primary btn-sm">Yes</button>
 														</div>
 														</div>
 													</div>
 													</div>
 												</div>
+												</form>
 									</div><!--end table 1 --> 
 								</div>
 							</div><!--end card table 1 -->
