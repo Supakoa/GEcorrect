@@ -5,12 +5,13 @@ if(isset($_POST['create_pdf'])){
 	require_once __DIR__ . '/vendor/autoload.php';
 
 	$mpdf = new \Mpdf\Mpdf([ 
-		'default_font_size' => 11,
+		'default_font_size' => 14,
 		'default_font' => 'sarabun',
 		"sarabun" => 'B',
 		'format' => 'A4',
 		'margin_left' => 1,
 		'margin_right' => 1,
+		'margin_top' => 35,
 		'mode' => 'utf-8',
 		]);
 
@@ -50,8 +51,9 @@ $head = '
 				}
 				table{
 					table-layout: auto;
-					margin-left:50px;
-					width:95%;
+					margin-left:10px;
+					width:100%;
+					margin-right:10px;
 				}
 				table.layout {
 					text-align:center;
@@ -67,16 +69,20 @@ $head = '
 					text-align:center;
 				}
 			</style>
+			
 	</head>
 	<body>
-		<htmlpageheader name="MyHeader1">
-			<div style="text-align: center; font-weight: bold; font-size: 11pt;background-color:red;">
-				<span>รายชื่อนักศึกษาสอบ GEL1101 ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
-			</div><br><br>
-			<header style="background-color:blue;height:50px">
-			
-			</header>
-		</htmlpageheader>
+
+	<htmlpageheader name="MyHeader1">
+	<div style="text-align: center; font-weight: bold; font-size: 16pt;background-color:red;">
+		<span>รายชื่อนักศึกษาสอบ GEL1101 ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
+	</div><br><br>
+	
+	
+	</header>
+</htmlpageheader>
+
+	
 	
 		
 ';
@@ -118,6 +124,7 @@ $tbody.='				</tbody>
 ';
 
 $footer = '
+		
 		<br>
 		<div style="text-align:right;">
 			<span>กรรมการคุมสอบ...................................................................................................</span><br>
@@ -127,6 +134,7 @@ $footer = '
 			<span>จำนวนนักศึกษาที่ขาดสอบ.................................................................................................คน</span>
 
 		</div>
+		
 	</body>
 </html>
 ';
