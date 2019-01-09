@@ -11,7 +11,7 @@ if(isset($_POST['create_pdf'])){
 		'format' => 'A4',
 		'margin_left' => 1,
 		'margin_right' => 1,
-		'margin_top' => 40,
+		'margin_top' => 35,
 		'mode' => 'utf-8',
 		]);
 
@@ -22,8 +22,10 @@ if(isset($_POST['create_pdf'])){
 		$ignore_table_width = true;
 		$mpdf->shrink_tables_to_fit = 1;
 		
-
-
+		$a = 0;
+		$sub = 123456;
+while($a<5){
+	
 $head = '
 <html>
 	<head>
@@ -66,17 +68,18 @@ $head = '
 	</head>
 	<body>
 
-	<htmlpageheader name="MyHeader1">
-		<div >
-				<div style="text-align:right">
-					<p style="text-alig:right">{PAGENO}</p>
-				</div>
-				<div style="text-align: center; font-weight: bold; font-size: 16pt;">
-				<span>รายชื่อนักศึกษาสอบ GEL1101 ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
-				</div>
-		</div><br><br>
-	</htmlpageheader>
+
 ';
+$head .= '<htmlpageheader name="MyHeader1">
+<div>
+		<div style="text-align:right;">
+			<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
+		</div>
+		<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
+		<span>รายชื่อนักศึกษาสอบ '.$a.' ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
+		</div>
+</div><br><br>
+</htmlpageheader>';
 
 $thead ='
 			<table autosize="1">
@@ -129,10 +132,18 @@ $footer = '
 	</body>
 </html>
 ';
+// $sum = $head.$myhead.$thead.$tbody.$footer;
 $mpdf->WriteHTML($head);
+// $mpdf->WriteHTML($myhead);
 $mpdf->WriteHTML($thead);
 $mpdf->WriteHTML($tbody);
-$mpdf->WriteHTML($footer);
+// $mpdf->WriteHTML($sum);
+$a++;
+
+$mpdf->AddPage();
+
+
+}
 $mpdf->Output();
 
 
