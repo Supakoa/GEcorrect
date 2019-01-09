@@ -10,14 +10,14 @@
                     <ul class="list-inline float-right mb-0">
 
                         <li class="list-inline-item ">
-                            <a class="nav-link  arrow-none" data-toggle="dropdown" href="#" role="button" >
+                            <a class="nav-link  arrow-none" href="#" role="button" >
                                 <i class="fa fa-fw fa-bullseye"></i><span class="notif-bullet">Active Now</span>
                             </a>
                             
                         </li>
                         
 						<li class="list-inline-item  ">
-                            <a class="nav-link  arrow-none" data-toggle="dropdown" href="#" role="button" >
+                            <a class="nav-link  arrow-none" href="./server/logout.php" role="button" >
                                 <i class="fa fa-fw fa-sign-out"></i><span class="notif-bullet">Sign-out</span>
                             </a>
                             
