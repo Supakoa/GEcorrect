@@ -11,7 +11,7 @@ if(isset($_POST['create_pdf'])){
 		'format' => 'A4',
 		'margin_left' => 1,
 		'margin_right' => 1,
-		'margin_top' => 35,
+		'margin_top' => 40,
 		'mode' => 'utf-8',
 		]);
 
@@ -29,19 +29,12 @@ $head = '
 	<head>
 		<style>
 			@page {
-			size: auto;
-			odd-header-name: html_MyHeader1;
+				size: auto;
+				odd-header-name: html_MyHeader1;
 			}
 			
 		</style>
 		<style>
-				head{
-					height:500px;
-				}
-				body{
-					margin-top:1000px;
-					background-color:pink;
-				}
 				table,th,td{
 					border: 1pt solid black;
 					border-collapse: collapse;
@@ -74,21 +67,19 @@ $head = '
 	<body>
 
 	<htmlpageheader name="MyHeader1">
-	<div style="text-align: center; font-weight: bold; font-size: 16pt;background-color:red;">
-		<span>รายชื่อนักศึกษาสอบ GEL1101 ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
-	</div><br><br>
-	
-	
-	</header>
-</htmlpageheader>
-
-	
-	
-		
+		<div >
+				<div style="text-align:right">
+					<p style="text-alig:right">{PAGENO}</p>
+				</div>
+				<div style="text-align: center; font-weight: bold; font-size: 16pt;">
+				<span>รายชื่อนักศึกษาสอบ GEL1101 ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
+				</div>
+		</div><br><br>
+	</htmlpageheader>
 ';
 
 $thead ='
-			<table autosize="1" style="background-color:red;padding-top:120px" >
+			<table autosize="1">
 				<thead>
 					<tr>
 						<th>ลำดับ</th>
@@ -138,7 +129,6 @@ $footer = '
 	</body>
 </html>
 ';
-
 $mpdf->WriteHTML($head);
 $mpdf->WriteHTML($thead);
 $mpdf->WriteHTML($tbody);
