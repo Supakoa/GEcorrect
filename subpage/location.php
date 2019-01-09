@@ -1,3 +1,34 @@
+<?php
+	require 'server/server.php';
+
+	if(isset($_POST['new_btn'])){
+		// make it easy
+		$location_name = $_POST['new_location_name'];
+		$location_url = $_POST['new_location_url'];
+
+		// check it have in database
+		$sql = " SELECT * FROM loaction_table WHERE name_location='$location_name' ";
+		$re = mysqli_query($con,$sql);
+		$row = mysqli_fetch_array($re);
+
+		// if have : call back and show error.
+		if($row > 0){
+			header("Location: location.php?error=location_is_same");
+			exit();
+		} else{
+			// push value to database
+			$sql = " INSERT INTO location_table (name_location,url_location) VALUE ('$location_name','$location_url') ";
+			$re = mysqli_query($con,$sql);
+
+			// check it not have error
+			if(!(mysqli_fetch_array($re) > 0)){
+				header("Location: location.php?error=problem_insert");
+				exit();
+			}
+		}
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +63,6 @@
 
 	<?php require 'menu/navmenu.php' ?>
 
-
     <div class="content-page"><!-- content-page -->
 
 		<div class="content"><!-- content -->
@@ -45,112 +75,120 @@
 							</h4>
 						</div>
 						<div class="card-body">
-						<div class="table-responsive">
+							<div class="table-responsive">
 								<table id="locat" class="table table-bordered">
 									<thead>
 										<tr>
-												<div class="text-center">
-													<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addloc">
-														<i class="fa fa-plus"></i> เพิ่มข้อมูล
-													</a>
-													<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i> ลบที่เลือก</a>
+											<div class="text-center">
+												<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addloc">
+													<i class="fa fa-plus"></i> เพิ่มข้อมูล
+												</a>
+												<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i> ลบที่เลือก</a>
 															
-												</div>
+											</div>
 												
-												<!-- Modal -->
-												<div class="modal fade" id="addloc" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
+											<!-- Modal -->
+											<div class="modal fade" id="addloc" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
+												<form action="location.php" method="post">
 													<div class="modal-dialog" role="document">
 														<div class="modal-content">
 															<div class="modal-header">
 																<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
 																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
+																	<span aria-hidden="true">&times;</span>
 																</button>
 															</div>
+
 															<div class="modal-body">
 																<label for="loc0">สถานที่สอบ</label>
-																<select name="" id="loc0" class="form-control select2">
-																			<option>1701</option>
-																			<option>1702</option>
-																			<option>3111</option>
-																	</select>
-																		<label for="url-loc">URL</label>
-																		<input class="form-control" id="url-loc" type="text">
+																<input class="form-control" type="text" name="new_location_name">
+																<label for="url-loc">URL</label>
+																<input class="form-control" id="url-loc" type="text" name="new_location_url">
 															</div>
+
 															<div class="modal-footer">
 																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																<button type="button" class="btn btn-primary btn-sm">Save</button>
+																<button type="submit" class="btn btn-primary btn-sm" name="new_btn">Save</button>
 															</div>
 														</div>
 													</div>
-												</div><!--end modal 1-->
+												</form>
+											</div><!--end modal 1-->
 															
-															<!-- Small modal -->
-															<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-																<div class="modal-dialog modal-sm">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																		<h5 class="modal-title">ลบข้อมูล</h5>
-																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																		</button>
-																		</div>
+											<!-- Small modal -->
+											<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+												<div class="modal-dialog modal-sm">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title">ลบข้อมูล</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
 																		
-																		<div class="modal-footer">
-																		<button type="button" class="btn btn-danger btn-sm">Yes</button>
-																		<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
-																	</div>
-																	</div>
-																</div>
-															</div><!--end modal -->
+														<div class="modal-footer">
+															<button type="button" class="btn btn-danger btn-sm">Yes</button>
+															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+														</div>
+													</div>
+												</div>
+											</div><!--end modal -->
+
+											<th></th>
 											<th></th>
 											<th>ชื่อสถานที่</th>
 											<th>URL</th>
-											<th></th>
+											
 										</tr>
 									</thead>
 									<tbody>
+										<?php
+											$sql = " SELECT * FROM location_table ";
+											$re = mysqli_query($con,$sql);
+											while($row1 = mysqli_fetch_array($re)){
+										?>
 										<tr>
+											<td class="text-center">
+												<div class="form-check">
+													<input type="checkbox" class="form-check-input">
+												</div>
+											</td>
 											<td >
-														<!-- Button trigger modal -->
-																<div class="text-center">
-																	<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editloc">
-																	<i class="fa fa-pencil"></i>
-																	</a>
-																	<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
 
-																</div>
+											<!-- Button trigger modal -->
+											<div class="text-center">
+												<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editloc">
+													<i class="fa fa-pencil"></i>
+												</a>
+												<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+											</div>
 														
-																
-															
-															<!-- Modal -->
-																<div class="modal fade" id="editloc" tabindex="-1" role="dialog" aria-labelledby="locat" aria-hidden="true">
-																<div class="modal-dialog" role="document">
-																	<div class="modal-content">
-																	<div class="modal-header">
-																		<h5 class="modal-title" id="locat">แก้ไข</h5>
-																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																		</button>
-																	</div>
-																	<div class="modal-body">
-																		<label for="loc1">สถานที่สอบ</label>
-																		<select name="" id="loc1" class="form-control select2">
-																				<option>1701</option>
-																				<option>1702</option>
-																				<option>3111</option>
-																			</select>
-																	<label for="url-loc1">URL</label>
-																	<input class="form-control" id="url-loc1" type="text">
+											<!-- Modal -->
+											<div class="modal fade" id="editloc" tabindex="-1" role="dialog" aria-labelledby="locat" aria-hidden="true">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="locat">แก้ไข</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
 
-																	</div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																		<button type="button" class="btn btn-primary btn-sm">Save changes</button>
-																	</div>
-																	</div>
-																</div>
-															</div><!--end modal 2-->
+														<div class="modal-body">
+															<label for="loc1">สถานที่สอบ</label>
+															<input type="text" name="">
+
+															<label for="url-loc1">URL</label>
+															<input class="form-control" id="url-loc1" type="text" name="">
+														</div>
+
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+															<button type="button" class="btn btn-primary btn-sm">Save changes</button>
+														</div>
+													</div>
+												</div>
+											</div><!--end modal 2-->
 
 															<!-- Small modal 3-->
 															<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
@@ -172,14 +210,10 @@
 															</div><!--end modal 3-->
 
 											</td>
-											<td>สักที่</td>
-											<td>www.nunoi.com</td>
-											<td class="text-center">
-												<div class="form-check">
-													<input type="checkbox" class="form-check-input">
-												</div>
-											</td>
+											<td><?php echo $row1['name_location']; ?></td>
+											<td><?php echo $row1['url_location']; ?></td>
 										</tr>
+										<?php } ?>
 									</tbody>
 								</table>
 							</div>
