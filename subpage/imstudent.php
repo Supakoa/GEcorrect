@@ -58,7 +58,7 @@
 									<div class="col-lg-4"></div>
 									<div class="col-lg-4"></div>
 									<div class="col-lg-4 text-right"><br>
-										<p>* หน้านำเข้าข้อมูลนักศึกษา<br>* ข้อมูลนักศึกษาที่นำเข้า  <br>- รหัสนักศึกษา <br>- ชื่อนักศึกษา<br>- Username <br>- Password</p>
+										<p>* .csv<br>* ข้อมูลนักศึกษาที่นำเข้า  <br>- รหัสนักศึกษา <br>- ชื่อนักศึกษา<br>- Username <br>- Password</p>
 									</div>
 								</div>
 							</div>
