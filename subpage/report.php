@@ -134,6 +134,7 @@ for ($i=0; $i <1000-241; $i++) {
 }
 	
 $footer.= ' </span><br>
+		<input type="checkbox"> <span> ไม่พบปัญหา</span>
 		</div><br/><br/>
 		<div style="text-align:right;margin-right:10px">
 			<span>กรรมการคุมสอบ 1 ...................................................................................................</span><br>
