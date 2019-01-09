@@ -57,7 +57,7 @@
 		
 </head>
 
-<body class="adminbody">
+<body class="adminbody" ng-app="">
 
 <div id="main">
 
@@ -138,8 +138,8 @@
 																</div>
 															</div><!--end modal -->
 
-											<th></th>		
-											<th></th>
+											<th><input type="checkbox" ng-model="all"> CheckAll</th>		
+											<th>Action</th>
 											<th>รหัสวิชา</th>
 											<th>ชื่อวิชา</th>
 										</tr>
@@ -157,7 +157,7 @@
 
 											<td class="text-center">
 												<div class="form-check">
-													<input type="checkbox" class="form-check-input">
+													<input type="checkbox" class="form-check-input" ng-checked="all">
 												</div>
 											</td>
 
@@ -263,7 +263,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<!-- Counter-Up-->
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
 	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
