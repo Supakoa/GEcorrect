@@ -13,101 +13,127 @@ if(isset($_POST['create_pdf'])){
 		'margin_right' => 1,
 		'mode' => 'utf-8',
 		]);
-	
+
+
+		
 		$keep_table_proportions = true;		
 		$ignore_table_percents = true;
 		$ignore_table_width = true;
 		$mpdf->shrink_tables_to_fit = 1;
+		
+
 
 $head = '
 <html>
-<head>
-<style>
-    @page {
-      size: auto;
-      odd-header-name: html_MyHeader1;
-	}
+	<head>
+		<style>
+			@page {
+			size: auto;
+			odd-header-name: html_MyHeader1;
+			}
+			
+		</style>
+		<style>
+				head{
+					height:500px;
+				}
+				body{
+					margin-top:1000px;
+					background-color:pink;
+				}
+				table,th,td{
+					border: 1pt solid black;
+					border-collapse: collapse;
+					margin-top:1px;
+					margin-button:1px;
+					padding: 2px;
+				}
+				table{
+					table-layout: auto;
+					margin-left:50px;
+					width:95%;
+				}
+				table.layout {
+					text-align:center;
+					margin-top:1px;
+					margin-left:5px;
+					margin-right:5px;
+					border-collapse: collapse;
+				}
+				td.layout {
+					border: 1pt solid black;
+				}
+				th{
+					text-align:center;
+				}
+			</style>
+	</head>
+	<body>
+		<htmlpageheader name="MyHeader1">
+			<div style="text-align: center; font-weight: bold; font-size: 11pt;background-color:red;">
+				<span>รายชื่อนักศึกษาสอบ GEL1101 ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
+			</div><br><br>
+			<header style="background-color:blue;height:50px">
+			
+			</header>
+		</htmlpageheader>
 	
-	table,th,td{
-		border: 1pt solid black;
-		border-collapse: collapse;
-		margin-top:1pt;
-		margin-button:1pt;
-		padding: 2pt;
-	
-	}
-	table.layout {
-		text-align:center;
-		margin-left:1;
-		margin-right:1;
-		border-collapse: collapse;
-	}
-	td.layout {
-		border: 1pt solid black;
-	}
-	th{
-		text-align:center;
-	}
-</style>
-</head>
-<body>
-    <htmlpageheader name="MyHeader1">
-		<div style="text-align: center; font-weight: bold; font-size: 11pt;">
-			 <span>รายชื่อนักศึกษาสอบ '.$type.' ภาคเรียนที่ '.$term.'/'.$year.'</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ '.$exam_date.' เวลา '.$exam_time.' น. ห้อง '.$exam_location.'</span>
+		
+';
+
+$thead ='
+			<table autosize="1" style="background-color:red;padding-top:120px" >
+				<thead>
+					<tr>
+						<th>ลำดับ</th>
+						<th>รหัสนักศึกษา</th>
+						<th>ชื่อ-นามสกุล</th>
+						<th>วิชาที่สอบ</th>
+						<th>วันที่สอบ</th>
+						<th>เวลาที่สอบ</th>
+						<th>ห้องสอบ</th>
+						<th style="width:80pt;">ลายเซ็น</th>
+					</tr>
+				</thead>
+			';
+
+$tbody = '<tbody>';
+for ($i=0; $i < 100; $i++) { 
+
+			$tbody.= '	<tr>
+							<td style="text-align:center">asdfg</td>
+							<td style="text-align:center">asfdafs</td>
+							<td>asdfgh</td>
+							<td style="text-align:center">asdasfas</td>
+							<td style="text-align:center">asdasdasd</td>
+							<td style="text-align:center">asdasdasd</td>
+							<td style="text-align:center">asdasdasd</td>
+							<td ></td>
+						</tr>';
+}	
+					
+$tbody.='				</tbody>
+				</table>
+		
+';
+
+$footer = '
+		<br>
+		<div style="text-align:right;">
+			<span>กรรมการคุมสอบ...................................................................................................</span><br>
+			<span>กรรมการคุมสอบ...................................................................................................</span><br>
+			<span>กรรมการคุมสอบ...................................................................................................</span><br>
+			<span>จำนวนนักศึกษาที่เข้าสอบ.................................................................................................คน</span><br>
+			<span>จำนวนนักศึกษาที่ขาดสอบ.................................................................................................คน</span>
+
 		</div>
-	</htmlpageheader>
-';
-
-
-$body = '
-	<div class="container"  >
-		<table autosize="1" style="width:100%;">
-		<thead name="tablehead">
-			<tr>
-				<th>ลำดับ</th>
-				<th>รหัสนักศึกษา</th>
-				<th>ชื่อ-นามสกุล</th>
-				<th>วิชาที่สอบ</th>
-				<th>วันที่สอบ</th>
-				<th>เวลาที่สอบ</th>
-				<th>ห้องสอบ</th>
-				<th style="width:80pt;">ลายเซ็น</th>
-			</tr>
-		</thead>
-			<tbody>
-			<tr>
-				<td class="text-center"> <!-- btn PDF -->
-					dsfgsdrg
-				</td><!-- end btn PDF -->
-				<td>dsfgsdfg</td>
-				<td>dsfgsdfg</td>
-				<td>dsfgsdfg</td>
-				<td>dsfgsdfg</td>
-				<td>dfsgsdfg</td>
-				<td>dfsgsdfg</td>
-				<td>dfsgsdfg</td>
-			</tr>
-			</tbody>
-
-		</table>
-	</di>
-
-';
-$footer = '<br>
-<div style="text-align:right;">
-<span>กรรมการคุมสอบ...................................................................................................</span><br>
-<span>กรรมการคุมสอบ...................................................................................................</span><br>
-<span>กรรมการคุมสอบ...................................................................................................</span><br>
-<span>จำนวนนักศึกษาที่เข้าสอบ.................................................................................................คน</span><br>
-<span>จำนวนนักศึกษาที่ขาดสอบ.................................................................................................คน</span>
-
-</div>
-</body>
+	</body>
 </html>
 ';
 
 $mpdf->WriteHTML($head);
-$mpdf->WriteHTML($body);
+$mpdf->WriteHTML($thead);
+$mpdf->WriteHTML($tbody);
 $mpdf->WriteHTML($footer);
 $mpdf->Output();
 
