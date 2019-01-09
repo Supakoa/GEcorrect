@@ -36,6 +36,26 @@ $head = '
 			}
 			
 		</style>
+	</head>
+	<body>
+		<htmlpageheader name="MyHeader1">
+			<div>
+					<div style="text-align:right;">
+						<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
+					</div>
+					<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
+					<span>รายชื่อนักศึกษาสอบ '.$a.' ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
+					</div>
+			</div><br><br>
+		</htmlpageheader>
+	</body>
+</html>
+
+';
+
+$thead ='
+<html>
+	<head>
 		<style>
 				table,th,td{
 					border: 1pt solid black;
@@ -67,21 +87,6 @@ $head = '
 			
 	</head>
 	<body>
-
-
-';
-$head .= '<htmlpageheader name="MyHeader1">
-<div>
-		<div style="text-align:right;">
-			<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
-		</div>
-		<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
-		<span>รายชื่อนักศึกษาสอบ '.$a.' ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
-		</div>
-</div><br><br>
-</htmlpageheader>';
-
-$thead ='
 			<table autosize="1">
 				<thead>
 					<tr>
