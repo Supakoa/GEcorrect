@@ -94,8 +94,6 @@ if(isset($_POST['new_btn_2'])){//paper
             }
 
         } else {
-
-
             $count++;
         }
 
@@ -268,11 +266,9 @@ if(isset($_SESSION['alert'])){
 													<td><input class="form-control btn" type="file" name="paper_file_<?php echo $a ?>"></td>
 													<?php if ($row2['hide'] == 0) { ?>
 														<td class="text-center"><input type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>"></td>
-													<?php 
-                                    				} else { ?>
+													<?php } else { ?>
 														<td class="text-center"><input type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>" checked></td>
-														<?php 
-                                   			 		} ?>
+													<?php } ?>
 												</tr>
 												<?php $a = $a + 1;
                             					} ?>

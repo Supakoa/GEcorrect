@@ -77,7 +77,7 @@
 						<div class="card-body">
 							<div class="table-responsive">
 								<table id="locat" class="table table-bordered">
-									<thead>
+									<thead >
 										<tr>
 											<div class="text-center">
 												<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addloc">
@@ -135,8 +135,8 @@
 											</div><!--end modal -->
 
 											<th></th>
-											<th></th>
-											<th>ชื่อสถานที่</th>
+											<th>Action </th>
+											<th> ชื่อสถานที่</th>
 											<th>URL</th>
 											
 										</tr>

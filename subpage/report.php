@@ -21,153 +21,150 @@ if(isset($_POST['create_pdf'])){
 		$ignore_table_percents = true;
 		$ignore_table_width = true;
 		$mpdf->shrink_tables_to_fit = 1;
-		
-		$a = 0;
-		$sub = 123456;
-while($a<5){
-	
-$head = '
-<html>
-	<head>
-		<style>
-			@page {
-				size: auto;
-				odd-header-name: html_MyHeader1;
-			}
 			
-		</style>
-	</head>
-	<body>
-		<htmlpageheader name="MyHeader1">
-			<div>
-					<div style="text-align:right;">
-						<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
-					</div>
-					<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
-					<span>รายชื่อนักศึกษาสอบ '.$a.' ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
-					</div>
-			</div><br><br>
-		</htmlpageheader>
-	</body>
-</html>
-
-';
-
-$thead ='
-<html>
-	<head>
-		<style>
-				table,th,td{
-					border: 1pt solid black;
-					border-collapse: collapse;
-					margin-top:1px;
-					margin-button:1px;
-					padding: 2px;
+			$a = 0;
+			$sub = 123456;
+	while($a<5){
+		
+	$head = '
+	<html>
+		<head>
+			<style>
+				@page {
+					size: auto;
+					odd-header-name: html_MyHeader1;
 				}
-				table{
-					table-layout: auto;
-					margin-left:10px;
-					width:100%;
-					margin-right:10px;
-				}
-				table.layout {
-					text-align:center;
-					margin-top:1px;
-					margin-left:5px;
-					margin-right:5px;
-					border-collapse: collapse;
-				}
-				td.layout {
-					border: 1pt solid black;
-				}
-				th{
-					text-align:center;
-				}
+				
 			</style>
+		</head>
+		<body>
+			<htmlpageheader name="MyHeader1">
+				<div>
+						<div style="text-align:right;">
+							<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
+						</div>
+						<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
+						<span>รายชื่อนักศึกษาสอบ '.$a.' ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
+						</div>
+				</div><br><br>
+			</htmlpageheader>
+		</body>
+	</html>
+
+	';
+
+	$thead ='
+	<html>
+		<head>
+			<style>
+					table,th,td{
+						border: 1pt solid black;
+						border-collapse: collapse;
+						margin-top:1px;
+						margin-button:1px;
+						padding: 2px;
+					}
+					table{
+						table-layout: auto;
+						margin-left:10px;
+						width:100%;
+						margin-right:10px;
+					}
+					table.layout {
+						text-align:center;
+						margin-top:1px;
+						margin-left:5px;
+						margin-right:5px;
+						border-collapse: collapse;
+					}
+					td.layout {
+						border: 1pt solid black;
+					}
+					th{
+						text-align:center;
+					}
+				</style>
+				
+		</head>
+		<body>
+				<table autosize="1">
+					<thead>
+						<tr>
+							<th>ลำดับ</th>
+							<th>รหัสนักศึกษา</th>
+							<th>ชื่อ-นามสกุล</th>
+							<th>วิชาที่สอบ</th>
+							<th>วันที่สอบ</th>
+							<th>เวลาที่สอบ</th>
+							<th>ห้องสอบ</th>
+							<th style="width:80pt;">ลายเซ็น</th>
+						</tr>
+					</thead>
+				';
+
+	$tbody = '<tbody>';
+	for ($i=0; $i < 10; $i++) { 
+
+				$tbody.= '	<tr>
+								<td style="text-align:center">asdfg</td>
+								<td style="text-align:center">asfdafs</td>
+								<td>asdfgh</td>
+								<td style="text-align:center">asdasfas</td>
+								<td style="text-align:center">asdasdasd</td>
+								<td style="text-align:center">asdasdasd</td>
+								<td style="text-align:center">asdasdasd</td>
+								<td ></td>
+							</tr>';
+	}	
+						
+	$tbody.='				</tbody>
+					</table>
 			
-	</head>
-	<body>
-			<table autosize="1">
-				<thead>
-					<tr>
-						<th>ลำดับ</th>
-						<th>รหัสนักศึกษา</th>
-						<th>ชื่อ-นามสกุล</th>
-						<th>วิชาที่สอบ</th>
-						<th>วันที่สอบ</th>
-						<th>เวลาที่สอบ</th>
-						<th>ห้องสอบ</th>
-						<th style="width:80pt;">ลายเซ็น</th>
-					</tr>
-				</thead>
-			';
+	';
 
-$tbody = '<tbody>';
-for ($i=0; $i < 10; $i++) { 
+	$footer = '
+			
+			<br>
+			<div style="text-align:right;margin-right:10px">
+				<span>จำนวนนักศึกษาที่เข้าสอบ.................คน</span><br>
+				<span>จำนวนนักศึกษาที่ขาดสอบ.................คน</span><br>
+			</div>
+			
+			<div style="text-align:left;margin-right:10px;margin-left:10px">
+				<span>ปัญหาที่พบ ';
+	for ($i=0; $i <1000-241; $i++) { 
+		$footer.= '.';	
+	}
+	$footer.='<br>การแก้ปัญหาเบื้องต้น ';
 
-			$tbody.= '	<tr>
-							<td style="text-align:center">asdfg</td>
-							<td style="text-align:center">asfdafs</td>
-							<td>asdfgh</td>
-							<td style="text-align:center">asdasfas</td>
-							<td style="text-align:center">asdasdasd</td>
-							<td style="text-align:center">asdasdasd</td>
-							<td style="text-align:center">asdasdasd</td>
-							<td ></td>
-						</tr>';
-}	
-					
-$tbody.='				</tbody>
-				</table>
+	for ($i=0; $i <1000-241; $i++) { 
+		$footer.= '.';	
+	}
 		
-';
+	$footer.= ' </span><br>
+			<input type="checkbox"> <span> ไม่พบปัญหา</span>
+			</div><br/><br/>
+			<div style="text-align:right;margin-right:10px">
+				<span>กรรมการคุมสอบ 1 ...................................................................................................</span><br>
+				<span>กรรมการคุมสอบ 2 ...................................................................................................</span><br>
+				<span>กรรมการคุมสอบ 3 ...................................................................................................</span><br>
+			</div>	
+		</body>
+	</html>
+	';
+	// $sum = $head.$myhead.$thead.$tbody.$footer;
+	$mpdf->WriteHTML($head);
+	// $mpdf->WriteHTML($myhead);
+	$mpdf->WriteHTML($thead);
+	$mpdf->WriteHTML($tbody);
+	// $mpdf->WriteHTML($sum);
+	$a++;
 
-$footer = '
-		
-		<br>
-		<div style="text-align:right;margin-right:10px">
-			<span>จำนวนนักศึกษาที่เข้าสอบ.................คน</span><br>
-			<span>จำนวนนักศึกษาที่ขาดสอบ.................คน</span><br>
-		</div>
-		
-		<div style="text-align:left;margin-right:10px;margin-left:10px">
-			<span>ปัญหาที่พบ ';
-for ($i=0; $i <1000-241; $i++) { 
-	$footer.= '.';	
-}
-$footer.='<br>การแก้ปัญหาเบื้องต้น ';
-
-for ($i=0; $i <1000-241; $i++) { 
-	$footer.= '.';	
-}
-	
-$footer.= ' </span><br>
-		<input type="checkbox"> <span> ไม่พบปัญหา</span>
-		</div><br/><br/>
-		<div style="text-align:right;margin-right:10px">
-			<span>กรรมการคุมสอบ 1 ...................................................................................................</span><br>
-			<span>กรรมการคุมสอบ 2 ...................................................................................................</span><br>
-			<span>กรรมการคุมสอบ 3 ...................................................................................................</span><br>
-		</div>	
-
-		
-		
-	</body>
-</html>
-';
-// $sum = $head.$myhead.$thead.$tbody.$footer;
-$mpdf->WriteHTML($head);
-// $mpdf->WriteHTML($myhead);
-$mpdf->WriteHTML($thead);
-$mpdf->WriteHTML($tbody);
-// $mpdf->WriteHTML($sum);
-$a++;
-
-$mpdf->AddPage();
+	$mpdf->AddPage();
 
 
-}
-$mpdf->Output();
+	}
+	$mpdf->Output();
 
 
 }
@@ -368,7 +365,6 @@ $mpdf->Output();
 			// data-tables
 			$('#report').DataTable();
 					
-			
 		} );		
 	</script>
 <!-- END Java Script for this page -->
