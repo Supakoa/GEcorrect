@@ -26,7 +26,49 @@
 				}
 			}
 		}
+		unset($_POST['new_btn']);
 	}
+
+	// edit subject
+	if(isset($_POST['edit_btn'])){
+		// make it easy
+		$sub_id = $_POST['edit_sub_id'];
+		$sub_name = $_POST['edit_sub_name'];
+		$origin_id = $_POST['original_id'];
+
+		// update into database
+		$sql = "UPDATE subject SET subject_id = '$sub_id' , subject_name = '$sub_name' WHERE subject_id = '$origin_id' ";
+		$re = mysqli_query($con,$sql);
+
+		// check can update to database
+		if($re){
+			echo '<script>alert("update complete.");</script>';
+		} else{
+			echo '<script>alert("update error.");</script>';
+		}
+		unset($_POST['edit_btn']);
+	}
+
+	// delete subject in database
+	if(isset($_POST['delete_btn'])){
+		// make it easy
+		$delete_id = $_POST['delete_id'];
+
+		$sql = "DELETE FROM subject WHERE subject_id = '$delete_id' ";
+		$re = mysqli_query($con,$sql);
+
+		// check update success
+		if($re){
+			header("Location: subject.php");
+			exit();
+		} else{
+			header("Location: subject.php?error=problem_delete");
+			exit();
+		}
+
+		unset($_POST['delete_btn']);
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +120,7 @@
 								<table id="subject" class="text-center table table-bordered" style="table-layout:auto;">
 									<thead>
 										<tr>
-													<!-- Button trigger modal -->
+													<!-- Button trigger modal edit -->
 													<div class="text-center" >
 														<a  role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
 															<i class="fa fa-plus"></i> เพิ่มข้อมูล
@@ -88,7 +130,7 @@
 													</div>
 														
 																
-														<!-- Modal -->
+														<!-- Modal edit -->
 														<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 															<form action="subject.php" method="post">
 																<div class="modal-dialog" role="document">
@@ -116,7 +158,7 @@
 																	</div>
 																</div>
 															</form>
-														</div><!--end modal 1-->
+														</div><!--end modal edit-->
 															
 															
 															<!-- Small modal -->
@@ -126,7 +168,7 @@
 																		<div class="modal-header">
 																		<h5 class="modal-title">ลบข้อมูล</h5>
 																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
+																			<span aria-hidden="true">&times;</span>
 																		</button>
 																		</div>
 																		
@@ -162,59 +204,66 @@
 											</td>
 
 											<td>
-												<!-- Button trigger modal -->
+												<!-- Button trigger modal edit -->
 												<div class="text-center">
-													<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
+													<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit_<?php echo $row['subject_id']; ?>">
 														<i class="fa fa-pencil"></i>
 													</a>
-													<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+													<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete_<?php echo $row['subject_id']; ?>"><i class="fa fa-minus"></i></a>
 												</div>
 																						
-												<!-- Modal -->
-												<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-													<div class="modal-dialog" role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="exampleModalLabel">แก้ไข</h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
+												<!-- Modal edit -->
+												<div class="modal fade" id="edit_<?php echo $row['subject_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+													<form action="subject.php" method="post">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
 
-															<div class="modal-body">
-																<label for="subject1">วิชา</label>
-																<select name="" id="subject1" class="form-control select2">
-																	<option>GEL1101</option>
-																	<option>GRL1102</option>
-																	<option>GEL2203</option>
-																</select>
-																<label for="id-subj1">รหัสวิชา</label>
-																<input class="form-control" id="id-subj1" type="text">
-															</div>
+																<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalLabel">แก้ไข</h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
 
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																<button type="button" class="btn btn-primary btn-sm">Save changes</button>
+																<!-- hidden tag show orginal id -->
+																<input type="hidden" name="original_id" value="<?php echo $row['subject_id']; ?>">
+
+																<div class="modal-body">
+																	<label for="id-subj1">รหัสวิชา</label>
+																	<input class="form-control" type="text" name="edit_sub_id" maxlength="7" value="<?php echo $row['subject_id']; ?>" required>
+																	<label for="subject1">วิชา</label>
+																	<input class="form-control" id="id-subj1" type="text" name="edit_sub_name" value="<?php echo $row['subject_name']; ?>" required>
+																</div>
+
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-primary btn-sm" name="edit_btn">Save changes</button>
+																</div>
+
 															</div>
 														</div>
-													</div>
+													</form>
 												</div><!--end modal 2-->
 																		
 												<!-- Small modal -->
-												<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+												<div class="modal fade bd-example-modal-sm " id="delete_<?php echo $row['subject_id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
 													<div class="modal-dialog modal-sm">
 														<div class="modal-content">
 															<div class="modal-header">
-																<h5 class="modal-title">ลบข้อมูล</h5>
+																<h5 class="modal-title">ลบข้อมูล <?php echo $row['subject_id']; ?></h5>
 																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																	<span aria-hidden="true">&times;</span>
 																</button>
 															</div>
-																			
-															<div class="modal-footer">
-																<button type="button" class="btn btn-danger btn-sm">Yes</button>
-																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
-															</div>
+
+															<form action="" method="post">
+																<div class="modal-footer">
+																	<input type="hidden" name="delete_id" value="<?php echo $row['subject_id']; ?>">
+																	<button type="submit" class="btn btn-danger btn-sm" name="delete_btn">Yes</button>
+																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+																</div>
+															</form>				
+															
 														</div>
 													</div>
 												</div><!--end modal 3-->

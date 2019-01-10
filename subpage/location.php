@@ -1,6 +1,7 @@
 <?php
 	require 'server/server.php';
 
+	// insert new location
 	if(isset($_POST['new_btn'])){
 		// make it easy
 		$location_name = $_POST['new_location_name'];
@@ -27,6 +28,26 @@
 			}
 		}
 	}
+
+	//edit location
+	if(isset($_POST['edit_button'])){
+		// make it easy
+		$location_name = $_POST['edit_location_name'];
+		$location_url = $_POST['edit_location_url'];
+		$order = $_POST['order'];
+
+		// update into database
+		$sql = "UPDATE location_table SET name_location = '$location_name' , url_location = '$location_url' WHERE  order = '$order' ";
+		$re = mysqli_query($con,$sql);
+
+		// check can update into datbase
+		if(!$re){
+			header("Location: location.php?error=problem_update");
+			exit();
+		}
+
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -157,37 +178,42 @@
 
 											<!-- Button trigger modal -->
 											<div class="text-center">
-												<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editloc">
+												<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editloc_<?php echo $row1['order'] ?>">
 													<i class="fa fa-pencil"></i>
 												</a>
 												<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
 											</div>
 														
 											<!-- Modal -->
-											<div class="modal fade" id="editloc" tabindex="-1" role="dialog" aria-labelledby="locat" aria-hidden="true">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="locat">แก้ไข</h5>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
+											<div class="modal fade" id="editloc_<?php echo $row1['order'] ?>" tabindex="-1" role="dialog" aria-labelledby="locat" aria-hidden="true">
+												<form action="location.php" method="post">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="locat">แก้ไข <?php echo $row1['name_location']; ?></h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
 
-														<div class="modal-body">
-															<label for="loc1">สถานที่สอบ</label>
-															<input type="text" name="">
+															<!-- hidden value -->
+															<input type="hidden" name="order" value="<?php echo $row1['order']; ?>">
 
-															<label for="url-loc1">URL</label>
-															<input class="form-control" id="url-loc1" type="text" name="">
-														</div>
+															<div class="modal-body">
+																<label for="loc1">สถานที่สอบ</label>
+																<input class="form-control" type="text" name="edit_location_name" value="<?php echo $row1['name_location']; ?>" required>
 
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-															<button type="button" class="btn btn-primary btn-sm">Save changes</button>
+																<label for="url-loc1">URL</label>
+																<input class="form-control" id="url-loc1" type="text" name="edit_location_url" value="<?php echo $row1['url_location']; ?>" required>
+															</div>
+
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																<button type="submit" name="edit_btn" class="btn btn-primary btn-sm">Save changes</button>
+															</div>
 														</div>
 													</div>
-												</div>
+												</form>
 											</div><!--end modal 2-->
 
 															<!-- Small modal 3-->
