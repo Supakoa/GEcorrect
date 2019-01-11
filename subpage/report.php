@@ -38,6 +38,7 @@ $head = '
 		</style>
 	</head>
 	<body>
+	
 		<htmlpageheader name="MyHeader1">
 			<div>
 					<div style="text-align:right;">
@@ -48,6 +49,18 @@ $head = '
 					</div>
 			</div><br><br>
 		</htmlpageheader>
+	</body>
+</html>
+
+';
+$null = '
+<html>
+	<head>
+		
+	</head>
+	<body>
+	
+		
 	</body>
 </html>
 
@@ -103,10 +116,10 @@ $thead ='
 			';
 
 $tbody = '<tbody>';
-for ($i=0; $i < 10; $i++) { 
+for ($i=0; $i < 100; $i++) { 
 
 			$tbody.= '	<tr>
-							<td style="text-align:center">asdfg</td>
+							<td style="text-align:center">'.$i.'</td>
 							<td style="text-align:center">asfdafs</td>
 							<td>asdfgh</td>
 							<td style="text-align:center">asdasfas</td>
@@ -149,7 +162,7 @@ $footer.= ' </span><br>
 			<span>กรรมการคุมสอบ 2 ...................................................................................................</span><br>
 			<span>กรรมการคุมสอบ 3 ...................................................................................................</span><br>
 		</div>	
-
+		
 		
 		
 	</body>
@@ -157,13 +170,45 @@ $footer.= ' </span><br>
 ';
 // $sum = $head.$myhead.$thead.$tbody.$footer;
 $mpdf->WriteHTML($head);
+
 // $mpdf->WriteHTML($myhead);
 $mpdf->WriteHTML($thead);
 $mpdf->WriteHTML($tbody);
-// $mpdf->WriteHTML($sum);
-$a++;
+$mpdf->WriteHTML($footer);
+++$a;
+if($a<5){
+$head = '
+<html>
+	<head>
+		<style>
+			@page {
+				size: auto;
+				odd-header-name: html_MyHeader1;
+			}
+			
+		</style>
+	</head>
+	<body>
+	
+		<htmlpageheader name="MyHeader1">
+			<div>
+					<div style="text-align:right;">
+						<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
+					</div>
+					<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
+					<span>รายชื่อนักศึกษาสอบ '.$a.' ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
+					</div>
+			</div><br><br>
+		</htmlpageheader>
+	</body>
+</html>
 
-$mpdf->AddPage();
+';
+
+$mpdf->WriteHTML($head);
+
+	$mpdf->AddPage();
+}
 
 
 }
