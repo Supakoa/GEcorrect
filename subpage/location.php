@@ -48,6 +48,9 @@
 
 	}
 
+	// delete location
+	
+
 ?>
 
 <!DOCTYPE html>
@@ -178,10 +181,10 @@
 
 											<!-- Button trigger modal -->
 											<div class="text-center">
-												<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editloc_<?php echo $row1['order'] ?>">
+												<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editloc_<?php echo $row1['order'] ?>" >
 													<i class="fa fa-pencil"></i>
 												</a>
-												<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+												<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete_<?php echo $row1['order']; ?>" ><i class="fa fa-minus"></i></a>
 											</div>
 														
 											<!-- Modal -->
@@ -217,11 +220,11 @@
 											</div><!--end modal 2-->
 
 															<!-- Small modal 3-->
-															<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+															<div class="modal fade bd-example-modal-sm" id="delete_<?php echo $row1['order']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
 															<div class="modal-dialog modal-sm">
 																<div class="modal-content">
 																	<div class="modal-header">
-																	<h5 class="modal-title">ลบข้อมูล</h5>
+																	<h5 class="modal-title">ลบข้อมูล <hr><?php echo $row1['name_location']; ?></h5>
 																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																	<span aria-hidden="true">&times;</span>
 																	</button>
