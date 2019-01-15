@@ -1,3 +1,13 @@
+<?
+	require 'server/server.php';
+
+	$q_banner = "SELECT * FROM `web_show_time` ";
+    $result_banner = mysqli_query($con,$q_banner);
+    $row_banner = mysqli_fetch_array($result_banner);
+    
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,14 +56,15 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="container text-center"><!-- container -->
-										<form method="POST" action="" enctype="">
+										<form method="POST" action="banner.php" >
 											<input class="btn btn-md form-control" type="file" name="image" required/>
 											<br><br><button type="submit" class="btn btn-primary btn-sm" name="submit" >Upload</button>
 										</form>
 									</div><br><!--end container -->
 									<div class="container-fluid text-center"><!-- display-->
-										<div class="jumbotron" ></div>
-
+										<div class="jumbotron" >
+											<img src="banner/<?php echo $_SESSION['tmp_banner']?>" class="img-fluid" alt="Responsive image">
+										</div>
 											<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">ตกลง</button>
 											<!-- Modal -->
 											<div class="modal fade" id="myModal" role="dialog">

@@ -1,3 +1,18 @@
+<?php
+	// connect database
+	require 'server/server.php';
+
+	// search
+	if( $id != ""){
+		// make it easy
+		$id = $_POST['value_search'];
+
+		$sql = "SELECT * FROM student WHERE std_id = '$id' ";
+		$re = mysqli_query($con,$sql);
+
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +41,9 @@
 
 		<!-- w3.css -->
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+		<!-- w3.js -->
+		<!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
 		
 </head>
 
@@ -47,10 +65,15 @@
 					<div class="container">
 						<div class="form-group">
 							<label for="id">รหัสนักศึกษา</label>
-							<div class="row">
-								<div class="col-sm-10"><input id="id" class="form-control" type="text"></div>
-								<div class="col-sm-2"><input class="w3-btn w3-green" type="submit" value="Submit"></div>
-							</div>
+							<form action="search1.php" method="post">
+								<div class="row">
+									<!-- w3.js filter -->
+									<!-- <input oninput="w3.filterHTML('#search1', '.item', this.value)" class="w3-input" placeholder="Search for names.."> -->
+
+									<div class="col-sm-10"><input id="id" class="form-control" type="text" name='value_search' required></div>
+									<div class="col-sm-2"><input class="w3-btn w3-green" type="submit" value="Submit" name="btn_search"></div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -94,14 +117,6 @@
 																				<label for="lname1">นามสกุล</label>
 																				<input id="lname1" class="form-control" type="text">
 																			</div>
-																			<div class="col-md-6">
-																				<label for="user1">Username</label>
-																				<input id="user1" class="form-control" type="text">
-																			</div>
-																			<div class="col-md-6">
-																				<label for="pas1s">Password</label>
-																				<input id="pass1" class="form-control" type="text">
-																			</div>
 																		</div>
 																	</div>
 																</div>
@@ -134,15 +149,24 @@
 																</div>
 															</div><!--end modal -->
 									<th></th>
+									<th></th>
 									<th>รหัสนักศึกษา</th>
 									<th>ชื่อ-นามสกุล</th>
-									<th>Username</th>
-									<th>Password</th>
-									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<!-- loop for search -->
+								<?php
+									while( $r = mysqli_fetch_array($re) ){
+								?>
+								<tr class="item">
+
+									<td class="text-center">
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input">
+										</div>
+									</td>
+
 									<td >
 
 											<div class="text-center">
@@ -180,14 +204,6 @@
 																				<label for="lname">นามสกุล</label>
 																				<input id="lname" class="form-control" type="text">
 																			</div>
-																			<div class="col-md-6">
-																				<label for="user">Username</label>
-																				<input id="user" class="form-control" type="text">
-																			</div>
-																			<div class="col-md-6">
-																				<label for="pass">Password</label>
-																				<input id="pass" class="form-control" type="text">
-																			</div>
 																		</div>
 																	</div>
 																</div>
@@ -219,17 +235,13 @@
 													</div>
 												</div>
 												</div><!--end modal 3-->
+
 									</td>
-									<td>59122519023</td>
-									<td>นายศุภกิจ กิจนะบำรุงศักดิ์</td>
-									<td>s59122519023</td>
-									<td>ssru59122519023</td>
-									<td class="text-center">
-										<div class="form-check">
-											<input type="checkbox" class="form-check-input">
-										</div>
-									</td>
+									<td><?php echo $r['std_id']; ?></td>
+									<td><?php echo $r['name'];?></td>
 								</tr>
+								<!-- end of php loop -->
+								<?php } ?>
 							</tbody>
 						</table>
 					</div><!--end table -->

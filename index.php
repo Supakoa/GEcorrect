@@ -1,10 +1,34 @@
+<?php
+    if(isset($_POST['submit_btn'])){
+        // connect DB
+        require 'subpage/server/server.php';
+
+        // post name & password
+        $username = mysqli_real_escape_string($con,$_POST['username']);
+        $password = mysqli_real_escape_string($con,$_POST['password']);
+        
+        // select check database
+        $sql = "SELECT * FROM `admin` WHERE `admin_id`='$username' AND `admin_password`='$password' ";
+        $result = mysqli_query($con,$sql);
+        $row = mysqli_fetch_array($result);
+
+        if($row>1){
+            Header("Location: subpage/index.php");
+            exit();
+        }else{
+            Header("Location: index.php?error=login_error");
+            exit();
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<title>Pike Admin - Free Bootstrap 4 Admin Template</title>
+		<title>CorrectGE SSRU</title>
 		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
 		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
@@ -37,7 +61,7 @@
     
             
 			<div class="container-fluid">
-                <form action="">
+                <form action="index.php" method="POST">
                     <div class="row">
                         <div class="col-lg-4"></div>
                         <div class="col-lg-4">
@@ -47,14 +71,14 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-section">
-                                        <label for="id">ID:</label>
-                                        <input id="id" class="form-control" type="text" require>
-                                        <label for="pass">Password:</label>
-                                        <input class="form-control" type="password" require>
+                                        <label for="id">ID : </label>
+                                        <input id="id" class="form-control" type="text" name="username" required>
+                                        <label for="pass">Password : </label>
+                                        <input class="form-control" type="password" name="password" required>
                                         <br>
                                     </div>
                                     <div class=text-center> 
-                                        <button class="btn btn-success" type="submit">OK</button>
+                                        <button class="btn btn-success" name="submit_btn" type="submit">OK</button>
                                     </div>
                                 </div>
                             </div>

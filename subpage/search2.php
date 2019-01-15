@@ -132,12 +132,82 @@
 													<tr>
 														<td>
 															<div class="text-center">
+																<a role="button" href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#info">
+																	<i class="fa fa-file"></i></a><!-- modal 0 -->
 																<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
-																	<i class="fa fa-pencil"></i>
-																</a>
-																<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+																	<i class="fa fa-pencil"></i></a><!-- modal 1 -->
+																<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm">
+																	<i class="fa fa-minus"></i></a><!-- modal 2 -->
 
 															</div>
+
+															<!-- Modal 0-->
+															<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="sea3" aria-hidden="true">
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title" id="sea3">ข้อมูล</h5>
+																			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			<div class="container">
+																				<div class="card mb-3">
+																					<div class="card-body">
+																						<div class="table-responsive">
+																							<table class="table table-borderless">
+																								<tbody>
+																									<tr>
+																										<th scope="row">ปีการศึกษา</th>
+																										<td>2562</td>
+																									</tr>
+																									<tr>
+																										<th scope="row">กลุ่มเรียน</th>
+																										<td>002</td>
+																									</tr>
+																									<tr>
+																										<th scope="row">เวลา</th>
+																										<td>08.00 - 11.00 น.</td>
+																									</tr>
+																									<tr>
+																										<th scope="row">วันที่</th>
+																										<td>26 ก.พ.</td>
+																									</tr>
+																									<tr>
+																										<th scope="row">ประเภท</th>
+																										<td>Computer</td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</div>
+
+																						<div class="table-responsive">
+																							<table class="table">
+																								<thead>
+																									<tr>
+																										<th>#</th>
+																										<th>ห้อง</th>
+																										<th>จำนวน</th>
+																									</tr>
+																								</thead>
+																								<tbody>
+																									<tr>
+																										<td class="text-center">1</td>
+																										<td>1711</td>
+																										<td>250</td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																					
+																		</div>
+																	</div>
+																</div>
+															</div><!--end modal 0-->
 															
 															<!-- Modal 1-->
 															<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="sea2" aria-hidden="true">
