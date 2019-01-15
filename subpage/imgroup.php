@@ -1,3 +1,12 @@
+<?php 
+if(isset($_POST['gogo'])){
+    
+	print_r($_POST['room']);
+	echo "<br>";
+	print_r($_POST['text']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +39,7 @@
 
 <div id="main">
 
-	<?php require 'menu/navmenu.php' ?>
+	<?php //require 'menu/navmenu.php' ?>
 
 
     <div class="content-page"><!-- content-page -->
@@ -121,33 +130,36 @@
 											<div style="text-align:center;">
 												<h3>Tablet</h3>
 											</div>
-											<div class="row"><!-- row -->
+											<form action="imgroup.php" method="post">
+											<div class="row" id = "eiei"><!-- row -->
 												<div class="col-md-4 form-group"><!-- room & Value -->
 													<label for="room">ห้อง</label>
-														<select name="" id="room" class="form-control select2">
+														<select name="room[]" id="room" class="form-control select2">
 															<option>1701</option>
 															<option>1702</option>
 															<option>3111</option>
-														</select><hr>
-														<select name="" class="form-control select2">
-																		<option>1701</option>
-																		<option>1702</option>
-																		<option>3111</option>
-														</select><hr>
+														</select><hr>		
 												</div>
 												<div class="col-md-4"></div>
 												<div class="col-md-4 form-group">
 													<label for="value">จำนวน</label>
-													<input id="value" class="form-control" type="text" placeholder="1."><hr>
-													<input  class="form-control" type="text" placeholder="2."><hr>
+													<input id="value" class="form-control" type="text" name = "text[]" placeholder="1."><hr>
 												</div><!--end room & Value -->
+											
+											</div><!--end row -->
+											<div class = "come"></div>
+											<button type="submit"name ="gogo">gogo</button>
+											</form>
+											
+											<div class="row">
 
 												<div class="col-md-4"></div><!-- button add collum -->
-													<div class="col-md-4 text-center">
-														<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
-													</div>
-												<div class="col-md-4"></div><!-- end button add collum -->
-											</div><!--end row -->
+														<div class="col-md-4 text-center">
+															<button class="btn btn-sm btn-info" id="btn1"><i class="fa fa-plus"></i></button>
+														</div>
+													<div class="col-md-4"></div><!-- end button add collum -->
+												</div>
+												
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -189,7 +201,7 @@
 								<hr>
 									<div class="text-center"><!-- up file -->
 										<input class="btn btn-md" type="file">
-										<button class="btn btn-sm btn-success" type="submit">submit</button>
+										<button id="btn2" class="btn btn-sm btn-success" type="submit">submit</button>
 									</div><!--end up file -->
 							</div>
 						</div>
@@ -230,6 +242,7 @@
 	<!-- Counter-Up-->
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
 	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<script>
 		$(document).ready(function() {
@@ -239,6 +252,19 @@
 
 		} );		
 	</script>
+	<script>
+$(document).ready(function(){
+	var eiei = '<div class="col-md-4 form-group"><select name="room[]" id="room" class="form-control select2"><option>1701</option><option>1702</option><option>3111</option></select><hr></div><div class="col-md-4"></div><div class="col-md-4 form-group"><input id="value" class="form-control" type="text" name = "text[]" placeholder="1."><hr></div>';
+
+  $("#btn1").click(function(){
+    $("#eiei").append(eiei);
+  });
+  $("#btn2").click(function(){
+    $(".come").append(eiei);
+  });
+//   <div class=\"col-md-4 form-group\"><label for=\"value\">ห้อง</label><select name=\"\" id=\"room\" class=\"form-control select2\"><option>1701</option><option>1702</option><option>3111</option> </select><hr> </div><div class=\"col-md-4\"></div><div class=\"col-md-4 form-group\"><label for=\"value\">จำนวน</label><input id=\"value\" class=\"form-control\" type=\"text\" placeholder="1."><hr></div><div class=\"col-md-12 center\" ><button id = \"btn1\">+</button> </div>
+});
+</script>
 	
 <!-- END Java Script for this page -->
 
