@@ -1,3 +1,11 @@
+<?php
+	//connect database
+	require 'server/server.php';
+
+	$sql = "SELECT * FROM admin";
+	$re = mysqli_query($con,$sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,63 +63,67 @@
 												
 												<!-- Modal -->
 												<div class="modal fade" id="adddata" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
-													<div class="modal-dialog" role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																		<label for="admin0">รหัสพนักงาน</label>
-																		<input class="form-control" id="admin0" type="text">
-																		<div class="row">
-																			<div class="form-gruop col-lg-6">
-																				<label for="fname">ชื่อ</label>
-																				<input class="form-control" id="fname" type="text">
-																			</div>
-																			<div class="form-gruop col-lg-6">
-																				<label for="lname">นามสกุล</label>
-																				<input class="form-control" id="lname" type="text">
-																			</div>
-																		</div>
-																		<div class="row">
-																			<div class="form-gruop col-lg-6">
-																				<label for="user">Username</label>
-																				<input class="form-control" id="user" type="text">
-																			</div>
-																			<div class="form-gruop col-lg-6">
-																				<label for="pass">Password</label>
-																				<input class="form-control" id="pass" type="text">
-																			</div>
-																		</div>
-																		<div class="row">
-																			<div class="form-group col-lg-6">
-																				<label for="inputState">ระดับ</label>
-																				<select id="inputState" class="form-control">
-																					<option selected>Choose...</option>
-																					<option>...</option>
-																				</select>
-																			</div>
-																			<div class="form-gruop col-lg-6 ">
-																			<br>
-																				<div class="form-check">
-																					<label class="form-check-label">
-																					<input type="checkbox" class="form-check-input">
-																					Active
-																					</label><br>
+													<form action="server/insert_admin.php" method="post">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																			<label for="admin0">รหัสพนักงาน</label>
+																			<input class="form-control" id="admin0" type="text" name="admin_id">
+																			<div class="row">
+																				<div class="form-gruop col-lg-6">
+																					<label for="fname">ชื่อ</label>
+																					<input class="form-control" id="fname" type="text" name="admin_fname">
+																				</div>
+																				<div class="form-gruop col-lg-6">
+																					<label for="lname">นามสกุล</label>
+																					<input class="form-control" id="lname" type="text" name="admin_lname">
 																				</div>
 																			</div>
-																		</div>
-																		
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																<button type="button" class="btn btn-primary btn-sm">Save</button>
+																			<div class="row">
+																				<div class="form-gruop col-lg-6">
+																					<label for="user">Username</label>
+																					<input class="form-control" id="user" type="text" name="admin_username">
+																				</div>
+																				<div class="form-gruop col-lg-6">
+																					<label for="pass">Password</label>
+																					<input class="form-control" id="pass" type="text" name="admin_password">
+																				</div>
+																			</div>
+																			<div class="row">
+																				<div class="form-group col-lg-6">
+																					<label for="inputState">ระดับ</label>
+																					<select id="inputState" class="form-control" name="admin_role">
+																						<option selected>Choose...</option>
+																						<option>Admin</option>
+																						<option>ผู้ดูแลระบบ</option>
+																						<option>เจ้าหน้าที่ทั่วไป</option>
+																					</select>
+																				</div>
+																				<div class="form-gruop col-lg-6 ">
+																				<br>
+																					<div class="form-check">
+																						<label class="form-check-label">
+																						<input type="checkbox" class="form-check-input" name="admin_check">
+																							Active
+																						</label><br>
+																					</div>
+																				</div>
+																			</div>
+																			
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																	<button type="sunmit" class="btn btn-primary btn-sm">Save</button>
+																</div>
 															</div>
 														</div>
-													</div>
+													</form>
 												</div><!--end modal 1-->	
 															
 															
@@ -136,7 +148,6 @@
 										<th></th>
 										<th>รหัสพนักงาน</th>
 										<th>ชื่อ</th>
-										<th>นามสกุล</th>
 										<th>Username</th>
 										<th>Password</th>
 										<th>ระดับ</th>
@@ -145,6 +156,10 @@
 									</tr>
 								</thead>
 								<tbody>
+									<!-- php loop -->
+									<?php
+										while( $r = mysqli_fetch_array($re) ){
+									?>
 									<tr>
 										<td >
 											<!-- Button trigger modal -->
@@ -238,19 +253,19 @@
 																</div>
 																</div><!--end modal 3-->
 										</td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+										<td><?php echo $r['admin_id']; ?></td>
+										<td><?php echo $r['admin_name']; ?></td>
+										<td><?php echo $r['admin_username']; ?></td>
+										<td><?php echo $r['admin_password']; ?></td>
+										<td><?php echo $r['role']; ?></td>
+										<td><?php echo $r['status']; ?></td>
 										<td class="text-center">
 											<div class="form-check">
 												<input type="checkbox" class="form-check-input">
 											</div>
 										</td>
 									</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>
