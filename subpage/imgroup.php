@@ -1,9 +1,20 @@
 <?php 
-if(isset($_POST['gogo'])){
+if(isset($_POST['room'])){
     
 	print_r($_POST['room']);
 	echo "<br>";
 	print_r($_POST['text']);
+	echo "<br>";
+	echo $_POST['term'];
+	echo "<br>";
+	echo $_POST['time'];
+	echo "<br>";
+}
+if(isset($_POST['term'])){
+	echo $_POST['term'];
+	echo "<br>";
+	echo $_POST['time'];
+	echo "<br>";
 }
 ?>
 
@@ -49,14 +60,16 @@ if(isset($_POST['gogo'])){
 				<div class="card-header">
 					<h4 class="text-center">นำเข้าข้อมูลแบบกลุ่มเรียน</h4>
 				</div>
+
 				<div class="card-body"><!-- card-body -->
 						<div class="container">
 							<div class="card">
 								<div class="card-body">
+								<form action="imgroup.php" method="post" id = "form1" class = "formsingha">
 									<div class="row"><!-- filter -->
 										<div class="col-md-2">
 											<label for="term">เทอม</label>
-											<select id="term" class="form-control select2">
+											<select name="term" class="form-control select2">
 												<option>1</option>
 												<option>2</option>
 											</select>
@@ -66,7 +79,7 @@ if(isset($_POST['gogo'])){
 										</div>
 											<div class="col-md-3">
 												<label for="year">ปีการศึกษา</label>
-													<select id="year" class="form-control select2">
+													<select name="year" class="form-control select2">
 														<option>2561</option>
 														<option>2560</option>
 														<option>2559</option>
@@ -75,7 +88,7 @@ if(isset($_POST['gogo'])){
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="subj">วิชา(รหัส)</label>
-												<select id="subj" class="form-control select2">
+												<select name="subj" class="form-control select2">
 													<option>GEL1101</option>
 													<option>GEL1102</option>
 													<option>GEL1103</option>
@@ -85,7 +98,7 @@ if(isset($_POST['gogo'])){
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="group">กลุ่มเรียน</label>
-												<select id="group" class="form-control select2">
+												<select name="group" class="form-control select2">
 													<option>101</option>
 													<option>201</option>
 													<option>302</option>
@@ -95,7 +108,7 @@ if(isset($_POST['gogo'])){
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="time">เวลา</label>
-												<select id="time" class="form-control select2">
+												<select name="time" class="form-control select2">
 													<option>08.00 - 11.00 น.</option>
 													<option>11.00 - 14.00 น.</option>
 													<option>14.00 - 17.00 น.</option>
@@ -105,13 +118,13 @@ if(isset($_POST['gogo'])){
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="date">วันที่</label>
-												<input id="date" type="date" class="form-control " name="">
+												<input name="date" type="date" class="form-control " name="">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="cate">ประเภท</label>
-												<select id="cate" class="form-control select2">
+												<select name="cate" class="form-control select2">
 													<option>กลางภาค</option>
 													<option>ปลายภาค</option>
                                                     <option>แก้ไอ</option>	
@@ -119,6 +132,8 @@ if(isset($_POST['gogo'])){
 												</select>
 											</div>
 										</div>
+										<button type="submit" name ="go">gooooo</button>
+										
 									</div><!--end filter -->
 								</div>
 							</div>
@@ -130,7 +145,7 @@ if(isset($_POST['gogo'])){
 											<div style="text-align:center;">
 												<h3>Tablet</h3>
 											</div>
-											<form action="imgroup.php" method="post">
+											<!-- <form class= "formsingha" id = "form2" action="imgroup.php" method="post"> -->
 											<div class="row" id = "eiei"><!-- row -->
 												<div class="col-md-4 form-group"><!-- room & Value -->
 													<label for="room">ห้อง</label>
@@ -148,7 +163,7 @@ if(isset($_POST['gogo'])){
 											
 											</div><!--end row -->
 											<div class = "come"></div>
-											<button type="submit"name ="gogo">gogo</button>
+											<!-- <input type="submit"name ="gogo" value ="gogo"> -->
 											</form>
 											
 											<div class="row">
@@ -190,7 +205,7 @@ if(isset($_POST['gogo'])){
 
 												<div class="col-md-4"></div><!-- button add collum -->
 													<div class="col-md-4 text-center">
-														<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
+														<button id="btn2" class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
 													</div>
 												<div class="col-md-4"></div><!-- end button add collum -->
 											</div><!--end row -->
@@ -201,7 +216,7 @@ if(isset($_POST['gogo'])){
 								<hr>
 									<div class="text-center"><!-- up file -->
 										<input class="btn btn-md" type="file">
-										<button id="btn2" class="btn btn-sm btn-success" type="submit">submit</button>
+										<button id = "submit" class="btn btn-sm btn-success" type="submit">submit</button>
 									</div><!--end up file -->
 							</div>
 						</div>
@@ -243,8 +258,16 @@ if(isset($_POST['gogo'])){
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
 	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+		<?php 
+		$i = 0 ;
+		$sum="";
+		while($i<10){
+			$sum.="<option>".$i."</option>";
+			$i++;
+		}
+		?>	
 	<script>
+	
 		$(document).ready(function() {
 			// data-tables
 			$('#example1').DataTable();
@@ -253,14 +276,30 @@ if(isset($_POST['gogo'])){
 		} );		
 	</script>
 	<script>
+		
 $(document).ready(function(){
-	var eiei = '<div class="col-md-4 form-group"><select name="room[]" id="room" class="form-control select2"><option>1701</option><option>1702</option><option>3111</option></select><hr></div><div class="col-md-4"></div><div class="col-md-4 form-group"><input id="value" class="form-control" type="text" name = "text[]" placeholder="1."><hr></div>';
+	var i  = 1;
 
   $("#btn1").click(function(){
-    $("#eiei").append(eiei);
+	<?php ?>
+    $("#eiei").append(function(){
+		i++;
+		var sum = '<?php echo $sum ?>'
+		var eiei = '';
+		 eiei += '<div class="col-md-4 form-group">'+(i)+'<select name="room[]" id="room" class="form-control select2">'+sum+'</select><hr></div><div class="col-md-4"></div><div class="col-md-4 form-group">'+i+'<input id="value" class="form-control" type="text" name = "text[]" placeholder="1."><hr></div>';
+		return eiei;
+	});
+	
+	
   });
   $("#btn2").click(function(){
     $(".come").append(eiei);
+  });
+  $("form").submit(function(){
+    alert("Submitted");
+  });
+  $("#submit").click(function(){
+    $("#form1").submit();
   });
 //   <div class=\"col-md-4 form-group\"><label for=\"value\">ห้อง</label><select name=\"\" id=\"room\" class=\"form-control select2\"><option>1701</option><option>1702</option><option>3111</option> </select><hr> </div><div class=\"col-md-4\"></div><div class=\"col-md-4 form-group\"><label for=\"value\">จำนวน</label><input id=\"value\" class=\"form-control\" type=\"text\" placeholder="1."><hr></div><div class=\"col-md-12 center\" ><button id = \"btn1\">+</button> </div>
 });
