@@ -193,6 +193,18 @@
                     </script>";
             break;
 
+            case '17':
+                echo "
+                    <script>
+                        Swal({
+                            type: 'warning',
+                            title: 'ID นี้ถูกใช้งานไปแล้ว',
+                            text: 'กรุณาใช้ชื่อใหม่.',
+                            // footer: '<a href>Why do I have this issue?</a>'
+                        });                    
+                    </script>";
+            break;
+
             // $_SESSION['alert'] = 0 or null
             default:
                 # code...
