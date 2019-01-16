@@ -157,13 +157,11 @@ if(isset($_POST['term'])){
 												</div>
 												<div class="col-md-4"></div>
 												<div class="col-md-4 form-group">
-													<label for="value">จำนวน</label>
-													<input id="value" class="form-control" type="text" name = "text[]" placeholder="1."><hr>
+													<label for="value">จำนวน</label>0
+													<input name="value" class="form-control" type="number"  name = "text[]" ><hr>
 												</div><!--end room & Value -->
 											
 											</div><!--end row -->
-											<div class = "come"></div>
-											<!-- <input type="submit"name ="gogo" value ="gogo"> -->
 											</form>
 											
 											<div class="row">
@@ -286,7 +284,7 @@ $(document).ready(function(){
 		i++;
 		var sum = '<?php echo $sum ?>'
 		var eiei = '';
-		 eiei += '<div class="col-md-4 form-group">'+(i)+'<select name="room[]" id="room" class="form-control select2">'+sum+'</select><hr></div><div class="col-md-4"></div><div class="col-md-4 form-group">'+i+'<input id="value" class="form-control" type="text" name = "text[]" placeholder="1."><hr></div>';
+		 eiei += '<div class="col-md-4 form-group">'+(i)+'<select name="room[]" id="room" class="form-control select2">'+sum+'</select><hr></div><div class="col-md-4"></div><div class="col-md-4 form-group">'+i+'<input id="value" class="form-control" type="number" min="0" name = "text[]" ><hr></div>';
 		return eiei;
 	});
 	
