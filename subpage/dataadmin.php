@@ -5,7 +5,6 @@
 	// show in table
 	$sql = "SELECT * FROM admin";
 	$re = mysqli_query($con,$sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -137,13 +136,12 @@
 											<!--end modal 1-->
 
 
-											<!-- Small modal -->
+											<!-- Small modal delete select -->
 											<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
 												<div class="modal-dialog modal-sm">
 													<div class="modal-content">
 														<div class="modal-header">
 															<h5 class="modal-title">ลบข้อมูล
-																<?php echo $r['admin_id']; ?>
 															</h5>
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
@@ -171,8 +169,8 @@
 									<tbody>
 										<!-- php loop -->
 										<?php
-										while( $r = mysqli_fetch_array($re) ){
-									?>
+											while( $r = mysqli_fetch_array($re) ){
+										?>
 										<tr>
 											<td class="text-center">
 												<div class="form-check">
@@ -194,79 +192,102 @@
 												<!-- Modal -->
 												<div class="modal fade" id="edit_<?php echo $r['admin_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 												 aria-hidden="true">
-													<div class="modal-dialog" role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="exampleModalLabel">แก้ไข</h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<label for="admin1">รหัสพนักงาน</label>
-																<input class="form-control" id="admin1" type="text" value="<?php echo $r['admin_id']; ?>">
-																<div class="row">
-																	<div class="form-gruop col-lg-12">
-																		<label for="fname1">ชื่อ</label>
-																		<input class="form-control" id="fname1" type="text" value="<?php echo $r['admin_name']; ?>">
-																	</div>
+													<form action="server/update_admin.php" method="post">
+														<input type="hidden" name="hide_id" value="<?php echo $r['admin_id']; ?>">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalLabel">แก้ไข</h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
 																</div>
-																<div class="row">
-																	<div class="form-gruop col-lg-6">
-																		<label for="user1">Username</label>
-																		<input class="form-control" id="user1" type="text" value="<?php echo $r['admin_username']; ?>">
+																<div class="modal-body">
+																	<label for="admin1">รหัสพนักงาน</label>
+																	<input class="form-control" name="admin_id" type="text" value="<?php echo $r['admin_id']; ?>">
+																	<div class="row">
+																		<div class="form-gruop col-lg-12">
+																			<label for="fname1">ชื่อ</label>
+																			<input class="form-control" name="admin_name" type="text" value="<?php echo $r['admin_name']; ?>">
+																		</div>
 																	</div>
-																	<div class="form-gruop col-lg-6">
-																		<label for="pass1">Password</label>
-																		<input class="form-control" id="pass1" type="text" value="<?php echo $r['admin_password']; ?>">
+																	<div class="row">
+																		<div class="form-gruop col-lg-6">
+																			<label for="user1">Username</label>
+																			<input class="form-control" name="admin_username" type="text" value="<?php echo $r['admin_username']; ?>">
+																		</div>
+																		<div class="form-gruop col-lg-6">
+																			<label for="pass1">Password</label>
+																			<input class="form-control" name="admin_password" type="text" value="<?php echo $r['admin_password']; ?>">
+																		</div>
 																	</div>
-																</div>
-																<div class="row">
-																	<div class="form-group col-lg-6">
-																		<label for="inputState1">ระดับ</label>
-																		<select id="inputState1" class="form-control">
-																			<option selected>Choose...</option>
-																			<option>...</option>
-																		</select>
-																	</div>
-																	<div class="form-gruop col-lg-6 ">
-																		<br>
-																		<div class="form-check">
-																			<label class="form-check-label">
-																				<input type="checkbox" class="form-check-input">
-																				Active
-																			</label><br>
+																	<div class="row">
+																		<div class="form-group col-lg-6">
+																			<label for="inputState1">ระดับ</label>
+																			<select id="inputState1" name="admin_role" class="form-control">
+																				<option selected>
+																					<?php echo $r['role'] ?>
+																				</option>
+																				<?php
+																				$role = $r['role'];
+																				$sql = "SELECT * FROM role WHERE role != '$role' ";
+																				$re_role = mysqli_query($con,$sql);
+																				while($r_role = mysqli_fetch_array($re_role)){
+																					echo '<option>'.$r_role['role'].'</option>';
+																				}
+																			?>
+																			</select>
+																		</div>
+																		<div class="form-gruop col-lg-6 ">
+																			<br>
+																			<div class="form-check">
+																				<label class="form-check-label">
+																					<?php 
+																					if($r['status'] == 1){
+																						echo '<input type="checkbox" name="admin_check" class="form-check-input" checked>';
+																					}else{
+																						echo '<input type="checkbox" name="admin_check" class="form-check-input">';
+																					}
+																				?>
+																					Active
+																				</label><br>
+																			</div>
 																		</div>
 																	</div>
 																</div>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																<button type="button" class="btn btn-primary btn-sm">Save changes</button>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+																</div>
 															</div>
 														</div>
-													</div>
+													</form>
 												</div>
 												<!--end modal 2-->
 
 
 												<!-- Small modal -->
-												<div class="modal fade bd-example-modal-sm" id="del_<?php echo $r['admin_id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-													<div class="modal-dialog modal-sm">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title">ลบข้อมูล <?php echo $r['admin_id']; ?></h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-
-															<div class="modal-footer">
-																<button type="button" class="btn btn-danger btn-sm">Yes</button>
-																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+												<div class="modal fade bd-example-modal-sm" id="del_<?php echo $r['admin_id']; ?>" tabindex="-1" role="dialog"
+												 aria-hidden="true">
+													<form action="server/del_admin.php" method="post">
+														<div class="modal-dialog modal-sm">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title">ลบข้อมูล
+																		<?php echo $r['admin_id']; ?>
+																	</h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<input type="hidden" name="del_id" value="<?php echo $r['admin_id']; ?>">
+																<div class="modal-footer">
+																	<button type="submit" class="btn btn-danger btn-sm">Yes</button>
+																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+																</div>
 															</div>
 														</div>
-													</div>
+													</form>
 												</div>
 												<!--end modal 3-->
 											</td>

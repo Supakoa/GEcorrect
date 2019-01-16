@@ -20,25 +20,24 @@
     $re = mysqli_query($con,$sql);
     if(mysqli_fetch_array($re) > 0){
         $_SESSION['alert'] = 17;
-        header("Location: dataadmin.php");
+        header("Location: ../dataadmin.php");
         exit();
-    }else{
+    } else {
+        // insert in to database
+        $sql = " INSERT INTO admin ( admin_id , admin_name , admin_username , admin_password , role , status )
+        VALUES ( '$id' , '$name' , '$username' , '$password' , '$role' , '$check' ) ";
+        $re = mysqli_query($con,$sql);
+        
+        if($re){
+            $_SESSION['alert'] = 3;
+        }else{
+            $_SESSION['alert'] = 4;
+        }
 
+        // return to dataadmin.php
+        header("Location: ../dataadmin.php");
+        exit();
     }
-
-    // insert in to database
-    $sql = " INSERT INTO admin ( admin_id , admin_name , admin_username , admin_password , role , status )
-            VALUES ( '$id' , '$name' , '$username' , '$password' , '$role' , '$check' ) ";
-    $re = mysqli_query($con,$sql);
-    if($re){
-        $_SESSION['alert'] = 3;
-    }else{
-        $_SESSION['alert'] = 4;
-    }
-
-    // return to dataadmin.php
-    header("Location: ../dataadmin.php");
-    exit();
 
     // echo check
     echo $id.'<br>'.$name.'<br>'.$username.'<br>'.$password.'<br>'.$role.'<br>'.$check.'<br>';
