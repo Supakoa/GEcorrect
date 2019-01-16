@@ -4,6 +4,8 @@
 
 	$sql = "SELECT * FROM admin";
 	$re = mysqli_query($con,$sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -316,6 +318,9 @@
 		} );		
 	</script>
 <!-- END Java Script for this page -->
+
+<!-- alert all -->
+<?php require '../alert.php'; ?>
 
 </body>
 </html>
