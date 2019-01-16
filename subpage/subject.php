@@ -113,7 +113,7 @@
 			<div class="container-fluid"><!--container-fluid -->
 					<div class="card md-3">
 						<div class="card-header">
-							<h4 class="text-center">วิชาทที่สอบ</h4>
+							<h4 class="text-center">วิชาที่สอบ</h4>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
