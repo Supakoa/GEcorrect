@@ -65,7 +65,7 @@ if(isset($_POST['term'])){
 						<div class="container">
 							<div class="card">
 								<div class="card-body">
-								<form action="imgroup.php" method="post" id = "form1" class = "formsingha">
+								<form action="imgroup.php" method="post" id = "form1" class ="formsingha"><!-- FORM WOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW-->
 									<div class="row"><!-- filter -->
 										<div class="col-md-2">
 											<label for="term">เทอม</label>
@@ -145,7 +145,6 @@ if(isset($_POST['term'])){
 							<div class="card">
 								<div class="row"><!-- row all -->
 									<div class="col-lg-12">
-										<form action="">
 											<div class="row">
 												<div class="col-lg-6" style="border-right: 1px solid #DFDFDF;"><!-- row tablet -->
 													<div style="card-header ">
@@ -192,7 +191,7 @@ if(isset($_POST['term'])){
 													</div>
 												</div><!--end row computer -->
 											</div>
-										</form>
+										</form><!-- FORM WOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW-->
 									</div>
 									<div class="col-lg-12"><!-- buttom -->
 										<div class="row">
