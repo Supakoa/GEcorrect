@@ -61,8 +61,8 @@ if(isset($_POST['gogo'])){
 												<option>2</option>
 											</select>
 										</div>
-										<div class="col-md-1">
-											<br><br><center><label style="text-align:center;">/</label></center>
+										<div class="col-md-1 text-center">
+											<br><br><label style="text-align:center;">/</label>
 										</div>
 											<div class="col-md-3">
 												<label for="year">ปีการศึกษา</label>
@@ -120,89 +120,80 @@ if(isset($_POST['gogo'])){
 											</div>
 										</div>
 									</div><!--end filter -->
-								</div>
-							</div>
-							<hr>
-							<div class="card">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="card-body">
-											<div style="text-align:center;">
-												<h3>Tablet</h3>
-											</div>
-											<form action="imgroup.php" method="post">
-											<div class="row" id = "eiei"><!-- row -->
-												<div class="col-md-4 form-group"><!-- room & Value -->
-													<label for="room">ห้อง</label>
-														<select name="room[]" id="room" class="form-control select2">
-															<option>1701</option>
-															<option>1702</option>
-															<option>3111</option>
-														</select><hr>		
-												</div>
-												<div class="col-md-4"></div>
-												<div class="col-md-4 form-group">
-													<label for="value">จำนวน</label>
-													<input id="value" class="form-control" type="text" name = "text[]" placeholder="1."><hr>
-												</div><!--end room & Value -->
-											
-											</div><!--end row -->
-											<div class = "come"></div>
-											<button type="submit"name ="gogo">gogo</button>
-											</form>
-											
-											<div class="row">
-
-												<div class="col-md-4"></div><!-- button add collum -->
-														<div class="col-md-4 text-center">
-															<button class="btn btn-sm btn-info" id="btn1"><i class="fa fa-plus"></i></button>
-														</div>
-													<div class="col-md-4"></div><!-- end button add collum -->
-												</div>
-												
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="card-body">
-											<div style="text-align:center;">
-												<h3>Computer</h3>
-											</div>
-											<div class="row"><!-- row -->
-												<div class="col-md-4 form-group"><!-- room & Value -->
-													<label for="room">ห้อง</label>
-														<select name="" id="room" class="form-control select2">
-															<option>1701</option>
-															<option>1702</option>
-															<option>3111</option>
-														</select><hr>
-														<select name="" class="form-control select2">
-																		<option>1701</option>
-																		<option>1702</option>
-																		<option>3111</option>
-														</select><hr>
-												</div>
-												<div class="col-md-4"></div>
-												<div class="col-md-4 form-group">
-													<label for="value">จำนวน</label>
-													<input id="value" class="form-control" type="text" placeholder="1."><hr>
-													<input  class="form-control" type="text" placeholder="2."><hr>
-												</div><!--end room & Value -->
-
-												<div class="col-md-4"></div><!-- button add collum -->
-													<div class="col-md-4 text-center">
-														<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
-													</div>
-												<div class="col-md-4"></div><!-- end button add collum -->
-											</div><!--end row -->
-											
-										</div>
-									</div>
-								</div>
-								<hr>
 									<div class="text-center"><!-- up file -->
 										<input class="btn btn-md" type="file">
 										<button id="btn2" class="btn btn-sm btn-success" type="submit">submit</button>
 									</div><!--end up file -->
+								</div>
+							</div>
+							<hr>
+							<div class="card">
+								<div class="row"><!-- row all -->
+									<div class="col-lg-12">
+										<form action="">
+											<div class="row">
+												<div class="col-lg-6" style="border-right: 1px solid #DFDFDF;"><!-- row tablet -->
+													<div style="card-header ">
+														<h3 class="text-center">Tablet</h3>
+													</div>
+													<div class="card-body" >
+														<div class="row" >
+															<div class="col-md-4 form-group"><!-- room & Value -->
+																<label for="room">ห้อง</label>
+																	<select name="room[]" id="room" class="form-control select2">
+																		<option>1701</option>
+																		<option>1702</option>
+																		<option>3111</option>
+																	</select><hr>		
+															</div>
+															<div class="col-md-4"></div>
+															<div class="col-md-4 form-group">
+																<label for="value">จำนวน</label>
+																<input id="value" class="form-control" type="text" name = "text[]" placeholder="1."><hr>
+															</div><!--end room & Value -->
+														</div>
+													</div>
+												</div><!--end row computer -->
+												<div class="col-lg-6"><!-- row computer -->
+													<div style="card-header ">
+														<h3 class="text-center">Computer</h3>
+													</div>
+													<div class="card-body" >
+														<div class="row" >
+															<div class="col-md-4 form-group"><!-- room & Value -->
+																<label for="room1">ห้อง</label>
+																	<select name="room[]" id="room1" class="form-control select2">
+																		<option>1701</option>
+																		<option>1702</option>
+																		<option>3111</option>
+																	</select><hr>		
+															</div>
+															<div class="col-md-4"></div>
+															<div class="col-md-4 form-group">
+																<label for="value1">จำนวน</label>
+																<input id="value1" class="form-control" type="text" name = "text[]" placeholder="1."><hr>
+															</div><!--end room & Value -->
+														</div>
+													</div>
+												</div><!--end row computer -->
+											</div>
+										</form>
+									</div>
+									<div class="col-lg-12"><!-- buttom -->
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="text-center">
+													<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
+												</div><br>
+											</div>
+											<div class="col-lg-6">
+												<div class="text-center">
+													<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
+												</div><br>
+											</div>
+										</div>
+									</div><!--end buttom -->
+								</div><!--end row all -->
 							</div>
 						</div>
 				</div><!-- end card-body -->

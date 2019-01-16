@@ -55,11 +55,18 @@
 						<div class="card-body">
 							<div class="card">
 								<div class="card-body">
-									<div class="container text-center"><!-- container -->
+									<div class="container"><!-- container -->
+											<div class="row">
+												<div class="col-lg-4"></div>
+												<div class="col-lg-4 text-center">
 										<form method="POST" action="banner.php" >
-											<input class="btn btn-md form-control" type="file" name="image" required/>
-											<br><br><button type="submit" class="btn btn-primary btn-sm" name="submit" >Upload</button>
+												<input class="btn btn-md form-control" type="file" name="image" required/>
+										<br><br><button type="submit" class="btn btn-primary btn-sm" name="submit" >Upload</button>
 										</form>
+												</div>
+												<div class="col-lg-4"></div>
+											</div>
+											
 									</div><br><!--end container -->
 									<div class="container-fluid text-center"><!-- display-->
 										<div class="jumbotron" >
