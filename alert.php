@@ -197,8 +197,44 @@
                 echo "
                     <script>
                         Swal({
+                            type: 'error',
+                            title: 'อัพโหลดได้เฉพาะไฟล์ jpg,png เท่านั้น',
+                            text: 'ลองอัพโหลดใหม่อีกครั้ง.',
+                            // footer: '<a href>Why do I have this issue?</a>'
+                        });                    
+                    </script>";
+            break;
+
+            case '18':
+                echo "
+                    <script>
+                        Swal({
+                            type: 'warning',
+                            title: 'ไม่ได้อยู่ในขอบเขตเวลาที่กำหนด',
+                            text: 'กรุณารอกำหนดการใหม่.',
+                            // footer: '<a href>Why do I have this issue?</a>'
+                        });                    
+                    </script>";
+            break;
+
+            case '19':
+                echo "
+                    <script>
+                        Swal({
                             type: 'warning',
                             title: 'ID นี้ถูกใช้งานไปแล้ว',
+                            text: 'กรุณาใช้ชื่อใหม่.',
+                            // footer: '<a href>Why do I have this issue?</a>'
+                        });                    
+                    </script>";
+            break;
+
+            case '20':
+                echo "
+                    <script>
+                        Swal({
+                            type: 'warning',
+                            title: 'พบข้อมูลซ้ำกันในฐานข้อมูล',
                             text: 'กรุณาใช้ชื่อใหม่.',
                             // footer: '<a href>Why do I have this issue?</a>'
                         });                    
@@ -213,3 +249,26 @@
     }
     unset($_SESSION['alert']);
 ?>
+<!-- 
+    0,null -> ไม่มีการทำงาน
+    1 -> กรอกข้อมูลผิดพลาด
+    2 -> กรุณาเข้าสู่ระบบ
+    3 -> เพิ่มข้อมูลสำเร็จ
+    4 -> เพิ่มข้อมูลไม่สำเร็จ
+    5 -> ใส่ชื่ผู้ตรวจซ้ำกัน
+    6 -> email , password ไม่ตรงกัน
+    7 -> email , con-email ไม่ตรงกัน
+    8 -> pass , con-pass ไม่ตรงกัน
+    9 -> username ถูกใช้งานไปแล้ว
+    10 -> แก้ไขข้อมูลสำเร็จ
+    11 -> แก้ไขข้อมูลไม่สำเร็จ
+    12 -> ลบข้อมูลสำเร็จ
+    13 -> ลบข้อมูลไม่สำเร็จ
+    14 -> กรอกข้อมูลไม่ถูกต้อง (login)
+    15 -> ไฟล์อัพใหญ่เกิน 60 MB
+    16 -> อนุญาติเฉพาะไฟล์ PDF
+    17 -> อนุญาติเฉพาะไฟล์ jpg , png
+    18 -> ไม่ได้อยู่ในขอบเขตเวลาที่กำหนด
+    19 -> ID ถูกใช้งานไปแล้ว
+    20 -> พบข้อมูลที่ซ้ำกันในฐานข้อมูล
+ -->
