@@ -1,11 +1,24 @@
 <?php
+require 'server/server.php';
+
+
+$q_sub = "SELECT * FROM `subject` order by `subject_id`";
+$re_sub = mysqli_query($con,$q_sub);
 $i = 0;
-$sum = "";
-while ($i < 10) {
-    $sum.="<option>" . $i . "</option>";
+$option_sub = '<option hidden selected  value="">เลือกวิชา</option>';
+while ($row_sub =  mysqli_fetch_array($re_sub)) {
+    $option_sub.="<option>" . $row_sub['subject_id'] ." : ".$row_sub['subject_name']. "</option>";
     $i++;
 }
 
+$q_location = "SELECT `name_location` FROM `location_table` order BY `name_location`";
+$re_location = mysqli_query($con,$q_location);
+$j = 0;
+$option_location = '<option hidden selected  value="">สถานที่สอบ</option>';
+while ($row_location =  mysqli_fetch_array($re_location)) {
+    $option_location.="<option> ห้อง " . $row_location['name_location']. "</option>";
+    $j++;
+}
 if (isset($_POST['tab_room'])) {
 
     print_r($_POST['tab_room']);
@@ -18,7 +31,19 @@ if (isset($_POST['tab_room'])) {
     echo "<br>";
     echo $_POST['term'];
     echo "<br>";
-    echo $_POST['time'];
+    echo $_POST['year'];
+    echo "<br>";
+    echo $_POST['sub'];
+    echo "<br>";
+    echo $_POST['group_exam'];
+    echo "<br>";
+    echo $_POST['s_time'];
+    echo "<br>";
+    echo $_POST['e_time'];
+    echo "<br>";
+    echo $_POST['date'];
+    echo "<br>";
+    echo $_POST['type_exam'];
     echo "<br>";
 }
 ?>
@@ -41,10 +66,11 @@ if (isset($_POST['tab_room'])) {
 
         <!-- Font Awesome CSS -->
         <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-
+        
         <!-- Custom CSS -->
         <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
-
+        
+        <link href="dist/bootstrap-clockpicker.min.css" rel="stylesheet" type="text/css" />
         <!-- BEGIN CSS for this page -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
         <!-- END CSS for this page -->
@@ -55,7 +81,7 @@ if (isset($_POST['tab_room'])) {
 
         <div id="main">
 
-            <?php //require 'menu/navmenu.php'  ?>
+            <?php require 'menu/navmenu.php'  ?>
 
 
             <div class="content-page"><!-- content-page -->
@@ -67,7 +93,7 @@ if (isset($_POST['tab_room'])) {
                         </div>
 
                         <div class="card-body"><!-- card-body -->
-                            <form action="imgroup.php" method="post" id = "form1" class ="formsingha" style="background-color: red"><!-- FORM WOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW-->
+                            <form action="imgroup.php" method="post" id = "form1" class ="formsingha" ><!-- FORM WOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW-->
 
                                 <div class="container">
 
@@ -76,9 +102,11 @@ if (isset($_POST['tab_room'])) {
                                             <div class="row"><!-- filter -->
                                                 <div class="col-md-2">
                                                     <label for="term">เทอม</label>
-                                                    <select name="term" class="form-control select2">
+                                                    <select name="term" class="form-control select2" required>
+                                                        <option hidden selected  value="">เลือกเทอม</option>
                                                         <option>1</option>
                                                         <option>2</option>
+                                                        <option>3</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-1 text-center">
@@ -86,52 +114,70 @@ if (isset($_POST['tab_room'])) {
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="year">ปีการศึกษา</label>
-                                                    <select name="year" class="form-control select2">
+                                                    <select name="year" class="form-control select2" required>
+                                                    <option hidden selected  value="">เลือกปีการศึกษา</option>
                                                         <option>2561</option>
-                                                        <option>2560</option>
-                                                        <option>2559</option>
+                                                        <option>2562</option>
+                                                        <option>2563</option>
+                                                        <option>2564</option>
+                                                        <option>2565</option>
+                                                        <option>2566</option>
+                                                        <option>2567</option>
+                                                        <option>2568</option>
+                                                        <option>2569</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="subj">วิชา(รหัส)</label>
-                                                        <select name="subj" class="form-control select2">
-                                                            <option>GEL1101</option>
-                                                            <option>GEL1102</option>
-                                                            <option>GEL1103</option>
+                                                        <label for="sub">วิชา(รหัส)</label>
+                                                        <select name="sub" class="form-control select2" required>
+                                                            <?php echo $option_sub ?>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="group">กลุ่มเรียน</label>
-                                                        <select name="group" class="form-control select2">
-                                                            <option>101</option>
-                                                            <option>201</option>
-                                                            <option>302</option>
-                                                        </select>
+                                                        <input name = "group_exam" type="text "  placeholder = "กรอกกลุ่มเรียน" maxlength="3"  class="form-control" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="time">เวลา</label>
-                                                        <select name="time" class="form-control select2">
-                                                            <option>08.00 - 11.00 น.</option>
-                                                            <option>11.00 - 14.00 น.</option>
-                                                            <option>14.00 - 17.00 น.</option>
-                                                        </select>
+                                                    <label for="time">เวลา เริ่ม - สิ้นสุด</label>
+                                                        <div class ="row" >
+                                                            <div class="col-md-5">
+                                                                <div class="input-group clockpicker" data-autoclose="true"  data-placement="left"  data-default = '00.00'>
+                                                                    <input type="text" class="form-control" name = "s_time" placeholder = "เวลาเริ่มต้น" required >
+                                                                        <span class="input-group-addon">
+                                                                            <span class="glyphicon glyphicon-time"></span>
+                                                                        </span>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-2 text-center"><label style="text-align:center;">ถึง</label></div>
+                                                            <div class="col-md-5">
+                                                                <div class="input-group clockpicker" data-autoclose="true"   data-placement="right"  data-default = '00.00'>
+                                                                    <input type="text" class="form-control" name = "e_time" placeholder = "เวลาสิ้นสุด" required>
+                                                                        <span class="input-group-addon">
+                                                                            <span class="glyphicon glyphicon-time"></span>
+                                                                        </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="date">วันที่</label>
-                                                        <input name="date" type="date" class="form-control " name="">
+                                                        <input name="date" type="date" class="form-control " name="date" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="cate">ประเภท</label>
-                                                        <select name="cate" class="form-control select2">
+                                                        <label for="type">ประเภท</label>
+                                                        <select name = "type_exam" class="form-control select2" required>
+                                                        <option hidden selected  value="">เลือกประเภท</option>
                                                             <option>กลางภาค</option>
                                                             <option>ปลายภาค</option>
                                                             <option>แก้ไอ</option>	
@@ -156,19 +202,18 @@ if (isset($_POST['tab_room'])) {
                                                         <div style="card-header ">
                                                             <h3 class="text-center">Tablet</h3>
                                                         </div>
-                                                        <div class="card-body" >
-
-                                                            <div class="row form-group" id = "tablet" >
-                                                                <div class="col-md-4"><!-- room & Value -->
+                                                        <div class="card-body "  id = "tablet_main">
+                                                            <div class="row form-group">
+                                                                <div class="col-md-4" ><!-- room & Value -->
                                                                     <label for="room">1.ห้อง</label>
-                                                                    <select name='tab_room[]'  class="form-control select2">
-                                                                        <?php echo $sum ?>
+                                                                    <select name='tab_room[]'  class="form-control select2" required>
+                                                                        <?php echo $option_location ?>
                                                                     </select>		
                                                                 </div>
                                                                 <div class="col-md-4"></div>
                                                                 <div class="col-md-4 ">
                                                                     <label for="value">จำนวน</label>
-                                                                    <input  class="form-control" type="number" min="0" name = "tab_num[]" >
+                                                                    <input  class="form-control" type="number" min="0" name = "tab_num[]" required >
                                                                 </div><!--end room & Value -->
                                                             </div>
                                                         </div>
@@ -177,18 +222,18 @@ if (isset($_POST['tab_room'])) {
                                                         <div style="card-header ">
                                                             <h3 class="text-center">Computer</h3>
                                                         </div>
-                                                        <div class="card-body" >
+                                                        <div class="card-body" id = "computer_main" >
                                                             <div class="row form-group" id ="computer" >
                                                                 <div class="col-md-4 " ><!-- room & Value -->
                                                                     <label for="room1">1.ห้อง</label>
-                                                                    <select name="com_room[]"  class="form-control select2">
-                                                                        <?php echo $sum ?>
+                                                                    <select name="com_room[]"  class="form-control select2" required>
+                                                                        <?php echo $option_location ?>
                                                                     </select>	
                                                                 </div>
                                                                 <div class="col-md-4"></div>
                                                                 <div class="col-md-4">
                                                                     <label for="value1">จำนวน</label>
-                                                                    <input class="form-control" type="number" min="0" name = "com_num[]" >
+                                                                    <input class="form-control" type="number" min="0" name = "com_num[]" required >
                                                                 </div><!--end room & Value -->
                                                             </div>
                                                         </div>
@@ -202,17 +247,26 @@ if (isset($_POST['tab_room'])) {
                                                     <div class="col-lg-6">
                                                         <div class="text-center">
                                                             <a class="btn btn-sm btn-info" id = "btn1"><i class="fa fa-plus"></i></a>
+                                                            
+                                                            <a class="btn btn-sm btn-danger" id = "btn11"> X </a>
                                                         </div><br>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="text-center">
                                                             <a class="btn btn-sm btn-info" id = "btn2"><i class="fa fa-plus"></i></a>
+                                                            <a class="btn btn-sm btn-danger" id = "btn22"> X </i></a>
                                                         </div><br>
                                                     </div>
                                                 </div>
                                             </div><!--end buttom -->
-
-                                            <button class="btn btn-sm btn-success" id = "submit" type="submit">submit</button>
+                                            <div class="col-lg-12">
+                                                <div class="text-center">
+                                                <hr>
+                                                    <button class="btn btn-xm btn-success text-center" id = "submit" type="submit">submit</button>
+                                                    <br><br>
+                                                </div><!--end row all -->
+                                            </div>
+                                            
                                         </div><!--end row all -->
                                     </div>
 
@@ -258,40 +312,60 @@ if (isset($_POST['tab_room'])) {
         <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
+        <script type="text/javascript" src="dist/bootstrap-clockpicker.min.js"></script>
+        <script type="text/javascript">
+$('.clockpicker').clockpicker();
+</script>
         <script>
 
                     $(document).ready(function () {
             // data-tables
             $('#example1').DataTable();
                     $('.select2').select2();
-            });        </script>
+            });   
+        
+         </script>
         <script>
 
                     $(document).ready(function(){
-            var i = 1;
-                    var j = 1;
-                    var sum = '<?php echo $sum ?>'
-                    $("#btn1").click(function(){
-            $("#tablet").append(function(){
-            i++;
-                    var tablet = '';
-                    tablet += '<div class="col-md-4"><label for="room">' + i + '.ห้อง</label><select name="tab_room[]" class="form-control select2">' + sum + '</select></div><div class="col-md-4"></div><div class="col-md-4 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "tab_num[]"></div><!--end room & Value -->';
-                    return tablet;
-            });
-            });
-                    $("#btn2").click(function(){
-            $("#computer").append(function(){
-                 j++;
-                                var computer = '';
-                                computer += '<div class="col-md-4"><label for="room">' + j + '.ห้อง</label><select name="com_room[]"  class="form-control select2">' + sum + '</select></div><div class="col-md-4"></div><div class="col-md-4 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "com_num[]"></div><!--end room & Value -->';
-                return computer;
-        });
-  });
+                        var i = 1;
+                        var j = 1;
+                        var sum = '<?php echo $option_location; ?>'
+                            $("#btn1").click(function(){
+                                 $("#tablet_main").append(function(){
+                                        i++;
+                                        var tablet = '';
+                                        tablet += '<div class="row form-group" id = "tablet" ><div class="col-md-4 "> <label  for="room">' + i + '.ห้อง</label><select name="tab_room[]" class="form-control select2" required>' + sum + '</select></div><div class="col-md-4"></div><div class="col-md-4 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "tab_num[]" required></div></div>';
+                                        return tablet;
+                                 });
+                             });
+                            $("#btn2").click(function(){
+                                $("#computer_main").append(function(){
+                                     j++;
+                                    var computer = '';
+                                    computer += '<div class="row form-group" id ="computer" ><div class="col-md-4 "><label for="room">' + j + '.ห้อง</label><select name="com_room[]"  class="form-control select2" required>' + sum + '</select></div><div class="col-md-4"></div><div class="col-md-4 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "com_num[]" required ></div></div><!--end room & Value -->';
+                                    return computer;
+                                });
+                            });
 
  
-  $("#submit").click(function(){
-    $("#form1").submit();
-  });
+                            $("#submit").click(function(){
+                                $("#form1").submit();
+                            });
+                            $("#btn11").click(function(){
+                                if(i>1){
+                                    i--;
+                                }
+                                
+                                $("#tablet:last-child").remove();
+                            });
+                            $("#btn22").click(function(){
+                                if(j>1){
+                                    j--;
+                                }
+                                $("#computer:last-child").remove();
+                            });
 });
         </script>
 
