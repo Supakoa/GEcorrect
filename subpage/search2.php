@@ -1,3 +1,30 @@
+<?php 
+require 'server/server.php';
+$q_sub = "SELECT * FROM `subject` order by `subject_id`";
+$re_sub = mysqli_query($con, $q_sub);
+$i = 0;
+$option_sub = '<option hidden selected  value="">เลือกวิชา</option>';
+while ($row_sub = mysqli_fetch_array($re_sub)) {
+    $option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
+    $i++;
+}
+if(isset($_POST['gogo'])){
+	$term = $_POST['term'];
+	$year = $_POST['year'];
+	$subject = $_POST['subject'];
+	$group_exam = $_POST['group_exam'];
+	$q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type,detail.day,detail.time_start ,detail.time_end 
+FROM `room_detail`,`detail` WHERE detail.detail_id = room_detail.detail_id 
+AND detail.term LIKE '$term%' AND detail.year LIKE '$year%' AND room_detail.sub_id LIKE '$subject%' AND room_detail.sub_group LIKE '$group_exam%' GROUP BY detail.detail_id";
+$re_show = mysqli_query($con, $q_show);
+}
+else{
+	$q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type 
+FROM `room_detail`,`detail` WHERE 0";
+$re_show = mysqli_query($con, $q_show);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +57,7 @@
 
 <div id="main">
 
-	<?php require 'menu/navmenu.php'; ?>
+	<?php// require 'menu/navmenu.php'; ?>
 
 
     <div class="content-page"><!-- start content-page-->
@@ -40,6 +67,7 @@
 						<h4 class="text-center">ค้นหาแบบกลุ่มสอบ</h4>
 					</div>
 					<div class="card-body">
+					<form action="search2.php" method="post">
 						<div class="container"><!-- container -->
 							<div class="row"><!-- row -->
 								<div class="col-lg-8">
@@ -48,9 +76,11 @@
 											<div class="row">
 												<div class="col-md-3">
 													<label for="term">เทอม</label>
-													<select id="term" class="form-control select2">
+													<select name="term" class="form-control select2">
+													<option hidden selected  value="">เทอม</option>
 															<option>1</option>
 															<option>2</option>
+															<option>3</option>
 													</select>
 												</div>
 												<div class="col-md-1">
@@ -58,27 +88,29 @@
 												</div>
 												<div class="col-md-7">
 													<label for="year">ปีการศึกษา</label>
-														<select id="year" class="form-control select2">
-															<option>2561</option>
-															<option>2560</option>
-															<option>2559</option>
+														<select name="year" class="form-control select2">
+														<option hidden selected  value="">เลือกปีการศึกษา</option>
+														<option>2561</option>
+                                                        <option>2562</option>
+                                                        <option>2563</option>
+                                                        <option>2564</option>
+                                                        <option>2565</option>
+                                                        <option>2566</option>
+                                                        <option>2567</option>
+                                                        <option>2568</option>
+                                                        <option>2569</option>
 														</select>
 												</div>
 												<div class="col-md-7">
 													<label for="subject">วิชา</label>
-													<select name="" id="subject" class="form-control select2">
-														<option>GEL1101</option>
-														<option>GRL1102</option>
-														<option>GEL2203</option>
+													<select name="subject" class="form-control select2">
+													<option hidden selected  value="">เลือกวิชา</option>
+														<?php echo $option_sub ?>
 													</select>
 												</div>
 												<div class="col-md-7">
 													<label for="group">กลุ่มเรียน</label>
-														<select name="" id="group" class="form-control select2">
-															<option>001</option>
-															<option>002</option>
-															<option>003</option>
-														</select>
+													<input name = "group_exam" type="text"  placeholder = "กรอกกลุ่มเรียน" maxlength="3"  class="form-control" >
 												</div>
 											</div>
 										</div>
@@ -89,6 +121,8 @@
 									<button class="btn btn-sm btn-success" type="submit">submit</button>
 								</div>
 						</div><!--end container -->
+						<input type="hidden" name="gogo">
+						</form>
 					</div>
 				</div>
 								<div class="card"><!-- card 2 -->
@@ -120,23 +154,27 @@
 															</div><!--end modal -->
 													<tr>
 														<th></th>
+														<th>เทอม</th>
 														<th>ปีการศึกษา</th>
+														<th>วิชา</th>
 														<th>กลุ่มเรียน</th>
-														<th>เวลา</th>
 														<th>วันที่</th>
+														<th>เวลา</th>
 														<th>ประเภท</th>
 														<th></th>
 													</tr>
 												</thead>
 												<tbody>
+												<?php while ($row_show = mysqli_fetch_array($re_show)){ ?>
 													<tr>
+													
 														<td>
 															<div class="text-center">
 																<a role="button" href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#info">
 																	<i class="fa fa-file"></i></a><!-- modal 0 -->
 																<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
 																	<i class="fa fa-pencil"></i></a><!-- modal 1 -->
-																<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm">
+																<a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete">
 																	<i class="fa fa-minus"></i></a><!-- modal 2 -->
 
 															</div>
@@ -292,7 +330,7 @@
 															</div><!--end modal 1-->
 
 															<!-- Small modal 2-->
-															<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+															<div class="modal fade bd-example-modal-sm" id = "delete" tabindex="-1" role="dialog" aria-hidden="true">
 																<div class="modal-dialog modal-sm">
 																	<div class="modal-content">
 																		<div class="modal-header">
@@ -310,17 +348,39 @@
 																</div>
 															</div><!--end modal 2-->
 														</td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
+														<td><?php echo $row_show['term'] ?></td>
+														<td><?php echo $row_show['year'] ?></td>
+														<td>
+															<?php
+															$de_id =  $row_show['detail_id'];
+															$q_check = "SELECT `sub_id` FROM `room_detail` WHERE `detail_id` = '$de_id' GROUP BY `sub_id` ";
+															$re_check = mysqli_query($con, $q_check);
+															$num_check = 0;
+															while($row_check = mysqli_fetch_array($re_check)){
+																$num_check++;
+															}
+
+															if($num_check>1){
+																echo "หลายวิชา";
+															}
+															else{
+																echo $row_show['sub_id'] ;
+															}
+																
+																
+															?>
+														</td>
+														<td><?php echo $row_show['sub_group'] ?></td>
+														<td><?php echo $row_show['day'] ?></td>
+														<td><?php echo $row_show['time_start']." - ". $row_show['time_end'] ?></td>
+														<td><?php echo $row_show['type'] ?></td>
 														<td class="text-center">
 															<div class="form-check">
 																<input type="checkbox" class="form-check-input">
 															</div>
 														</td>
 													</tr>
+												<?php } ?>
 												</tbody>
 											</table>
 										</div><!-- end table -->

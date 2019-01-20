@@ -8,7 +8,7 @@
 		$re = mysqli_query($con,$sql);
 	}else{
 		$search = $_SESSION['search'];
-		$sql = "SELECT * FROM student WHERE std_id = '$search' ";
+		$sql = "SELECT * FROM student WHERE std_id LIKE '$search%' ";
     	$re = mysqli_query($con,$sql);
 	}
 
