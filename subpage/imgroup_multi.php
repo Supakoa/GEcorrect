@@ -1,50 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<title>Admin Template-นำเข้าข้อมูลแบบกลุ่ม</title>
-		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
-		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
+	<title>Admin Template-นำเข้าข้อมูลแบบกลุ่ม</title>
+	<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
+	<meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
-		<!-- Bootstrap CSS -->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Font Awesome CSS -->
-		<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Custom CSS -->
-		<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
-		
-		<!-- BEGIN CSS for this page -->
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
-		<!-- END CSS for this page -->
-		
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- Font Awesome CSS -->
+	<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- Custom CSS -->
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+
+	<!-- BEGIN CSS for this page -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+	<!-- END CSS for this page -->
+
 </head>
 
 <body class="adminbody">
 
-<div id="main">
+	<div id="main">
 
-	<?php require 'menu/navmenu.php' ?>
+		<?php require 'menu/navmenu.php' ?>
 
 
-    <div class="content-page"><!-- content-page -->
+		<div class="content-page">
+			<!-- content-page -->
 
-		<div class="content"><!-- content -->
-			<div class="card mb-3">
-				<div class="card-header">
-					<h4 class="text-center">นำเข้าข้อมูลแบบกลุ่มเรียน (หลายวิชา)</h4>
-				</div>
-				<div class="card-body"><!-- card-body -->
+			<div class="content">
+				<!-- content -->
+				<div class="card mb-3">
+					<div class="card-header">
+						<h4 class="text-center">นำเข้าข้อมูลแบบกลุ่มเรียน (หลายวิชา)</h4>
+					</div>
+					<div class="card-body">
+						<!-- card-body -->
 						<div class="container">
 							<div class="card">
 								<div class="card-body">
-									<div class="row"><!-- filter -->
+									<div class="row">
+										<!-- filter -->
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="year">ปีการศึกษา</label>
@@ -87,12 +92,13 @@
 												<select id="cate" class="form-control select2">
 													<option>กลางภาค</option>
 													<option>ปลายภาค</option>
-                                                    <option>แก้ไอ</option>	
-                                                    <option>ย้อนหลัง</option>											
-                                                </select>
+													<option>แก้ไอ</option>
+													<option>ย้อนหลัง</option>
+												</select>
 											</div>
 										</div>
-									</div><!--end filter -->
+									</div>
+									<!--end filter -->
 								</div>
 							</div>
 							<hr>
@@ -103,47 +109,57 @@
 											<div style="text-align:center;">
 												<h3>Tablet</h3>
 											</div>
-											<div class="row"><!-- row -->
-												<div class="col-md-4 form-group"><!-- room & Value -->
+											<div class="row">
+												<!-- row -->
+												<div class="col-md-4 form-group">
+													<!-- room & Value -->
 													<label for="room">ห้อง</label>
-														<select name="" id="room" class="form-control select2">
-															<option>1701</option>
-															<option>1702</option>
-															<option>3111</option>
-														</select><hr>
-														<select name="" class="form-control select2">
-																		<option>1701</option>
-																		<option>1702</option>
-																		<option>3111</option>
-														</select><hr>
+													<select name="" id="room" class="form-control select2">
+														<option>1701</option>
+														<option>1702</option>
+														<option>3111</option>
+													</select>
+													<hr>
+													<select name="" class="form-control select2">
+														<option>1701</option>
+														<option>1702</option>
+														<option>3111</option>
+													</select>
+													<hr>
 												</div>
 												<div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="subj">วิชา(รหัส)</label>
-                                                        <select id="subj" class="form-control select2">
-                                                            <option>GEL1101</option>
-                                                            <option>GEL1102</option>
-                                                            <option>GEL1103</option>
-                                                        </select><hr>
-                                                        <select id="subj" class="form-control select2">
-                                                            <option>GEL1101</option>
-                                                            <option>GEL1102</option>
-                                                            <option>GEL1103</option>
-                                                        </select><hr>
-                                                    </div>
-                                                </div>
+													<div class="form-group">
+														<label for="subj">วิชา(รหัส)</label>
+														<select id="subj" class="form-control select2">
+															<option>GEL1101</option>
+															<option>GEL1102</option>
+															<option>GEL1103</option>
+														</select>
+														<hr>
+														<select id="subj" class="form-control select2">
+															<option>GEL1101</option>
+															<option>GEL1102</option>
+															<option>GEL1103</option>
+														</select>
+														<hr>
+													</div>
+												</div>
 												<div class="col-md-4 form-group">
 													<label for="value">จำนวน</label>
-													<input id="value" class="form-control" type="text" placeholder="1."><hr>
-													<input  class="form-control" type="text" placeholder="2."><hr>
-												</div><!--end room & Value -->
+													<input id="value" class="form-control" type="text" placeholder="1.">
+													<hr>
+													<input class="form-control" type="text" placeholder="2.">
+													<hr>
+												</div>
+												<!--end room & Value -->
 
 												<div class="col-md-4"></div><!-- button add collum -->
-													<div class="col-md-4 text-center">
-														<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
-													</div>
+												<div class="col-md-4 text-center">
+													<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
+												</div>
 												<div class="col-md-4"></div><!-- end button add collum -->
-											</div><!--end row -->
+											</div>
+											<!--end row -->
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -151,106 +167,120 @@
 											<div style="text-align:center;">
 												<h3>Computer</h3>
 											</div>
-											<div class="row"><!-- row -->
-												<div class="col-md-4 form-group"><!-- room & Value -->
+											<div class="row">
+												<!-- row -->
+												<div class="col-md-4 form-group">
+													<!-- room & Value -->
 													<label for="room">ห้อง</label>
-														<select name="" id="room" class="form-control select2">
-															<option>1701</option>
-															<option>1702</option>
-															<option>3111</option>
-														</select><hr>
-														<select name="" class="form-control select2">
-																		<option>1701</option>
-																		<option>1702</option>
-																		<option>3111</option>
-														</select><hr>
+													<select name="" id="room" class="form-control select2">
+														<option>1701</option>
+														<option>1702</option>
+														<option>3111</option>
+													</select>
+													<hr>
+													<select name="" class="form-control select2">
+														<option>1701</option>
+														<option>1702</option>
+														<option>3111</option>
+													</select>
+													<hr>
 												</div>
 												<div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="subj">วิชา(รหัส)</label>
-                                                        <select id="subj" class="form-control select2">
-                                                            <option>GEL1101</option>
-                                                            <option>GEL1102</option>
-                                                            <option>GEL1103</option>
-                                                        </select><hr>
-                                                        <select id="subj" class="form-control select2">
-                                                            <option>GEL1101</option>
-                                                            <option>GEL1102</option>
-                                                            <option>GEL1103</option>
-                                                        </select><hr>
-                                                    </div>
-                                                </div>
+													<div class="form-group">
+														<label for="subj">วิชา(รหัส)</label>
+														<select id="subj" class="form-control select2">
+															<option>GEL1101</option>
+															<option>GEL1102</option>
+															<option>GEL1103</option>
+														</select>
+														<hr>
+														<select id="subj" class="form-control select2">
+															<option>GEL1101</option>
+															<option>GEL1102</option>
+															<option>GEL1103</option>
+														</select>
+														<hr>
+													</div>
+												</div>
 												<div class="col-md-4 form-group">
 													<label for="value">จำนวน</label>
-													<input id="value" class="form-control" type="text" placeholder="1."><hr>
-													<input  class="form-control" type="text" placeholder="2."><hr>
-												</div><!--end room & Value -->
+													<input id="value" class="form-control" type="text" placeholder="1.">
+													<hr>
+													<input class="form-control" type="text" placeholder="2.">
+													<hr>
+												</div>
+												<!--end room & Value -->
 
 												<div class="col-md-4"></div><!-- button add collum -->
-													<div class="col-md-4 text-center">
-														<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
-													</div>
+												<div class="col-md-4 text-center">
+													<button class="btn btn-sm btn-info"><i class="fa fa-plus"></i></button>
+												</div>
 												<div class="col-md-4"></div><!-- end button add collum -->
-											</div><!--end row -->
-											
+											</div>
+											<!--end row -->
+
 										</div>
 									</div>
 								</div>
 								<hr>
-									<div class="text-center"><!-- up file -->
-										<input class="btn btn-md" type="file">
-										<button class="btn btn-sm btn-success" type="submit">submit</button>
-									</div><!--end up file -->
+								<div class="text-center">
+									<!-- up file -->
+									<input class="btn btn-md" type="file">
+									<button class="btn btn-sm btn-success" type="submit">submit</button>
+								</div>
+								<!--end up file -->
 							</div>
 						</div>
-				</div><!-- end card-body -->
+					</div><!-- end card-body -->
+				</div>
 			</div>
-		</div><!--end content-->
+			<!--end content-->
 
-    </div>
-	<!-- END content-page -->
-    
-	<footer class="footer">
-		
-	</footer>
+		</div>
+		<!-- END content-page -->
 
-</div>
-<!-- END main -->
+		<footer class="footer">
 
-<script src="assets/js/modernizr.min.js"></script>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/moment.min.js"></script>
-		
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+		</footer>
 
-<script src="assets/js/detect.js"></script>
-<script src="assets/js/fastclick.js"></script>
-<script src="assets/js/jquery.blockUI.js"></script>
-<script src="assets/js/jquery.nicescroll.js"></script>
+	</div>
+	<!-- END main -->
 
-<!-- App js -->
-<script src="assets/js/pikeadmin.js"></script>
+	<script src="assets/js/modernizr.min.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/moment.min.js"></script>
 
-<!-- BEGIN Java Script for this page -->
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+
+	<script src="assets/js/detect.js"></script>
+	<script src="assets/js/fastclick.js"></script>
+	<script src="assets/js/jquery.blockUI.js"></script>
+	<script src="assets/js/jquery.nicescroll.js"></script>
+
+	<!-- App js -->
+	<script src="assets/js/pikeadmin.js"></script>
+
+	<!-- BEGIN Java Script for this page -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
 	<!-- Counter-Up-->
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
-	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
+	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
 
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function () {
 			// data-tables
 			$('#example1').DataTable();
-    		$('.select2').select2();
+			$('.select2').select2();
 
-		} );		
+		});
 	</script>
-	
-<!-- END Java Script for this page -->
+
+	<!-- END Java Script for this page -->
 
 </body>
+
 </html>
