@@ -5,26 +5,35 @@
     // make it easy
     $cb = $_GET['del_cb'];
     $sel_del = $_GET['hide_del_select'];
+    /** 
+     *  hide_del_select
+     * 0,null -> ไม่แสดงค่า
+     * 1 -> subject
+     * 2 -> location  
+    */
 
     for($i=0; $i < count($cb); $i++){
         switch ($sel_del) {
             case '1':
                 $sql = "DELETE FROM subject WHERE subject_id = '$cb[$i]' ";
+                $header = "Location: ../subject.php";
             break;
 
             case '2':
                 $sql = "DELETE FROM location_table WHERE order = '$cb[$i]' ";
+                $header = "Location: ../location.php";
             break;
         }
+
         // if have fail exit this now.
         if( !(mysqli_query($con,$sql)) ){
             $_SESSION['alert'] = 13;
-            header("Location: ../subject.php");
+            header($header);
             exit();
         }
     }
     // success
     $_SESSION['alert'] = 12;
-    header("Location: ../subject.php");
+    header($header);
     exit();
 ?>

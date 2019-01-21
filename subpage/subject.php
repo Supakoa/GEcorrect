@@ -67,13 +67,14 @@
 
 		// check update success
 		if($re){
+			$_SESSION['alert'] = 12;
 			header("Location: subject.php");
 			exit();
 		} else{
+			$_SESSION['alert'] = 13;
 			header("Location: subject.php?error=problem_delete");
 			exit();
 		}
-
 		unset($_POST['delete_btn']);
 	}
 
@@ -221,7 +222,7 @@
 
 															<div class="modal-footer">
 																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																<button type="button" class="btn btn-primary btn-sm" name="edit_btn">Save changes</button>
+																<button type="submit" class="btn btn-primary btn-sm" name="edit_btn">Save changes</button>
 															</div>
 
 														</div>
@@ -320,18 +321,12 @@
 
 						<div class="modal-footer">
 							<button type="button" onclick="fun_del_cb()" class="btn btn-danger btn-sm">Yes</button>
-							<input type="button" onclick="fun_del_cb()" class="btn btn-danger btn-sm" value="Yesss">
-							<a onclick="fun_del_cb()" class="btn btn-danger btn-sm">Yesss2</a>
 							<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!--end modal delete on checkbox -->
-
-			<?php
-				$sql = "SELCTE * FORM ";
-			?>
 
 		</footer>
 
@@ -361,6 +356,7 @@
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	
 	<!-- Counter-Up-->
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
 	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
@@ -372,7 +368,6 @@
 		});
 
 		function fun_del_cb() {
-			alert('hi');
 			// document.forms["cb_del"].submit();
 			$("#cb_del").submit();
 		}

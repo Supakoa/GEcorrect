@@ -25,13 +25,13 @@
 			// check it not have error
 			if($re){
 				$_SESSION['alert'] = 3;
-				header("Location: location.php");
-				exit();
+				
 			} else{
 				$_SESSION['alert'] = 4;
-				header("Location: location.php");
-				exit();
+				
 			}
+			header("Location: location.php");
+			exit();
 		}
 	}
 
@@ -110,7 +110,7 @@
 
 </head>
 
-<body class="adminbody">
+<body class="adminbody" ng-app="">
 
 	<div id="main">
 
@@ -132,8 +132,9 @@
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table id="locat" class="table table-bordered">
-									<form action="server/del_select.php" method="get">
+								<form action="server/del_select.php" id="cb_del" method="get">
+									<table id="locat" class="table table-bordered">
+
 										<input type="hidden" name="hide_del_select" value="2">
 										<thead>
 											<tr>
@@ -146,56 +147,7 @@
 
 												</div>
 
-												<!-- Modal -->
-												<div class="modal fade" id="addloc" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
-													<form action="location.php" method="post">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
-																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																	</button>
-																</div>
-
-																<div class="modal-body">
-																	<label for="loc0">สถานที่สอบ</label>
-																	<input class="form-control" type="text" name="new_location_name">
-																	<label for="url-loc">URL</label>
-																	<input class="form-control" id="url-loc" type="text" name="new_location_url">
-																</div>
-
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																	<button type="submit" class="btn btn-primary btn-sm" name="new_btn">Save</button>
-																</div>
-															</div>
-														</div>
-													</form>
-												</div>
-												<!--end modal 1-->
-
-												<!-- Small modal -->
-												<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-													<div class="modal-dialog modal-sm">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title">ลบข้อมูล</h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-
-															<div class="modal-footer">
-																<button type="button" class="btn btn-danger btn-sm">Yes</button>
-																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!--end modal -->
-
-												<th></th>
+												<th><input type="checkbox" ng-model="all"> </th>
 												<th>Action </th>
 												<th> ชื่อสถานที่</th>
 												<th>URL</th>
@@ -211,7 +163,7 @@
 											<tr>
 												<td class="text-center">
 													<div class="form-check">
-														<input type="checkbox" name="del_cb[]" value="<?php echo $row['role'] ?>" class="form-check-input">
+														<input type="checkbox" ng-checked="all" name="del_cb[]" value="<?php echo $row1['role'] ?>" class="form-check-input">
 													</div>
 												</td>
 												<td>
@@ -299,8 +251,8 @@
 											</tr>
 											<?php } ?>
 										</tbody>
-									</form>
-								</table>
+									</table>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -312,6 +264,57 @@
 
 		<footer class="footer">
 
+			<!-- modal all -->
+
+			<!-- Modal -->
+			<div class="modal fade" id="addloc" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
+				<form action="location.php" method="post">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+
+							<div class="modal-body">
+								<label for="loc0">สถานที่สอบ</label>
+								<input class="form-control" type="text" name="new_location_name">
+								<label for="url-loc">URL</label>
+								<input class="form-control" id="url-loc" type="text" name="new_location_url">
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary btn-sm" name="new_btn">Save</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!--end modal 1-->
+
+			<!-- Small modal -->
+			<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">ลบข้อมูล</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" onclick="fun_del_cb()" class="btn btn-danger btn-sm">Yes</button>
+							<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end modal -->
+			
 		</footer>
 
 	</div>
@@ -336,6 +339,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 	<!-- Counter-Up-->
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
@@ -345,8 +349,12 @@
 		$(document).ready(function () {
 			// data-tables
 			$('#locat').DataTable();
-
 		});
+
+		function fun_del_cb() {
+			// document.forms["cb_del"].submit();
+			$("#cb_del").submit();
+		}
 	</script>
 
 
