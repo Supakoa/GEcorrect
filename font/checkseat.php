@@ -43,7 +43,7 @@ $row1 = mysqli_fetch_array($result1);
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="font.css">
+    <link rel="stylesheet" href="node_modules/font.css">
     <title>ระบบตรวจสอบที่นั่ง</title>
 </head>
 
@@ -145,12 +145,12 @@ $row1 = mysqli_fetch_array($result1);
             </div>
         </div>
     </div><br>
+
     <div class="container">
-        <div id="resultsTable">
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-bordered" style="width:100%">
                     <thead>
-                        <tr class="text-center">
+                        <tr>
                             <?php 
                                 $pitook = '<th style="color:white;background-color: #55236d;border-radius:5px" colspan="7"><h4 >ตารางสอบวัดความรู้ '.$d." ปีการศึกษา" . $c . "/" . $b .'</h4></th>';
                                 $pitook2 = '<th style="color:white;background-color: #55236d;border-radius:5px" colspan="7"><h4 >ตารางสอบวัดความรู้ '.$d.'</h4></th>';
@@ -237,7 +237,7 @@ $row1 = mysqli_fetch_array($result1);
                     </tbody>
                 </table>
             </div>
-        </div>
+        
     </div>
     <br>
     <div class="container-fluid">

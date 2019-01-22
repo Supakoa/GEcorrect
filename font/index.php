@@ -39,8 +39,8 @@ $result2 = mysqli_query($con,$q2);
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="font.css">
-    <link rel="stylesheet" href="stylelogin.css">
+    <link rel="stylesheet" href="node_modules/font.css">
+    <link rel="stylesheet" href="node_modules/stylelogin.css">
     <title>Login</title>
 
 
