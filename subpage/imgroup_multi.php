@@ -46,6 +46,7 @@ if (isset($_POST['tab_room'])) {
         
         $i = 0;
         $n = 0;
+        $sum_num = 0;
         $num[] = '';
         $group_exam[] ='';
         $sub[] = '';
@@ -53,6 +54,7 @@ if (isset($_POST['tab_room'])) {
             $sub[$i] = $_POST['tab_sub'][$n];
             $group_exam[$i] = $_POST['tab_group_exam'][$n];
             $num[$i] = $value;
+            $sum_num += $value;
             $i++;
             $n++;
         }
@@ -61,6 +63,7 @@ if (isset($_POST['tab_room'])) {
             $sub[$i] = $_POST['com_sub'][$n];
             $group_exam[$i] = $_POST['com_group_exam'][$n];
             $num[$i] = $value;
+            $sum_num += $value;
             $i++;
             $n++;
         }
@@ -129,34 +132,48 @@ if (isset($_POST['tab_room'])) {
                 $student[$i] = $value;
                 $i++;
             }
+            $sum_std = $i;
             $i = 0;
             $s = 0;
             $r = 0;
-            foreach ($room as $a) {
-                $j = 1;
-                if($i == $sum_room[$r]){
-                    $j += $num[($i-1)];
-                    $cout = $num[$i]+$num[($i-1)];
-                    $r++;
-                }
-                else{
-                  $cout = $num[$i];  
-                }
-                
-                while ($j <= $cout) {
-                    $sr_id = "SR" . getToken(10);
-                    $std = $student[$s++];
-                    $q_sub = "INSERT INTO `student_room`(`student_room_id`, `std_id`, `room_detail_id`, `seat`, `note`) VALUES ('$sr_id','$std','$a','$j','')";
-                    if ($re_sub = mysqli_query($con, $q_sub)) {
-                        $_SESSION['alert'] = 3;
-                    } else {
-                        header("Location: imgroup_multi.php");
-                        $_SESSION['alert'] = 4;
-                        exit();
+            if($sum_num<$sum_std){
+                header("Location: imgroup.php");
+                $_SESSION['alert'] = 21;//จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
+                exit();
+            }
+             elseif($sum_num>$sum_std){
+               header("Location: imgroup.php");
+               $_SESSION['alert'] = 22;//จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์
+               exit();
+            }
+            else{
+
+                foreach ($room as $a) {
+                    $j = 1;
+                    if($i == $sum_room[$r]){
+                        $j += $num[($i-1)];
+                        $cout = $num[$i]+$num[($i-1)];
+                        $r++;
                     }
-                    $j++;
+                    else{
+                    $cout = $num[$i];  
+                    }
+                    
+                    while ($j <= $cout) {
+                        $sr_id = "SR" . getToken(10);
+                        $std = $student[$s++];
+                        $q_sub = "INSERT INTO `student_room`(`student_room_id`, `std_id`, `room_detail_id`, `seat`, `note`) VALUES ('$sr_id','$std','$a','$j','')";
+                        if ($re_sub = mysqli_query($con, $q_sub)) {
+                            $_SESSION['alert'] = 3;
+                        } else {
+                            header("Location: imgroup_multi.php");
+                            $_SESSION['alert'] = 4;
+                            exit();
+                        }
+                        $j++;
+                    }
+                    $i++;
                 }
-                $i++;
             }
         }
     }

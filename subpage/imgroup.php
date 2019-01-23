@@ -47,12 +47,15 @@ if (isset($_POST['tab_room'])) {
         $group_exam = $_POST['group_exam'];
         $i = 0;
         $num[] = '';
+        $sum_num = 0;
         foreach ($_POST['tab_num'] as $value) {
             $num[$i] = $value;
+            $sum_num += $value;
             $i++;
         }
         foreach ($_POST['com_num'] as $value) {
             $num[$i] = $value;
+            $sum_num += $value;
             $i++;
         }
         $i = 0;
@@ -82,7 +85,7 @@ if (isset($_POST['tab_room'])) {
                 exit();
             }
         }
-
+        
        
 
         if (($handle = fopen("$file", "r")) !== FALSE) {
@@ -93,9 +96,23 @@ if (isset($_POST['tab_room'])) {
                 $value = implode("','", $data);
                 $student[$i] = $value;
                 $i++;
+
             }
+            $sum_std = $i;
             $i = 0;
             $s = 0;
+           if($sum_num<$sum_std){
+                 header("Location: imgroup.php");
+                 $_SESSION['alert'] = 21;//จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
+                 exit();
+           }
+           elseif($sum_num>$sum_std){
+                header("Location: imgroup.php");
+                $_SESSION['alert'] = 22;//จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์
+                exit();
+           }
+           else{
+            
             foreach ($room as $a) {
                 $j = 1;
                 $cout = $num[$i];
@@ -114,6 +131,10 @@ if (isset($_POST['tab_room'])) {
                 }
                 $i++;
             }
+
+           }
+           
+            
         }
     }
 }
