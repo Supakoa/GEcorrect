@@ -359,14 +359,14 @@ if (isset($_POST['gogo'])) {
                                                                                             <tbody>
 																								<?php
 																								$i = 1;
-																								$q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `tool`  ";
+																								$q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
 																								$re_room = mysqli_query($con, $q_room);
 																								while ($row_room = mysqli_fetch_array($re_room)) {
 																									?>
                                                                                                     <tr>
                                                                                                         <td class="text-center"><?php echo $i++ ?></td>
                                                                                                         <td><?php echo $row_room['sub_id'] ?></td>
-																										<td><?php echo $row_show['sub_group'] ?></td>
+																										<td><?php echo $row_room['sub_group'] ?></td>
                                                                                                         <td><?php echo $row_room['name_location'] ?></td>
                                                                                                         <td><?php echo $row_room['num'] ?></td>
                                                                                                         <td><?php echo $row_room['tool'] ?></td>
