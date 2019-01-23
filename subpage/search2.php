@@ -177,7 +177,7 @@ if (isset($_POST['gogo'])) {
 
         <div id="main">
 
-<?php//  require 'menu/navmenu.php';  ?>
+<?php  require 'menu/navmenu.php';  ?>
 
             
 

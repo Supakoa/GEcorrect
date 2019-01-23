@@ -183,13 +183,18 @@ if (isset($_POST['tab_room'])) {
 
                 foreach ($room as $a) {
                     $j = 1;
-                    if($i == $sum_room[$r]){
-                        $j += $num[($i-1)];
-                        $cout = $num[$i]+$num[($i-1)];
-                        $r++;
+                    if(isset($sum_room[$r+1])){
+                         if($i == $sum_room[$r]){
+                            $j += $num[($i-1)];
+                            $cout = $num[$i]+$num[($i-1)];
+                            $r++;
+                        }
+                        else{
+                        $cout = $num[$i];  
+                        }
                     }
                     else{
-                    $cout = $num[$i];  
+                        $cout = $num[$i];  
                     }
                     
                     while ($j <= $cout) {
