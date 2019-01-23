@@ -12,7 +12,7 @@ if (isset($_POST['edit'])) { //แก้ไข
 	$edit_e_time = $_POST['e_time'];
 	$edit_date = $_POST['date'];
 	$edit_type_exam= $_POST['type_exam'];
-	echo $edit_id." - ".$edit_term." - ".$edit_year." - ".$edit_s_time." - ".$edit_e_time." - ".$edit_date." - ".$edit_type_exam ;
+	// echo $edit_id." - ".$edit_term." - ".$edit_year." - ".$edit_s_time." - ".$edit_e_time." - ".$edit_date." - ".$edit_type_exam ;
 	$q_edit = "UPDATE `detail` SET `term`= '$edit_term' ,`year`='$edit_year',`day`='$edit_date',`time_start`='$edit_s_time',`time_end`='$edit_e_time',`type`='$edit_type_exam' WHERE `detail_id` = '$edit_id' ";
 	if($re_edit = mysqli_query($con, $q_edit)){
 		$_SESSION['alert'] = 10;
@@ -24,7 +24,7 @@ if (isset($_POST['edit'])) { //แก้ไข
 }
 if (isset($_POST['delete'])) { //ลบ
 	$del_id = $_POST['delete_id'];
-	echo $del_id ;
+	// echo $del_id ;
 	$q_del_sl = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$del_id'";
 	if($re_del_sl = mysqli_query($con, $q_del_sl)){
 		while ($row_del_sl = mysqli_fetch_array($re_del_sl)) {
@@ -86,7 +86,7 @@ if (isset($_POST['gogo'])) {
     $subject = $_POST['subject'];
     $group_exam = $_POST['group_exam'];
     $type_exam = $_POST['type_exam'];
-    echo $term . $year . $subject . $group_exam;
+    // echo $term . $year . $subject . $group_exam;
     $q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type,detail.day,detail.time_start ,detail.time_end 
 	FROM `room_detail`,`detail` WHERE detail.detail_id = room_detail.detail_id 
 	AND detail.term LIKE '$term%' AND detail.year LIKE '$year%' AND room_detail.sub_id LIKE '$subject%' AND room_detail.sub_group LIKE '$group_exam%' AND detail.type LIKE '$type_exam%' GROUP BY detail.detail_id";

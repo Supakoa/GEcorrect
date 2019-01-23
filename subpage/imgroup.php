@@ -37,7 +37,7 @@ if (isset($_POST['tab_room'])) {
     $s_time = $_POST['s_time'];
     $e_time = $_POST['e_time'];
     $type_exam = $_POST['type_exam'];
-    // $file = $_FILES['file']['tmp_name'];
+    $file = $_FILES['file_csv']['tmp_name'];
     $detail_id = "DT" . getToken(10);
     //insert detial
     $q_detail = "INSERT INTO `detail`(`detail_id`, `term`, `year`, `day`, `time_start`, `time_end`, `type`) VALUES ( '$detail_id','$term','$year','$date','$s_time','$e_time','$type_exam')";
@@ -85,7 +85,7 @@ if (isset($_POST['tab_room'])) {
 
        
 
-        if (($handle = fopen("testcsv.csv", "r")) !== FALSE) {
+        if (($handle = fopen("$file", "r")) !== FALSE) {
             $i = 0;
             $student[] = '';
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -157,7 +157,7 @@ if (isset($_POST['tab_room'])) {
 
     <div id="main">
 
-        <?php //require 'menu/navmenu.php'   ?>
+        <?php require 'menu/navmenu.php'   ?>
 
 
         <div class="content-page">
@@ -172,7 +172,7 @@ if (isset($_POST['tab_room'])) {
 
                     <div class="card-body">
                         <!-- card-body -->
-                        <form action="imgroup.php" method="post" id="form1" class="formsingha">
+                        <form action="imgroup.php" method="post" id="form1" class="formsingha" enctype="multipart/form-data" >
                             <!-- FORM WOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW-->
 
                             <div class="container">
@@ -276,7 +276,7 @@ if (isset($_POST['tab_room'])) {
                                         <!--end filter -->
                                         <div class="text-center">
                                             <!-- up file -->
-                                            <input class="btn btn-md" type="file" name="file">
+                                            <input class="btn btn-md" type="file" name="file_csv" accept=".csv" form ="form1">
                                         </div>
                                         <!--end up file -->
                                     </div>
@@ -457,7 +457,7 @@ if (isset($_POST['tab_room'])) {
                     computer +=
                         '<div class="row form-group" id ="computer" ><div class="col-md-4 "><label for="room">' +
                         j +
-                        '.ห้อง</label><select name="com_room[]"  class="form-control select2" required>' +
+                        '.ห้อง</label><select name="com_room[]"  class="form-control select2" required>' +2
                         sum +
                         '</select></div><div class="col-md-4"></div><div class="col-md-4 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "com_num[]" required ></div></div><!--end room & Value -->';
                     return computer;
