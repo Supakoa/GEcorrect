@@ -16,11 +16,12 @@ $_SESSION['banner'] = $web_row['banner'];
 $_SESSION['year'] = $web_row['web_year'];
 $_SESSION['term'] = $web_row['web_term'];
 //student
-$std = "SELECT * FROM `student` WHERE 1";
+  $a = $_SESSION['id'];
+$std = "SELECT * FROM `student` WHERE std_id = '$a' ";
 $result = mysqli_query($con,$std);
 $row = mysqli_fetch_array($result);
 //   require 'checklogin.php';
-//   $a = $_SESSION['id'];
+
 //   $y = $_SESSION['year'] ;
 //   $t = $_SESSION['term'];
 //   $b = $_SESSION['banner'];

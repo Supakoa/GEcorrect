@@ -12,10 +12,10 @@ $q_web =  "SELECT * FROM `web_show_time` ";
 $web_result = mysqli_query($con,$q_web);
 $web_row = mysqli_fetch_array($web_result);
 $_SESSION['banner'] = $web_row['banner'];
-
+$a = $_SESSION['id'];
 
 //student
-$std = "SELECT * FROM `student` WHERE 1";
+$std = "SELECT * FROM `student` WHERE std_id = '$a' ";
 $std_result = mysqli_query($con,$std);
 $row = mysqli_fetch_array($std_result);
 
