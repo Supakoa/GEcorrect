@@ -173,7 +173,7 @@ if (isset($_POST['gogo'])) {
 
     </head>
 
-    <body class="adminbody">
+    <body class="adminbody" ng-app="">
 
         <div id="main">
 
@@ -310,6 +310,7 @@ if (isset($_POST['gogo'])) {
 
 
                                         <tr>
+											<th><input type="checkbox" ng-model="all">Check All</th>
                                             <th></th>
                                             <th>เทอม</th>
                                             <th>ปีการศึกษา</th>
@@ -318,7 +319,7 @@ if (isset($_POST['gogo'])) {
                                             <th>วันที่</th>
                                             <th>เวลา</th>
                                             <th>ประเภท</th>
-                                            <th></th>
+                                            
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -327,7 +328,11 @@ if (isset($_POST['gogo'])) {
 												$de_id = $row_show['detail_id'];
 												?>
                                                 <tr>
-
+												<td class="text-center">
+                                                        <div class="form-check">
+                                                            <input name="del_cb[]" value = "<?php echo $de_id ?>" type="checkbox" class="form-check-input"   ng-checked="all" form = "big_form">
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <div class="text-center">
                                                             <a role="button" href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#info<?php echo $de_id ?>">
@@ -596,11 +601,7 @@ if (isset($_POST['gogo'])) {
                                                     <td><?php echo DateThai($row_show['day']) ?></td>
                                                     <td><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
                                                     <td><?php echo $row_show['type'] . "----" . $de_id ?></td>
-                                                    <td class="text-center">
-                                                        <div class="form-check">
-                                                            <input name="del_cb[]" value = "<?php echo $de_id ?>" type="checkbox" class="form-check-input" form = "big_form">
-                                                        </div>
-                                                    </td>
+                                                    
                                                 </tr>
 											<?php } ?>
                                         </tbody>
@@ -676,6 +677,7 @@ if (isset($_POST['gogo'])) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
         <!-- Counter-Up-->
         <script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
