@@ -218,7 +218,7 @@ if (isset($_POST['tab_room'])) {
 
     <div id="main">
 
-        <?php //require 'menu/navmenu.php'   ?>
+        <?php require 'menu/navmenu.php'   ?>
 
 
         <div class="content-page">
@@ -323,7 +323,7 @@ if (isset($_POST['tab_room'])) {
                                         <!--end filter -->
                                         <div class="text-center">
                                             <!-- up file -->
-                                            <input class="btn btn-md" type="file" name="file_csv" accept=".csv" form ="form1">
+                                            <input class="btn btn-md" type="file" name="file_csv" accept=".csv" form ="form1" required>
                                         </div>
                                         <!--end up file -->
                                     </div>

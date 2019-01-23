@@ -297,7 +297,7 @@ if (isset($_POST['tab_room'])) {
                                         <!--end filter -->
                                         <div class="text-center">
                                             <!-- up file -->
-                                            <input class="btn btn-md" type="file" name="file_csv" accept=".csv" form ="form1">
+                                            <input class="btn btn-md" type="file" name="file_csv" accept=".csv"  form ="form1" required>
                                         </div>
                                         <!--end up file -->
                                     </div>
