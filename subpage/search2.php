@@ -1,8 +1,41 @@
 <?php
 require 'server/server.php';
 if (isset($_POST['big_form'])) {//ลบที่เลือก
-	echo "Noooooo!!!!!";
-	print_r($_POST['del_cb']);
+	
+	foreach($_POST['del_cb'] as $del_id ){
+		$q_del_sl = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$del_id'";
+		if($re_del_sl = mysqli_query($con, $q_del_sl)){
+			while ($row_del_sl = mysqli_fetch_array($re_del_sl)) {
+				$del_room_id = $row_del_sl['room_detail_id'];
+				$q_del_std = "DELETE FROM `student_room` WHERE `room_detail_id` = '$del_room_id' ";
+				if($re_del_std = mysqli_query($con, $q_del_std)){
+					$_SESSION['alert'] = 12;
+				}
+				else{
+					header("Location: search2.php");
+						$_SESSION['alert'] = 4;
+						exit();
+				}
+			}
+			$q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$del_id'";
+			if($re_del_rm = mysqli_query($con, $q_del_rm)){
+				$q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$del_id'";
+				if($re_del_dt = mysqli_query($con, $q_del_dt)){
+					$_SESSION['alert'] = 12;
+				}else{
+					header("Location: search2.php");
+					$_SESSION['alert'] = 4;
+					exit();
+				}
+			}
+			else{
+				header("Location: search2.php");
+				$_SESSION['alert'] = 4;
+				exit();
+			}
+			
+		}
+	}
 }
 if (isset($_POST['edit'])) { //แก้ไข
 	$edit_id = $_POST['edit_id'];
@@ -244,7 +277,7 @@ if (isset($_POST['gogo'])) {
                                                                 <option value="">ทั้งหมด</option>
                                                                 <option>กลางภาค</option>
                                                                 <option>ปลายภาค</option>
-                                                                <option>แก้ไอ</option>	
+                                                                <option>แก้ผลการเรียน(I)</option>	
                                                                 <option>ย้อนหลัง</option>
                                                             </select>
                                                             </select>
@@ -471,7 +504,7 @@ if (isset($_POST['gogo'])) {
                                                                                                     <option hidden selected  value="<?php echo $row_show['type'] ?>"><?php echo $row_show['type'] ?></option>
                                                                                                     <option>กลางภาค</option>
                                                                                                     <option>ปลายภาค</option>
-                                                                                                    <option>แก้ไอ</option>	
+                                                                                                    <option>แก้ผลการเรียน(I)</option>	
                                                                                                     <option>ย้อนหลัง</option>
                                                                                                 </select>
                                                                                             </div>

@@ -138,25 +138,63 @@ if (isset($_POST['tab_room'])) {
             $r = 0;
             if($sum_num<$sum_std){
                 header("Location: imgroup.php");
+                $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
+			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
+			        if($re_del_dt = mysqli_query($con, $q_del_dt)){
+				    $_SESSION['alert'] = 12;
+			        }else{
+				        header("Location: search2.php");
+				        $_SESSION['alert'] = 4;
+				        exit();
+			        }
+		        }
+		        else{
+			        header("Location: search2.php");
+			        $_SESSION['alert'] = 4;
+			        exit();
+                }
                 $_SESSION['alert'] = 21;//จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
                 exit();
             }
              elseif($sum_num>$sum_std){
                header("Location: imgroup.php");
+               $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
+			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
+			        if($re_del_dt = mysqli_query($con, $q_del_dt)){
+				    $_SESSION['alert'] = 12;
+			        }else{
+				        header("Location: search2.php");
+				        $_SESSION['alert'] = 4;
+				        exit();
+			        }
+		        }
+		        else{
+			        header("Location: search2.php");
+			        $_SESSION['alert'] = 4;
+			        exit();
+                }
                $_SESSION['alert'] = 22;//จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์
+                
                exit();
             }
             else{
 
                 foreach ($room as $a) {
                     $j = 1;
-                    if($i == $sum_room[$r]){
-                        $j += $num[($i-1)];
-                        $cout = $num[$i]+$num[($i-1)];
-                        $r++;
+                    if(isset($sum_room[$r+1])){
+                         if($i == $sum_room[$r]){
+                            $j += $num[($i-1)];
+                            $cout = $num[$i]+$num[($i-1)];
+                            $r++;
+                        }
+                        else{
+                        $cout = $num[$i];  
+                        }
                     }
                     else{
-                    $cout = $num[$i];  
+                        $cout = $num[$i];  
                     }
                     
                     while ($j <= $cout) {
@@ -218,7 +256,7 @@ if (isset($_POST['tab_room'])) {
 
     <div id="main">
 
-        <?php //require 'menu/navmenu.php'   ?>
+        <?php require 'menu/navmenu.php'   ?>
 
 
         <div class="content-page">
@@ -314,7 +352,7 @@ if (isset($_POST['tab_room'])) {
                                                         <option hidden selected value="">เลือกประเภท</option>
                                                         <option>กลางภาค</option>
                                                         <option>ปลายภาค</option>
-                                                        <option>แก้ไอ</option>
+                                                        <option>แก้ผลการเรียน(I)</option>
                                                         <option>ย้อนหลัง</option>
                                                     </select>
                                                 </div>
@@ -323,7 +361,7 @@ if (isset($_POST['tab_room'])) {
                                         <!--end filter -->
                                         <div class="text-center">
                                             <!-- up file -->
-                                            <input class="btn btn-md" type="file" name="file_csv" accept=".csv" form ="form1">
+                                            <input class="btn btn-md" type="file" name="file_csv" accept=".csv" form ="form1" required>
                                         </div>
                                         <!--end up file -->
                                     </div>
