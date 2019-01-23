@@ -17,37 +17,42 @@
     */
 
     // traverse all
-    for ($i=0; $i <count($cb) ; $i++) { 
-        echo $cb[$i].'<br>';
-    }echo $sel_del;
+    // for ($i=0; $i <count($cb) ; $i++) { 
+    //     echo $cb[$i].'<br>';
+    // }echo $sel_del;
 
-    // for($i=0; $i < count($cb); $i++){
-    //     switch ($sel_del) {
-    //         case '1':
-    //             $sql = "DELETE FROM `subject` WHERE `subject_id` = '$cb[$i]' ";
-    //             $header = "Location: ../subject.php";
-    //         break;
+    for($i=0; $i < count($cb); $i++){
+        switch ($sel_del) {
+            case '1':
+                $sql = "DELETE FROM `subject` WHERE `subject_id` = '$cb[$i]' ";
+                $header = "Location: ../subject.php";
+            break;
 
-    //         case '2':
-    //             $sql = "DELETE FROM `location_table` WHERE `order` = '$cb[$i]' ";
-    //             $header = "Location: ../location.php";
-    //         break;
+            case '2':
+                $sql = "DELETE FROM `location_table` WHERE `order` = '$cb[$i]' ";
+                $header = "Location: ../location.php";
+            break;
 
-    //         case '3':
-    //             $sql = "DELETE FROM `admin` WHERE `admin_id` = '$cb[$i]' ";
-    //             $header = "Location: ../dataadmin.php";
-    //         break;
-    //     }
+            case '3':
+                $sql = "DELETE FROM `admin` WHERE `admin_id` = '$cb[$i]' ";
+                $header = "Location: ../dataadmin.php";
+            break;
 
-    //     // if have fail exit this now.
-    //     if( !(mysqli_query($con,$sql)) ){
-    //         $_SESSION['alert'] = 13;
-    //         header($header);
-    //         exit();
-    //     }
-    // }
-    // // success
-    // $_SESSION['alert'] = 12;
-    // header($header);
-    // exit();
+            case '4':
+                $sql = "DELETE FROM `student` WHERE `std_id` = '$cb[$i]' ";
+                $header = "Location: ../search1.php";
+            break;
+        }
+
+        // if have fail exit this now.
+        if( !(mysqli_query($con,$sql)) ){
+            $_SESSION['alert'] = 13;
+            header($header);
+            exit();
+        }
+    }
+    // success
+    $_SESSION['alert'] = 12;
+    header($header);
+    exit();
 ?>

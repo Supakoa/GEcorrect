@@ -15,43 +15,38 @@
 	// insert new student
 	if(isset($_POST['insert_btn'])){
 		unset($_POST['insert_btn']);
-        if ($_POST['id_std'] != ' ' and $_POST['std_fname'] != ' ' and $_POST['std_lname'] != ' ') {
+		if( $_POST['id_std'] != ' ' AND $_POST['std_fname'] != ' ' AND $_POST['std_lname'] != ' ' ){
 
-            // make it easy
-            $id = $_POST['id_std'];
-            $name = $_POST['std_fname']." ".$_POST['std_lname'];
+			// make it easy
+			$id = $_POST['id_std'];
+			$name = $_POST['std_fname']." ".$_POST['std_lname'];
 
-            // check it have in database .if have show error
-        	$sql = "SELECT * FROM `student` WHERE `std_id` = '$id' ";
-        	$re = mysqli_query($con,$sql);
-        	if(!($re)){
+			// check it have in database .if have show error
+			$sql = "SELECT * FROM `student` WHERE `std_id` = '$id' ";
+			$re = mysqli_query($con,$sql);
+			if( !(mysqli_fetch_array(mysqli_query($con,"SELECT * FROM `student` WHERE `std_id` = '$id' ")))){
 
-        		//
-        		$sql2 = "INSERT INTO `student` (`std_id`, `name`) VALUES ('$id','$name') ";
-        		$re2 = mysqli_query($con,$sql2);
+				if( mysqli_query($con,"INSERT INTO `student` (`std_id`, `name`) VALUES ('$id','$name') ") ){
+					$_SESSION['alert'] = 3; 
+					header("Location: search1.php");
+					exit();
+				}else{
+					$_SESSION['alert'] = 4; 
+					header("Location: search1.php");
+					exit();
+				}
 
-        		if( $re2 ){
-        			$_SESSION['alert'] = 3;
-        			header("Location: search1.php");
-        			exit();
-        		}else{
-        			$_SESSION['alert'] = 4;
-        			header("Location: search1.php");
-        			exit();
-        		}
-
-        	}else{
-        		$_SESSION['alert'] = 19;
+			}else{
+				$_SESSION['alert'] = 19;
 				header("Location: search1.php");
-        		exit();
-        	}
+				exit();
+			}
 
-        }else{
-        	$_SESSION['alert'] = 4;
-        	header("Location: search1.php");
-        	exit();
-        
-        }
+		}else{
+			$_SESSION['alert'] = 4; 
+			header("Location: search1.php");
+			exit();
+		}
 	}
 	
 ?>
@@ -205,7 +200,7 @@
 										</div>
 										<!--end modal -->
 										<th><input type="checkbox" ng-model="all"> CheckAll</th>
-										<th><?php echo mysqli_error(); ?></th>
+										<th></th>
 										<th>รหัสนักศึกษา</th>
 										<th>ชื่อ-นามสกุล</th>
 									</tr>
