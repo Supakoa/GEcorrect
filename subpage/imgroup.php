@@ -104,11 +104,43 @@ if (isset($_POST['tab_room'])) {
            if($sum_num<$sum_std){
                  header("Location: imgroup.php");
                  $_SESSION['alert'] = 21;//จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
+                 $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
+			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
+			        if($re_del_dt = mysqli_query($con, $q_del_dt)){
+				    $_SESSION['alert'] = 12;
+			        }else{
+				        header("Location: search2.php");
+				        $_SESSION['alert'] = 4;
+				        exit();
+			        }
+		        }
+		        else{
+			        header("Location: search2.php");
+			        $_SESSION['alert'] = 4;
+			        exit();
+		        }   
                  exit();
            }
            elseif($sum_num>$sum_std){
                 header("Location: imgroup.php");
                 $_SESSION['alert'] = 22;//จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์
+                $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
+			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
+			        if($re_del_dt = mysqli_query($con, $q_del_dt)){
+				    $_SESSION['alert'] = 12;
+			        }else{
+				        header("Location: search2.php");
+				        $_SESSION['alert'] = 4;
+				        exit();
+			        }
+		        }
+		        else{
+			        header("Location: search2.php");
+			        $_SESSION['alert'] = 4;
+			        exit();
+		        }   
                 exit();
            }
            else{
