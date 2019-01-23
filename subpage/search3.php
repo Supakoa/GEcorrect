@@ -1,11 +1,25 @@
 <?php
-	// connect database
+
 	require 'server/server.php';
+	$q_sub = "SELECT * FROM `subject` order by `subject_id`";
+	$re_sub = mysqli_query($con, $q_sub);
+	$i = 0;
+	$option_sub = '<option hidden selected  value="">เลือกวิชา</option>';
+	while ($row_sub = mysqli_fetch_array($re_sub)) {
+		$option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
+		$i++;
+	}
 
-	
+	$q_location = "SELECT `order`,`name_location` FROM `location_table` order BY `name_location`";
+	$re_location = mysqli_query($con, $q_location);
+	$j = 0;
+	$option_location = '<option hidden selected  value="">สถานที่สอบ</option>';
 
+	while ($row_location = mysqli_fetch_array($re_location)) {
+		$option_location.='<option value = "' . $row_location['order'] . '"> ห้อง ' . $row_location['name_location'] . '</option>';
+		$j++;
+	}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,13 +43,14 @@
 	<!-- Custom CSS -->
 	<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 
+	<link href="dist/bootstrap-clockpicker.min.css" rel="stylesheet" type="text/css" />
 	<!-- BEGIN CSS for this page -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
 	<!-- END CSS for this page -->
 
 </head>
 
-<body class="adminbody" ng-app="">
+<body class="adminbody">
 
 	<div id="main">
 
@@ -45,7 +60,6 @@
 		<div class="content-page">
 			<!-- start content-page-->
 			<div class="content">
-
 				<!--content-->
 				<div class="card mb-3">
 					<!--card 1-->
@@ -56,66 +70,103 @@
 						<div class="contain">
 							<!-- filter -->
 							<div class="row">
+
 								<div class="col-lg-6">
 									<div class="card">
 										<div class="card-body">
-											<div class="row">
-												<!-- row 1 -->
-												<div class="col-md-6">
-													<label for="subject">วิชา</label>
-													<select name="" id="subject" class="form-control select2">
-														<option>GEL1101</option>
-														<option>GRL1102</option>
-														<option>GEL2203</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<label for="group">กลุ่มเรียน</label>
-													<select name="" id="group" class="form-control select2">
-														<option>001</option>
-														<option>002</option>
-														<option>003</option>
-													</select>
-												</div>
-												<div class="col-md-2">
-													<label for="term">เทอม</label>
-													<select id="term" class="form-control select2">
-														<option>1</option>
-														<option>2</option>
-													</select>
-												</div>
-												<div class="col-md-1">
-													<br><br>
-													<center><label style="text-align:center;">/</label></center>
-												</div>
-												<div class="col-md-3">
-													<label for="year">ปีการศึกษา</label>
-													<select id="year" class="form-control select2">
-														<option>2561</option>
-														<option>2560</option>
-														<option>2559</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<label for="time">เวลา</label>
-													<select name="" id="time" class="form-control select2">
-														<option>08.00-11.00</option>
-														<option>011.00-14.00</option>
-														<option>04.00-17.00</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<label for="room">ห้อง</label>
-													<select name="" id="room" class="form-control select2">
-														<option>1701</option>
-														<option>1702</option>
-														<option>3111</option>
-													</select>
-												</div>
+											<form action="" method="post">
+												<div class="row">
+													<!-- filter -->
+													<div class="col-md-2">
+														<label for="term">เทอม</label>
+														<select name="term" class="form-control select2" required>
+															<option hidden selected value="">เลือกเทอม</option>
+															<option>1</option>
+															<option>2</option>
+															<option>3</option>
+														</select>
+													</div>
+													<div class="col-md-1 text-center">
+														<br><br><label style="text-align:center;">/</label>
+													</div>
+													<div class="col-md-3">
+														<label for="year">ปีการศึกษา</label>
+														<select name="year" class="form-control select2" required>
+															<option hidden selected value="">เลือกปีการศึกษา</option>
+															<option>2561</option>
+															<option>2562</option>
+															<option>2563</option>
+															<option>2564</option>
+															<option>2565</option>
+															<option>2566</option>
+															<option>2567</option>
+															<option>2568</option>
+															<option>2569</option>
+														</select>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="sub">วิชา(รหัส)</label>
+															<select name="sub" class="form-control select2" required>
+																<?php echo $option_sub ?>
+															</select>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="group">กลุ่มเรียน</label>
+															<input name="group_exam" type="text " placeholder="กรอกกลุ่มเรียน" maxlength="3" class="form-control"
+															 required>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="time">เวลา เริ่ม - สิ้นสุด</label>
+															<div class="row">
+																<div class="col-md-5">
+																	<div class="input-group clockpicker" data-autoclose="true" data-placement="left" data-default='00.00'>
+																		<input type="text" class="form-control" name="s_time" placeholder="เวลาเริ่มต้น" required>
+																		<span class="input-group-addon">
+																			<span class="glyphicon glyphicon-time"></span>
+																		</span>
+																	</div>
 
-											</div>
-											<!--end row 1 -->
-											<br><button class="btn btn-sm btn-info" type="submit">submit</button>
+																</div>
+																<div class="col-md-2 text-center"><label style="text-align:center;">ถึง</label></div>
+																<div class="col-md-5">
+																	<div class="input-group clockpicker" data-autoclose="true" data-placement="right" data-default='00.00'>
+																		<input type="text" class="form-control" name="e_time" placeholder="เวลาสิ้นสุด" required>
+																		<span class="input-group-addon">
+																			<span class="glyphicon glyphicon-time"></span>
+																		</span>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="date">วันที่</label>
+															<input name="date" type="date" class="form-control " name="date" required>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="type">ประเภท</label>
+															<select name="type_exam" class="form-control select2" required>
+																<option hidden selected value="">เลือกประเภท</option>
+																<option>กลางภาค</option>
+																<option>ปลายภาค</option>
+																<option>แก้ผลการเรียน(I)</option>
+																<option>ย้อนหลัง</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<br><button class="btn btn-sm btn-info" type="submit">submit</button>
+											</form>
+
 										</div>
 									</div>
 								</div>
@@ -137,14 +188,15 @@
 											<button class="btn btn-sm btn-info" type="submit">submit</button>
 										</div>
 									</div>
+
 								</div>
+
 							</div><br>
 						</div>
 						<!--end filter -->
 					</div>
 				</div>
 				<!--end card 1-->
-
 				<div class="card">
 					<!--card 2-->
 					<div class="card-body">
@@ -156,7 +208,7 @@
 										<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
 											<i class="fa fa-plus"></i> เพิ่มข้อมูล
 										</a>
-										<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete"><i
+										<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i
 											 class="fa fa-minus"></i> ลบที่เลือก</a>
 
 									</div>
@@ -206,7 +258,7 @@
 									<!--end modal -->
 
 									<!-- Small modal -->
-									<div class="modal fade bd-example-modal-sm" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -217,17 +269,15 @@
 												</div>
 
 												<div class="modal-footer">
-													<form action="search3.php" method="get">
-														<button type="submit" form="form_1" class="btn btn-danger btn-sm">Yes</button>
-														<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
-													</form>
+													<button type="button" class="btn btn-danger btn-sm">Yes</button>
+													<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
 												</div>
 											</div>
 										</div>
 									</div>
 									<!--end modal -->
 									<tr>
-										<th><input type="checkbox" ng-model="all"></th>
+										<th></th>
 										<th></th>
 										<th>รหัสนักศึกษา</th>
 										<th>ห้อง</th>
@@ -241,18 +291,11 @@
 										<th><span class="text-danger">*</span>หมายเหตุ</th>
 									</tr>
 								</thead>
-
-								<!-- hidden sent to server/del_select.php -->
-								<input form="form_1" type="hidden" name="hide_del_select" value="6">
-
 								<tbody>
-									<?php
-
-									?>
 									<tr>
 										<td class="text-center">
 											<div class="form-check">
-												<input form="form_1" name="del_cb[]" value="<?php echo $r['student_room_id']; ?>" type="checkbox" class="form-check-input" ng-checked="all">
+												<input type="checkbox" class="form-check-input">
 											</div>
 										</td>
 										<td>
@@ -385,10 +428,14 @@
 	<script src="assets/js/pikeadmin.js"></script>
 
 	<!-- BEGIN Java Script for this page -->
+
+	<script type="text/javascript" src="dist/bootstrap-clockpicker.min.js"></script>
+	<script type="text/javascript">
+		$('.clockpicker').clockpicker();
+	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 	<!-- Counter-Up-->
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
@@ -403,8 +450,6 @@
 		});
 	</script>
 
-	<!-- alert all -->
-	<?php require '../alert.php'; ?>
 
 	<!-- END Java Script for this page -->
 

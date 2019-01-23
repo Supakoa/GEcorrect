@@ -1,5 +1,4 @@
 <?php
-
   require 'server.php';
   session_start();
   if (!isset($_SESSION['status'])) {
@@ -13,18 +12,17 @@
     }
   }
 
-  $q_web =  "SELECT * FROM `web_show_time` ";
-  $web_result = mysqli_query($con,$q_web);
-  $web_row = mysqli_fetch_array($web_result);
-  $_SESSION['banner'] = $web_row['banner'];
-  $_SESSION['year'] = $web_row['web_year'];
-  $_SESSION['term'] = $web_row['web_term'];
-  $_SESSION['footer'] = $web_row['footer'];
-
-  $q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";
-  $q2 =  "SELECT * FROM `show_url` WHERE group_url = '2' AND hide=0";
+//Pre footer
+$q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";
+$q2 =  "SELECT * FROM `show_url` WHERE group_url = '2' AND hide=0";
 $result1 = mysqli_query($con,$q1);
 $result2 = mysqli_query($con,$q2);
+
+//banner
+$q_web =  "SELECT * FROM `web_show_time` ";
+$web_result = mysqli_query($con,$q_web);
+$web_row = mysqli_fetch_array($web_result);
+$_SESSION['banner'] = $web_row['banner'];
 
 
  ?>
@@ -41,6 +39,8 @@ $result2 = mysqli_query($con,$q2);
         crossorigin="anonymous">
     <link rel="stylesheet" href="node_modules/font.css">
     <link rel="stylesheet" href="node_modules/stylelogin.css">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
     <title>Login</title>
 
 
@@ -99,8 +99,7 @@ $result2 = mysqli_query($con,$q2);
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-10">
-                                    <input type="password" name="password" class="form-control" placeholder="GEตามด้วยรหัสนักศึกษา"
-                                        required><br>
+                                    <div class="g-recaptcha" data-sitekey="6LedMIwUAAAAANsXFa3FG4g2kX6K2NJC2DB2BSNw"></div><br>
                                 </div>
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-1"></div>
@@ -172,11 +171,11 @@ $result2 = mysqli_query($con,$q2);
             <br>
         </div>
     </footer>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
-
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="node_modules/bootstrap/dist/js/dropdown.js.map"></script>

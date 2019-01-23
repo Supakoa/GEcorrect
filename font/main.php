@@ -1,17 +1,32 @@
 <?php
  require 'server.php';
   session_start();
-  $q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";
-  $q2 =  "SELECT * FROM `show_url` WHERE group_url = '2' AND hide=0";
+
+  //Pre footer
+$q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";
+$q2 =  "SELECT * FROM `show_url` WHERE group_url = '2' AND hide=0";
 $result1 = mysqli_query($con,$q1);
 $result2 = mysqli_query($con,$q2);
+
+//banner
+$q_web =  "SELECT * FROM `web_show_time` ";
+$web_result = mysqli_query($con,$q_web);
+$web_row = mysqli_fetch_array($web_result);
+$_SESSION['banner'] = $web_row['banner'];
+$_SESSION['year'] = $web_row['web_year'];
+$_SESSION['term'] = $web_row['web_term'];
+//student
+$std = "SELECT * FROM `student` WHERE 1";
+$result = mysqli_query($con,$std);
+$row = mysqli_fetch_array($result);
 //   require 'checklogin.php';
-  $a = $_SESSION['id'];
-  $y = $_SESSION['year'] ;
-  $t = $_SESSION['term'];
-  $q = "SELECT * FROM student_table WHERE user_id = $a AND exam_year = $y";
-  $result = mysqli_query($con,$q);
-  $row = mysqli_fetch_array($result);
+//   $a = $_SESSION['id'];
+//   $y = $_SESSION['year'] ;
+//   $t = $_SESSION['term'];
+//   $b = $_SESSION['banner'];
+//   $q = "SELECT * FROM student WHERE user_id = $a AND exam_year = $y";
+
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +66,7 @@ $result2 = mysqli_query($con,$q2);
     //  $sth = mysqli_query($con,$sql);
     //  $Baner=mysqli_fetch_array($sth);
     //  echo '<img src="data:image/jpeg;base64,'.base64_encode( $Baner['image'] ).'" alt="ssru" style="width:100%"  title="มหาลัยราชภัฎสวนสุนันทา"/>';
-    // ?>
+    ?>
         <img src="<?php echo $_SESSION['banner'] ?>" class="img-fluid" alt="Responsive image">
 
     </header>
@@ -96,27 +111,22 @@ $result2 = mysqli_query($con,$q2);
                         <div class="card-body">
                             <div class="row ">
                                 <div class="col-md-4">
-                                    <p style="color:#55236d" id="n">ชื่อ</p>
-                                    <p style="color:#55236d" id="l">นามสกุล</p>
+                                    <p style="color:#55236d" id="n">ชื่อ-นามสกุล</p>
                                     <p style="color:#55236d" id="i">รหัสนักศึกษา</p>
                                 </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-6">
 
                                     <p id="n">
-                                    555555555555555555<!-- <?php echo $row['user_title']." ".$row['user_first_name'] ?> -->
-                                    </p>
-                                    <p id="l">
-                                       acdsfsdfsd <?php echo $row['user_last_name'] ?>
+                                        <?php echo $row['name'] ?> 
                                     </p>
                                     <p id="i">
-                                        59122519023<?php echo $row['user_id'] ?>
+                                        <?php echo $row['std_id'] ?>
                                     </p>
                                 </div>
                                 <div class="col-md-1"></div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-md-2"></div>
@@ -127,14 +137,14 @@ $result2 = mysqli_query($con,$q2);
                         </div>
                         <div class="card-body">
                             <div class="btn-group-vertical container-fluid dropdown">
-                                <button class="btn btn-light btn-md" href="checkseat.php?id=1" style="background:#dd99ff">กลางภาค</button>
-                                <button class="btn btn-light btn-md" href="checkseat.php?id=2" style="background:#dd99ff">ปลายภาค</button>
-                                <button class="btn btn-light btn-md" href="checkseat.php?id=3" style="background:#dd99ff">แก้ไขผลการเรียน
-                                    ( I )</button>
-                                <button class="btn btn-light btn-md dropdown-toggle" style="background:#dd99ff" type="button"
+                                <a class="btn btn-light btn-md" href="checkseat.php?id=กลางภาค" style="background:#dd99ff">กลางภาค</a>
+                                <a class="btn btn-light btn-md" href="checkseat.php?id=ปลายภาค" style="background:#dd99ff">ปลายภาค</a>
+                                <a class="btn btn-light btn-md" href="checkseat.php?id=แก้ไขผลการเรียน(I)" style="background:#dd99ff">แก้ไขผลการเรียน
+                                    ( I )</a>
+                                <a class="btn btn-light btn-md dropdown-toggle" style="background:#dd99ff"
                                     id="drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">อื่นๆ
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="drop">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="drop" style="background:#dd99ff">
                                     <a class="dropdown-item" href="#">Action</a>
                                     <a class="dropdown-item" href="#">Another action</a>
                                     <a class="dropdown-item" href="#">Something else here</a>
@@ -210,8 +220,7 @@ $result2 = mysqli_query($con,$q2);
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="node_modules/bootstrap/dist/js/dropdown.js.map"></script>
-    <script src="link.js"></script>
+  
 
 </body>
 
