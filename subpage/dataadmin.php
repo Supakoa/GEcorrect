@@ -181,8 +181,7 @@
 										<tr>
 											<td class="text-center">
 												<div class="form-check">
-													<input form="form_1" name="del_cb[]" value="<?php echo $r['admin_id']; ?>" type="checkbox" class="form-check-input"
-													 ng-checked="all">
+													<input form="form_1" name="del_cb[]" value="<?php echo $r['admin_id']; ?>" ng-checked="all" type="checkbox" class="form-check-input">
 												</div>
 											</td>
 											<td>

@@ -1,22 +1,28 @@
 <?php
-require 'server/server.php';
-$q_sub = "SELECT * FROM `subject` order by `subject_id`";
-$re_sub = mysqli_query($con, $q_sub);
-$i = 0;
-$option_sub = '<option hidden selected  value="">เลือกวิชา</option>';
-while ($row_sub = mysqli_fetch_array($re_sub)) {
-    $option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
-    $i++;
-}
+	// connect database 
+	require 'server/server.php';
+	$q_sub = "SELECT * FROM `subject` order by `subject_id`";
+	$re_sub = mysqli_query($con, $q_sub);
+	$i = 0;
 
-$q_location = "SELECT `order`,`name_location` FROM `location_table` order BY `name_location`";
-$re_location = mysqli_query($con, $q_location);
-$j = 0;
-$option_location = '<option hidden selected  value="">สถานที่สอบ</option>';
-while ($row_location = mysqli_fetch_array($re_location)) {
-    $option_location.='<option value = "' . $row_location['order'] . '"> ห้อง ' . $row_location['name_location'] . '</option>';
-    $j++;
-}
+	$option_sub = '<option hidden selected  value="">เลือกวิชา</option>';
+
+	while ($row_sub = mysqli_fetch_array($re_sub)) {
+		$option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
+		$i++;
+	}
+
+	$q_location = "SELECT `order`,`name_location` FROM `location_table` order BY `name_location`";
+	$re_location = mysqli_query($con, $q_location);
+	$j = 0;
+
+	$option_location = '<option hidden selected  value="">สถานที่สอบ</option>';
+
+	while ($row_location = mysqli_fetch_array($re_location)) {
+		$option_location.='<option value = "' . $row_location['order'] . '"> ห้อง ' . $row_location['name_location'] . '</option>';
+		$j++;
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -201,7 +207,7 @@ while ($row_location = mysqli_fetch_array($re_location)) {
                                         <a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
                                             <i class="fa fa-plus"></i> เพิ่มข้อมูล
                                         </a>
-                                        <a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i> ลบที่เลือก</a>
+                                        <a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete_select"><i class="fa fa-minus"></i> ลบที่เลือก</a>
 
                                     </div>
 
@@ -249,7 +255,7 @@ while ($row_location = mysqli_fetch_array($re_location)) {
                                     </div><!--end modal -->
 
                                     <!-- Small modal -->
-                                    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal fade bd-example-modal-sm" id="delete_select" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-sm">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -260,8 +266,10 @@ while ($row_location = mysqli_fetch_array($re_location)) {
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger btn-sm">Yes</button>
-                                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+													<form action="server/del_select.php" method="get">
+														<button type="submit" form="form_1" class="btn btn-danger btn-sm">Yes</button>
+														<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+													</form>
                                                 </div>
                                             </div>
                                         </div>
@@ -282,10 +290,13 @@ while ($row_location = mysqli_fetch_array($re_location)) {
                                     </tr>
                                     </thead>
                                     <tbody>
+										<?php
+											while(0){
+										?>
                                         <tr>
                                             <td class="text-center">
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input">
+                                                    <input type="checkbox" form="form_1" name="del_cb[]" value="<?php  ?>" ng-checked="all" class="form-check-input">
                                                 </div>
                                             </td>
                                             <td>
@@ -294,7 +305,7 @@ while ($row_location = mysqli_fetch_array($re_location)) {
                                                     <a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-minus"></i></a>
+                                                    <a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete"><i class="fa fa-minus"></i></a>
 
                                                 </div>
 
@@ -346,7 +357,7 @@ while ($row_location = mysqli_fetch_array($re_location)) {
                                                 </div><!--end modal 1-->
 
                                                 <!-- Small modal 2-->
-                                                <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal fade bd-example-modal-sm" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
                                                     <div class="modal-dialog modal-sm">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -357,8 +368,10 @@ while ($row_location = mysqli_fetch_array($re_location)) {
                                                             </div>
 
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-danger btn-sm">Yes</button>
-                                                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+																<form action="" method="post">
+																	<button type="submit" class="btn btn-danger btn-sm">Yes</button>
+																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+																</form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -375,6 +388,7 @@ while ($row_location = mysqli_fetch_array($re_location)) {
                                             <td>ปลายภาค</td>
                                             <td></td>
                                         </tr>
+										<?php } ?>
                                     </tbody>
                                 </table>
                             </div>
