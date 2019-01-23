@@ -39,7 +39,7 @@
 
 </head>
 
-<body class="adminbody">
+<body class="adminbody" ng-app="">
 
 	<div id="main">
 
@@ -64,7 +64,7 @@
 												<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#adddata">
 													<i class="fa fa-plus"></i> เพิ่มข้อมูล
 												</a>
-												<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i
+												<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#del_select_btn"><i
 													 class="fa fa-minus"></i> ลบที่เลือก</a>
 
 											</div>
@@ -137,7 +137,7 @@
 
 
 											<!-- Small modal delete select -->
-											<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+											<div class="modal fade bd-example-modal-sm" id="del_select_btn" tabindex="-1" role="dialog" aria-hidden="true">
 												<div class="modal-dialog modal-sm">
 													<div class="modal-content">
 														<div class="modal-header">
@@ -149,14 +149,17 @@
 														</div>
 
 														<div class="modal-footer">
-															<button type="button" class="btn btn-danger btn-sm">Yes</button>
-															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+															<form action="server/del_select.php" id="form_1" method="get">
+																<button type="submit" form="form_1" class="btn btn-danger btn-sm">Yes</button>
+																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+															</form>
 														</div>
 													</div>
 												</div>
 											</div>
+
 											<!--end modal -->
-											<th></th>
+											<th><input type="checkbox" ng-model="all"></th>
 											<th></th>
 											<th>รหัสพนักงาน</th>
 											<th>ชื่อ</th>
@@ -166,6 +169,10 @@
 											<th>active</th>
 										</tr>
 									</thead>
+
+									<!-- hidden sent to server/del_select.php -->
+									<input form="form_1" type="hidden" name="hide_del_select" value="3">
+
 									<tbody>
 										<!-- php loop -->
 										<?php
@@ -174,7 +181,8 @@
 										<tr>
 											<td class="text-center">
 												<div class="form-check">
-													<input type="checkbox" class="form-check-input">
+													<input form="form_1" name="del_cb[]" value="<?php echo $r['admin_id']; ?>" type="checkbox" class="form-check-input"
+													 ng-checked="all">
 												</div>
 											</td>
 											<td>
@@ -348,6 +356,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 	<!-- Counter-Up-->
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>

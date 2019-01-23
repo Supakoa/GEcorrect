@@ -132,17 +132,17 @@
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<form action="server/del_select.php" id="cb_del" method="get">
+								<!-- <form action="server/del_select.php" id="cb_del" method="get"> -->
 									<table id="locat" class="table table-bordered">
 
-										<input type="hidden" name="hide_del_select" value="2">
+										<input form="form_1" type="hidden" name="hide_del_select" value="2">
 										<thead>
 											<tr>
 												<div class="text-center">
 													<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addloc">
 														<i class="fa fa-plus"></i> เพิ่มข้อมูล
 													</a>
-													<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i
+													<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#del_select_btn"><i
 														 class="fa fa-minus"></i> ลบที่เลือก</a>
 
 												</div>
@@ -162,9 +162,11 @@
 										?>
 											<tr>
 												<td class="text-center">
-													<div class="form-check">
-														<input type="checkbox" ng-checked="all" name="del_cb[]" value="<?php echo $row1['role'] ?>" class="form-check-input">
-													</div>
+													<!-- <form action="server/del_select.php" id="form_1" method="get"> -->
+														<div class="form-check">
+															<input form="form_1"type="checkbox" ng-checked="all" name="del_cb[]" value="<?php echo $row1['order'] ?>" class="form-check-input">
+														</div>
+													<!-- </form> -->
 												</td>
 												<td>
 
@@ -252,7 +254,7 @@
 											<?php } ?>
 										</tbody>
 									</table>
-								</form>
+								<!-- </form> -->
 							</div>
 						</div>
 					</div>
@@ -296,7 +298,7 @@
 			<!--end modal 1-->
 
 			<!-- Small modal -->
-			<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal fade bd-example-modal-sm" id="del_select_btn" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -307,14 +309,16 @@
 						</div>
 
 						<div class="modal-footer">
-							<button type="button" onclick="fun_del_cb()" class="btn btn-danger btn-sm">Yes</button>
-							<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+							<form action="server/del_select.php" method="get" id="form_1">
+								<button type="submit" form="form_1"  class="btn btn-danger btn-sm">Yes</button>
+								<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+							</form>	
 						</div>
 					</div>
 				</div>
 			</div>
 			<!--end modal -->
-			
+
 		</footer>
 
 	</div>
