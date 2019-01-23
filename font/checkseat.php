@@ -1,7 +1,14 @@
 ﻿<?php
 require 'server.php';
 session_start();
-
+function DateThai($strDate) {
+    $strYear = date("Y", strtotime($strDate)) + 543;
+    $strMonth = date("n", strtotime($strDate));
+    $strDay = date("j", strtotime($strDate));
+    $strMonthCut = Array("", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.");
+    $strMonthThai = $strMonthCut[$strMonth];
+    return "$strDay $strMonthThai $strYear";
+}
 //pre footer
 $q1 = "SELECT * FROM `show_url` WHERE group_url = '1' AND hide = '0' ";
 $q2 = "SELECT * FROM `show_url` WHERE group_url = '2' AND hide = '0' ";
@@ -12,6 +19,9 @@ $q_web =  "SELECT * FROM `web_show_time` ";
 $web_result = mysqli_query($con,$q_web);
 $web_row = mysqli_fetch_array($web_result);
 $_SESSION['banner'] = $web_row['banner'];
+$year = $_SESSION['year'];
+
+$term=$_SESSION['term'];
 $a = $_SESSION['id'];
 
 //student
@@ -51,7 +61,7 @@ $d = $_GET['id'];
 // $row1 = mysqli_fetch_array($result1);
 
 //table
-$table = "SELECT student.std_id, student_room.seat, student_room.note, room_detail.tool,  location_table.name_location,location_table.url_location, subject.*, detail.day, detail.time_start, detail.time_end  FROM `student`,`student_room`,`room_detail`,`location_table`,`subject`,`detail` WHERE student.std_id = student_room.std_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.room_id = location_table.order AND room_detail.sub_id = subject.subject_id AND room_detail.detail_id = detail.detail_id AND detail.type = '$d'";
+$table = "SELECT student.std_id, student_room.seat, student_room.note, room_detail.tool,  location_table.name_location,location_table.url_location, subject.*, detail.day, detail.time_start, detail.time_end  FROM `student`,`student_room`,`room_detail`,`location_table`,`subject`,`detail` WHERE student.std_id = student_room.std_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.room_id = location_table.order AND room_detail.sub_id = subject.subject_id AND room_detail.detail_id = detail.detail_id AND detail.type = '$d' AND student_room.std_id = '$a' AND detail.year = '$year' AND detail.term = '$term' ";
 $table_result = mysqli_query($con,$table);
 // $row3 = mysqli_fetch_array($table_result)
 
@@ -206,15 +216,14 @@ $table_result = mysqli_query($con,$table);
                             <?php echo $row3['subject_id'] . " " . $row3['subject_name'] ?>
                         </td>
                         <td>
-                            <?php echo $row3['day'] ?>
+                            <?php echo DateThai($row3['day']) ?>
                         </td>
                         <td>
-                            <?php echo $row3['time_start']."-".$row3['time_end'] ?>
+                            <?php echo substr($row3['time_start'], 0, 5) . " น. - " . substr($row3['time_end'], 0, 5) . " น." ?>
                         </td>
                         <td>
-                            <?php echo $row3['name_location'] ?>
-
-                            <a href="<?php echo $l_row['url_location'] ?>" target="_blank"><i class="fas fa-map-marked-alt"
+                            <?php echo $row3['name_location'] ?><br>
+                            <a href="<?php echo $row3['url_location'] ?>" target="_blank"><i class="fas fa-map-marked-alt"
                                     style="font-size: 40px; "></i></a>
 
                         </td>
@@ -222,10 +231,12 @@ $table_result = mysqli_query($con,$table);
 
                             <?php echo $row3['tool'] ?>
 
-                            <?php if ($row3['tool'] == "Tablet") : ?>
+                            <?php if ($row3['tool'] == "TABLET") : ?>
+                            <br>
                             <i class="fas fa-tablet-alt" style="font-size: 50px;"></i>
                             <?php endif; ?>
-                            <?php if ($row3['tool'] == "Computer") : ?>
+                            <?php if ($row3['tool'] == "COMPUTER") : ?>
+                            <br>
                             <i class="fas fa-desktop" style="font-size: 50px;"></i>
                             <?php endif; ?>
 
