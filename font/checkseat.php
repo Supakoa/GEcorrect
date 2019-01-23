@@ -1,14 +1,33 @@
 ﻿<?php
 require 'server.php';
-// session_start();
+session_start();
+
+//pre footer
 $q1 = "SELECT * FROM `show_url` WHERE group_url = '1' AND hide = '0' ";
 $q2 = "SELECT * FROM `show_url` WHERE group_url = '2' AND hide = '0' ";
-$result12 = mysqli_query($con, $q1);
+$result1 = mysqli_query($con, $q1);
 $result2 = mysqli_query($con, $q2);
+//banner
+$q_web =  "SELECT * FROM `web_show_time` ";
+$web_result = mysqli_query($con,$q_web);
+$web_row = mysqli_fetch_array($web_result);
+$_SESSION['banner'] = $web_row['banner'];
+
+
+//student
+$std = "SELECT * FROM `student` WHERE 1";
+$std_result = mysqli_query($con,$std);
+$row = mysqli_fetch_array($std_result);
+
+//detail
+$detail = "SELECT * FROM `detail` ";
+$detail_result = mysqli_query($con,$detail);
+$row2 = mysqli_fetch_array($detail_result);
+
 // require 'checklogin.php';
-$a = $_SESSION['id'];
-$b = $_SESSION['year'];
-$c = $_SESSION['term'];
+// $a = $row2['id'];
+// $b = $_SESSION['year'];
+// $c = $_SESSION['term'];
 // if ($_GET['id'] == 1) {
 //     $_SESSION['type'] = "กลางภาค";
 // } elseif ($_GET['id'] == 2) {
@@ -16,7 +35,7 @@ $c = $_SESSION['term'];
 // } elseif ($_GET['id'] == 3) {
 //     $_SESSION['type'] = "แก้ไขผลการเรียน(I)";
 // }
-// $d = $_SESSION['type'];
+$d = $_GET['id'];
 
 // if ($d == "แก้ไขผลการเรียน(I)" && $c == 1) {
 //     $b--;
@@ -25,11 +44,16 @@ $c = $_SESSION['term'];
 // else if ($d == "แก้ไขผลการเรียน(I)" && $c == 2){
 //     $c=1;
 // }
-$user = "SELECT * FROM student_table WHERE user_id = '$a'";
-$q = "SELECT * FROM student_table WHERE user_id = '$a' AND exam_year = '$b' AND exam_term = '$c' AND exam_type = '$d'";
-$result1 = mysqli_query($con, $user);
-$result = mysqli_query($con, $q);
-$row1 = mysqli_fetch_array($result1);
+// $user = "SELECT * FROM student_table WHERE user_id = '$a'";
+// $q = "SELECT * FROM student_table WHERE user_id = '$a' AND exam_year = '$b' AND exam_term = '$c' AND exam_type = '$d'";
+// $result1 = mysqli_query($con, $user);
+// $result = mysqli_query($con, $q);
+// $row1 = mysqli_fetch_array($result1);
+
+//table
+$table = "SELECT student.std_id, student_room.seat, student_room.note, room_detail.tool,  location_table.name_location,location_table.url_location, subject.*, detail.day, detail.time_start, detail.time_end  FROM `student`,`student_room`,`room_detail`,`location_table`,`subject`,`detail` WHERE student.std_id = student_room.std_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.room_id = location_table.order AND room_detail.sub_id = subject.subject_id AND room_detail.detail_id = detail.detail_id AND detail.type = '$d'";
+$table_result = mysqli_query($con,$table);
+// $row3 = mysqli_fetch_array($table_result)
 
 ?>
 <!DOCTYPE html>
@@ -69,8 +93,8 @@ $row1 = mysqli_fetch_array($result1);
                                     class="fas fa-home"></span></a>
                         </li>
                         <li class="nav-item">
-                        <a href="http://gen-ed.ssru.ac.th/page/contact-us" target="_blank" class="nav-link btn btn-md"
-                                    style="color:white;margin-left:20px"><span>ติดต่อสอบถาม</span></a>
+                            <a href="http://gen-ed.ssru.ac.th/page/contact-us" target="_blank" class="nav-link btn btn-md"
+                                style="color:white;margin-left:20px"><span>ติดต่อสอบถาม</span></a>
                         </li>
                         <li class="nav-item">
                             <div style="text-align:right"></div>
@@ -94,21 +118,17 @@ $row1 = mysqli_fetch_array($result1);
                         <div class="card-body">
                             <div class="row ">
                                 <div class="col-md-4">
-                                    <p style="color:#55236d" id="n">ชื่อ</p>
-                                    <p style="color:#55236d" id="l">นามสกุล</p>
+                                    <p style="color:#55236d" id="n">ชื่อ-นามสกุล</p>
                                     <p style="color:#55236d" id="i">รหัสนักศึกษา</p>
                                 </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-6">
 
                                     <p id="n">
-                                    555555555555555555<!-- <?php echo $row['user_title']." ".$row['user_first_name'] ?> -->
-                                    </p>
-                                    <p id="l">
-                                       acdsfsdfsd <?php echo $row['user_last_name'] ?>
+                                        <?php echo $row['name'] ?>
                                     </p>
                                     <p id="i">
-                                        59122519023<?php echo $row['user_id'] ?>
+                                        <?php echo $row['std_id'] ?>
                                     </p>
                                 </div>
                                 <div class="col-md-1"></div>
@@ -125,14 +145,14 @@ $row1 = mysqli_fetch_array($result1);
                         </div>
                         <div class="card-body">
                             <div class="btn-group-vertical container-fluid dropdown">
-                                <button class="btn btn-light btn-md" href="checkseat.php?id=1" style="background:#dd99ff">กลางภาค</button>
-                                <button class="btn btn-light btn-md" href="checkseat.php?id=2" style="background:#dd99ff">ปลายภาค</button>
-                                <button class="btn btn-light btn-md" href="checkseat.php?id=3" style="background:#dd99ff">แก้ไขผลการเรียน
-                                    ( I )</button>
-                                <button class="btn btn-light btn-md dropdown-toggle" style="background:#dd99ff" type="button"
+                                <a class="btn btn-light btn-md" href="checkseat.php?id=กลางภาค" style="background:#dd99ff">กลางภาค</a>
+                                <a class="btn btn-light btn-md" href="checkseat.php?id=ปลายภาค" style="background:#dd99ff">ปลายภาค</a>
+                                <a class="btn btn-light btn-md" href="checkseat.php?id=แก้ไขผลการเรียน(I)" style="background:#dd99ff">แก้ไขผลการเรียน
+                                    ( I )</a>
+                                <a class="btn btn-light btn-md dropdown-toggle" style="background:#dd99ff"
                                     id="drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">อื่นๆ
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="drop">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="drop" style="background:#dd99ff">
                                     <a class="dropdown-item" href="#">Action</a>
                                     <a class="dropdown-item" href="#">Another action</a>
                                     <a class="dropdown-item" href="#">Something else here</a>
@@ -147,12 +167,12 @@ $row1 = mysqli_fetch_array($result1);
     </div><br>
 
     <div class="container">
-            <div class="table-responsive">
-                <table class="table table-striped table-sm table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <?php 
-                                $pitook = '<th style="color:white;background-color: #55236d;border-radius:5px" colspan="7"><h4 >ตารางสอบวัดความรู้ '.$d." ปีการศึกษา" . $c . "/" . $b .'</h4></th>';
+        <div class="table-responsive">
+            <table class="table table-striped table-sm table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <?php 
+                                $pitook = '<th style="color:white;background-color: #55236d;border-radius:5px" colspan="7"><h4 >ตารางสอบวัดความรู้ '.$d." ปีการศึกษา" . $_SESSION['term'] . "/" .$_SESSION['year'].'</h4></th>';
                                 $pitook2 = '<th style="color:white;background-color: #55236d;border-radius:5px" colspan="7"><h4 >ตารางสอบวัดความรู้ '.$d.'</h4></th>';
                                 
                                 if ($d == "แก้ไขผลการเรียน(I)") {
@@ -161,83 +181,78 @@ $row1 = mysqli_fetch_array($result1);
                                     echo $pitook;
                                 }
                                 ?>
-                        <tr>
-                        <tr class="text-center">
-                            <th>วิชา</th>
-                            <th>วันที่สอบ</th>
-                            <th>เวลาสอบ</th>
-                            <th>สถานที่</th>
-                            <th>อุปกรณ์ที่ใช้สอบ</th>
-                            <th>ที่นั่งสอบ</th>
-                            <th>หมายเหตุ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_array($result)) { ?>
-                        <?php
-                                        $l_name = $row['exam_location'];
-                                        $q_location = "SELECT * FROM `location_table` WHERE name_location = '$l_name' ";
-                                        $l_result = mysqli_query($con, $q_location);
-                                        $l_row = mysqli_fetch_array($l_result);
-                                        $sub = $row['exam_subject'];
-                                        $q_sub = "SELECT * FROM `subject`  WHERE sub_id = '$sub' ";
-                                        $re_sub = mysqli_query($con, $q_sub);
-                                        $sub_row = mysqli_fetch_array($re_sub);
+                    <tr>
+                    <tr class="text-center">
+                        <th>วิชา</th>
+                        <th>วันที่สอบ</th>
+                        <th>เวลาสอบ</th>
+                        <th>สถานที่</th>
+                        <th>อุปกรณ์ที่ใช้สอบ</th>
+                        <th>ที่นั่งสอบ</th>
+                        <th>หมายเหตุ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  
+                    
+                    
+                    while ($row3 = mysqli_fetch_array($table_result)) { ?>
+                    <?php
+                                         
 
                                         ?>
-                        <tr style="text-align: center">
-                            <td style="text-align:left">
-                                    <?php echo $row['exam_subject'] . " " . $sub_row['id_name'] ?>
-                               
-                            </td>
-                            <td>
-                                    <?php echo $row['exam_date'] ?>
-                            </td>
-                            <td>
-                                 <?php echo $row['exam_time'] ?>
-                            </td>
-                            <td>
-                                <?php echo $row['exam_location'] ?>
+                    <tr style="text-align: center">
+                        <td style="text-align:left">
+                            <?php echo $row3['subject_id'] . " " . $row3['subject_name'] ?>
+                        </td>
+                        <td>
+                            <?php echo $row3['day'] ?>
+                        </td>
+                        <td>
+                            <?php echo $row3['time_start']."-".$row3['time_end'] ?>
+                        </td>
+                        <td>
+                            <?php echo $row3['name_location'] ?>
 
-                                <a href="<?php echo $l_row['url_location'] ?>" target="_blank"><i class="fas fa-map-marked-alt"
-                                        style="font-size: 40px; "></i></a>
+                            <a href="<?php echo $l_row['url_location'] ?>" target="_blank"><i class="fas fa-map-marked-alt"
+                                    style="font-size: 40px; "></i></a>
 
-                            </td>
-                            <td>
-                                
-                                    <?php echo $row['exam_tool'] ?>
+                        </td>
+                        <td>
 
-                                <?php if ($row['exam_tool'] == "Tablet") : ?>
-                                <i class="fas fa-tablet-alt" style="font-size: 50px;"></i>
-                                <?php endif; ?>
-                                <?php if ($row['exam_tool'] == "Computer") : ?>
-                                <i class="fas fa-desktop" style="font-size: 50px;"></i>
-                                <?php endif; ?>
+                            <?php echo $row3['tool'] ?>
 
-                            </td>
+                            <?php if ($row3['tool'] == "Tablet") : ?>
+                            <i class="fas fa-tablet-alt" style="font-size: 50px;"></i>
+                            <?php endif; ?>
+                            <?php if ($row3['tool'] == "Computer") : ?>
+                            <i class="fas fa-desktop" style="font-size: 50px;"></i>
+                            <?php endif; ?>
 
-                            <td>
-                                    <?php echo $row['exam_seat'] ?>
-                            </td>
-                            <td>
-                                    <?php echo $row['note'] ?>
-                            </td>
-                        </tr>
+                        </td>
 
-                        <?php 
+                        <td>
+                            <?php echo $row3['seat'] ?>
+                        </td>
+                        <td>
+                            <?php echo $row3['note'] ?>
+                        </td>
+                    </tr>
+
+                    <?php 
                                     } ?>
-                        <tr style="border-collapse: collapse">
-                            <td colspan="6">
-                                *** หากไม่พบข้อมูล ติดต่อได้ที่จุด one stop service
-                            </td>
-                            <td>
-                                <a href="print.php" target="_blank" class="btn btn-link">Print</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        
+                    <tr style="border-collapse: collapse">
+                        <td colspan="6">
+                            *** หากไม่พบข้อมูล ติดต่อได้ที่จุด one stop service
+                        </td>
+                        <td>
+                            <a href="print.php" target="_blank" class="btn btn-link">Print</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
     <br>
     <div class="container-fluid">
