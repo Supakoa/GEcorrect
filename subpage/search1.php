@@ -153,15 +153,15 @@
 																	<div class="row">
 																		<div class="col-md-7">
 																			<label for="id1">รหัสนักศึกษา</label>
-																			<input form="form_2" id="id1" name="id_std" class="form-control" type="text">
+																			<input form="form_2" id="id1" name="id_std" class="form-control" type="text" maxlength="11" required>
 																		</div>
 																		<div class="col-md-6">
-																			<label for="fname1">ชื่อ</label>
-																			<input form="form_2" id="fname1" name="std_fname" class="form-control" type="text">
+																			<label for="fname1">ชื่อ(คำนำหน้าตามด้วยชื่อ)</label>
+																			<input form="form_2" id="fname1" name="std_fname" class="form-control" type="text" required>
 																		</div>
 																		<div class="col-md-6">
 																			<label for="lname1">นามสกุล</label>
-																			<input form="form_2" id="lname1" name="std_lname" class="form-control" type="text">
+																			<input form="form_2" id="lname1" name="std_lname" class="form-control" type="text" required>
 																		</div>
 																	</div>
 																</div>
