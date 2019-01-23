@@ -103,7 +103,6 @@ if (isset($_POST['tab_room'])) {
             $s = 0;
            if($sum_num<$sum_std){
                  header("Location: imgroup.php");
-                 $_SESSION['alert'] = 21;//จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
                  $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
 		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
 			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
@@ -119,12 +118,13 @@ if (isset($_POST['tab_room'])) {
 			        header("Location: search2.php");
 			        $_SESSION['alert'] = 4;
 			        exit();
-		        }   
+                }  
+                $_SESSION['alert'] = 21;//จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
                  exit();
            }
            elseif($sum_num>$sum_std){
                 header("Location: imgroup.php");
-                $_SESSION['alert'] = 22;//จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์
+                
                 $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
 		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
 			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
@@ -140,7 +140,8 @@ if (isset($_POST['tab_room'])) {
 			        header("Location: search2.php");
 			        $_SESSION['alert'] = 4;
 			        exit();
-		        }   
+                }
+                $_SESSION['alert'] = 22;//จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์   
                 exit();
            }
            else{
@@ -320,7 +321,7 @@ if (isset($_POST['tab_room'])) {
                                                         <option hidden selected value="">เลือกประเภท</option>
                                                         <option>กลางภาค</option>
                                                         <option>ปลายภาค</option>
-                                                        <option>แก้ไอ</option>
+                                                        <option>แก้ผลการเรียน(I)</option>
                                                         <option>ย้อนหลัง</option>
                                                     </select>
                                                 </div>

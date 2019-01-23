@@ -11,6 +11,9 @@
      * 1 -> subject
      * 2 -> location 
      * 3 -> admin 
+     * 4 -> search1
+     * 5 -> search2
+     * 6 -> search3
     */
 
     // traverse all
@@ -33,6 +36,18 @@
             case '3':
                 $sql = "DELETE FROM `admin` WHERE `admin_id` = '$cb[$i]' ";
                 $header = "Location: ../dataadmin.php";
+            break;
+            
+            case '4':
+               
+            break;
+
+            case '5':
+                
+            break;
+
+            case '6':
+                
             break;
         }
 
