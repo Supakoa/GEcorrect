@@ -72,14 +72,14 @@
 					<div class="card-body">
 						<div class="container">
 							<div class="form-group">
-								<label for="id">รหัสนักศึกษา</label>
+								
 								<form action="server/search_search1.php" method="post">
 									<div class="row">
 										<!-- w3.js filter -->
 										<!-- <input oninput="w3.filterHTML('#search1', '.item', this.value)" class="w3-input" placeholder="Search for names.."> -->
-
-										<div class="col-sm-10"><input id="id" class="form-control" type="text" name='value_search' required></div>
-										<div class="col-sm-2"><input class="w3-btn w3-green" type="submit" value="Submit" name="btn_search"></div>
+										<div class="col-sm-4"></div>
+										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' placeholder="รหัสนักศึกษา" required></div>
+										<div class="col-sm-4"><input class="btn btn-md btn-success" type="submit" value="Submit" name="btn_search"></div>
 									</div>
 								</form>
 							</div>

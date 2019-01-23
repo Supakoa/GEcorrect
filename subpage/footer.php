@@ -135,173 +135,201 @@ if(isset($_SESSION['alert'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<title>Admin Template-เอกสารที่เผยแพร่และเว็บไซต์ที่เกี่ยวข้อง</title>
-		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
-		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
+	<title>Admin Template-เอกสารที่เผยแพร่และเว็บไซต์ที่เกี่ยวข้อง</title>
+	<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
+	<meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
-		<!-- Bootstrap CSS -->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Font Awesome CSS -->
-		<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Custom CSS -->
-		<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
-		
-		<!-- BEGIN CSS for this page -->
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
-		<!-- END CSS for this page -->
-		
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- Font Awesome CSS -->
+	<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- Custom CSS -->
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+
+	<!-- BEGIN CSS for this page -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+	<!-- END CSS for this page -->
+
 </head>
 
 <body class="adminbody">
 
-<div id="main">
+	<div id="main">
 
-	<?php require 'menu/navmenu.php' ?>
+		<?php require 'menu/navmenu.php' ?>
 
 
-    <div class="content-page"><!-- content-page -->
+		<div class="content-page">
+			<!-- content-page -->
 
-		<div class="content"><!-- content -->
+			<div class="content">
+				<!-- content -->
 
-			<div class="container-fluid"><!--container-fluid -->
+				<div class="container-fluid">
+					<!--container-fluid -->
 					<div class="card mb-3">
 						<div class="card-header">
 							<h3 class="text-center">เอกสารที่เผยแพร่และเว็บไซต์ที่เกี่ยวข้อง</h3>
 						</div>
 						<div class="card-body">
-							<div class="card"><!-- card table 1 -->
+							<div class="card">
+								<!-- card table 1 -->
 								<div class="card-body">
-										<h4 class="text-center">เว็บไซต์ที่เกี่ยวข้อง</h4>
+									<h4 class="text-center">เว็บไซต์ที่เกี่ยวข้อง</h4>
 									<div class="table-responsive">
-										<table class="table"><!-- table 1 -->
+										<table class="table">
+											<!-- table 1 -->
 											<thead>
 												<tr>
 													<th>ลำดับ</th>
 													<th>ข้อความ</th>
 													<th>ที่อยู่</th>
-													<th>แสดงหน้าเว็บ</th>
+													<th>ซ่อน</th>
 												</tr>
 											</thead>
-											<form action="footer.php" method="post"><!-- form web -->
+											<form action="footer.php" method="post">
+												<!-- form web -->
 												<tbody>
 													<?php $i = 1; ?>
-                                					<?php while ($row1 = mysqli_fetch_array($q1)) {  ?>
-														<tr>	
-															<td><?php echo $i . " )." ?></td>
-															<td><input class="form-control" type="text" name ="web_text_<?php echo $i ?>" value="<?php echo $row1['text'] ?>" require></td>
-															<td><input class="form-control" type="text" name ="web_url_<?php echo $i ?>" value="<?php echo $row1['url'] ?>" require></td>
-															<?php if ($row1['hide'] == 0) { ?>
-																<td class="text-center"><input type="checkbox" class="form-checkbox" name = "web_check_<?php echo $i ?>"></td>
-															<?php 
+													<?php while ($row1 = mysqli_fetch_array($q1)) {  ?>
+													<tr>
+														<td>
+															<?php echo $i . " )." ?>
+														</td>
+														<td><input class="form-control" type="text" name="web_text_<?php echo $i ?>" value="<?php echo $row1['text'] ?>"
+															 require></td>
+														<td><input class="form-control" type="text" name="web_url_<?php echo $i ?>" value="<?php echo $row1['url'] ?>"
+															 require></td>
+														<?php if ($row1['hide'] == 0) { ?>
+														<td class="text-center"><input type="checkbox" class="form-checkbox" name="web_check_<?php echo $i ?>"></td>
+														<?php 
                                     						} else { ?>
-																<td class="text-center"><input type="checkbox" class="form-checkbox" name = "web_check_<?php echo $i ?>" checked></td>
-																<?php 
+														<td class="text-center"><input type="checkbox" class="form-checkbox" name="web_check_<?php echo $i ?>"
+															 checked></td>
+														<?php 
                                     						} ?>
-														</tr>
-														<?php $i = $i + 1;
+													</tr>
+													<?php $i = $i + 1;
                             						} ?>
 												</tbody>
-											</table><br>
-												<div class="text-center">
-													<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10 btn-sm" data-target="#up0" data-toggle="modal">Update</a>
-												
-												<!-- Modal -->
-														<div class="modal fade bd-example-modal-sm" id="up0" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
-														<div class="modal-dialog " role="document">
-															<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="exampleModalLabel2">ยืนยัน</h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										</table><br>
+										<div class="text-center">
+											<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10 btn-sm" data-target="#up0" data-toggle="modal">Update</a>
+
+											<!-- Modal -->
+											<div class="modal fade bd-example-modal-sm" id="up0" tabindex="-1" role="dialog" aria-labelledby="customModal"
+											 aria-hidden="true">
+												<div class="modal-dialog " role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel2">ยืนยัน</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
-															</div>
-															<div class="modal-footer text-center">
-																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																<button type="submit" class="btn btn-primary btn-sm" name="new_btn_1">Yes</button>
-															</div>
-															</div>
+															</button>
 														</div>
+														<div class="modal-body">
+															<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
+														</div>
+														<div class="modal-footer text-center">
+															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+															<button type="submit" class="btn btn-primary btn-sm" name="new_btn_1">Yes</button>
 														</div>
 													</div>
-												</form><!--end form web -->
-									</div><!--end table 1 --> 
+												</div>
+											</div>
+										</div>
+										</form>
+										<!--end form web -->
+									</div>
+									<!--end table 1 -->
 								</div>
-							</div><!--end card table 1 -->
+							</div>
+							<!--end card table 1 -->
 
 							<hr>
-							<div class="card"><!-- card table 2 -->
+							<div class="card">
+								<!-- card table 2 -->
 								<div class="card-body">
-										<h4 class="text-center">เอกสารที่เผยแพร่</h4>
+									<h4 class="text-center">เอกสารที่เผยแพร่</h4>
 									<div class="table-responsive">
-									<table class="table"><!-- table 2 -->
+										<table class="table">
+											<!-- table 2 -->
 											<thead>
 												<tr>
 													<th>ลำดับ</th>
 													<th>ข้อความ</th>
 													<th>ชื่อไฟล์</th>
 													<th>เพิ่มไฟล์ PDF</th>
-													<th>แสดงหน้าเว็บ</th>
+													<th>ซ่อน</th>
 												</tr>
 											</thead>
 											<tbody>
-											<form action="footer.php" method="post"><!-- form paper -->
-											<?php $a = 1; ?>
-											<?php while ($row2 = mysqli_fetch_array($q2)) { ?>
-												<tr>
-													<td><?php echo $a .".)"?></td>
-													<td><input class="form-control" type="text" name="paper_text_<?php echo $a ?>" value="<?php echo $row2['text'] ?>"></td>
-													<td><?php echo $row2['real_name'] ?></td>
-													<td><input class="form-control btn" type="file" name="paper_file_<?php echo $a ?>"></td>
-													<?php if ($row2['hide'] == 0) { ?>
+												<form action="footer.php" method="post">
+													<!-- form paper -->
+													<?php $a = 1; ?>
+													<?php while ($row2 = mysqli_fetch_array($q2)) { ?>
+													<tr>
+														<td>
+															<?php echo $a .".)"?>
+														</td>
+														<td><input class="form-control" type="text" name="paper_text_<?php echo $a ?>" value="<?php echo $row2['text'] ?>"></td>
+														<td>
+															<?php echo $row2['real_name'] ?>
+														</td>
+														<td><input class="form-control btn" type="file" name="paper_file_<?php echo $a ?>"></td>
+														<?php if ($row2['hide'] == 0) { ?>
 														<td class="text-center"><input type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>"></td>
-													<?php } else { ?>
-														<td class="text-center"><input type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>" checked></td>
-													<?php } ?>
-												</tr>
-												<?php $a = $a + 1;
+														<?php } else { ?>
+														<td class="text-center"><input type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>"
+															 checked></td>
+														<?php } ?>
+													</tr>
+													<?php $a = $a + 1;
                             					} ?>
 											</tbody>
 										</table><br>
-											<div class="text-center">
-												<!-- Small modal -->
-												<a role="button" href="#"  class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm">Upload</a>
+										<div class="text-center">
+											<!-- Small modal -->
+											<a role="button" href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm">Upload</a>
 
-													<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-													<div class="modal-dialog modal-sm">
-														<div class="modal-content">
-															<div class="modal-header">
+											<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+												<div class="modal-dialog modal-sm">
+													<div class="modal-content">
+														<div class="modal-header">
 															<h5 class="modal-title">ยืนยันการอัพข้อมูล</h5>
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
+																<span aria-hidden="true">&times;</span>
 															</button>
-															</div>
-															<div class="modal-body">
-																<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
-															</div>
-															<div class="modal-footer text-center">
+														</div>
+														<div class="modal-body">
+															<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
+														</div>
+														<div class="modal-footer text-center">
 															<button type="submit" class="btn btn-danger btn-sm" name="new_btn_2">Yes</button>
 															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
 														</div>
-														</div>
 													</div>
-													</div><!--end modal 3-->
+												</div>
 											</div>
-											</form><!--end form paper -->
-									</div><!--end table 2 -->
+											<!--end modal 3-->
+										</div>
+										</form>
+										<!--end form paper -->
+									</div>
+									<!--end table 2 -->
 								</div>
-							</div><!--end card table 2 -->
+							</div>
+							<!--end card table 2 -->
 							<hr>
 						</div>
 					</div>
@@ -314,82 +342,84 @@ if(isset($_SESSION['alert'])){
 								<form action="footer.php" method="post">
 									<div class="form-section text-center">
 										<label for="foot">Text</label>
-										<textarea class="form-control" name="commentf" id="foot" col="10" rows="10" ><?php echo $row_banner['footer']  ?></textarea>
+										<textarea class="form-control" name="commentf" id="foot" col="10" rows="10"><?php echo $row_banner['footer']  ?></textarea>
 									</div><br>
-										<div class="text-center">
+									<div class="text-center">
 										<a href="#custom-modal" class="btn btn-success m-r-5 m-b-10 btn-sm" data-target="#up2" data-toggle="modal">Update</a>
-									
-									<!-- Modal -->
-											<div class="modal fade" id="up2" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
+
+										<!-- Modal -->
+										<div class="modal fade" id="up2" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
 											<div class="modal-dialog" role="document">
 												<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel2">ยืนยัน</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-													</button>
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel2">ยืนยัน</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+														<button type="submit" class="btn btn-primary btn-sm" name="new_btn_3">Yes</button>
+													</div>
 												</div>
-												<div class="modal-body">
-												<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-													<button type="submit" class="btn btn-primary btn-sm" name="new_btn_3">Yes</button>
-												</div>
-												</div>
-											</div>
 											</div>
 										</div>
+									</div>
 								</form>
 							</div>
 						</div>
 					</div>
-            </div><!-- END container-fluid -->
-		</div><!--end content-->
-    </div>
-	<!-- END content-page -->
-    
-	<footer class="footer">
-		
-	</footer>
+				</div><!-- END container-fluid -->
+			</div>
+			<!--end content-->
+		</div>
+		<!-- END content-page -->
 
-</div>
-<!-- END main -->
+		<footer class="footer">
 
-<script src="assets/js/modernizr.min.js"></script>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/moment.min.js"></script>
-		
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+		</footer>
 
-<script src="assets/js/detect.js"></script>
-<script src="assets/js/fastclick.js"></script>
-<script src="assets/js/jquery.blockUI.js"></script>
-<script src="assets/js/jquery.nicescroll.js"></script>
+	</div>
+	<!-- END main -->
 
-<!-- App js -->
-<script src="assets/js/pikeadmin.js"></script>
+	<script src="assets/js/modernizr.min.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/moment.min.js"></script>
 
-<!-- BEGIN Java Script for this page -->
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+
+	<script src="assets/js/detect.js"></script>
+	<script src="assets/js/fastclick.js"></script>
+	<script src="assets/js/jquery.blockUI.js"></script>
+	<script src="assets/js/jquery.nicescroll.js"></script>
+
+	<!-- App js -->
+	<script src="assets/js/pikeadmin.js"></script>
+
+	<!-- BEGIN Java Script for this page -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
 	<!-- Counter-Up-->
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
-	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
+	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
 
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function () {
 			// data-tables
 			$('#example1').DataTable();
-					
-			
-		} );		
+
+
+		});
 	</script>
-	
-<!-- END Java Script for this page -->
+
+	<!-- END Java Script for this page -->
 
 </body>
+
 </html>
