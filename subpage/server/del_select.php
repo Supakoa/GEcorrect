@@ -9,19 +9,38 @@
      *  hide_del_select
      * 0,null -> ไม่แสดงค่า
      * 1 -> subject
-     * 2 -> location  
+     * 2 -> location 
+     * 3 -> admin 
+     * 4 -> search1
+     * 5 -> search2
+     * 6 -> search3
     */
+
+    // traverse all
+    // for ($i=0; $i <count($cb) ; $i++) { 
+    //     echo $cb[$i].'<br>';
+    // }echo $sel_del;
 
     for($i=0; $i < count($cb); $i++){
         switch ($sel_del) {
             case '1':
-                $sql = "DELETE FROM subject WHERE subject_id = '$cb[$i]' ";
+                $sql = "DELETE FROM `subject` WHERE `subject_id` = '$cb[$i]' ";
                 $header = "Location: ../subject.php";
             break;
 
             case '2':
-                $sql = "DELETE FROM location_table WHERE order = '$cb[$i]' ";
+                $sql = "DELETE FROM `location_table` WHERE `order` = '$cb[$i]' ";
                 $header = "Location: ../location.php";
+            break;
+
+            case '3':
+                $sql = "DELETE FROM `admin` WHERE `admin_id` = '$cb[$i]' ";
+                $header = "Location: ../dataadmin.php";
+            break;
+
+            case '4':
+                $sql = "DELETE FROM `student` WHERE `std_id` = '$cb[$i]' ";
+                $header = "Location: ../search1.php";
             break;
         }
 

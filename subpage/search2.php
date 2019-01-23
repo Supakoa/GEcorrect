@@ -1,8 +1,41 @@
 <?php
 require 'server/server.php';
 if (isset($_POST['big_form'])) {//ลบที่เลือก
-	echo "Noooooo!!!!!";
-	print_r($_POST['del_cb']);
+	
+	foreach($_POST['del_cb'] as $del_id ){
+		$q_del_sl = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$del_id'";
+		if($re_del_sl = mysqli_query($con, $q_del_sl)){
+			while ($row_del_sl = mysqli_fetch_array($re_del_sl)) {
+				$del_room_id = $row_del_sl['room_detail_id'];
+				$q_del_std = "DELETE FROM `student_room` WHERE `room_detail_id` = '$del_room_id' ";
+				if($re_del_std = mysqli_query($con, $q_del_std)){
+					$_SESSION['alert'] = 12;
+				}
+				else{
+					header("Location: search2.php");
+						$_SESSION['alert'] = 4;
+						exit();
+				}
+			}
+			$q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$del_id'";
+			if($re_del_rm = mysqli_query($con, $q_del_rm)){
+				$q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$del_id'";
+				if($re_del_dt = mysqli_query($con, $q_del_dt)){
+					$_SESSION['alert'] = 12;
+				}else{
+					header("Location: search2.php");
+					$_SESSION['alert'] = 4;
+					exit();
+				}
+			}
+			else{
+				header("Location: search2.php");
+				$_SESSION['alert'] = 4;
+				exit();
+			}
+			
+		}
+	}
 }
 if (isset($_POST['edit'])) { //แก้ไข
 	$edit_id = $_POST['edit_id'];
@@ -140,7 +173,7 @@ if (isset($_POST['gogo'])) {
 
     </head>
 
-    <body class="adminbody">
+    <body class="adminbody" ng-app="">
 
         <div id="main">
 
@@ -244,7 +277,7 @@ if (isset($_POST['gogo'])) {
                                                                 <option value="">ทั้งหมด</option>
                                                                 <option>กลางภาค</option>
                                                                 <option>ปลายภาค</option>
-                                                                <option>แก้ไอ</option>	
+                                                                <option>แก้ผลการเรียน(I)</option>	
                                                                 <option>ย้อนหลัง</option>
                                                             </select>
                                                             </select>
@@ -277,6 +310,7 @@ if (isset($_POST['gogo'])) {
 
 
                                         <tr>
+											<th><input type="checkbox" ng-model="all">Check All</th>
                                             <th></th>
                                             <th>เทอม</th>
                                             <th>ปีการศึกษา</th>
@@ -285,7 +319,7 @@ if (isset($_POST['gogo'])) {
                                             <th>วันที่</th>
                                             <th>เวลา</th>
                                             <th>ประเภท</th>
-                                            <th></th>
+                                            
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -294,7 +328,11 @@ if (isset($_POST['gogo'])) {
 												$de_id = $row_show['detail_id'];
 												?>
                                                 <tr>
-
+												<td class="text-center">
+                                                        <div class="form-check">
+                                                            <input name="del_cb[]" value = "<?php echo $de_id ?>" type="checkbox" class="form-check-input"   ng-checked="all" form = "big_form">
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <div class="text-center">
                                                             <a role="button" href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#info<?php echo $de_id ?>">
@@ -359,14 +397,14 @@ if (isset($_POST['gogo'])) {
                                                                                             <tbody>
 																								<?php
 																								$i = 1;
-																								$q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `tool`  ";
+																								$q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
 																								$re_room = mysqli_query($con, $q_room);
 																								while ($row_room = mysqli_fetch_array($re_room)) {
 																									?>
                                                                                                     <tr>
                                                                                                         <td class="text-center"><?php echo $i++ ?></td>
                                                                                                         <td><?php echo $row_room['sub_id'] ?></td>
-																										<td><?php echo $row_show['sub_group'] ?></td>
+																										<td><?php echo $row_room['sub_group'] ?></td>
                                                                                                         <td><?php echo $row_room['name_location'] ?></td>
                                                                                                         <td><?php echo $row_room['num'] ?></td>
                                                                                                         <td><?php echo $row_room['tool'] ?></td>
@@ -471,7 +509,7 @@ if (isset($_POST['gogo'])) {
                                                                                                     <option hidden selected  value="<?php echo $row_show['type'] ?>"><?php echo $row_show['type'] ?></option>
                                                                                                     <option>กลางภาค</option>
                                                                                                     <option>ปลายภาค</option>
-                                                                                                    <option>แก้ไอ</option>	
+                                                                                                    <option>แก้ผลการเรียน(I)</option>	
                                                                                                     <option>ย้อนหลัง</option>
                                                                                                 </select>
                                                                                             </div>
@@ -563,11 +601,7 @@ if (isset($_POST['gogo'])) {
                                                     <td><?php echo DateThai($row_show['day']) ?></td>
                                                     <td><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
                                                     <td><?php echo $row_show['type'] . "----" . $de_id ?></td>
-                                                    <td class="text-center">
-                                                        <div class="form-check">
-                                                            <input name="del_cb[]" value = "<?php echo $de_id ?>" type="checkbox" class="form-check-input" form = "big_form">
-                                                        </div>
-                                                    </td>
+                                                    
                                                 </tr>
 											<?php } ?>
                                         </tbody>
@@ -643,6 +677,7 @@ if (isset($_POST['gogo'])) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
         <!-- Counter-Up-->
         <script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>

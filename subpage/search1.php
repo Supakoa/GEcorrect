@@ -12,8 +12,41 @@
     	$re = mysqli_query($con,$sql);
 	}
 
+	// insert new student
 	if(isset($_POST['insert_btn'])){
-		echo '<script>alert("Hello palm")</script>';
+		unset($_POST['insert_btn']);
+		if( $_POST['id_std'] != ' ' AND $_POST['std_fname'] != ' ' AND $_POST['std_lname'] != ' ' ){
+
+			// make it easy
+			$id = $_POST['id_std'];
+			$name = $_POST['std_fname']." ".$_POST['std_lname'];
+
+			// check it have in database .if have show error
+			$sql = "SELECT * FROM `student` WHERE `std_id` = '$id' ";
+			$re = mysqli_query($con,$sql);
+			if( !(mysqli_fetch_array(mysqli_query($con,"SELECT * FROM `student` WHERE `std_id` = '$id' ")))){
+
+				if( mysqli_query($con,"INSERT INTO `student` (`std_id`, `name`) VALUES ('$id','$name') ") ){
+					$_SESSION['alert'] = 3; 
+					header("Location: search1.php");
+					exit();
+				}else{
+					$_SESSION['alert'] = 4; 
+					header("Location: search1.php");
+					exit();
+				}
+
+			}else{
+				$_SESSION['alert'] = 19;
+				header("Location: search1.php");
+				exit();
+			}
+
+		}else{
+			$_SESSION['alert'] = 4; 
+			header("Location: search1.php");
+			exit();
+		}
 	}
 	
 ?>
@@ -51,9 +84,12 @@
 	<!-- w3.js -->
 	<!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
 
+	<!-- sweet alert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
+
 </head>
 
-<body class="adminbody">
+<body class="adminbody" ng-app="">
 
 	<div id="main">
 
@@ -78,7 +114,7 @@
 										<!-- w3.js filter -->
 										<!-- <input oninput="w3.filterHTML('#search1', '.item', this.value)" class="w3-input" placeholder="Search for names.."> -->
 										<div class="col-sm-4"></div>
-										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' placeholder="รหัสนักศึกษา" required></div>
+										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' placeholder="รหัสนักศึกษา"  required></div>
 										<div class="col-sm-4"><input class="btn btn-md btn-success" type="submit" value="Submit" name="btn_search"></div>
 									</div>
 								</form>
@@ -96,14 +132,13 @@
 											<a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
 												<i class="fa fa-plus"></i> เพิ่มข้อมูล
 											</a>
-											<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i
+											<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#del_select"><i
 												 class="fa fa-minus"></i> ลบที่เลือก</a>
 
 										</div>
 
 										<!-- Modal -->
 										<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
-											<form action="search1.php" method="post">
 												<div class="modal-dialog" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
@@ -118,33 +153,33 @@
 																	<div class="row">
 																		<div class="col-md-7">
 																			<label for="id1">รหัสนักศึกษา</label>
-																			<input id="id1" class="form-control" type="text">
+																			<input form="form_2" id="id1" name="id_std" class="form-control" type="text">
 																		</div>
 																		<div class="col-md-6">
 																			<label for="fname1">ชื่อ</label>
-																			<input id="fname1" class="form-control" type="text">
+																			<input form="form_2" id="fname1" name="std_fname" class="form-control" type="text">
 																		</div>
 																		<div class="col-md-6">
 																			<label for="lname1">นามสกุล</label>
-																			<input id="lname1" class="form-control" type="text">
+																			<input form="form_2" id="lname1" name="std_lname" class="form-control" type="text">
 																		</div>
 																	</div>
 																</div>
 															</div>
-
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-															<button type="submit" name="insert_btn" class="btn btn-primary btn-sm">Save</button>
+															<form action="search1.php" method="post" id="form_2">
+																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																<button type="submit" name="insert_btn" class="btn btn-primary btn-sm">Save</button>
+															</form>
 														</div>
 													</div>
 												</div>
-											</form>
 										</div>
 										<!--end modal -->
 
 										<!-- Small modal -->
-										<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal fade bd-example-modal-sm" id="del_select" tabindex="-1" role="dialog" aria-hidden="true">
 											<div class="modal-dialog modal-sm">
 												<div class="modal-content">
 													<div class="modal-header">
@@ -155,19 +190,24 @@
 													</div>
 
 													<div class="modal-footer">
-														<button type="button" class="btn btn-danger btn-sm">Yes</button>
-														<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+														<form action="server/del_select.php" method="get" id="form_1">
+															<button type="submit" form="form_1" class="btn btn-danger btn-sm">Yes</button>
+															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+														</form>
 													</div>
 												</div>
 											</div>
 										</div>
 										<!--end modal -->
-										<th></th>
+										<th><input type="checkbox" ng-model="all"> CheckAll</th>
 										<th></th>
 										<th>รหัสนักศึกษา</th>
 										<th>ชื่อ-นามสกุล</th>
 									</tr>
 								</thead>
+
+								<input form="form_1" type="hidden" name="hide_del_select" value="4">
+
 								<tbody>
 									<!-- loop for search -->
 									<?php
@@ -177,7 +217,7 @@
 
 										<td class="text-center">
 											<div class="form-check">
-												<input type="checkbox" class="form-check-input">
+												<input form="form_1" type="checkbox" name="del_cb[]" value="<?php echo $r['std_id']; ?>" class="form-check-input" ng-checked="all">
 											</div>
 										</td>
 
@@ -288,6 +328,9 @@
 
 	</div>
 
+	<!-- alert all -->
+	<?php require '../alert.php'; ?>
+
 	<script src="assets/js/modernizr.min.js"></script>
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/moment.min.js"></script>
@@ -307,6 +350,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 	<!-- Counter-Up-->
 	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
@@ -316,7 +360,6 @@
 		$(document).ready(function () {
 			// data-tables
 			$('#search1').DataTable();
-
 
 		});
 	</script>

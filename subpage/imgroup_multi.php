@@ -43,41 +43,79 @@ if (isset($_POST['tab_room'])) {
     $q_detail = "INSERT INTO `detail`(`detail_id`, `term`, `year`, `day`, `time_start`, `time_end`, `type`) VALUES ( '$detail_id','$term','$year','$date','$s_time','$e_time','$type_exam')";
     if ($re_detail = mysqli_query($con, $q_detail)) {
 
-        $sub = $_POST['sub'];
-        $group_exam = $_POST['group_exam'];
+        
         $i = 0;
+        $n = 0;
+        $sum_num = 0;
         $num[] = '';
+        $group_exam[] ='';
+        $sub[] = '';
         foreach ($_POST['tab_num'] as $value) {
+            $sub[$i] = $_POST['tab_sub'][$n];
+            $group_exam[$i] = $_POST['tab_group_exam'][$n];
             $num[$i] = $value;
+            $sum_num += $value;
             $i++;
+            $n++;
         }
+        $n = 0;
         foreach ($_POST['com_num'] as $value) {
+            $sub[$i] = $_POST['com_sub'][$n];
+            $group_exam[$i] = $_POST['com_group_exam'][$n];
             $num[$i] = $value;
+            $sum_num += $value;
             $i++;
+            $n++;
         }
+        $n = 0;
         $i = 0;
+        $r=0;
         $room[] = '';
+        $sum_room[] ='' ;
         foreach ($_POST['tab_room'] as $value) {
+            if($i!=0){
+                if($_POST['tab_room'][$n] == $_POST['tab_room'][($n-1)]){
+                    $sum_room[$r++] = $i;
+                }  
+            }
+            
             $std_num  = $num[$i];
+            $group_exam_now = $group_exam[$i];
+            $sub_now = $sub[$i];
             $room_id = "RD" . getToken(10);
             
-            $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub','$group_exam','$std_num','TABLET')";
+            $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub_now','$group_exam_now','$std_num','TABLET')";
             if ($re_room = mysqli_query($con, $q_room)) {
                 $room[$i++] = $room_id;
+                $n++;
             } else {
-                header("Location: imgroup.php");
+                header("Location: imgroup_multi.php");
                 $_SESSION['alert'] = 4;
                 exit();
             }
+
         }
+        $n = 0;
+        $k = 0;
         foreach ($_POST['com_room'] as $value) {
+            if($k!=0){
+                if($_POST['com_room'][$n] == $_POST['com_room'][($n-1)]){
+                    $sum_room[$r++] = $i;
+                } 
+            }
+            
             $std_num  = $num[$i];
+            
+            $group_exam_now = $group_exam[$i];
+            $sub_now = $sub[$i];
             $room_id = "RD" . getToken(10);
-            $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub','$group_exam','$std_num','COMPUTER')";
+            $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub_now','$group_exam_now','$std_num','COMPUTER')";
             if ($re_room = mysqli_query($con, $q_room)) {
                 $room[$i++] = $room_id;
+                $n++;
+                $k++;
             } else {
-                header("Location: imgroup.php");
+                header("Location: imgroup_multi.php");
                 $_SESSION['alert'] = 4;
                 exit();
             }
@@ -94,25 +132,86 @@ if (isset($_POST['tab_room'])) {
                 $student[$i] = $value;
                 $i++;
             }
+            $sum_std = $i;
             $i = 0;
             $s = 0;
-            foreach ($room as $a) {
-                $j = 1;
-                $cout = $num[$i];
-                while ($j <= $cout) {
-                    $sr_id = "SR" . getToken(10);
-                    $std = $student[$s++];
-                    $q_sub = "INSERT INTO `student_room`(`student_room_id`, `std_id`, `room_detail_id`, `seat`, `note`) VALUES ('$sr_id','$std','$a','$j','')";
-                    if ($re_sub = mysqli_query($con, $q_sub)) {
-                        $_SESSION['alert'] = 3;
-                    } else {
-                        header("Location: imgroup.php");
-                        $_SESSION['alert'] = 4;
-                        exit();
-                    }
-                    $j++;
+            $r = 0;
+            if($sum_num<$sum_std){
+                header("Location: imgroup.php");
+                $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
+			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
+			        if($re_del_dt = mysqli_query($con, $q_del_dt)){
+				    $_SESSION['alert'] = 12;
+			        }else{
+				        header("Location: search2.php");
+				        $_SESSION['alert'] = 4;
+				        exit();
+			        }
+		        }
+		        else{
+			        header("Location: search2.php");
+			        $_SESSION['alert'] = 4;
+			        exit();
                 }
-                $i++;
+                $_SESSION['alert'] = 21;//จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
+                exit();
+            }
+             elseif($sum_num>$sum_std){
+               header("Location: imgroup.php");
+               $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
+			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
+			        if($re_del_dt = mysqli_query($con, $q_del_dt)){
+				    $_SESSION['alert'] = 12;
+			        }else{
+				        header("Location: search2.php");
+				        $_SESSION['alert'] = 4;
+				        exit();
+			        }
+		        }
+		        else{
+			        header("Location: search2.php");
+			        $_SESSION['alert'] = 4;
+			        exit();
+                }
+               $_SESSION['alert'] = 22;//จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์
+                
+               exit();
+            }
+            else{
+
+                foreach ($room as $a) {
+                    $j = 1;
+                    if(isset($sum_room[$r+1])){
+                         if($i == $sum_room[$r]){
+                            $j += $num[($i-1)];
+                            $cout = $num[$i]+$num[($i-1)];
+                            $r++;
+                        }
+                        else{
+                        $cout = $num[$i];  
+                        }
+                    }
+                    else{
+                        $cout = $num[$i];  
+                    }
+                    
+                    while ($j <= $cout) {
+                        $sr_id = "SR" . getToken(10);
+                        $std = $student[$s++];
+                        $q_sub = "INSERT INTO `student_room`(`student_room_id`, `std_id`, `room_detail_id`, `seat`, `note`) VALUES ('$sr_id','$std','$a','$j','')";
+                        if ($re_sub = mysqli_query($con, $q_sub)) {
+                            $_SESSION['alert'] = 3;
+                        } else {
+                            header("Location: imgroup_multi.php");
+                            $_SESSION['alert'] = 4;
+                            exit();
+                        }
+                        $j++;
+                    }
+                    $i++;
+                }
             }
         }
     }
@@ -172,7 +271,7 @@ if (isset($_POST['tab_room'])) {
 
                     <div class="card-body">
                         <!-- card-body -->
-                        <form action="imgroup.php" method="post" id="form1" class="formsingha" enctype="multipart/form-data" >
+                        <form action="imgroup_multi.php" method="post" id="form1" class="formsingha" enctype="multipart/form-data" >
                             <!-- FORM WOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW-->
 
                             <div class="container">
@@ -253,7 +352,7 @@ if (isset($_POST['tab_room'])) {
                                                         <option hidden selected value="">เลือกประเภท</option>
                                                         <option>กลางภาค</option>
                                                         <option>ปลายภาค</option>
-                                                        <option>แก้ไอ</option>
+                                                        <option>แก้ผลการเรียน(I)</option>
                                                         <option>ย้อนหลัง</option>
                                                     </select>
                                                 </div>
@@ -262,7 +361,7 @@ if (isset($_POST['tab_room'])) {
                                         <!--end filter -->
                                         <div class="text-center">
                                             <!-- up file -->
-                                            <input class="btn btn-md" type="file" name="file_csv" accept=".csv" form ="form1">
+                                            <input class="btn btn-md" type="file" name="file_csv" accept=".csv" form ="form1" required>
                                         </div>
                                         <!--end up file -->
                                     </div>
@@ -473,7 +572,7 @@ if (isset($_POST['tab_room'])) {
                         j +
                         '.ห้อง</label><select name="com_room[]"  class="form-control select2" required>' +
                         sum +
-                        '</select></div><div class="col-md-4"></div><div class="col-md-3 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "com_num[]" required ></div></div><!--end room & Value -->';
+                        '</select></div><div class="col-md-3"><div class="form-group"> <label for="sub">วิชา(รหัส)</label> <select name="com_sub[]" class="form-control select2" required> <?php echo $option_sub ?></select></div></div> <div class="col-md-3"><div class="form-group"><label for="group">กลุ่มเรียน</label><input name="com_group_exam[]" type="text " placeholder="กรอกกลุ่มเรียน" maxlength="3" class="form-control" required> </div></div><div class="col-md-3 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "com_num[]" required ></div></div><!--end room & Value -->';
                     return computer;
                 });
             });
