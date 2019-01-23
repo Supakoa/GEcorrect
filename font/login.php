@@ -34,8 +34,10 @@
   $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
   $responseKeys = json_decode($response,true);
   if(intval($responseKeys['success']) !== 1) {
-  echo '<h2>โปรดทำการยันยืนให้ถูกต้อง</h2>';
+  header('Location: index.php');
+  exit;
   } else {
-  echo '<h2>ขอบคุณสำหรับคอมเม้น</h2>';
+  header('Location: index.php');
+  exit;
   }
  ?>
