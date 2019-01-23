@@ -457,7 +457,7 @@ if (isset($_POST['tab_room'])) {
                     computer +=
                         '<div class="row form-group" id ="computer" ><div class="col-md-4 "><label for="room">' +
                         j +
-                        '.ห้อง</label><select name="com_room[]"  class="form-control select2" required>' +2
+                        '.ห้อง</label><select name="com_room[]"  class="form-control select2" required>' +
                         sum +
                         '</select></div><div class="col-md-4"></div><div class="col-md-4 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "com_num[]" required ></div></div><!--end room & Value -->';
                     return computer;

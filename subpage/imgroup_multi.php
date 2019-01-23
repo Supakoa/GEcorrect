@@ -208,21 +208,7 @@ if (isset($_POST['tab_room'])) {
                                                     <option>2569</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="sub">วิชา(รหัส)</label>
-                                                    <select name="sub" class="form-control select2" required>
-                                                        <?php echo $option_sub ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="group">กลุ่มเรียน</label>
-                                                    <input name="group_exam" type="text " placeholder="กรอกกลุ่มเรียน"
-                                                        maxlength="3" class="form-control" required>
-                                                </div>
-                                            </div>
+                                           
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="time">เวลา เริ่ม - สิ้นสุด</label>
@@ -296,7 +282,7 @@ if (isset($_POST['tab_room'])) {
                                                     </div>
                                                     <div class="card-body " id="tablet_main">
                                                         <div class="row form-group">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
                                                                 <!-- room & Value -->
                                                                 <label for="room">1.ห้อง</label>
                                                                 <select name='tab_room[]' class="form-control select2"
@@ -304,8 +290,22 @@ if (isset($_POST['tab_room'])) {
                                                                     <?php echo $option_location ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-4"></div>
-                                                            <div class="col-md-4 ">
+                                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="sub">วิชา(รหัส)</label>
+                                                    <select name="tab_sub[]" class="form-control select2" required>
+                                                        <?php echo $option_sub ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="group">กลุ่มเรียน</label>
+                                                    <input name="tab_group_exam[]" type="text " placeholder="กรอกกลุ่มเรียน"
+                                                        maxlength="3" class="form-control" required>
+                                                </div>
+                                            </div>
+                                                            <div class="col-md-3 ">
                                                                 <label for="value">จำนวน</label>
                                                                 <input class="form-control" type="number" min="0" name="tab_num[]"
                                                                     required>
@@ -322,7 +322,7 @@ if (isset($_POST['tab_room'])) {
                                                     </div>
                                                     <div class="card-body" id="computer_main">
                                                         <div class="row form-group" id="computer">
-                                                            <div class="col-md-4 ">
+                                                            <div class="col-md-3 ">
                                                                 <!-- room & Value -->
                                                                 <label for="room1">1.ห้อง</label>
                                                                 <select name="com_room[]" class="form-control select2"
@@ -330,8 +330,22 @@ if (isset($_POST['tab_room'])) {
                                                                     <?php echo $option_location ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-4"></div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="sub">วิชา(รหัส)</label>
+                                                    <select name="com_sub[]" class="form-control select2" required>
+                                                        <?php echo $option_sub ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="group">กลุ่มเรียน</label>
+                                                    <input name="com_group_exam[]" type="text " placeholder="กรอกกลุ่มเรียน"
+                                                        maxlength="3" class="form-control" required>
+                                                </div>
+                                            </div>
+                                                            <div class="col-md-3">
                                                                 <label for="value1">จำนวน</label>
                                                                 <input class="form-control" type="number" min="0" name="com_num[]"
                                                                     required>
@@ -442,11 +456,11 @@ if (isset($_POST['tab_room'])) {
                     i++;
                     var tablet = '';
                     tablet +=
-                        '<div class="row form-group" id = "tablet" ><div class="col-md-4 "> <label  for="room">' +
+                        '<div class="row form-group" id = "tablet" ><div class="col-md-3 "> <label  for="room">' +
                         i +
                         '.ห้อง</label><select name="tab_room[]" class="form-control select2" required>' +
                         sum +
-                        '</select></div><div class="col-md-4"></div><div class="col-md-4 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "tab_num[]" required></div></div>';
+                        '</select></div> <div class="col-md-3"><div class="form-group"> <label for="sub">วิชา(รหัส)</label> <select name="tab_sub[]" class="form-control select2" required> <?php echo $option_sub ?></select></div></div> <div class="col-md-3"><div class="form-group"><label for="group">กลุ่มเรียน</label><input name="tab_group_exam[]" type="text " placeholder="กรอกกลุ่มเรียน" maxlength="3" class="form-control" required> </div></div><div class="col-md-3 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "tab_num[]" required></div></div>';
                     return tablet;
                 });
             });
@@ -455,11 +469,11 @@ if (isset($_POST['tab_room'])) {
                     j++;
                     var computer = '';
                     computer +=
-                        '<div class="row form-group" id ="computer" ><div class="col-md-4 "><label for="room">' +
+                        '<div class="row form-group" id ="computer" ><div class="col-md-3 "><label for="room">' +
                         j +
-                        '.ห้อง</label><select name="com_room[]"  class="form-control select2" required>' +2
+                        '.ห้อง</label><select name="com_room[]"  class="form-control select2" required>' +
                         sum +
-                        '</select></div><div class="col-md-4"></div><div class="col-md-4 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "com_num[]" required ></div></div><!--end room & Value -->';
+                        '</select></div><div class="col-md-4"></div><div class="col-md-3 "><label for="value">จำนวน</label><input  class="form-control" type="number" min="0" name = "com_num[]" required ></div></div><!--end room & Value -->';
                     return computer;
                 });
             });
