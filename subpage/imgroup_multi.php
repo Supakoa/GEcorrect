@@ -1,221 +1,232 @@
 <?php
-require 'server/server.php';
+    // connect database 
+    require 'server/server.php';
 
-function getToken($length) {
-    $token = "";
-    $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    $codeAlphabet .= "0123456789";
-    $max = strlen($codeAlphabet); // edited
-    for ($i = 0; $i < $length; $i++) {
-        $token .= $codeAlphabet[random_int(0, $max - 1)];
+    // check login
+    if( !(isset($_SESSION['amdin_id'])) ){
+        $_SESSION['alert'] = 2;
+        header("Location: ../index.php");
+        exit();
     }
-    return $token;
-}
 
-$q_sub = "SELECT * FROM `subject` order by `subject_id`";
-$re_sub = mysqli_query($con, $q_sub);
-$i = 0;
-$option_sub = '<option hidden selected  value="">เลือกวิชา</option>';
-while ($row_sub = mysqli_fetch_array($re_sub)) {
-    $option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
-    $i++;
-}
+    function getToken($length) {
+        $token = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $codeAlphabet .= "0123456789";
+        $max = strlen($codeAlphabet); // edited
+        for ($i = 0; $i < $length; $i++) {
+            $token .= $codeAlphabet[random_int(0, $max - 1)];
+        }
+        return $token;
+    }
 
-$q_location = "SELECT `order`,`name_location` FROM `location_table` order BY `name_location`";
-$re_location = mysqli_query($con, $q_location);
-$j = 0;
-$option_location = '<option hidden selected  value="">สถานที่สอบ</option>';
-while ($row_location = mysqli_fetch_array($re_location)) {
-    $option_location.='<option value = "' . $row_location['order'] . '"> ห้อง ' . $row_location['name_location'] . '</option>';
-    $j++;
-}
-if (isset($_POST['tab_room'])) {
+    $q_sub = "SELECT * FROM `subject` order by `subject_id`";
+    $re_sub = mysqli_query($con, $q_sub);
+    $i = 0;
+    $option_sub = '<option hidden selected  value="">เลือกวิชา</option>';
+    while ($row_sub = mysqli_fetch_array($re_sub)) {
+        $option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
+        $i++;
+    }
 
-    $term = $_POST['term'];
-    $year = $_POST['year'];
-    $date = $_POST['date'];
-    $s_time = $_POST['s_time'];
-    $e_time = $_POST['e_time'];
-    $type_exam = $_POST['type_exam'];
-    $file = $_FILES['file_csv']['tmp_name'];
-    $detail_id = "DT" . getToken(10);
-    //insert detial
-    $q_detail = "INSERT INTO `detail`(`detail_id`, `term`, `year`, `day`, `time_start`, `time_end`, `type`) VALUES ( '$detail_id','$term','$year','$date','$s_time','$e_time','$type_exam')";
-    if ($re_detail = mysqli_query($con, $q_detail)) {
+    $q_location = "SELECT `order`,`name_location` FROM `location_table` order BY `name_location`";
+    $re_location = mysqli_query($con, $q_location);
+
+    $j = 0;
+    $option_location = '<option hidden selected  value="">สถานที่สอบ</option>';
+
+    while ($row_location = mysqli_fetch_array($re_location)) {
+        $option_location.='<option value = "' . $row_location['order'] . '"> ห้อง ' . $row_location['name_location'] . '</option>';
+        $j++;
+    }
+    
+    if (isset($_POST['tab_room'])) {
+
+        $term = $_POST['term'];
+        $year = $_POST['year'];
+        $date = $_POST['date'];
+        $s_time = $_POST['s_time'];
+        $e_time = $_POST['e_time'];
+        $type_exam = $_POST['type_exam'];
+        $file = $_FILES['file_csv']['tmp_name'];
+        $detail_id = "DT" . getToken(10);
+        //insert detial
+        $q_detail = "INSERT INTO `detail`(`detail_id`, `term`, `year`, `day`, `time_start`, `time_end`, `type`) VALUES ( '$detail_id','$term','$year','$date','$s_time','$e_time','$type_exam')";
+        if ($re_detail = mysqli_query($con, $q_detail)) {
+
+            
+            $i = 0;
+            $n = 0;
+            $sum_num = 0;
+            $num[] = '';
+            $group_exam[] ='';
+            $sub[] = '';
+            foreach ($_POST['tab_num'] as $value) {
+                $sub[$i] = $_POST['tab_sub'][$n];
+                $group_exam[$i] = $_POST['tab_group_exam'][$n];
+                $num[$i] = $value;
+                $sum_num += $value;
+                $i++;
+                $n++;
+            }
+            $n = 0;
+            foreach ($_POST['com_num'] as $value) {
+                $sub[$i] = $_POST['com_sub'][$n];
+                $group_exam[$i] = $_POST['com_group_exam'][$n];
+                $num[$i] = $value;
+                $sum_num += $value;
+                $i++;
+                $n++;
+            }
+            $n = 0;
+            $i = 0;
+            $r=0;
+            $room[] = '';
+            $sum_room[] ='' ;
+            foreach ($_POST['tab_room'] as $value) {
+                if($i!=0){
+                    if($_POST['tab_room'][$n] == $_POST['tab_room'][($n-1)]){
+                        $sum_room[$r++] = $i;
+                    }  
+                }
+                
+                $std_num  = $num[$i];
+                $group_exam_now = $group_exam[$i];
+                $sub_now = $sub[$i];
+                $room_id = "RD" . getToken(10);
+                
+                $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub_now','$group_exam_now','$std_num','TABLET')";
+                if ($re_room = mysqli_query($con, $q_room)) {
+                    $room[$i++] = $room_id;
+                    $n++;
+                } else {
+                    header("Location: imgroup_multi.php");
+                    $_SESSION['alert'] = 4;
+                    exit();
+                }
+
+            }
+            $n = 0;
+            $k = 0;
+            foreach ($_POST['com_room'] as $value) {
+                if($k!=0){
+                    if($_POST['com_room'][$n] == $_POST['com_room'][($n-1)]){
+                        $sum_room[$r++] = $i;
+                    } 
+                }
+                
+                $std_num  = $num[$i];
+                
+                $group_exam_now = $group_exam[$i];
+                $sub_now = $sub[$i];
+                $room_id = "RD" . getToken(10);
+                $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub_now','$group_exam_now','$std_num','COMPUTER')";
+                if ($re_room = mysqli_query($con, $q_room)) {
+                    $room[$i++] = $room_id;
+                    $n++;
+                    $k++;
+                } else {
+                    header("Location: imgroup_multi.php");
+                    $_SESSION['alert'] = 4;
+                    exit();
+                }
+            }
 
         
-        $i = 0;
-        $n = 0;
-        $sum_num = 0;
-        $num[] = '';
-        $group_exam[] ='';
-        $sub[] = '';
-        foreach ($_POST['tab_num'] as $value) {
-            $sub[$i] = $_POST['tab_sub'][$n];
-            $group_exam[$i] = $_POST['tab_group_exam'][$n];
-            $num[$i] = $value;
-            $sum_num += $value;
-            $i++;
-            $n++;
-        }
-        $n = 0;
-        foreach ($_POST['com_num'] as $value) {
-            $sub[$i] = $_POST['com_sub'][$n];
-            $group_exam[$i] = $_POST['com_group_exam'][$n];
-            $num[$i] = $value;
-            $sum_num += $value;
-            $i++;
-            $n++;
-        }
-        $n = 0;
-        $i = 0;
-        $r=0;
-        $room[] = '';
-        $sum_room[] ='' ;
-        foreach ($_POST['tab_room'] as $value) {
-            if($i!=0){
-                if($_POST['tab_room'][$n] == $_POST['tab_room'][($n-1)]){
-                    $sum_room[$r++] = $i;
-                }  
-            }
-            
-            $std_num  = $num[$i];
-            $group_exam_now = $group_exam[$i];
-            $sub_now = $sub[$i];
-            $room_id = "RD" . getToken(10);
-            
-            $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub_now','$group_exam_now','$std_num','TABLET')";
-            if ($re_room = mysqli_query($con, $q_room)) {
-                $room[$i++] = $room_id;
-                $n++;
-            } else {
-                header("Location: imgroup_multi.php");
-                $_SESSION['alert'] = 4;
-                exit();
-            }
 
-        }
-        $n = 0;
-        $k = 0;
-        foreach ($_POST['com_room'] as $value) {
-            if($k!=0){
-                if($_POST['com_room'][$n] == $_POST['com_room'][($n-1)]){
-                    $sum_room[$r++] = $i;
-                } 
-            }
-            
-            $std_num  = $num[$i];
-            
-            $group_exam_now = $group_exam[$i];
-            $sub_now = $sub[$i];
-            $room_id = "RD" . getToken(10);
-            $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub_now','$group_exam_now','$std_num','COMPUTER')";
-            if ($re_room = mysqli_query($con, $q_room)) {
-                $room[$i++] = $room_id;
-                $n++;
-                $k++;
-            } else {
-                header("Location: imgroup_multi.php");
-                $_SESSION['alert'] = 4;
-                exit();
-            }
-        }
+            if (($handle = fopen("$file", "r")) !== FALSE) {
+                $i = 0;
+                $student[] = '';
+                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 
-       
-
-        if (($handle = fopen("$file", "r")) !== FALSE) {
-            $i = 0;
-            $student[] = '';
-            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-
-                $value = implode("','", $data);
-                $student[$i] = $value;
-                $i++;
-            }
-            $sum_std = $i;
-            $i = 0;
-            $s = 0;
-            $r = 0;
-            if($sum_num<$sum_std){
-                header("Location: imgroup.php");
-                $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
-		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
-			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
-			        if($re_del_dt = mysqli_query($con, $q_del_dt)){
-				    $_SESSION['alert'] = 12;
-			        }else{
-				        header("Location: search2.php");
-				        $_SESSION['alert'] = 4;
-				        exit();
-			        }
-		        }
-		        else{
-			        header("Location: search2.php");
-			        $_SESSION['alert'] = 4;
-			        exit();
+                    $value = implode("','", $data);
+                    $student[$i] = $value;
+                    $i++;
                 }
-                $_SESSION['alert'] = 21;//จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
-                exit();
-            }
-             elseif($sum_num>$sum_std){
-               header("Location: imgroup.php");
-               $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
-		         if($re_del_rm = mysqli_query($con, $q_del_rm)){
-			     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
-			        if($re_del_dt = mysqli_query($con, $q_del_dt)){
-				    $_SESSION['alert'] = 12;
-			        }else{
-				        header("Location: search2.php");
-				        $_SESSION['alert'] = 4;
-				        exit();
-			        }
-		        }
-		        else{
-			        header("Location: search2.php");
-			        $_SESSION['alert'] = 4;
-			        exit();
-                }
-               $_SESSION['alert'] = 22;//จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์
-                
-               exit();
-            }
-            else{
-
-                foreach ($room as $a) {
-                    $j = 1;
-                    if(isset($sum_room[$r+1])){
-                         if($i == $sum_room[$r]){
-                            $j += $num[($i-1)];
-                            $cout = $num[$i]+$num[($i-1)];
-                            $r++;
-                        }
-                        else{
-                        $cout = $num[$i];  
-                        }
-                    }
-                    else{
-                        $cout = $num[$i];  
-                    }
-                    
-                    while ($j <= $cout) {
-                        $sr_id = "SR" . getToken(10);
-                        $std = $student[$s++];
-                        $q_sub = "INSERT INTO `student_room`(`student_room_id`, `std_id`, `room_detail_id`, `seat`, `note`) VALUES ('$sr_id','$std','$a','$j','')";
-                        if ($re_sub = mysqli_query($con, $q_sub)) {
-                            $_SESSION['alert'] = 3;
-                        } else {
-                            header("Location: imgroup_multi.php");
+                $sum_std = $i;
+                $i = 0;
+                $s = 0;
+                $r = 0;
+                if($sum_num<$sum_std){
+                    header("Location: imgroup.php");
+                    $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+                    if($re_del_rm = mysqli_query($con, $q_del_rm)){
+                    $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
+                        if($re_del_dt = mysqli_query($con, $q_del_dt)){
+                        $_SESSION['alert'] = 12;
+                        }else{
+                            header("Location: search2.php");
                             $_SESSION['alert'] = 4;
                             exit();
                         }
-                        $j++;
                     }
-                    $i++;
+                    else{
+                        header("Location: search2.php");
+                        $_SESSION['alert'] = 4;
+                        exit();
+                    }
+                    $_SESSION['alert'] = 21;//จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
+                    exit();
+                }
+                elseif($sum_num>$sum_std){
+                header("Location: imgroup.php");
+                $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+                    if($re_del_rm = mysqli_query($con, $q_del_rm)){
+                    $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
+                        if($re_del_dt = mysqli_query($con, $q_del_dt)){
+                        $_SESSION['alert'] = 12;
+                        }else{
+                            header("Location: search2.php");
+                            $_SESSION['alert'] = 4;
+                            exit();
+                        }
+                    }
+                    else{
+                        header("Location: search2.php");
+                        $_SESSION['alert'] = 4;
+                        exit();
+                    }
+                $_SESSION['alert'] = 22;//จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์
+                    
+                exit();
+                }
+                else{
+
+                    foreach ($room as $a) {
+                        $j = 1;
+                        if(isset($sum_room[$r+1])){
+                            if($i == $sum_room[$r]){
+                                $j += $num[($i-1)];
+                                $cout = $num[$i]+$num[($i-1)];
+                                $r++;
+                            }
+                            else{
+                            $cout = $num[$i];  
+                            }
+                        }
+                        else{
+                            $cout = $num[$i];  
+                        }
+                        
+                        while ($j <= $cout) {
+                            $sr_id = "SR" . getToken(10);
+                            $std = $student[$s++];
+                            $q_sub = "INSERT INTO `student_room`(`student_room_id`, `std_id`, `room_detail_id`, `seat`, `note`) VALUES ('$sr_id','$std','$a','$j','')";
+                            if ($re_sub = mysqli_query($con, $q_sub)) {
+                                $_SESSION['alert'] = 3;
+                            } else {
+                                header("Location: imgroup_multi.php");
+                                $_SESSION['alert'] = 4;
+                                exit();
+                            }
+                            $j++;
+                        }
+                        $i++;
+                    }
                 }
             }
         }
     }
-}
 ?>
 
 <!DOCTYPE html>
