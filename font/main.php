@@ -68,7 +68,7 @@ $row = mysqli_fetch_array($result);
     //  $Baner=mysqli_fetch_array($sth);
     //  echo '<img src="data:image/jpeg;base64,'.base64_encode( $Baner['image'] ).'" alt="ssru" style="width:100%"  title="มหาลัยราชภัฎสวนสุนันทา"/>';
     ?>
-        <img src="<?php echo $_SESSION['banner'] ?>" class="img-fluid" alt="Responsive image">
+        <img src="../subpage/banner/<?php echo $_SESSION['banner'] ?>" class="img-fluid" alt="Responsive image">
 
     </header>
 

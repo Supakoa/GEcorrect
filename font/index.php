@@ -49,17 +49,13 @@ $_SESSION['banner'] = $web_row['banner'];
 <body>
     <header>
         <?php
-    //  $banner = "SELECT * FROM `baner` WHERE `id` = 1";
-    //  $sth2 = mysqli_query($con,$banner);
-    //  $ImYourFather=mysqli_fetch_array($sth2,MYSQLI_ASSOC);
-    //  $sing = $ImYourFather['name_baner'];
-
-    //  $sql = "SELECT * FROM images WHERE name_pic = '$sing' ";
-    //  $sth = mysqli_query($con,$sql);
-    //  $Baner=mysqli_fetch_array($sth);
-    //  echo '<img src="data:image/jpeg;base64,'.base64_encode( $Baner['image'] ).'" alt="ssru" style="width:100%"  title="มหาลัยราชภัฎสวนสุนันทา"/>';
+        $q_banner = "SELECT * FROM `web_show_time` ";
+        $result_banner = mysqli_query($con,$q_banner);
+        $row_banner = mysqli_fetch_array($result_banner);
+            $_SESSION['banner'] = $row_banner['banner'];
+            
     ?>
-        <img src="<?php echo $_SESSION['banner'] ?>" class="img-fluid" alt="Responsive image">
+        <img src="../subpage/banner/<?php echo $_SESSION['banner'] ?>" class="img-fluid" alt="Responsive image">
     </header>
 
     <div class="container-fluid" style="background:#55236d">
