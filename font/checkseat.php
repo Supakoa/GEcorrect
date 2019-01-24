@@ -84,7 +84,7 @@ $table_result = mysqli_query($con,$table);
 <body>
 
     <header>
-        <img src="<?php echo $_SESSION['banner'] ?>" class="img-fluid" alt="Responsive image">
+        <img src="../subpage/banner/<?php echo $_SESSION['banner'] ?>" class="img-fluid" alt="Responsive image">
 
     </header>
 
