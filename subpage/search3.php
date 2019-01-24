@@ -53,12 +53,9 @@
 
     </head>
 
-    <body class="adminbody">
-
+    <body class="adminbody" ng-app="">
         <div id="main">
-
             <?php require 'menu/navmenu.php'; ?>
-
 
             <div class="content-page"><!-- start content-page-->
                 <div class="content"><!--content-->
@@ -275,7 +272,7 @@
                                         </div>
                                     </div><!--end modal -->
                                     <tr>
-                                        <th></th>
+                                        <th><input type="checkbox" ng-model="all"></th>
                                         <th></th>
                                         <th>รหัสนักศึกษา</th>
                                         <th>ห้อง</th>

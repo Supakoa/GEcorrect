@@ -1,127 +1,145 @@
 <?php
+    // connect DB
+    require 'subpage/server/server.php';
+
+    // session_destroy();
     if(isset($_POST['submit_btn'])){
-        // connect DB
-        require 'subpage/server/server.php';
 
         // post name & password
         $username = mysqli_real_escape_string($con,$_POST['username']);
         $password = mysqli_real_escape_string($con,$_POST['password']);
         
         // select check database
-        $sql = "SELECT * FROM `admin` WHERE `admin_id`='$username' AND `admin_password`='$password' ";
+        $sql = "SELECT * FROM `admin` WHERE `admin_username`='$username' AND `admin_password`='$password' ";
         $result = mysqli_query($con,$sql);
         $row = mysqli_fetch_array($result);
 
-        if($row>1){
-            Header("Location: subpage/index.php");
-            exit();
+        if($row){
+            // check admin online
+            if( $row['status'] == 1 ){
+                $_SESSION['admin_id'] = $row['admin_id'];
+                Header("Location: subpage/index.php");
+                exit();
+            }else if($row['status'] == 0){
+                $_SESSION['alert'] = 24;
+            }
         }else{
-            Header("Location: index.php?error=login_error");
-            exit();
+            $_SESSION['alert'] = 14;
         }
+        Header("Location: index.php");
+        exit();
+        
     }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<title>CorrectGE SSRU</title>
-		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
-		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="subpage/assets/images/favicon.ico">
+    <title>CorrectGE SSRU</title>
+    <meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
+    <meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
-		<!-- Switchery css -->
-		<link href="subpage/assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
-		
-		<!-- Bootstrap CSS -->
-		<link href="subpage/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Font Awesome CSS -->
-		<link href="subpage/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Custom CSS -->
-		<link href="subpage/assets/css/style.css" rel="stylesheet" type="text/css" />		
-		
-		<!-- BEGIN CSS for this page -->
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="subpage/assets/images/favicon.ico">
 
-		<!-- END CSS for this page -->
-				
+    <!-- Switchery css -->
+    <link href="subpage/assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link href="subpage/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Font Awesome CSS -->
+    <link href="subpage/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Custom CSS -->
+    <link href="subpage/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- sweet alert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
+
+    <!-- BEGIN CSS for this page -->
+
+    <!-- END CSS for this page -->
+
 </head>
 
 <body class="adminbody">
 
-<div id="main">
-    
+    <div id="main">
+
         <img src="" alt="">
-    
-            
-			<div class="container-fluid">
-                <form action="index.php" method="POST">
-                    <div class="row">
-                        <div class="col-lg-4"></div>
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <h2 class="text-center">Log-In</h2>
+
+
+        <div class="container-fluid">
+            <form action="index.php" method="POST">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h2 class="text-center">Log-In</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-section">
+                                    <label for="id">ID : </label>
+                                    <input id="id" class="form-control" type="text" name="username" required>
+                                    <label for="pass">Password : </label>
+                                    <input class="form-control" type="password" name="password" required>
+                                    <br>
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-section">
-                                        <label for="id">ID : </label>
-                                        <input id="id" class="form-control" type="text" name="username" required>
-                                        <label for="pass">Password : </label>
-                                        <input class="form-control" type="password" name="password" required>
-                                        <br>
-                                    </div>
-                                    <div class=text-center> 
-                                        <button class="btn btn-success" name="submit_btn" type="submit">OK</button>
-                                    </div>
+                                <div class=text-center>
+                                    <button class="btn btn-success" name="submit_btn" type="submit">OK</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4"></div>
                     </div>
-                </form>
-					
-					
+                    <div class="col-lg-4"></div>
+                </div>
+            </form>
 
 
-            </div>
-			<!-- END container-fluid -->
 
-	
-    
-	<footer class="footer">
-		
-	</footer>
 
-</div>
-<!-- END main -->
+        </div>
+        <!-- END container-fluid -->
 
-<script src="subpage/assets/js/modernizr.min.js"></script>
-<script src="subpage/assets/js/jquery.min.js"></script>
-<script src="subpage/assets/js/moment.min.js"></script>
 
-<script src="subpage/assets/js/popper.min.js"></script>
-<script src="subpage/assets/js/bootstrap.min.js"></script>
 
-<script src="subpage/assets/js/detect.js"></script>
-<script src="subpage/assets/js/fastclick.js"></script>
-<script src="subpage/assets/js/jquery.blockUI.js"></script>
-<script src="subpage/assets/js/jquery.nicescroll.js"></script>
-<script src="subpage/assets/js/jquery.scrollTo.min.js"></script>
-<script src="subpage/assets/plugins/switchery/switchery.min.js"></script>
+        <footer class="footer">
 
-<!-- App js -->
-<script src="subpage/assets/js/pikeadmin.js"></script>
+        </footer>
 
-<!-- BEGIN Java Script for this page -->
+    </div>
+    <!-- END main -->
 
-<!-- END Java Script for this page -->
+    <script src="subpage/assets/js/modernizr.min.js"></script>
+    <script src="subpage/assets/js/jquery.min.js"></script>
+    <script src="subpage/assets/js/moment.min.js"></script>
+
+    <script src="subpage/assets/js/popper.min.js"></script>
+    <script src="subpage/assets/js/bootstrap.min.js"></script>
+
+    <script src="subpage/assets/js/detect.js"></script>
+    <script src="subpage/assets/js/fastclick.js"></script>
+    <script src="subpage/assets/js/jquery.blockUI.js"></script>
+    <script src="subpage/assets/js/jquery.nicescroll.js"></script>
+    <script src="subpage/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="subpage/assets/plugins/switchery/switchery.min.js"></script>
+
+    <!-- App js -->
+    <script src="subpage/assets/js/pikeadmin.js"></script>
+
+    <!-- alert all -->
+    <?php require 'alert.php'; ?>
+
+    <!-- BEGIN Java Script for this page -->
+
+    <!-- END Java Script for this page -->
 
 </body>
+
 </html>
