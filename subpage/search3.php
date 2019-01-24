@@ -1,11 +1,19 @@
 <?php
 	// connect database 
 	require 'server/server.php';
+	function DateThai($strDate) { //วันที่แบบไทย
+		$strYear = date("Y", strtotime($strDate)) + 543;
+		$strMonth = date("n", strtotime($strDate));
+		$strDay = date("j", strtotime($strDate));
+		$strMonthCut = Array("", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.");
+		$strMonthThai = $strMonthCut[$strMonth];
+		return "$strDay $strMonthThai $strYear";
+	}
 	$q_sub = "SELECT * FROM `subject` order by `subject_id`";
 	$re_sub = mysqli_query($con, $q_sub);
 	$i = 0;
 
-	$option_sub = '<option hidden selected  value="">เลือกวิชา</option>';
+	$option_sub = '';
 
 	while ($row_sub = mysqli_fetch_array($re_sub)) {
 		$option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
@@ -16,13 +24,48 @@
 	$re_location = mysqli_query($con, $q_location);
 	$j = 0;
 
-	$option_location = '<option hidden selected  value="">สถานที่สอบ</option>';
+	$option_location = '';
 
 	while ($row_location = mysqli_fetch_array($re_location)) {
 		$option_location.='<option value = "' . $row_location['order'] . '"> ห้อง ' . $row_location['name_location'] . '</option>';
 		$j++;
 	}
 
+	if (isset($_POST['gogo'])) {
+		$term = $_POST['term'];
+		$year = $_POST['year'];
+		$subject = $_POST['sub'];
+		$group_exam = $_POST['group_exam'];
+		$type_exam = $_POST['type_exam'];
+		$room = $_POST['room'];
+		$date = $_POST['date'];
+		$s_time = $_POST['s_time'];
+		$e_time = $_POST['e_time'];
+		$std_id =  $_POST['std_id'];
+		// echo $term . $year . $subject . $group_exam;
+		$q_show = "SELECT student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
+		FROM `student_room`,`location_table`,`room_detail`,`student`,`subject`,`detail`
+		WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
+		AND student_room.std_id LIKE '$std_id%' AND location_table.order LIKE '$room%' AND room_detail.sub_id LIKE '$subject%' 
+		AND room_detail.sub_group LIKE '$group_exam%' AND detail.day LIKE '$date%' AND detail.year LIKE '$year%' AND detail.term LIKE '$term%' 
+		AND detail.type LIKE '$type_exam%'";
+		$re_show = mysqli_query($con, $q_show);
+	} else {
+	
+		$term = "";
+		$year = "";
+		$subject = "";
+		$group_exam = "";
+		$type_exam = "";
+		$room = "";
+		$date = "";
+		$s_time = "";
+		$e_time = "";
+		$std_id = "";
+		$q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type 
+		FROM `room_detail`,`detail` WHERE 0";
+		$re_show = mysqli_query($con, $q_show);
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +98,7 @@
 
     <body class="adminbody" ng-app="">
         <div id="main">
-            <?php require 'menu/navmenu.php'; ?>
+            <?php //require 'menu/navmenu.php'; ?>
 
             <div class="content-page"><!-- start content-page-->
                 <div class="content"><!--content-->
@@ -70,13 +113,19 @@
                                     <div class="col-lg-6">
                                         <div class="card">
                                             <div class="card-body">
-											<form action="" method="post">
+											<form action="search3.php" id = "form_search" method="post">
                                                 <div class="row">
                                                     <!-- filter -->
                                                     <div class="col-md-2">
                                                         <label for="term">เทอม</label>
-                                                        <select name="term" class="form-control select2" required>
-                                                            <option hidden selected value="">เลือกเทอม</option>
+                                                        <select name="term" class="form-control select2" >
+																<?php
+																if ($term == '') {
+																	echo '<option hidden selected  value="">ทั้งหมด</option>';
+																} else {
+																	echo '<option hidden selected  value="' . $term . '">' . $term . '</option>';
+																}
+																?>
                                                             <option>1</option>
                                                             <option>2</option>
                                                             <option>3</option>
@@ -87,8 +136,14 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label for="year">ปีการศึกษา</label>
-                                                        <select name="year" class="form-control select2" required>
-                                                            <option hidden selected value="">เลือกปีการศึกษา</option>
+                                                        <select name="year" class="form-control select2" >
+															<?php
+																if ($year == '') {
+																	echo '<option hidden selected  value="">ทั้งหมด</option>';
+																} else {
+																	echo '<option hidden selected  value="' . $year . '">' . $year . '</option>';
+																}
+																?>
                                                             <option>2561</option>
                                                             <option>2562</option>
                                                             <option>2563</option>
@@ -103,7 +158,14 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="sub">วิชา(รหัส)</label>
-                                                            <select name="sub" class="form-control select2" required>
+                                                            <select name="sub" class="form-control select2" >
+															<?php
+																if ($subject == '') {
+																	echo '<option hidden selected  value="">ทั้งหมด</option>';
+																} else {
+																	echo '<option hidden selected  value="' . $subject . '">' . $subject . '</option>';
+																}
+																?>
                                                                 <?php echo $option_sub ?>
                                                             </select>
                                                         </div>
@@ -112,7 +174,14 @@
                                                         <div class="form-group">
                                                             <label for="group">กลุ่มเรียน</label>
                                                             <input name="group_exam" type="text " placeholder="กรอกกลุ่มเรียน"
-                                                                   maxlength="3" class="form-control" required>
+                                                                   maxlength="3" class="form-control" 
+																<?php
+																if ($group_exam == '') {
+																	echo 'value = "" ';
+																} else {
+																	echo 'value = "'.$group_exam.'"';
+																}
+																?> >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -123,7 +192,14 @@
                                                                     <div class="input-group clockpicker" data-autoclose="true"
                                                                          data-placement="left" data-default='00.00'>
                                                                         <input type="text" class="form-control" name="s_time"
-                                                                               placeholder="เวลาเริ่มต้น" required>
+                                                                               placeholder="เวลาเริ่มต้น"
+																			    <?php
+																	if ($s_time == '') {
+																	echo 'value = "" ';
+																} else {
+																	echo 'value = "'.$s_time.'"';
+																}
+																?> >
                                                                         <span class="input-group-addon">
                                                                             <span class="glyphicon glyphicon-time"></span>
                                                                         </span>
@@ -135,7 +211,13 @@
                                                                     <div class="input-group clockpicker" data-autoclose="true"
                                                                          data-placement="right" data-default='00.00'>
                                                                         <input type="text" class="form-control" name="e_time"
-                                                                               placeholder="เวลาสิ้นสุด" required>
+                                                                               placeholder="เวลาสิ้นสุด" <?php
+																if ($e_time == '') {
+																	echo 'value = "" ';
+																} else {
+																	echo 'value = "'.$e_time.'"';
+																}
+																?>>
                                                                         <span class="input-group-addon">
                                                                             <span class="glyphicon glyphicon-time"></span>
                                                                         </span>
@@ -148,15 +230,26 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="date">วันที่</label>
-                                                            <input name="date" type="date" class="form-control " name="date"
-                                                                   required>
+                                                            <input name="date" type="date" class="form-control " name="date" <?php
+																if ($date == '') {
+																	echo 'value = "" ';
+																} else {
+																	echo 'value = "'.$date.'"';
+																}
+																?> >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="type">ประเภท</label>
-                                                            <select name="type_exam" class="form-control select2" required>
-                                                                <option hidden selected value="">เลือกประเภท</option>
+                                                            <select name="type_exam" class="form-control select2" >
+															<?php
+																if ($type_exam == '') {
+																	echo '<option hidden selected  value="">ทั้งหมด</option>';
+																} else {
+																	echo '<option hidden selected  value="' . $type_exam . '">' . $type_exam . '</option>';
+																}
+																?>
                                                                 <option>กลางภาค</option>
                                                                 <option>ปลายภาค</option>
                                                                 <option>แก้ผลการเรียน(I)</option>
@@ -164,8 +257,29 @@
                                                             </select>
                                                         </div>
                                                     </div>
+													<div class="col-md-6">
+                                                            
+                                                            <label for="room">ห้อง</label>
+                                                            <select name='room' class="form-control select2" >
+															<?php
+																if ($room == '') {
+																	echo '<option hidden selected  value="">ทั้งหมด</option>';
+																} else {
+																	echo '<option hidden selected  value="' . $room . '">' . $room . '</option>';
+																}
+																?>
+                                                            <?php echo $option_location ?>
+                                                            </select>
+                                                    </div>
+													<div class="col-md-6">
+													
+													<br>
+													<button class="btn btn-lm btn-info" style ="margin-top :8px" name="submit" type="submit">submit</button>
+													
+                                                    </div>
                                                 </div>
-												<br><button class="btn btn-sm btn-info" type="submit">submit</button>
+												
+												<input type="hidden" name="gogo">
 											</form>	
                                                 
                                             </div>
@@ -178,13 +292,22 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="id">รหัสนักศึกษา</label>
-                                                            <input id="id" class="form-control" type="text">
+                                                            <input name = "std_id" class="form-control" form = "form_search" type="text" <?php
+																if ($std_id == '') {
+																	echo 'value = "" ';
+																} else {
+																	echo 'value = "'.$std_id.'"';
+																}
+																?> > 
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6"></div>
+                                                    <div class="col-md-6">
+													<br>
+													<button class="btn btn-lm btn-info" style ="margin-top :8px" type="submit" form = "form_search" >submit</button>
+													</div>
 
                                                 </div><!--end row 2 -->
-                                                <button class="btn btn-sm btn-info" type="submit">submit</button>
+                                                
                                             </div>
                                         </div>
 										
@@ -272,9 +395,10 @@
                                         </div>
                                     </div><!--end modal -->
                                     <tr>
-                                        <th><input type="checkbox" ng-model="all"></th>
+                                        <th><label class="checkbox-inline"><input type="checkbox"  ng-model="all"> Check All</label></th>
                                         <th></th>
                                         <th>รหัสนักศึกษา</th>
+										<th>ชื่อ - นามสกุล</th>
                                         <th>ห้อง</th>
                                         <th>วิชา</th>
                                         <th>กลุ่มเรียน</th>
@@ -288,7 +412,7 @@
                                     </thead>
                                     <tbody>
 										<?php
-											while(0){
+											while($row_show = mysqli_fetch_array($re_show)){
 										?>
                                         <tr>
                                             <td class="text-center">
@@ -374,16 +498,17 @@
                                                     </div>
                                                 </div><!--end modal 2-->
                                             </td>
-                                            <td>59122519023</td>
-                                            <td>1701</td>
-                                            <td>ge2011</td>
-                                            <td>001</td>
-                                            <td>23</td>
-                                            <td>03-09-2562</td>
-                                            <td>08.00-11.00</td>
-                                            <td>2561</td>
-                                            <td>ปลายภาค</td>
-                                            <td></td>
+                                            <td><?php echo $row_show['std_id'] ?></td>
+											<td><?php echo $row_show['name'] ?></td>
+                                            <td><?php echo $row_show['name_location'] ?></td>
+                                            <td><?php echo $row_show['sub_id']." ".$row_show['subject_name'] ?></td>
+                                            <td><?php echo $row_show['sub_group'] ?></td>
+											<td><?php echo $row_show['seat'] ?></td>
+                                            <td><?php echo DateThai($row_show['day']) ?></td>
+                                            <td><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
+                                            <td><?php echo $row_show['year'] ?></td>
+                                            <td><?php echo $row_show['type'] ?></td>
+                                            <td><?php echo $row_show['note'] ?></td>
                                         </tr>
 										<?php } ?>
                                     </tbody>
