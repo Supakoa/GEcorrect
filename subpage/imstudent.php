@@ -1,3 +1,15 @@
+<?php
+    // connect database 
+    require 'server/server.php';
+
+    // check login
+    if( !(isset($_SESSION['admin_id'])) ){
+        $_SESSION['alert'] = 2;
+        header("Location: ../index.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

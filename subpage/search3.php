@@ -1,5 +1,6 @@
 <?php
 	// connect database 
+	// connect database 
 	require 'server/server.php';
 	function DateThai($strDate) { //วันที่แบบไทย
 		$strYear = date("Y", strtotime($strDate)) + 543;
@@ -9,6 +10,14 @@
 		$strMonthThai = $strMonthCut[$strMonth];
 		return "$strDay $strMonthThai $strYear";
 	}
+
+	// check login
+	if( !(isset($_SESSION['admin_id'])) ){
+		$_SESSION['alert'] = 2;
+		header("Location: ../index.php");
+		exit();
+    }
+    
 	$q_sub = "SELECT * FROM `subject` order by `subject_id`";
 	$re_sub = mysqli_query($con, $q_sub);
 	$i = 0;
