@@ -1,32 +1,34 @@
 <?php
-  require 'server.php';
-  session_start();
-  if (!isset($_SESSION['status'])) {
-    if (isset($_SESSION['online'])) {
-      echo '<script type="text/javascript">alert("ท่านยังไม่ได้เข้าสู่ระบบ.");</script>';
-      unset($_SESSION['online']);
+    require 'server.php';
+    session_start();
+    if (!isset($_SESSION['status'])) {
+        if (isset($_SESSION['online'])) {
+            // echo '<script type="text/javascript">alert("ท่านยังไม่ได้เข้าสู่ระบบ.");</script>';
+            $_SESSION['alert'] = 2;
+            unset($_SESSION['online']);
+        }
+    }else {
+        if ($_SESSION['status']==1) {
+            // echo '<script type="text/javascript">alert("ข้อมูลของท่านไม่ถูกต้อง.");</script>';
+            $_SESSION['alert'] = 14;
+        }
     }
-  }else {
-    if ($_SESSION['status']==1) {
-      echo '<script type="text/javascript">alert("ข้อมูลของท่านไม่ถูกต้อง.");</script>';
-    }
-  }
 
-//Pre footer
-$q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";
-$q2 =  "SELECT * FROM `show_url` WHERE group_url = '2' AND hide=0";
-$result1 = mysqli_query($con,$q1);
-$result2 = mysqli_query($con,$q2);
+    //Pre footer
+    $q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";
+    $q2 =  "SELECT * FROM `show_url` WHERE group_url = '2' AND hide=0";
+    $result1 = mysqli_query($con,$q1);
+    $result2 = mysqli_query($con,$q2);
 
-//banner
-$q_web =  "SELECT * FROM `web_show_time` ";
-$web_result = mysqli_query($con,$q_web);
-$web_row = mysqli_fetch_array($web_result);
-$_SESSION['footer'] = $web_row['footer'];
-$_SESSION['banner'] = $web_row['banner'];
+    //banner
+    $q_web =  "SELECT * FROM `web_show_time` ";
+    $web_result = mysqli_query($con,$q_web);
+    $web_row = mysqli_fetch_array($web_result);
+    $_SESSION['footer'] = $web_row['footer'];
+    $_SESSION['banner'] = $web_row['banner'];
 
 
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,6 +43,9 @@ $_SESSION['banner'] = $web_row['banner'];
     <link rel="stylesheet" href="node_modules/font.css">
     <link rel="stylesheet" href="node_modules/stylelogin.css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <!-- sweet alert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
 
     <title>Login</title>
 
@@ -69,10 +74,9 @@ $_SESSION['banner'] = $web_row['banner'];
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            
-                                <a href="http://gen-ed.ssru.ac.th/page/contact-us" target="_blank" class="nav-link btn btn-md"
-                                    style="color:white;margin-left:20px"><span>ติดต่อสอบถาม</span></a>
-                          
+                            <a href="http://gen-ed.ssru.ac.th/page/contact-us" target="_blank" class="nav-link btn btn-md"
+                                style="color:white;margin-left:20px"><span>ติดต่อสอบถาม</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -168,7 +172,7 @@ $_SESSION['banner'] = $web_row['banner'];
             <br>
         </div>
     </footer>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
@@ -178,5 +182,8 @@ $_SESSION['banner'] = $web_row['banner'];
     <script src="node_modules/bootstrap/dist/js/dropdown.js.map"></script>
     <script src="link.js"></script>
 </body>
+
+<!-- alert all -->
+<?php require '../alert.php'; ?>
 
 </html>
