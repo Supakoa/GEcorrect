@@ -1,32 +1,63 @@
-<?php 
+<?php
+// connect database 
+require 'server/server.php';
+
+function DateThai($strDate) {
+    $strYear = date("Y", strtotime($strDate)) + 543;
+    $strMonth = date("n", strtotime($strDate));
+    $strDay = date("j", strtotime($strDate));
+    $strMonthCut = Array("", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.");
+    $strMonthThai = $strMonthCut[$strMonth];
+    return "$strDay $strMonthThai $strYear";
+}
+
+if (isset($_POST['create_pdf'])) {
+    $detail_id = $_POST['detail_id'];
+    $q_sl_room = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+    if ($re_sl_room = mysqli_query($con, $q_sl_room)) {
+		$num_room = 0 ;
+		while ($row_sl_room = mysqli_fetch_array($re_sl_room)) {
+			$num_room++;
+		}
+		$re_sl_room = mysqli_query($con, $q_sl_room);
+
+        require_once __DIR__ . '/vendor/autoload.php';
+
+        $mpdf = new \Mpdf\Mpdf([
+            'default_font_size' => 14,
+            'default_font' => 'sarabun',
+            "sarabun" => 'B',
+            'format' => 'A4',
+            'margin_left' => 1,
+            'margin_right' => 1,
+            'margin_top' => 35,
+            'mode' => 'utf-8',
+        ]);
 
 
-if(isset($_POST['create_pdf'])){
-	require_once __DIR__ . '/vendor/autoload.php';
 
-	$mpdf = new \Mpdf\Mpdf([ 
-		'default_font_size' => 14,
-		'default_font' => 'sarabun',
-		"sarabun" => 'B',
-		'format' => 'A4',
-		'margin_left' => 1,
-		'margin_right' => 1,
-		'margin_top' => 35,
-		'mode' => 'utf-8',
-		]);
+        $keep_table_proportions = true;
+        $ignore_table_percents = true;
+        $ignore_table_width = true;
+        $mpdf->shrink_tables_to_fit = 1;
 
-
-		
-		$keep_table_proportions = true;		
-		$ignore_table_percents = true;
-		$ignore_table_width = true;
-		$mpdf->shrink_tables_to_fit = 1;
-			
-			$a = 0;
-			$sub = 123456;
-	while($a<5){
-		
-	$head = '
+			$num_page = 0;
+        while ($row_sl_room = mysqli_fetch_array($re_sl_room)) {
+            $r_d_id = $row_sl_room['room_detail_id'];
+            $q_head = "SELECT detail.* , subject.subject_name,location_table.name_location FROM `room_detail`,`detail`,`subject`,`location_table` WHERE location_table.order = room_detail.room_id AND detail.detail_id =room_detail.detail_id AND room_detail.sub_id = subject.subject_id AND room_detail.room_detail_id = '$r_d_id' AND room_detail.detail_id = '$detail_id' ";
+            $re_head = mysqli_query($con, $q_head);
+            $row_head = mysqli_fetch_array($re_head);
+            $q_show = "SELECT student_room.student_room_id,student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
+			FROM `student_room`,`location_table`,`room_detail`,`student`,`subject`,`detail`
+			WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
+			AND detail.detail_id = '$detail_id' AND room_detail.room_detail_id = '$r_d_id' ";
+            $re_show = mysqli_query($con, $q_show);
+			$head_term =$row_head['term'];
+			$head_year = $row_head['year'];
+			$head_date =DateThai($row_head['day']);
+			$head_time =substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น.";
+			$head_location = $row_head['name_location'];
+            $head = '
 	<html>
 		<head>
 			<style>
@@ -44,7 +75,7 @@ if(isset($_POST['create_pdf'])){
 							<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
 						</div>
 						<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
-						<span>รายชื่อนักศึกษาสอบ '.$a.' ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
+						<span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
 						</div>
 				</div><br><br>
 			</htmlpageheader>
@@ -53,7 +84,7 @@ if(isset($_POST['create_pdf'])){
 
 	';
 
-	$thead ='
+            $thead = '
 	<html>
 		<head>
 			<style>
@@ -102,81 +133,54 @@ if(isset($_POST['create_pdf'])){
 					</thead>
 				';
 
-	$tbody = '<tbody>';
-	for ($i=0; $i < 10; $i++) { 
 
-				$tbody.= '	<tr>
-								<td style="text-align:center">asdfg</td>
-								<td style="text-align:center">asfdafs</td>
-								<td>asdfgh</td>
-								<td style="text-align:center">asdasfas</td>
-								<td style="text-align:center">asdasdasd</td>
-								<td style="text-align:center">asdasdasd</td>
-								<td style="text-align:center">asdasdasd</td>
-								<td ></td>
+
+            $tbody = '<tbody>';
+            while ($row_show = mysqli_fetch_array($re_show)) {
+				$seat =$row_show['seat'];
+				$std_id = $row_show['std_id'];
+				$name =$row_show['name'];
+				$sub = $row_show['subject_name'];
+				$date = DateThai($row_show['day']);
+				$time = substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ;
+				$lo_name = $row_show['name_location'];
+                $tbody.= '	<tr>
+								<td style="text-align:center">' . $seat . '</td>
+								<td style="text-align:center">' . $std_id . '</td>
+								<td>' . $name . '</td>
+								<td style="text-align:center">' . $sub . '</td>
+								<td style="text-align:center">' . $date . '</td>
+								<td style="text-align:center">' . $time . '</td>
+								<td style="text-align:center">' . $lo_name . '</td>
+								<td></td>
 							</tr>';
-	}	
-						
-	$tbody.='				</tbody>
+            }
+
+            $tbody.='				</tbody>
 					</table>
 			
-	</head>
-	<body>
-			<table autosize="1">
-				<thead>
-					<tr>
-						<th>ลำดับ</th>
-						<th>รหัสนักศึกษา</th>
-						<th>ชื่อ-นามสกุล</th>
-						<th>วิชาที่สอบ</th>
-						<th>วันที่สอบ</th>
-						<th>เวลาที่สอบ</th>
-						<th>ห้องสอบ</th>
-						<th style="width:80pt;">ลายเซ็น</th>
-					</tr>
-				</thead>
-			';
+	';
 
-$tbody = '<tbody>';
-for ($i=0; $i < 100; $i++) { 
+            $footer = '
+			
+			<br>
+			<div style="text-align:right;margin-right:10px">
+				<span>จำนวนนักศึกษาที่เข้าสอบ.................คน</span><br>
+				<span>จำนวนนักศึกษาที่ขาดสอบ.................คน</span><br>
+			</div>
+			
+			<div style="text-align:left;margin-right:10px;margin-left:10px">
+				<span>ปัญหาที่พบ ';
+            for ($i = 0; $i < 1000 - 241; $i++) {
+                $footer.= '.';
+            }
+            $footer.='<br>การแก้ปัญหาเบื้องต้น ';
 
-			$tbody.= '	<tr>
-							<td style="text-align:center">'.$i.'</td>
-							<td style="text-align:center">asfdafs</td>
-							<td>asdfgh</td>
-							<td style="text-align:center">asdasfas</td>
-							<td style="text-align:center">asdasdasd</td>
-							<td style="text-align:center">asdasdasd</td>
-							<td style="text-align:center">asdasdasd</td>
-							<td ></td>
-						</tr>';
-}	
-					
-$tbody.='				</tbody>
-				</table>
-		
-';
+            for ($i = 0; $i < 1000 - 241; $i++) {
+                $footer.= '.';
+            }
 
-$footer = '
-		
-		<br>
-		<div style="text-align:right;margin-right:10px">
-			<span>จำนวนนักศึกษาที่เข้าสอบ.................คน</span><br>
-			<span>จำนวนนักศึกษาที่ขาดสอบ.................คน</span><br>
-		</div>
-		
-		<div style="text-align:left;margin-right:10px;margin-left:10px">
-			<span>ปัญหาที่พบ ';
-for ($i=0; $i <1000-241; $i++) { 
-	$footer.= '.';	
-}
-$footer.='<br>การแก้ปัญหาเบื้องต้น ';
-
-for ($i=0; $i <1000-241; $i++) { 
-	$footer.= '.';	
-}
-	
-$footer.= ' </span><br>
+            $footer.= ' </span><br>
 		<input type="checkbox"> <span> ไม่พบปัญหา</span>
 		</div><br/><br/>
 		<div style="text-align:right;margin-right:10px">
@@ -187,257 +191,490 @@ $footer.= ' </span><br>
 		
 		
 		
-	</body>
-</html>
-';
-// $sum = $head.$myhead.$thead.$tbody.$footer;
-$mpdf->WriteHTML($head);
+		</body>
+	</html>
+	';
+            $mpdf->WriteHTML($head);
+            $mpdf->WriteHTML($thead);
+            $mpdf->WriteHTML($tbody);
+			$mpdf->WriteHTML($footer);
+			++$num_page;
+			if($num_page<$num_room){
+                $head = '
+			<html>
+				<head>
+					<style>
+						@page {
+							size: auto;
+							odd-header-name: html_MyHeader1;
+						}
+						
+					</style>
+				</head>
+				<body>
+					<htmlpageheader name="MyHeader1">
+						<div>
+								<div style="text-align:right;">
+									<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
+								</div>
+								<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
+								<span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $row_head['term'] . '/' . $row_head['year'] . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . DateThai($row_head['day']) . ' เวลา ' . substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น." . ' ห้อง ' . $row_head['name_location'] . '</span>
+								</div>
+						</div><br><br>
+					</htmlpageheader>
+				</body>
+			</html>
+		
+			';
 
-// $mpdf->WriteHTML($myhead);
-$mpdf->WriteHTML($thead);
-$mpdf->WriteHTML($tbody);
-$mpdf->WriteHTML($footer);
-++$a;
-if($a<5){
-$head = '
-<html>
-	<head>
-		<style>
-			@page {
-				size: auto;
-				odd-header-name: html_MyHeader1;
-			}
+                $mpdf->WriteHTML($head);
+
+				$mpdf->AddPage();
+					}
 			
-		</style>
-	</head>
-	<body>
-	
-		<htmlpageheader name="MyHeader1">
-			<div>
-					<div style="text-align:right;">
-						<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
-					</div>
-					<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
-					<span>รายชื่อนักศึกษาสอบ '.$a.' ภาคเรียนที่ 2/2561</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ 26 กุมภาพันธ์ เวลา 08.00 - 09.00 น. ห้อง 1711</span>
-					</div>
-			</div><br><br>
-		</htmlpageheader>
-	</body>
-</html>
-
-';
-
-$mpdf->WriteHTML($head);
-
-	$mpdf->AddPage();
+            
+        }
+        $mpdf->Output();
+    } else {
+        header("Location: report.php");
+        $_SESSION['alert'] = 4;
+        exit();
+    }
 }
 
-
+$q_sub = "SELECT * FROM `subject` order by `subject_id`";
+$re_sub = mysqli_query($con, $q_sub);
+$i = 0;
+$option_sub = '';
+while ($row_sub = mysqli_fetch_array($re_sub)) {
+    $option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
+    $i++;
 }
-$mpdf->Output();
+if (isset($_POST['gogo'])) {
 
+    $term = $_POST['term'];
+    $year = $_POST['year'];
+    $subject = $_POST['subject'];
+    $group_exam = $_POST['group_exam'];
+    $type_exam = $_POST['type_exam'];
+    // echo $term . $year . $subject . $group_exam;
 
+    $q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type,detail.day,detail.time_start ,detail.time_end 
+        FROM `room_detail`,`detail` 
+        WHERE detail.detail_id = room_detail.detail_id 
+            AND detail.term 
+            LIKE '$term%' 
+            AND detail.year 
+            LIKE '$year%' 
+            AND room_detail.sub_id 
+            LIKE '$subject%' 
+            AND room_detail.sub_group 
+            LIKE '$group_exam%' 
+            AND detail.type 
+            LIKE '$type_exam%' 
+            GROUP BY detail.detail_id";
+    $re_show = mysqli_query($con, $q_show);
+} else {
+
+    $term = "";
+    $year = "";
+    $subject = "";
+    $group_exam = "";
+    $type_exam = "";
+    $q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type,detail.day,detail.time_start ,detail.time_end 
+	FROM `room_detail`,`detail`  WHERE 0";
+    $re_show = mysqli_query($con, $q_show);
 }
-
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<title>Admin Template-รายงาน</title>
-		<meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
-		<meta name="author" content="Pike Web Development - https://www.pikephp.com">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
+        <title>Admin Template-รายงาน</title>
+        <meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
+        <meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
-		<!-- Bootstrap CSS -->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Font Awesome CSS -->
-		<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-		
-		<!-- Custom CSS -->
-		<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
-		
-		<!-- BEGIN CSS for this page -->
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
-		<!-- END CSS for this page -->
-		
-</head>
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-<body class="adminbody">
+        <!-- Bootstrap CSS -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-<div id="main">
+        <!-- Font Awesome CSS -->
+        <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
-	<?php require 'menu/navmenu.php' ?>
+        <!-- Custom CSS -->
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <!-- BEGIN CSS for this page -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
+        <!-- END CSS for this page -->
+
+    </head>
+
+    <body class="adminbody">
+
+        <div id="main">
+
+            <?php //require 'menu/navmenu.php'    ?>
 
 
-    <div class="content-page"><!-- content-page -->
-		<div class="content"><!-- content -->
-			<div class="container-fluid"><!--container-fluid -->
+            <div class="content-page"><!-- content-page -->
+                <div class="content"><!-- content -->
+                    <div class="container-fluid"><!--container-fluid -->
 
-					<div class="card mb-3"><!-- filter card -->
-						<div class="card-header">
-							<h4 class="text-center">รายงาน PDF</h4>
-						</div>
-						<div class="card-body">
-							<div class="container"><!-- container -->
-								<div class="row"><!-- row -->
-									<div class="col-lg-8">
-										<div class="card"><!-- card 1 -->
-											<div class="card-body">
-												<div class="row">
-													<div class="col-md-3">
-														<label for="term">เทอม</label>
-														<select id="term" class="form-control select2">
-																<option>1</option>
-																<option>2</option>
-														</select>
-													</div>
-													<div class="col-md-1">
-														<br><br><label >/</label>
-													</div>
-													<div class="col-md-7">
-														<label for="year">ปีการศึกษา</label>
-															<select id="year" class="form-control select2">
-																<option>2561</option>
-																<option>2560</option>
-																<option>2559</option>
-															</select>
-													</div>
-													<div class="col-md-7">
-														<label for="subject">วิชา</label>
-														<select name="" id="subject" class="form-control select2">
-															<option>GEL1101</option>
-															<option>GRL1102</option>
-															<option>GEL2203</option>
-														</select>
-													</div>
-													<div class="col-md-7">
-														<label for="group">กลุ่มเรียน</label>
-															<select name="" id="group" class="form-control select2">
-																<option>001</option>
-																<option>002</option>
-																<option>003</option>
-															</select>
-													</div>
-												</div>
-											</div>
-										</div><!--end card 1 --> <br>
-									</div>
-								</div><!-- end row -->
-									<div class="text-center">
-										<button class="btn btn-sm btn-success" type="submit">submit</button>
-									</div>
-							</div><!--end container -->
-						</div>
-					</div><!--end filter card -->
+                        <div class="card mb-3"><!-- filter card -->
+                            <div class="card-header">
+                                <h4 class="text-center">รายงาน PDF</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="report.php" method="post">
+                                    <div class="container"><!-- container -->
+                                        <div class="row "><!-- row -->
+                                            <div class="col-lg-2 "></div>
+                                            <div class="col-lg-8 ">
+                                                <div class="card"><!-- card 1 -->
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="term">เทอม</label>
+                                                                <select name="term" class="form-control select2">
+                                                                    <?php
+                                                                    if ($term == '') {
+                                                                        echo '<option hidden selected  value="">ทั้งหมด</option>';
+                                                                    } else {
+                                                                        echo '<option hidden selected  value="' . $term . '">' . $term . '</option>';
+                                                                    }
+                                                                    ?>
+                                                                    <option value = "">ทั้งหมด</option>
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                </select>
 
-					<div class="card mb-3"><!-- table card-->
-						<div class="card-body">
-							<div class="table-responsive">
-								<table id="report" class="table table-bordered">
-									<thead>
-										<tr>
-											<th></th>
-											<th>ปีการศึกษา</th>
-											<th>กลุ่มเรียน</th>
-											<th>เวลา</th>
-											<th>วันที่</th>
-											<th>ประเภท</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td class="text-center"> <!-- btn PDF -->
-												<form method="POST" action="report.php">
-													<input name="create_pdf" type="submit" class="btn btn-sm btn-info" value="Create PDF">
-												</form>
-											</td><!-- end btn PDF -->
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div><!--end table card-->
+                                                            </div>
+                                                            <!-- <div class="col-md-2">
+                                                                            <br><br><label >/</label>
+                                                            </div> -->
+                                                            <div class="col-md-3">
+                                                                <label for="year">ปีการศึกษา</label>
+                                                                <select name="year" class="form-control select2">
+                                                                    <?php
+                                                                    if ($year == '') {
+                                                                        echo '<option hidden selected  value="">ทั้งหมด</option>';
+                                                                    } else {
+                                                                        echo '<option hidden selected  value="' . $year . '">' . $year . '</option>';
+                                                                    }
+                                                                    ?>
+                                                                    <option value = "">ทั้งหมด</option>
+                                                                    <option>2561</option>
+                                                                    <option>2562</option>
+                                                                    <option>2563</option>
+                                                                    <option>2564</option>
+                                                                    <option>2565</option>
+                                                                    <option>2566</option>
+                                                                    <option>2567</option>
+                                                                    <option>2568</option>
+                                                                    <option>2569</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="subject">วิชา</label>
+                                                                <select name="subject" class="form-control select2">
+                                                                    <?php
+                                                                    if ($subject == '') {
+                                                                        echo '<option hidden selected  value="">ทั้งหมด</option>';
+                                                                    } else {
+                                                                        echo '<option hidden selected  value="' . $subject . '">' . $subject . '</option>';
+                                                                    }
+                                                                    ?>
+                                                                    <option value = "">ทั้งหมด</option>
+                                                                    <?php echo $option_sub ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="group">กลุ่มเรียน</label>
+                                                                <?php
+                                                                if ($group_exam == '') {
+                                                                    echo '<input name = "group_exam" type="text"  placeholder = "ทั้งหมด" value = "" maxlength="3"  class="form-control" >';
+                                                                } else {
+                                                                    echo '<input name = "group_exam" type="text"  placeholder = "" value = "' . $group_exam . '" maxlength="3"  class="form-control" >';
+                                                                }
+                                                                ?>
 
-					<div class="crad mb-3"><!-- signature card-->
-						<div class="card-header">
-							<h4 class="text-center">signature</h4>
-						</div>
-						<div class="card-body">
-							<div class="container">
-								<div class="row">
-									<div class="col-xl-12 ">
-										<div class="mx-auto" style="width: 40px;">
-											<img src="..." class="rounded mx-auto d-block"><br><br>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="text-center">
-											<button class="btn btn-sm btn-success">Upload Signature</button>
-											<p>Size 200*200 <br>Type*PNG*</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div><!--end signature card-->
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="subject">ประเภท</label>
+                                                                <select name = "type_exam" class="form-control select2" >
+                                                                    <?php
+                                                                    if ($type_exam == '') {
+                                                                        echo '<option hidden selected  value="">ทั้งหมด</option>';
+                                                                    } else {
+                                                                        echo '<option hidden selected  value="' . $type_exam . '">' . $type_exam . '</option>';
+                                                                    }
+                                                                    ?>
+                                                                    <option value="">ทั้งหมด</option>
+                                                                    <option>กลางภาค</option>
+                                                                    <option>ปลายภาค</option>
+                                                                    <option>แก้ผลการเรียน(I)</option>	
+                                                                    <option>ย้อนหลัง</option>
+                                                                </select>
+                                                                </select>
+                                                            </div>	
+                                                        </div>
+                                                    </div>
+                                                </div><!--end card 1 --> <br>
+                                            </div>
+                                        </div><!-- end row -->
+                                        <div class="text-center">
+                                            <button class="btn btn-sm btn-success" type="submit">submit</button>
+                                        </div>
+                                    </div><!--end container -->
+                                    <input type="hidden" name="gogo">
+                                </form>
+                            </div>
+                        </div><!--end filter card -->
 
-            </div><!-- END container-fluid -->
-		</div><!--end content-->
-    </div>
-	<!-- END content-page -->
-    
-	<footer class="footer">
-		
-	</footer>
+                        <div class="card"><!-- card 2 -->
+                            <div class="card-body">
+                                <form id="big_form" action="search2.php" method="post">
+                                    <input type="hidden" name="big_form">
+                                </form>
+                                <div class="table-responsive"><!--table -->
+                                    <table id="report" class="table table-bordered">
+                                        <thead>
+                                        <div class="text-center">
+                                            <a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete_select"><i class="fa fa-minus"></i> ลบที่เลือก</a>
+                                        </div>
+                                        <tr>
+                                            <th><label class="checkbox-inline"><input type="checkbox"  ng-model="all"> Check All</label></th>
+                                            <th></th>
+                                            <th>เทอม</th>
+                                            <th>ปีการศึกษา</th>
+                                            <th>วิชา</th>
+                                            <th>กลุ่มเรียน</th>
+                                            <th>วันที่</th>
+                                            <th>เวลา</th>
+                                            <th>ประเภท</th>
 
-</div>
-<!-- END main -->
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            while ($row_show = mysqli_fetch_array($re_show)) {
+                                                $de_id = $row_show['detail_id'];
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <div class="form-check">
+                                                            <input name="del_cb[]" value = "<?php echo $de_id ?>" type="checkbox" class="form-check-input"   ng-checked="all" form = "big_form">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <a role="button" href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#info<?php echo $de_id ?>">
+                                                                <i class="fa fa-file"></i></a><!-- modal 0 -->
+                                                            <form action="report.php" method="post">
+                                                                <button type="submit" name = "create_pdf">gogo</button>
+                                                                <input type="hidden" name="detail_id" value = "<?php echo $de_id ?>" >
+                                                            </form>
 
-<script src="assets/js/modernizr.min.js"></script>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/moment.min.js"></script>
-		
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 
-<script src="assets/js/detect.js"></script>
-<script src="assets/js/fastclick.js"></script>
-<script src="assets/js/jquery.blockUI.js"></script>
-<script src="assets/js/jquery.nicescroll.js"></script>
+                                                        </div>
 
-<!-- App js -->
-<script src="assets/js/pikeadmin.js"></script>
+                                                        <!-- Modal 0-->
+                                                        <div class="modal fade" id="info<?php echo $de_id ?>" tabindex="-1" role="dialog" aria-labelledby="sea3" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="sea3">ข้อมูล</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="container">
+                                                                            <div class="card mb-3">
+                                                                                <div class="card-body">
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table table-borderless">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <th scope="row">ปีการศึกษา</th>
+                                                                                                    <td><?php echo $row_show['year'] ?></td>
+                                                                                                </tr>
 
-<!-- BEGIN Java Script for this page -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+                                                                                                <tr>
+                                                                                                    <th scope="row">เวลา</th>
+                                                                                                    <td><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <th scope="row">วันที่</th>
+                                                                                                    <td><?php echo DateThai($row_show['day']) ?></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <th scope="row">ประเภท</th>
+                                                                                                    <td><?php echo $row_show['type'] ?></td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
 
-	<!-- Counter-Up-->
-	<script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
-	<script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>#</th>
+                                                                                                    <th>วิชา</th>
+                                                                                                    <th>กลุ่มเรียน</th>
+                                                                                                    <th>ห้อง</th>
+                                                                                                    <th>จำนวน</th>
+                                                                                                    <th>อุปกรณ์</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                <?php
+                                                                                                $i = 1;
+                                                                                                $q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
+                                                                                                $re_room = mysqli_query($con, $q_room);
+                                                                                                while ($row_room = mysqli_fetch_array($re_room)) {
+                                                                                                    ?>
+                                                                                                    <tr>
+                                                                                                        <td class="text-center"><?php echo $i++ ?></td>
+                                                                                                        <td><?php echo $row_room['sub_id'] ?></td>
+                                                                                                        <td><?php echo $row_room['sub_group'] ?></td>
+                                                                                                        <td><?php echo $row_room['name_location'] ?></td>
+                                                                                                        <td><?php echo $row_room['num'] ?></td>
+                                                                                                        <td><?php echo $row_room['tool'] ?></td>
+                                                                                                    </tr>
+                                                                                                <?php } ?>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
 
-	<script>
-		$(document).ready(function() {
-			// data-tables
-			$('#report').DataTable();
-					
-		} );		
-	</script>
-<!-- END Java Script for this page -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>								
+                                                        <!--end modal 0-->
 
-</body>
+
+
+                                                    </td>
+                                                    <td><?php echo $row_show['term'] ?></td>
+                                                    <td><?php echo $row_show['year'] ?></td>
+                                                    <td>
+                                                        <?php
+                                                        $q_check = "SELECT `sub_id` FROM `room_detail` WHERE `detail_id` = '$de_id' GROUP BY `sub_id` ";
+                                                        $re_check = mysqli_query($con, $q_check);
+                                                        $num_check = 0;
+                                                        while ($row_check = mysqli_fetch_array($re_check)) {
+                                                            $num_check++;
+                                                        }
+
+                                                        if ($num_check > 1) {
+                                                            echo "หลายวิชา";
+                                                            $mutiple = 1;
+                                                        } else {
+                                                            echo $row_show['sub_id'];
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <?php
+                                                    if (isset($mutiple)) {
+                                                        echo "<td>หลายกลุ่ม</td>";
+                                                        unset($mutiple);
+                                                    } else {
+                                                        echo '<td>' . $row_show['sub_group'] . '</td>';
+                                                    }
+                                                    ?>
+
+                                                    <td><?php echo DateThai($row_show['day']) ?></td>
+                                                    <td><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
+                                                    <td><?php echo $row_show['type'] . "----" . $de_id ?></td>
+
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div><!-- end table -->
+
+                            </div>
+                        </div><!-- card 2 -->
+
+                        <div class="crad mb-3"><!-- signature card-->
+                            <div class="card-header">
+                                <h4 class="text-center">signature</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xl-12 ">
+                                            <div class="mx-auto" style="width: 40px;">
+                                                <img src="..." class="rounded mx-auto d-block"><br><br>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="text-center">
+                                                <button class="btn btn-sm btn-success">Upload Signature</button>
+                                                <p>Size 200*200 <br>Type*PNG*</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end signature card-->
+
+                    </div><!-- END container-fluid -->
+                </div><!--end content-->
+            </div>
+            <!-- END content-page -->
+
+            <footer class="footer">
+
+            </footer>
+
+        </div>
+        <!-- END main -->
+
+        <script src="assets/js/modernizr.min.js"></script>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/moment.min.js"></script>
+
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+
+        <script src="assets/js/detect.js"></script>
+        <script src="assets/js/fastclick.js"></script>
+        <script src="assets/js/jquery.blockUI.js"></script>
+        <script src="assets/js/jquery.nicescroll.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/pikeadmin.js"></script>
+
+        <!-- BEGIN Java Script for this page -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Counter-Up-->
+        <script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+        <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
+
+        <script>
+                                                            $(document).ready(function () {
+                                                                // data-tables
+                                                                $('#report').DataTable();
+                                                                $('.select2').select2();
+                                                            });
+        </script>
+        <!-- END Java Script for this page -->
+
+    </body>
 </html>
