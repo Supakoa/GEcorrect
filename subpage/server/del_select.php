@@ -42,6 +42,10 @@
                 $sql = "DELETE FROM `student` WHERE `std_id` = '$cb[$i]' ";
                 $header = "Location: ../search1.php";
             break;
+            case '5':
+                $sql = "DELETE FROM `student_room` WHERE `student_room_id` =  '$cb[$i]' ";
+                $header = "Location: ../search3.php";
+            break;
         }
 
         // if have fail exit this now.

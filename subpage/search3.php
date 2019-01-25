@@ -1,6 +1,7 @@
 <?php
 	// connect database 
 	// connect database 
+
 	require 'server/server.php';
 	function DateThai($strDate) { //วันที่แบบไทย
 		$strYear = date("Y", strtotime($strDate)) + 543;
@@ -17,7 +18,28 @@
 		header("Location: ../index.php");
 		exit();
     }
-    
+	
+	if(isset($_POST['edit'])){//แก้ไข
+		$std_id =  $_POST['std_id'];
+		$note = $_POST['note'];
+		$q_edit = "UPDATE `student_room` SET `note`='$note' WHERE  `student_room_id` = '$std_id' ";
+		if($re_edit = mysqli_query($con, $q_edit)){
+			$_SESSION['alert'] = 10;
+		}
+		else{
+			$_SESSION['alert'] = 11;
+		}
+		
+	}elseif(isset($_POST['delete'])){ //ลบ
+		$std_id =  $_POST['std_id'];
+		$q_del = "DELETE FROM `student_room` WHERE `student_room_id` = '$std_id' ";
+		if($re_del = mysqli_query($con, $q_del)){
+			$_SESSION['alert'] = 12;
+		}
+		else{
+			$_SESSION['alert'] = 13;
+		}
+	}
 	$q_sub = "SELECT * FROM `subject` order by `subject_id`";
 	$re_sub = mysqli_query($con, $q_sub);
 	$i = 0;
@@ -52,7 +74,7 @@
 		$e_time = $_POST['e_time'];
 		$std_id =  $_POST['std_id'];
 		// echo $term . $year . $subject . $group_exam;
-		$q_show = "SELECT student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
+		$q_show = "SELECT student_room.student_room_id,student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
 		FROM `student_room`,`location_table`,`room_detail`,`student`,`subject`,`detail`
 		WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
 		AND student_room.std_id LIKE '$std_id%' AND location_table.order LIKE '$room%' AND room_detail.sub_id LIKE '$subject%' 
@@ -101,6 +123,10 @@
         <link href="dist/bootstrap-clockpicker.min.css" rel="stylesheet" type="text/css" />
         <!-- BEGIN CSS for this page -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
+
+		<!-- sweet alert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
+
         <!-- END CSS for this page -->
 
     </head>
@@ -333,69 +359,28 @@
                                     <thead>
 
                                     <div class="text-center">
-                                        <a role="button" href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
-                                            <i class="fa fa-plus"></i> เพิ่มข้อมูล
-                                        </a>
+                                        
                                         <a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete_select"><i class="fa fa-minus"></i> ลบที่เลือก</a>
 
                                     </div>
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="container">
-                                                        <div class="form-group">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <label for="id1">รหัสนักศึกษา</label>
-                                                                    <input id="id1" class="form-control" type="text" >
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label for="room0">ห้อง</label>
-                                                                    <input id="room0" class="form-control" type="text">
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label for="detail">Detail</label>
-                                                                    <input id="detail" class="form-control" type="text">
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label for="not">หมายเหตุ</label>
-                                                                    <input id="not" class="form-control" type="text">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!--end modal -->
+                                   
 
                                     <!-- Small modal -->
                                     <div class="modal fade bd-example-modal-sm" id="delete_select" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-sm">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">ลบข้อมูล</h5>
+                                                    <h5 class="modal-title">ลบข้อมูลที่เลือก</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
 
                                                 <div class="modal-footer">
-													<form action="server/del_select.php" method="get">
+													<form action="server/del_select.php" id="form_1" method="get">
+    
+														<input type="hidden" name="hide_del_select" value = "5">
 														<button type="submit" form="form_1" class="btn btn-danger btn-sm">Yes</button>
 														<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
 													</form>
@@ -424,27 +409,28 @@
 											while($row_show = mysqli_fetch_array($re_show)){
 										?>
                                         <tr>
-                                            <td class="text-center">
+                                            <td class="text-center" style = "width:100px " >
                                                 <div class="form-check">
-                                                    <input type="checkbox" form="form_1" name="del_cb[]" value="<?php  ?>" ng-checked="all" class="form-check-input">
+                                                    <input type="checkbox" form="form_1" name="del_cb[]" value="<?php echo $row_show['student_room_id']  ?>" ng-checked="all" class="form-check-input">
                                                 </div>
                                             </td>
-                                            <td>
+                                            <td style = "width:80px ">
 
                                                 <div class="text-center">
-                                                    <a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
+                                                    <a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit<?php echo $row_show['student_room_id'] ?>">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete"><i class="fa fa-minus"></i></a>
+                                                    <a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?php echo $row_show['student_room_id'] ?>"><i class="fa fa-minus"></i></a>
 
                                                 </div>
-
+												<form action="search3.php" method = "POST" id ="button_form">
+												<input type="hidden" name="std_id" value = "<?php echo $row_show['student_room_id']?>">
                                                 <!-- Modal 1-->
-                                                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
+                                                <div class="modal fade" id="edit<?php echo $row_show['student_room_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="loca">แก้ไข</h5>
+                                                                <h5 class="modal-title" id="loca">แก้ไขหมายเหตุ</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -453,25 +439,10 @@
                                                                 <div class="container">
                                                                     <div class="form-group">
                                                                         <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label for="id0">รหัสนักศึกษา</label>
-                                                                                <input id="id10" class="form-control" type="text" >
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label for="room01">ห้อง</label>
-                                                                                <input id="room01" class="form-control" type="text">
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label for="detail0">วิชา</label>
-                                                                                <input id="detail0" class="form-control" type="text">
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label for="detail0">ที่นั่งสอบ</label>
-                                                                                <input id="detail0" class="form-control" type="text">
-                                                                            </div>
+                                                                            
                                                                             <div class="col-md-6">
                                                                                 <label for="not0">หมายเหตุ</label>
-                                                                                <input id="not0" class="form-control" type="text">
+                                                                                <input id="not0" class="form-control" type="text" name = "note">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -480,14 +451,14 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                                                <button type="submit" name = "edit" class="btn btn-primary btn-sm">Save</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div><!--end modal 1-->
 
                                                 <!-- Small modal 2-->
-                                                <div class="modal fade bd-example-modal-sm" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal fade bd-example-modal-sm" id="delete<?php echo $row_show['student_room_id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                     <div class="modal-dialog modal-sm">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -498,23 +469,24 @@
                                                             </div>
 
                                                             <div class="modal-footer">
-																<form action="" method="post">
-																	<button type="submit" class="btn btn-danger btn-sm">Yes</button>
+																
+																	<button type="submit" name = "delete" class="btn btn-danger btn-sm">Yes</button>
 																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
-																</form>
+																
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div><!--end modal 2-->
+												</form>
                                             </td>
                                             <td><?php echo $row_show['std_id'] ?></td>
-											<td><?php echo $row_show['name'] ?></td>
+											<td style = "width:200px "><?php echo $row_show['name'] ?></td>
                                             <td><?php echo $row_show['name_location'] ?></td>
                                             <td><?php echo $row_show['sub_id']." ".$row_show['subject_name'] ?></td>
-                                            <td><?php echo $row_show['sub_group'] ?></td>
+                                            <td style = "width:10px "><?php echo $row_show['sub_group'] ?></td>
 											<td><?php echo $row_show['seat'] ?></td>
-                                            <td><?php echo DateThai($row_show['day']) ?></td>
-                                            <td><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
+                                            <td style = "width:80px "><?php echo DateThai($row_show['day']) ?></td>
+                                            <td style = "width:120px " ><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
                                             <td><?php echo $row_show['year'] ?></td>
                                             <td><?php echo $row_show['type'] ?></td>
                                             <td><?php echo $row_show['note'] ?></td>
@@ -530,7 +502,7 @@
             <!-- END content-page -->
 
             <footer class="footer">
-
+			<?php require '../alert.php'; ?>
             </footer>
 
         </div>
@@ -565,6 +537,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+		
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
         <!-- Counter-Up-->
         <script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
