@@ -354,7 +354,7 @@
                     </div><!--end card 1-->
                     <div class="card"><!--card 2-->
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="overflow-x:auto;">
                                 <table id="search3" class="table table-bordered">
                                     <thead>
 
@@ -390,8 +390,7 @@
                                     </div><!--end modal -->
                                     <tr>
                                         <th><label class="checkbox-inline"><input type="checkbox"  ng-model="all"> Check All</label></th>
-                                        <th></th>
-                                        <th>รหัสนักศึกษา</th>
+                                        <th colspan="2" style="text-align:right">รหัสนักศึกษา</th>
 										<th>ชื่อ - นามสกุล</th>
                                         <th>ห้อง</th>
                                         <th>วิชา</th>
