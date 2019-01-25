@@ -22,6 +22,7 @@ $result2 = mysqli_query($con,$q2);
 $q_web =  "SELECT * FROM `web_show_time` ";
 $web_result = mysqli_query($con,$q_web);
 $web_row = mysqli_fetch_array($web_result);
+$_SESSION['footer'] = $web_row['footer'];
 $_SESSION['banner'] = $web_row['banner'];
 
 
@@ -161,7 +162,7 @@ $_SESSION['banner'] = $web_row['banner'];
             <br>
             <h5>
                 <?php
-                echo $_SESSION['footer'];
+                echo $web_row['footer'];
                 ?>
             </h5>
             <br>

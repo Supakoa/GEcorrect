@@ -119,10 +119,14 @@ $row = mysqli_fetch_array($result);
                                 <div class="col-md-6">
 
                                     <p id="n">
-                                        <?php echo $row['name'] ?> 
+                                        <?php echo $row['name'];
+                                            $_SESSION['name'] = $row['name'];
+                                        ?> 
                                     </p>
                                     <p id="i">
-                                        <?php echo $row['std_id'] ?>
+                                        <?php echo $row['std_id'];
+                                            $_SESSION['std_id'] = $row['std_id'];
+                                        ?>
                                     </p>
                                 </div>
                                 <div class="col-md-1"></div>

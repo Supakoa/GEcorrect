@@ -18,10 +18,11 @@ $result2 = mysqli_query($con, $q2);
 $q_web =  "SELECT * FROM `web_show_time` ";
 $web_result = mysqli_query($con,$q_web);
 $web_row = mysqli_fetch_array($web_result);
+$_SESSION['footer'] = $web_row['footer'];
 $_SESSION['banner'] = $web_row['banner'];
 $year = $_SESSION['year'];
 
-$term=$_SESSION['term'];
+$term = $_SESSION['term'];
 $a = $_SESSION['id'];
 
 //student
@@ -46,6 +47,7 @@ $row2 = mysqli_fetch_array($detail_result);
 //     $_SESSION['type'] = "แก้ไขผลการเรียน(I)";
 // }
 $d = $_GET['id'];
+$_SESSION['type'] = $d;
 
 // if ($d == "แก้ไขผลการเรียน(I)" && $c == 1) {
 //     $b--;
@@ -257,7 +259,7 @@ $table_result = mysqli_query($con,$table);
                             *** หากไม่พบข้อมูล ติดต่อได้ที่จุด one stop service
                         </td>
                         <td>
-                            <a href="print.php" target="_blank" class="btn btn-link">Print</a>
+                            <a href="print.php?id=" target="_blank" class="btn btn-link">Print</a>
                         </td>
                     </tr>
                 </tbody>
@@ -313,7 +315,7 @@ $table_result = mysqli_query($con,$table);
         <div class="text-center">
             <br>
             <?php
-                echo $_SESSION['footer'];
+                echo $web_row['footer'];;
                 ?>
             <br>
         </div>
