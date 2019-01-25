@@ -16,7 +16,7 @@ $_SESSION['banner'] = $web_row['banner'];
 $_SESSION['year'] = $web_row['web_year'];
 $_SESSION['term'] = $web_row['web_term'];
 //student
-  $a = $_SESSION['id'];
+$a = $_SESSION['id'];
 $std = "SELECT * FROM `student` WHERE std_id = '$a' ";
 $result = mysqli_query($con,$std);
 $row = mysqli_fetch_array($result);
@@ -57,50 +57,38 @@ $row = mysqli_fetch_array($result);
 
 <body>
     <header>
-        <?php
-    //  $banner = "SELECT * FROM `baner` WHERE `id` = 1";
-    //  $sth2 = mysqli_query($con,$banner);
-    //  $ImYourFather=mysqli_fetch_array($sth2,MYSQLI_ASSOC);
-    //  $sing = $ImYourFather['name_baner'];
- 
-    //  $sql = "SELECT * FROM images WHERE name_pic = '$sing' ";
-    //  $sth = mysqli_query($con,$sql);
-    //  $Baner=mysqli_fetch_array($sth);
-    //  echo '<img src="data:image/jpeg;base64,'.base64_encode( $Baner['image'] ).'" alt="ssru" style="width:100%"  title="มหาลัยราชภัฎสวนสุนันทา"/>';
-    ?>
-        <img src="../subpage/banner/<?php echo $_SESSION['banner'] ?>" class="img-fluid" alt="Responsive image">
+       
+        <img src="image/ge-test.png"width="100%" height="auto" class="img-fluid" alt="Responsive image">
 
     </header>
 
-    <div class="container-fluid" style="background:#55236d">
+    <nav class="navbar navbar-expand-md navbar-light" style="background:#55236d">
         <div class="container">
-            <nav class="navbar navbar-expand-md navbar-light" style="background:#55236d">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-md" href="main.php" style="color:white;margin-left:30px"><span
-                                    class="fas fa-home"></span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="http://gen-ed.ssru.ac.th/page/contact-us" target="_blank" class="nav-link btn btn-md"
-                                    style="color:white;margin-left:20px"><span>ติดต่อสอบถาม</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <div style="text-align:right"></div>
-                            <a class="nav-link btn btn-md" href="logout.php" style="color:white;margin-left:20px"><span
-                                    class="fas fa-sign-out-alt"></span> logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <a class="navbar-brand" href="#">
+                <img src="Imag/GElogo.png" alt="Logo" width="75" height="auto">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-md" href="main.php" style="color:white;"><span class="fas fa-home"></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://gen-ed.ssru.ac.th/page/contact-us" target="_blank" class="nav-link btn btn-md"
+                            style="color:white;"><span>ติดต่อสอบถาม</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-md nav-link" href="logout.php" style="color:white;"><span class="fas fa-sign-out-alt"></span>
+                            logout</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav><br>
 
-    </div><br>
     <div class="container-fluid">
         <div class="container">
             <div class="row">
@@ -121,7 +109,7 @@ $row = mysqli_fetch_array($result);
                                     <p id="n">
                                         <?php echo $row['name'];
                                             $_SESSION['name'] = $row['name'];
-                                        ?> 
+                                        ?>
                                     </p>
                                     <p id="i">
                                         <?php echo $row['std_id'];
@@ -146,8 +134,8 @@ $row = mysqli_fetch_array($result);
                                 <a class="btn btn-light btn-md" href="checkseat.php?id=ปลายภาค" style="background:#dd99ff">ปลายภาค</a>
                                 <a class="btn btn-light btn-md" href="checkseat.php?id=แก้ไขผลการเรียน(I)" style="background:#dd99ff">แก้ไขผลการเรียน
                                     ( I )</a>
-                                <a class="btn btn-light btn-md dropdown-toggle" style="background:#dd99ff"
-                                    id="drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">อื่นๆ
+                                <a class="btn btn-light btn-md dropdown-toggle" style="background:#dd99ff" id="drop"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">อื่นๆ
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="drop" style="background:#dd99ff">
                                     <a class="dropdown-item" href="#">Action</a>
@@ -208,13 +196,11 @@ $row = mysqli_fetch_array($result);
     <footer class="container-fluid" style="background:#f6f6f6;height:">
         <div class="text-center">
             <br>
-            <p>
+            <h5>
                 <?php
-            echo $_SESSION['footer'];
-        ?>
-            </p>
-
-            <br>
+                echo $web_row['footer'];
+                ?>
+            </h5>
         </div>
     </footer>
 
@@ -225,7 +211,7 @@ $row = mysqli_fetch_array($result);
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-  
+
 
 </body>
 
