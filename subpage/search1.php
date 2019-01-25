@@ -130,7 +130,7 @@
 					</div>
 
 					<div class="card-body">
-						<div class="table-responsive">
+						<div class="table-responsive-xl">
 							<!-- table -->
 							<table id="search1" class="table table-bordered">
 								<thead>

@@ -194,7 +194,7 @@ if(isset($_SESSION['alert'])){
 								<!-- card table 1 -->
 								<div class="card-body">
 									<h4 class="text-center">เว็บไซต์ที่เกี่ยวข้อง</h4>
-									<div class="table-responsive">
+									<div class="table-responsive-xl">
 										<table class="table">
 											<!-- table 1 -->
 											<thead>
@@ -269,7 +269,7 @@ if(isset($_SESSION['alert'])){
 								<!-- card table 2 -->
 								<div class="card-body">
 									<h4 class="text-center">เอกสารที่เผยแพร่</h4>
-									<div class="table-responsive">
+									<div class="table-responsive-xl">
 										<table class="table">
 											<!-- table 2 -->
 											<thead>

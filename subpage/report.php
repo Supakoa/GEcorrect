@@ -340,7 +340,7 @@ $mpdf->Output();
 
 					<div class="card mb-3"><!-- table card-->
 						<div class="card-body">
-							<div class="table-responsive">
+							<div class="table-responsive-xl">
 								<table id="report" class="table table-bordered">
 									<thead>
 										<tr>
