@@ -16,7 +16,7 @@
 
         // open file
         $a = $_FILES["File"]["tmp_name"];
-        $file = fopen($a,'r');
+        // $file = fopen($a,'r');
 
         if (($handle = fopen("$a", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -24,12 +24,12 @@
                 $q = "INSERT INTO student(`std_id`,`name`) VALUES (". $value .") ";
                 $resault = mysqli_query($con,$q);
                 if(!$resault){
-                    $_SESSION['alert'] = 4;
-                    header("Location: imstudent.php");
-                    exit();
+                    $_SESSION['alert'] = 25;
                 }
             }
-            $_SESSION['alert'] = 3;
+            if($_SESSION['alert']!=25){
+                $_SESSION['alert'] = 3;
+            }
             fclose($handle);
             header("Location: imstudent.php");
             exit();

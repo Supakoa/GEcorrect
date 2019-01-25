@@ -37,7 +37,6 @@
 
     <title>Login</title>
 
-
 </head>
 
 <body>
@@ -131,14 +130,10 @@
                         <div class="card-body">
                             <h4 class="text-center" style="color:#55236d">เอกสารที่เผยแพร่</h4>
                             <ul>
-                                <?php
-                                      while ($row2 = mysqli_fetch_array($result2)) {
-                                        ?>
+                                <?php while ($row2 = mysqli_fetch_array($result2)) { ?>
                                 <li><a href="ser_side/uploads/<?php echo $row2['url']; ?> " target="_blank">
-                                        <?php echo $row2['text']; ?></a></li>
-                                <?php
-                                      }
-                                      ?>
+                                <?php echo $row2['text']; ?></a></li>
+                                <?php } ?>
                             </ul>
                         </div>
                     </div>

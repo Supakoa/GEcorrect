@@ -102,40 +102,7 @@ if(isset($_POST['create_pdf'])){
 					</thead>
 				';
 
-	$tbody = '<tbody>';
-	for ($i=0; $i < 10; $i++) { 
 
-				$tbody.= '	<tr>
-								<td style="text-align:center">asdfg</td>
-								<td style="text-align:center">asfdafs</td>
-								<td>asdfgh</td>
-								<td style="text-align:center">asdasfas</td>
-								<td style="text-align:center">asdasdasd</td>
-								<td style="text-align:center">asdasdasd</td>
-								<td style="text-align:center">asdasdasd</td>
-								<td ></td>
-							</tr>';
-	}	
-						
-	$tbody.='				</tbody>
-					</table>
-			
-	</head>
-	<body>
-			<table autosize="1">
-				<thead>
-					<tr>
-						<th>ลำดับ</th>
-						<th>รหัสนักศึกษา</th>
-						<th>ชื่อ-นามสกุล</th>
-						<th>วิชาที่สอบ</th>
-						<th>วันที่สอบ</th>
-						<th>เวลาที่สอบ</th>
-						<th>ห้องสอบ</th>
-						<th style="width:80pt;">ลายเซ็น</th>
-					</tr>
-				</thead>
-			';
 
 $tbody = '<tbody>';
 for ($i=0; $i < 100; $i++) { 
