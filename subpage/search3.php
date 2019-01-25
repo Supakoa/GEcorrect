@@ -133,7 +133,7 @@
 
     <body class="adminbody" ng-app="">
         <div id="main">
-            <?php //require 'menu/navmenu.php'; ?>
+            <?php require 'menu/navmenu.php'; ?>
 
             <div class="content-page"><!-- start content-page-->
                 <div class="content"><!--content-->
@@ -151,7 +151,7 @@
 											<form action="search3.php" id = "form_search" method="post">
                                                 <div class="row">
                                                     <!-- filter -->
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-3">
                                                         <label for="term">เทอม</label>
                                                         <select name="term" class="form-control select2" >
 																<?php
@@ -190,7 +190,7 @@
                                                             <option>2569</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <div class="form-group">
                                                             <label for="sub">วิชา(รหัส)</label>
                                                             <select name="sub" class="form-control select2" >
