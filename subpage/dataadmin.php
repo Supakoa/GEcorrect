@@ -63,7 +63,7 @@
 							<h3 class="text-center">ตารางข้อมูพนักงาน</h3>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive-xl">
+							<div class="table-responsive">
 								<table id="admin" class="table table-bordered">
 									<thead>
 										<tr>

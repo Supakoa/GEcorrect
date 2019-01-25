@@ -139,7 +139,7 @@
 							</h4>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive-xl">
+							<div class="table-responsive">
 								<!-- <form action="server/del_select.php" id="cb_del" method="get"> -->
 									<table id="locat" class="table table-bordered">
 

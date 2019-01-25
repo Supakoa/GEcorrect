@@ -354,7 +354,7 @@
                     </div><!--end card 1-->
                     <div class="card"><!--card 2-->
                         <div class="card-body">
-                            <div class="table-responsive-xl">
+                            <div class="table-responsive">
                                 <table id="search3" class="table table-bordered">
                                     <thead>
 

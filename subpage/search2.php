@@ -321,7 +321,7 @@
                             <form id="big_form" action="search2.php" method="post">
                                 <input type="hidden" name="big_form">
                             </form>
-                            <div class="table-responsive-xl"><!--table -->
+                            <div class="table-responsive"><!--table -->
                                 <table id="search2" class="table table-bordered">
                                     <thead>
                                     <div class="text-center">
@@ -379,7 +379,7 @@
                                                                     <div class="container">
                                                                         <div class="card mb-3">
                                                                             <div class="card-body">
-                                                                                <div class="table-responsive-xl">
+                                                                                <div class="table-responsive">
                                                                                     <table class="table table-borderless">
                                                                                         <tbody>
                                                                                             <tr>
@@ -403,7 +403,7 @@
                                                                                     </table>
                                                                                 </div>
 
-                                                                                <div class="table-responsive-xl">
+                                                                                <div class="table-responsive">
                                                                                     <table class="table">
                                                                                         <thead>
                                                                                             <tr>
