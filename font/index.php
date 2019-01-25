@@ -1,18 +1,6 @@
 <?php
     require 'server.php';
     session_start();
-    if (!isset($_SESSION['status'])) {
-        if (isset($_SESSION['online'])) {
-            // echo '<script type="text/javascript">alert("ท่านยังไม่ได้เข้าสู่ระบบ.");</script>';
-            $_SESSION['alert'] = 2;
-            unset($_SESSION['online']);
-        }
-    }else {
-        if ($_SESSION['status']==1) {
-            // echo '<script type="text/javascript">alert("ข้อมูลของท่านไม่ถูกต้อง.");</script>';
-            $_SESSION['alert'] = 14;
-        }
-    }
 
     //Pre footer
     $q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";

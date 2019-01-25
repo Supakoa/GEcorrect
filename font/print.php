@@ -1,6 +1,13 @@
 <?php
   require 'server.php';
   session_start();
+
+  if(!isset($_SESSION['id'])){
+    $_SESSION['alert'] = 2;
+    header("Location: index.php");
+    exit();
+  }
+
   $a = $_SESSION['id'];
   $b = $_SESSION['year'];
   $c = $_SESSION['term'];

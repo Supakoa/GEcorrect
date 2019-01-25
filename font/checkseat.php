@@ -1,6 +1,13 @@
 ﻿<?php
 require 'server.php';
 session_start();
+
+if(!isset($_SESSION['id'])){
+    $_SESSION['alert'] = 2;
+    header("Location: index.php");
+    exit();
+}
+
 function DateThai($strDate) {
     $strYear = date("Y", strtotime($strDate)) + 543;
     $strMonth = date("n", strtotime($strDate));

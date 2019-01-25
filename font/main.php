@@ -1,32 +1,37 @@
 <?php
- require 'server.php';
-  session_start();
+    require 'server.php';
+    session_start();
 
-  //Pre footer
-$q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";
-$q2 =  "SELECT * FROM `show_url` WHERE group_url = '2' AND hide=0";
-$result1 = mysqli_query($con,$q1);
-$result2 = mysqli_query($con,$q2);
+    if(!isset($_SESSION['id'])){
+        $_SESSION['alert'] = 2;
+        header("Location: index.php");
+        exit();
+    }
 
-//banner
-$q_web =  "SELECT * FROM `web_show_time` ";
-$web_result = mysqli_query($con,$q_web);
-$web_row = mysqli_fetch_array($web_result);
-$_SESSION['banner'] = $web_row['banner'];
-$_SESSION['year'] = $web_row['web_year'];
-$_SESSION['term'] = $web_row['web_term'];
-//student
-  $a = $_SESSION['id'];
-$std = "SELECT * FROM `student` WHERE std_id = '$a' ";
-$result = mysqli_query($con,$std);
-$row = mysqli_fetch_array($result);
-//   require 'checklogin.php';
+    //Pre footer
+    $q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";
+    $q2 =  "SELECT * FROM `show_url` WHERE group_url = '2' AND hide=0";
+    $result1 = mysqli_query($con,$q1);
+    $result2 = mysqli_query($con,$q2);
 
-//   $y = $_SESSION['year'] ;
-//   $t = $_SESSION['term'];
-//   $b = $_SESSION['banner'];
-//   $q = "SELECT * FROM student WHERE user_id = $a AND exam_year = $y";
+    //banner
+    $q_web =  "SELECT * FROM `web_show_time` ";
+    $web_result = mysqli_query($con,$q_web);
+    $web_row = mysqli_fetch_array($web_result);
+    $_SESSION['banner'] = $web_row['banner'];
+    $_SESSION['year'] = $web_row['web_year'];
+    $_SESSION['term'] = $web_row['web_term'];
+    //student
+    $a = $_SESSION['id'];
+    $std = "SELECT * FROM `student` WHERE std_id = '$a' ";
+    $result = mysqli_query($con,$std);
+    $row = mysqli_fetch_array($result);
+    //   require 'checklogin.php';
 
+    //   $y = $_SESSION['year'] ;
+    //   $t = $_SESSION['term'];
+    //   $b = $_SESSION['banner'];
+    //   $q = "SELECT * FROM student WHERE user_id = $a AND exam_year = $y";
 
  ?>
 <!DOCTYPE html>

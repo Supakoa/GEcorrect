@@ -8,8 +8,9 @@
       $captcha=$_POST['g-recaptcha-response'];
   }
   if (!$captcha) {
-      echo '<h2>โปรดยืนยันตัวตนของคุณ</h2>';
-      $_SESSION['status'] = 1; //not match
+      // echo '<h2>โปรดยืนยันตัวตนของคุณ</h2>';
+      $_SESSION['alert'] = 1;
+      // $_SESSION['status'] = 1; //not match
       header("Location: index.php");
       exit;
   }
@@ -18,9 +19,10 @@
   $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
   $responseKeys = json_decode($response, true);
   if (intval($responseKeys['success']) !== 1) {
-      $_SESSION['status'] = 1; //not match
+      // $_SESSION['status'] = 1; //not match
+      $_SESSION['alert'] = 1;
       header("Location: index.php");
-      echo '<h2>โปรดทำการยันยืนให้ถูกต้อง</h2>';
+      // echo '<h2>โปรดทำการยันยืนให้ถูกต้อง</h2>';
       exit();
   } else {
       $login_id = mysqli_real_escape_string($con, $_POST['text']);
@@ -31,13 +33,14 @@
       mysqli_execute($stmt);
       $result_user = mysqli_stmt_get_result($stmt);
 
-      $_SESSION['status'] = 0; //online
+      // $_SESSION['status'] = 0; //online
       
       if ($result_user->num_rows >=1) {
           $_SESSION['id'] = $login_id;
           header("Location: main.php");
       } else {
-          $_SESSION['status'] = 1; //not match
+          // $_SESSION['status'] = 1; //not match
+          $_SESSION['alert'] = 14;
           header("Location: index.php");
       }
       exit();
