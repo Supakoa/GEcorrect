@@ -234,10 +234,10 @@
                                                                 <option>3</option>
                                                             </select>
 
-                                                        </div>
-                                                        <!-- <div class="col-md-2">
-                                                                <br><br><label >/</label>
-                                                        </div> -->
+															</div>
+															<!-- <div class="col-md-2">
+																	<br><br><label >/</label>
+															</div> -->
                                                         <div class="col-md-3">
                                                             <label for="year">ปีการศึกษา</label>
                                                             <select name="year" class="form-control select2">
@@ -331,7 +331,7 @@
 
 
                                     <tr>
-                                        <th><input type="checkbox" ng-model="all">Check All</th>
+                                        <th><label class="checkbox-inline"><input type="checkbox"  ng-model="all"> Check All</label></th>
                                         <th></th>
                                         <th>เทอม</th>
                                         <th>ปีการศึกษา</th>
