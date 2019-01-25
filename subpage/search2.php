@@ -1,136 +1,127 @@
 <?php
-    // connect database 
-    require 'server/server.php';
+// connect database 
+require 'server/server.php';
 
-    // check login
-    if( !(isset($_SESSION['admin_id'])) ){
-        $_SESSION['alert'] = 2;
-        header("Location: ../index.php");
-        exit();
-    }
-
-    
-    if (isset($_POST['big_form'])) {//ลบที่เลือก
-        
-        foreach($_POST['del_cb'] as $del_id ){
-            $q_del_sl = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$del_id'";
-            if($re_del_sl = mysqli_query($con, $q_del_sl)){
-                while ($row_del_sl = mysqli_fetch_array($re_del_sl)) {
-                    $del_room_id = $row_del_sl['room_detail_id'];
-                    $q_del_std = "DELETE FROM `student_room` WHERE `room_detail_id` = '$del_room_id' ";
-                    if($re_del_std = mysqli_query($con, $q_del_std)){
-                        $_SESSION['alert'] = 12;
-                    }
-                    else{
-                        header("Location: search2.php");
-                            $_SESSION['alert'] = 4;
-                            exit();
-                    }
-                }
-                $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$del_id'";
-                if($re_del_rm = mysqli_query($con, $q_del_rm)){
-                    $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$del_id'";
-                    if($re_del_dt = mysqli_query($con, $q_del_dt)){
-                        $_SESSION['alert'] = 12;
-                    }else{
-                        header("Location: search2.php");
-                        $_SESSION['alert'] = 4;
-                        exit();
-                    }
-                }
-                else{
-                    header("Location: search2.php");
-                    $_SESSION['alert'] = 4;
-                    exit();
-                }
-                
-            }
-        }
-    }
-
-    if (isset($_POST['edit'])) { //แก้ไข
-        $edit_id = $_POST['edit_id'];
-        $edit_term =$_POST['term'];
-        $edit_year =$_POST['year'];
-        $edit_s_time = $_POST['s_time'];
-        $edit_e_time = $_POST['e_time'];
-        $edit_date = $_POST['date'];
-        $edit_type_exam= $_POST['type_exam'];
-        // echo $edit_id." - ".$edit_term." - ".$edit_year." - ".$edit_s_time." - ".$edit_e_time." - ".$edit_date." - ".$edit_type_exam ;
-        $q_edit = "UPDATE `detail` SET `term`= '$edit_term' ,`year`='$edit_year',`day`='$edit_date',`time_start`='$edit_s_time',`time_end`='$edit_e_time',`type`='$edit_type_exam' WHERE `detail_id` = '$edit_id' ";
-        if($re_edit = mysqli_query($con, $q_edit)){
-            $_SESSION['alert'] = 10;
-        }else{
-            $_SESSION['alert'] = 11;
-        }
+// check login
+if (!(isset($_SESSION['admin_id']))) {
+    $_SESSION['alert'] = 2;
+    header("Location: ../index.php");
+    exit();
+}
 
 
-    }
-
-    if (isset($_POST['delete'])) { //ลบ
-        $del_id = $_POST['delete_id'];
-        // echo $del_id ;
+if (isset($_POST['big_form'])) {//ลบที่เลือก
+    foreach ($_POST['del_cb'] as $del_id) {
         $q_del_sl = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$del_id'";
-        if($re_del_sl = mysqli_query($con, $q_del_sl)){
+        if ($re_del_sl = mysqli_query($con, $q_del_sl)) {
             while ($row_del_sl = mysqli_fetch_array($re_del_sl)) {
                 $del_room_id = $row_del_sl['room_detail_id'];
                 $q_del_std = "DELETE FROM `student_room` WHERE `room_detail_id` = '$del_room_id' ";
-                if($re_del_std = mysqli_query($con, $q_del_std)){
+                if ($re_del_std = mysqli_query($con, $q_del_std)) {
                     $_SESSION['alert'] = 12;
-                }
-                else{
-                    header("Location: search2.php");
-                        $_SESSION['alert'] = 4;
-                        exit();
-                }
-            }
-            $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$del_id'";
-            if($re_del_rm = mysqli_query($con, $q_del_rm)){
-                $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$del_id'";
-                if($re_del_dt = mysqli_query($con, $q_del_dt)){
-                    $_SESSION['alert'] = 12;
-                }else{
+                } else {
                     header("Location: search2.php");
                     $_SESSION['alert'] = 4;
                     exit();
                 }
             }
-            else{
+            $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$del_id'";
+            if ($re_del_rm = mysqli_query($con, $q_del_rm)) {
+                $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$del_id'";
+                if ($re_del_dt = mysqli_query($con, $q_del_dt)) {
+                    $_SESSION['alert'] = 12;
+                } else {
+                    header("Location: search2.php");
+                    $_SESSION['alert'] = 4;
+                    exit();
+                }
+            } else {
                 header("Location: search2.php");
                 $_SESSION['alert'] = 4;
                 exit();
             }
         }
     }
+}
 
-
-    function DateThai($strDate) {
-        $strYear = date("Y", strtotime($strDate)) + 543;
-        $strMonth = date("n", strtotime($strDate));
-        $strDay = date("j", strtotime($strDate));
-        $strMonthCut = Array("", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.");
-        $strMonthThai = $strMonthCut[$strMonth];
-        return "$strDay $strMonthThai $strYear";
+if (isset($_POST['edit'])) { //แก้ไข
+    $edit_id = $_POST['edit_id'];
+    $edit_term = $_POST['term'];
+    $edit_year = $_POST['year'];
+    $edit_s_time = $_POST['s_time'];
+    $edit_e_time = $_POST['e_time'];
+    $edit_date = $_POST['date'];
+    $edit_type_exam = $_POST['type_exam'];
+    // echo $edit_id." - ".$edit_term." - ".$edit_year." - ".$edit_s_time." - ".$edit_e_time." - ".$edit_date." - ".$edit_type_exam ;
+    $q_edit = "UPDATE `detail` SET `term`= '$edit_term' ,`year`='$edit_year',`day`='$edit_date',`time_start`='$edit_s_time',`time_end`='$edit_e_time',`type`='$edit_type_exam' WHERE `detail_id` = '$edit_id' ";
+    if ($re_edit = mysqli_query($con, $q_edit)) {
+        $_SESSION['alert'] = 10;
+    } else {
+        $_SESSION['alert'] = 11;
     }
+}
 
-    $q_sub = "SELECT * FROM `subject` order by `subject_id`";
-    $re_sub = mysqli_query($con, $q_sub);
-    $i = 0;
-    $option_sub = '';
-    while ($row_sub = mysqli_fetch_array($re_sub)) {
-        $option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
-        $i++;
+if (isset($_POST['delete'])) { //ลบ
+    $del_id = $_POST['delete_id'];
+    // echo $del_id ;
+    $q_del_sl = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$del_id'";
+    if ($re_del_sl = mysqli_query($con, $q_del_sl)) {
+        while ($row_del_sl = mysqli_fetch_array($re_del_sl)) {
+            $del_room_id = $row_del_sl['room_detail_id'];
+            $q_del_std = "DELETE FROM `student_room` WHERE `room_detail_id` = '$del_room_id' ";
+            if ($re_del_std = mysqli_query($con, $q_del_std)) {
+                $_SESSION['alert'] = 12;
+            } else {
+                header("Location: search2.php");
+                $_SESSION['alert'] = 4;
+                exit();
+            }
+        }
+        $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$del_id'";
+        if ($re_del_rm = mysqli_query($con, $q_del_rm)) {
+            $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$del_id'";
+            if ($re_del_dt = mysqli_query($con, $q_del_dt)) {
+                $_SESSION['alert'] = 12;
+            } else {
+                header("Location: search2.php");
+                $_SESSION['alert'] = 4;
+                exit();
+            }
+        } else {
+            header("Location: search2.php");
+            $_SESSION['alert'] = 4;
+            exit();
+        }
     }
-    if (isset($_POST['gogo'])) {
+}
 
-        $term = $_POST['term'];
-        $year = $_POST['year'];
-        $subject = $_POST['subject'];
-        $group_exam = $_POST['group_exam'];
-        $type_exam = $_POST['type_exam'];
-        // echo $term . $year . $subject . $group_exam;
+function DateThai($strDate) {
+    $strYear = date("Y", strtotime($strDate)) + 543;
+    $strMonth = date("n", strtotime($strDate));
+    $strDay = date("j", strtotime($strDate));
+    $strMonthCut = Array("", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.");
+    $strMonthThai = $strMonthCut[$strMonth];
+    return "$strDay $strMonthThai $strYear";
+}
 
-        $q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type,detail.day,detail.time_start ,detail.time_end 
+$q_sub = "SELECT * FROM `subject` order by `subject_id`";
+$re_sub = mysqli_query($con, $q_sub);
+$i = 0;
+$option_sub = '';
+while ($row_sub = mysqli_fetch_array($re_sub)) {
+    $option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
+    $i++;
+}
+if (isset($_POST['gogo'])) {
+
+    $term = $_POST['term'];
+    $year = $_POST['year'];
+    $subject = $_POST['subject'];
+    $group_exam = $_POST['group_exam'];
+    $type_exam = $_POST['type_exam'];
+    // echo $term . $year . $subject . $group_exam;
+
+    $q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type,detail.day,detail.time_start ,detail.time_end 
         FROM `room_detail`,`detail` 
         WHERE detail.detail_id = room_detail.detail_id 
             AND detail.term 
@@ -144,19 +135,18 @@
             AND detail.type 
             LIKE '$type_exam%' 
             GROUP BY detail.detail_id";
-        $re_show = mysqli_query($con, $q_show);
+    $re_show = mysqli_query($con, $q_show);
+} else {
 
-    } else {
-
-        $term = "";
-        $year = "";
-        $subject = "";
-        $group_exam = "";
-        $type_exam = "";
-        $q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type 
-        FROM `room_detail`,`detail` WHERE 0";
-        $re_show = mysqli_query($con, $q_show);
-    }
+    $term = "";
+    $year = "";
+    $subject = "";
+    $group_exam = "";
+    $type_exam = "";
+    $q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type,detail.day,detail.time_start ,detail.time_end 
+	FROM `room_detail`,`detail`  WHERE 0";
+    $re_show = mysqli_query($con, $q_show);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -199,7 +189,7 @@
 
         <div id="main">
 
-    <?php  require 'menu/navmenu.php';  ?>
+<?php require 'menu/navmenu.php'; ?>
 
 
 
@@ -234,10 +224,10 @@
                                                                 <option>3</option>
                                                             </select>
 
-															</div>
-															<!-- <div class="col-md-2">
-																	<br><br><label >/</label>
-															</div> -->
+                                                        </div>
+                                                        <!-- <div class="col-md-2">
+                                                                        <br><br><label >/</label>
+                                                        </div> -->
                                                         <div class="col-md-3">
                                                             <label for="year">ปีการศึกษา</label>
                                                             <select name="year" class="form-control select2">
@@ -321,7 +311,7 @@
                             <form id="big_form" action="search2.php" method="post">
                                 <input type="hidden" name="big_form">
                             </form>
-                            <div class="table-responsive"><!--table -->
+                            <div class="table-responsive" style="overflow-x:auto;"><!--table -->
                                 <table id="search2" class="table table-bordered">
                                     <thead>
                                     <div class="text-center">
@@ -331,9 +321,9 @@
 
 
                                     <tr>
-                                        <th><label class="checkbox-inline"><input type="checkbox"  ng-model="all"> Check All</label></th>
-                                        <th></th>
-                                        <th>เทอม</th>
+                                        <th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
+                                        
+                                        <th colspan="2" style="text-align:right">เทอม</th>
                                         <th>ปีการศึกษา</th>
                                         <th>วิชา</th>
                                         <th>กลุ่มเรียน</th>
@@ -344,10 +334,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-											<?php
-											while ($row_show = mysqli_fetch_array($re_show)) {
-												$de_id = $row_show['detail_id'];
-												?>
+												<?php
+												while ($row_show = mysqli_fetch_array($re_show)) {
+													$de_id = $row_show['detail_id'];
+													?>
                                             <tr>
                                                 <td class="text-center">
                                                     <div class="form-check">
@@ -379,7 +369,7 @@
                                                                     <div class="container">
                                                                         <div class="card mb-3">
                                                                             <div class="card-body">
-                                                                                <div class="table-responsive">
+                                                                                <div class="table-responsive" style="overflow-x:auto;">
                                                                                     <table class="table table-borderless">
                                                                                         <tbody>
                                                                                             <tr>
@@ -421,7 +411,7 @@
 																							$q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
 																							$re_room = mysqli_query($con, $q_room);
 																							while ($row_room = mysqli_fetch_array($re_room)) {
-																							?>
+																								?>
                                                                                                 <tr>
                                                                                                     <td class="text-center"><?php echo $i++ ?></td>
                                                                                                     <td><?php echo $row_room['sub_id'] ?></td>
@@ -663,7 +653,7 @@
             });
         </script>
 
-			<?php require '../alert.php'; ?>
+<?php require '../alert.php'; ?>
         <!-- END main -->
 
         <div><!--modal-->
@@ -674,7 +664,7 @@
         <script src="assets/js/modernizr.min.js"></script>
         <script src="assets/js/moment.min.js"></script>
 
-		<!-- <script src="assets/js/jquery.min.js"></script>			 -->
+                <!-- <script src="assets/js/jquery.min.js"></script>			 -->
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
 

@@ -133,7 +133,7 @@
 
     <body class="adminbody" ng-app="">
         <div id="main">
-            <?php //require 'menu/navmenu.php'; ?>
+            <?php require 'menu/navmenu.php'; ?>
 
             <div class="content-page"><!-- start content-page-->
                 <div class="content"><!--content-->
@@ -151,7 +151,7 @@
 											<form action="search3.php" id = "form_search" method="post">
                                                 <div class="row">
                                                     <!-- filter -->
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-3">
                                                         <label for="term">เทอม</label>
                                                         <select name="term" class="form-control select2" >
 																<?php
@@ -190,7 +190,7 @@
                                                             <option>2569</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <div class="form-group">
                                                             <label for="sub">วิชา(รหัส)</label>
                                                             <select name="sub" class="form-control select2" >
@@ -354,7 +354,7 @@
                     </div><!--end card 1-->
                     <div class="card"><!--card 2-->
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="overflow-x:auto;">
                                 <table id="search3" class="table table-bordered">
                                     <thead>
 
@@ -389,9 +389,8 @@
                                         </div>
                                     </div><!--end modal -->
                                     <tr>
-                                        <th><label class="checkbox-inline"><input type="checkbox"  ng-model="all"> Check All</label></th>
-                                        <th></th>
-                                        <th>รหัสนักศึกษา</th>
+                                        <th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
+                                        <th colspan="2" style="text-align:right">รหัสนักศึกษา</th>
 										<th>ชื่อ - นามสกุล</th>
                                         <th>ห้อง</th>
                                         <th>วิชา</th>

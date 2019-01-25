@@ -93,39 +93,34 @@ $table_result = mysqli_query($con,$table);
 <body>
 
     <header>
-        <img src="../subpage/banner/<?php echo $_SESSION['banner'] ?>" class="img-fluid" alt="Responsive image">
+        <img src="image/ge-test.png" width="100%" height="auto" class="img-fluid" alt="Responsive image">
 
     </header>
 
-    <div class="container-fluid" style="background:#55236d">
+    <nav class="navbar navbar-expand-md navbar-light" style="background:#55236d">
         <div class="container">
-            <nav class="navbar navbar-expand-md navbar-light" style="background:#55236d">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-md" href="main.php" style="color:white;margin-left:30px"><span
-                                    class="fas fa-home"></span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="http://gen-ed.ssru.ac.th/page/contact-us" target="_blank" class="nav-link btn btn-md"
-                                style="color:white;margin-left:20px"><span>ติดต่อสอบถาม</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <div style="text-align:right"></div>
-                            <a class="nav-link btn btn-md" href="logout.php" style="color:white;margin-left:20px"><span
-                                    class="fas fa-sign-out-alt"></span> logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <a class="navbar-brand" href="main.php">
+                <img src="Imag/GElogo.png" alt="Logo" width="75" height="auto">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="http://gen-ed.ssru.ac.th/page/contact-us" target="_blank" class="nav-link btn btn-md"
+                            style="color:white;"><span>ติดต่อสอบถาม</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-md nav-link" href="logout.php" style="color:white;"><span class="fas fa-sign-out-alt"></span>
+                            ออกจากระบบ</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav><br>
 
-    </div><br>
     <div class="container-fluid">
         <div class="container">
             <div class="row">
@@ -318,15 +313,17 @@ $table_result = mysqli_query($con,$table);
 
 
     <br>
-    <footer class="container-fluid" style="background:#f6f6f6;height:"><br>
+    <footer class="container-fluid" style="background:#f6f6f6;height:">
         <div class="text-center">
             <br>
-            <?php
-                echo $web_row['footer'];;
+            <h5>
+                <?php
+                echo $web_row['footer'];
                 ?>
-            <br>
+            </h5>
         </div>
     </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"

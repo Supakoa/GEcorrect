@@ -139,7 +139,7 @@
 							</h4>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive">
+							<div class="table-responsive" style="overflow-x:auto;">
 								<!-- <form action="server/del_select.php" id="cb_del" method="get"> -->
 									<table id="locat" class="table table-bordered">
 
@@ -155,9 +155,9 @@
 
 												</div>
 
-												<th><input type="checkbox" ng-model="all"> </th>
-												<th>Action </th>
-												<th> ชื่อสถานที่</th>
+												<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
+												<th>Action</th>
+												<th>สถานที่</th>
 												<th>URL</th>
 
 											</tr>
