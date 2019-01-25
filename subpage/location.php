@@ -155,10 +155,10 @@
 
 												</div>
 
-												<th><input type="checkbox" ng-model="all"> </th>
-												<th>Action </th>
+												<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
+												<th>Action</th>
 												<th>สถานที่</th>
-												<th >URL</th>
+												<th>URL</th>
 
 											</tr>
 										</thead>

@@ -159,7 +159,7 @@
 
 												</div>
 
-												<th><input type="checkbox" ng-model="all"> CheckAll</th>
+												<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
 												<th>Action</th>
 												<th>รหัสวิชา</th>
 												<th>ชื่อวิชา</th>

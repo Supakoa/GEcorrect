@@ -389,7 +389,7 @@
                                         </div>
                                     </div><!--end modal -->
                                     <tr>
-                                        <th><label class="checkbox-inline"><input type="checkbox"  ng-model="all"> Check All</label></th>
+                                        <th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
                                         <th colspan="2" style="text-align:right">รหัสนักศึกษา</th>
 										<th>ชื่อ - นามสกุล</th>
                                         <th>ห้อง</th>
