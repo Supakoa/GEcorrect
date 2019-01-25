@@ -64,7 +64,7 @@ $row = mysqli_fetch_array($result);
 
     <nav class="navbar navbar-expand-md navbar-light" style="background:#55236d">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="main.php">
                 <img src="Imag/GElogo.png" alt="Logo" width="75" height="auto">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
@@ -74,15 +74,12 @@ $row = mysqli_fetch_array($result);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-md" href="main.php" style="color:white;"><span class="fas fa-home"></span></a>
-                    </li>
-                    <li class="nav-item">
                         <a href="http://gen-ed.ssru.ac.th/page/contact-us" target="_blank" class="nav-link btn btn-md"
                             style="color:white;"><span>ติดต่อสอบถาม</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-md nav-link" href="logout.php" style="color:white;"><span class="fas fa-sign-out-alt"></span>
-                            logout</a>
+                        ออกจากระบบ</a>
                     </li>
                 </ul>
             </div>
