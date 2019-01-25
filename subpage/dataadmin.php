@@ -63,7 +63,7 @@
 							<h3 class="text-center">ตารางข้อมูพนักงาน</h3>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive">
+							<div class="table-responsive" style="overflow-x:auto;">
 								<table id="admin" class="table table-bordered">
 									<thead>
 										<tr>
@@ -166,7 +166,7 @@
 											</div>
 
 											<!--end modal -->
-											<th><input type="checkbox" ng-model="all"></th>
+											<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
 											<th></th>
 											<th>รหัสพนักงาน</th>
 											<th>ชื่อ</th>

@@ -143,7 +143,7 @@
 							<h4 class="text-center">วิชาที่สอบ</h4>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive">
+							<div class="table-responsive" style="overflow-x:auto;">
 								<form action="server/del_select.php" id="cb_del" method="GET">
 									<input type="hidden" name="hide_del_select" value="1">
 									<table id="subject" class="text-center table table-bordered" style="table-layout:auto;">
@@ -159,7 +159,7 @@
 
 												</div>
 
-												<th><input type="checkbox" ng-model="all"> CheckAll</th>
+												<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
 												<th>Action</th>
 												<th>รหัสวิชา</th>
 												<th>ชื่อวิชา</th>

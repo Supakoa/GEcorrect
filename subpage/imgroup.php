@@ -94,8 +94,6 @@
                 }
             }
 
-
-
             if (($handle = fopen("$file", "r")) !== FALSE) {
                 $i = 0;
                 $student[] = '';
@@ -148,7 +146,6 @@
                     $_SESSION['alert'] = 22; //จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์   
                     exit();
                 } else {
-
                     foreach ($room as $a) {
                         $j = 1;
                         $cout = $num[$i];
@@ -406,13 +403,13 @@
                                                         <div class="text-center">
                                                             <a class="btn btn-sm btn-info" id="btn1"><i class="fa fa-plus"></i></a>
 
-                                                            <a class="btn btn-sm btn-danger" id="btn11"> X </a>
+                                                            <a class="btn btn-sm btn-danger" id="btn11"><i class="fa fa-minus"></i></a>
                                                         </div><br>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="text-center">
                                                             <a class="btn btn-sm btn-info" id="btn2"><i class="fa fa-plus"></i></a>
-                                                            <a class="btn btn-sm btn-danger" id="btn22"> X </i></a>
+                                                            <a class="btn btn-sm btn-danger" id="btn22"><i class="fa fa-minus"></i></a>
                                                         </div><br>
                                                     </div>
                                                 </div>

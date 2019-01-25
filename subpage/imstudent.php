@@ -8,6 +8,34 @@
         header("Location: ../index.php");
         exit();
     }
+
+    // import student .csv
+    if (isset($_POST['upload_btn'])) {
+        // set collaction 
+        mysqli_set_charset($con,'tis620');
+
+        // open file
+        $a = $_FILES["File"]["tmp_name"];
+        $file = fopen($a,'r');
+
+        if (($handle = fopen("$a", "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                $value = "'".implode("','",$data)."'";
+                $q = "INSERT INTO student(`std_id`,`name`) VALUES (". $value .") ";
+                $resault = mysqli_query($con,$q);
+                if(!$resault){
+                    $_SESSION['alert'] = 4;
+                    header("Location: imstudent.php");
+                    exit();
+                }
+            }
+            $_SESSION['alert'] = 3;
+            fclose($handle);
+            header("Location: imstudent.php");
+            exit();
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +65,9 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
         <!-- END CSS for this page -->
 
+        <!-- sweet alert2 -->
+	    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
+
     </head>
 
     <body class="adminbody">
@@ -59,16 +90,16 @@
                             <div class="container">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="imstudent.php" method="post">
+                                        <form action="imstudent.php" method="post" enctype="multipart/form-data">
                                             <div class="row ">
                                                 <div class="col-lg-4"></div>
                                                 <div class="col-lg-4 text-center">
-                                                    <input class="form-control btn" type="file" name ="file" accept=".csv" required>
+                                                    <input class="form-control btn" type="file" name ="File" accept=".csv" required>
                                                 </div>
                                                 <div class="col-lg-4"></div>
                                             </div><br>
                                             <div class="text-center">
-                                                <button class="btn btn-success btn-sm" type="submit">Upload</button>
+                                                <button class="btn btn-success btn-sm" name="upload_btn" type="submit">Upload</button>
                                             </div>
                                             <div class="row ">
                                                 <div class="col-lg-4"></div>
@@ -128,6 +159,8 @@
             });
         </script>
 
+        <!-- alert all -->
+	    <?php require '../alert.php'; ?>
 
         <!-- END Java Script for this page -->
 

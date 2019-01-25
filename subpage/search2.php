@@ -311,7 +311,7 @@ if (isset($_POST['gogo'])) {
                             <form id="big_form" action="search2.php" method="post">
                                 <input type="hidden" name="big_form">
                             </form>
-                            <div class="table-responsive"><!--table -->
+                            <div class="table-responsive" style="overflow-x:auto;"><!--table -->
                                 <table id="search2" class="table table-bordered">
                                     <thead>
                                     <div class="text-center">
@@ -321,9 +321,9 @@ if (isset($_POST['gogo'])) {
 
 
                                     <tr>
-                                        <th><label class="checkbox-inline"><input type="checkbox"  ng-model="all"> Check All</label></th>
-                                        <th></th>
-                                        <th>เทอม</th>
+                                        <th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
+                                        
+                                        <th colspan="2" style="text-align:right">เทอม</th>
                                         <th>ปีการศึกษา</th>
                                         <th>วิชา</th>
                                         <th>กลุ่มเรียน</th>
@@ -369,7 +369,7 @@ if (isset($_POST['gogo'])) {
                                                                     <div class="container">
                                                                         <div class="card mb-3">
                                                                             <div class="card-body">
-                                                                                <div class="table-responsive">
+                                                                                <div class="table-responsive" style="overflow-x:auto;">
                                                                                     <table class="table table-borderless">
                                                                                         <tbody>
                                                                                             <tr>

@@ -42,7 +42,7 @@
 
 <div id="main">
 
-	<?php require 'menu/navmenu.php' ?>
+	 <?php require 'menu/navmenu.php' ?> 
 
 
     <div class="content-page"><!-- content-page -->
