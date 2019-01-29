@@ -47,10 +47,10 @@ if (isset($_POST['create_pdf'])) {
             $q_head = "SELECT detail.* , subject.subject_name,location_table.name_location FROM `room_detail`,`detail`,`subject`,`location_table` WHERE location_table.order = room_detail.room_id AND detail.detail_id =room_detail.detail_id AND room_detail.sub_id = subject.subject_id AND room_detail.room_detail_id = '$r_d_id' AND room_detail.detail_id = '$detail_id' ";
             $re_head = mysqli_query($con, $q_head);
             $row_head = mysqli_fetch_array($re_head);
-            $q_show = "SELECT student_room.student_room_id,student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
+            $q_show = "SELECT student_room.student_room_id,student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,`subject`.subject_id,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
 			FROM `student_room`,`location_table`,`room_detail`,`student`,`subject`,`detail`
 			WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
-			AND detail.detail_id = '$detail_id' AND room_detail.room_detail_id = '$r_d_id' ";
+			AND detail.detail_id = '$detail_id' AND room_detail.room_detail_id = '$r_d_id' order by student_room.seat ";
             $re_show = mysqli_query($con, $q_show);
 			$head_term =$row_head['term'];
 			$head_year = $row_head['year'];
@@ -72,7 +72,7 @@ if (isset($_POST['create_pdf'])) {
 			<htmlpageheader name="MyHeader1">
 				<div>
 						<div style="text-align:right;">
-							<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
+							<p style="text-alig:right;padding-right: 30px;padding-top: -20px;"></p>
 						</div>
 						<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
 						<span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
@@ -140,7 +140,7 @@ if (isset($_POST['create_pdf'])) {
 				$seat =$row_show['seat'];
 				$std_id = $row_show['std_id'];
 				$name =$row_show['name'];
-				$sub = $row_show['subject_name'];
+				$sub = $row_show['subject_id'];
 				$date = DateThai($row_show['day']);
 				$time = substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ;
 				$lo_name = $row_show['name_location'];

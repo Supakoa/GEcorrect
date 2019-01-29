@@ -24,9 +24,9 @@
                 $q = "INSERT INTO student(`std_id`,`name`) VALUES (". $value .") ";
                 $resault = mysqli_query($con,$q);
                 if(!$resault){
-                    $_SESSION['alert'] = 4;
-                    header("Location: imstudent.php");
-                    exit();
+                    // $_SESSION['alert'] = 4;
+                    // header("Location: imstudent.php");
+                    // exit();
                 }
             }
             $_SESSION['alert'] = 3;
