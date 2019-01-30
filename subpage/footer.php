@@ -45,15 +45,21 @@ if(isset($_POST['new_btn_1'])){//web
         $id = $id + 1;
 	}//end web
 	header('Location: footer.php');
+	exit();
 }
+
 if(isset($_POST['new_btn_2'])){//paper
-	while ($rowrow = mysqli_fetch_array($re2)) {//paper
-		$plus1 = "paper_text_";
-    	$plus2 = "paper_file_";
-    	$plus3 = "paper_check_";
+	// make it easy
+	$plus1 = "paper_text_";
+    $plus2 = "paper_file_";
+	$plus3 = "paper_check_";
+	$id = 5;
+
+	while ( mysqli_fetch_array($re2) ){//paper
         $sum1 = $plus1 . $id;
         $sum2 = $plus2 . $id;
-        $sum3 = $plus3 . $id;
+		$sum3 = $plus3 . $id;
+		$count = 0;
         if (isset($_POST[$sum3])) {
             $ed3 = 1;
         } else {
@@ -66,75 +72,80 @@ if(isset($_POST['new_btn_2'])){//paper
         $new_taget_name = 'pdf_' . uniqid() . "." . $ext;
         $target_path = "uploads/";
         $upload_path = $target_path . $new_taget_name;
-        $uploadOk = 1;
+        // $uploadOk = 1;
 
         $imageFileType = strtolower(pathinfo($new_taget_name, PATHINFO_EXTENSION));
 
-        if ($_FILES[$sum2]["name"] != "") {
+        if ($ed2 != "") {
 
             if ($_FILES[$sum2]["size"] > 8000000) {
-                echo "Sorry, your file is too large.";
-                $uploadOk = 0;
-            }
-       // Allow certain file formats
+				$_SESSION['alert'] = 15;
+				header("Location: footer.php");
+				exit();
+                // echo "Sorry, your file is too large.";
+                // $uploadOk = 0;
+			}
+			
+       		// Allow certain file formats
             if ($imageFileType != "pdf") {
-                echo "Sorry, only PDF files are allowed.";
-                $uploadOk = 0;
-            }
-       // Check if $uploadOk is set to 0 by an error
-            if ($uploadOk == 0) {
-                echo "Sorry, your file was not uploaded.";
-       // if everything is ok, try to upload file
+				$_SESSION['alert'] = 16;
+				header("Location: footer.php");
+				exit();
+                // echo "Sorry, only PDF files are allowed.";
+                // $uploadOk = 0;
+			}
+			
+            if (move_uploaded_file($_FILES[$sum2]["tmp_name"], $upload_path)) {
+                //echo "The file " . basename($_FILES[$sum2]["name"]) . " has been uploaded.";
+                $real_name = basename($_FILES[$sum2]["name"]);
+                //echo $real_name;
+                //$q = "INSERT INTO `testpdf`(`url`,`real_name`) VALUES ('$new_taget_name','$real_name')";
+                $q = "UPDATE `show_url` SET `url`='$new_taget_name',`real_name`='$real_name',`text`='$ed1',`hide`='$ed3' WHERE `id` = '$id' ";
+                $result = mysqli_query($con, $q);
+                if ($result) {
+					$_SESSION['alert'] = 10;
+                    // $count++;
+                }else{
+					$_SESSION['alert'] = 11;
+					header("Location: footer.php");
+					exit();
+				}
             } else {
-                if (move_uploaded_file($_FILES[$sum2]["tmp_name"], $upload_path)) {
-                    //echo "The file " . basename($_FILES[$sum2]["name"]) . " has been uploaded.";
-                    $real_name = basename($_FILES[$sum2]["name"]);
-                    //echo $real_name;
-                    //$q = "INSERT INTO `testpdf`(`url`,`real_name`) VALUES ('$new_taget_name','$real_name')";
-                    $q = "UPDATE `show_url` SET `url`='$new_taget_name',`real_name`='$real_name' WHERE `id` = '$id' ";
-                    $result = mysqli_query($con, $q);
-                    if ($result) {
-                        $count++;
-                    }
-                } else {
-                    echo "Sorry, there was an error uploading your file.";
-                }
+				$_SESSION['alert'] = 11;
+				header("Location: footer.php");
+				exit();
+                // echo "Sorry, there was an error uploading your file.";
             }
 
-        } else {
-            $count++;
-        }
-
-        $q_text = "UPDATE `show_url` SET `text`='$ed1' WHERE `id` = '$id' ";
-        $result = mysqli_query($con, $q_text);
-
-        $q = "UPDATE `show_url` SET `hide`='$ed3' WHERE `id` = '$id' ";
-        $result = mysqli_query($con, $q);
+    	} else {
+			// $count++;
+			$q = "UPDATE `show_url` SET `text`='$ed1',`hide`='$ed3' WHERE `id` = '$id' ";
+			$result = mysqli_query($con, $q);
+			if($result){
+				$_SESSION['alert'] = 10;
+			}else{
+				$_SESSION['alert'] = 11;
+				header("Location: footer.php");
+				exit();
+			}
+		}
         $id = $id + 1;
-    }
+	}
+	header("Location: footer.php");
+	exit();
 }//end paper
 
-if (isset($_POST['new_btn_3'])) {//footer
+	if (isset($_POST['new_btn_3'])) {//footer
 		$a = $_POST['commentf'];
-        $b = "UPDATE `web_show_time` SET `footer`= '$a' WHERE `id`= '1' ";
-        $q_b = mysqli_query($con,$b);
-        if($q_b){
-            $_SESSION['alert'] = 2 ;
-           
-        }else{
-            $_SESSION['alert'] = 0 ;
-        }
-}//end footer
-
-if(isset($_SESSION['alert'])){
-	if($_SESSION['alert'] == 0 ){
-	  echo '<script>alert("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง.");</script>';
-	}
-	elseif ($_SESSION['alert'] == 2) {
-	  echo '<script>alert("อัพเดท Footer เรียบร้อย.");</script>';
-	}
-	unset($_SESSION['alert']);
-  }
+		$b = "UPDATE `web_show_time` SET `footer`= '$a' WHERE `id`= '1' ";
+		$q_b = mysqli_query($con,$b);
+		if($q_b){
+			$_SESSION['alert'] = 10 ;
+		}else{
+			$_SESSION['alert'] = 11 ;
+		}
+		header("Location: footer.php");
+	}//end footer
 
 	$q_banner = "SELECT * FROM `web_show_time` ";
     $result_banner = mysqli_query($con,$q_banner);
@@ -166,6 +177,10 @@ if(isset($_SESSION['alert'])){
 
 	<!-- BEGIN CSS for this page -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+
+  	<!-- sweet alert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
+
 	<!-- END CSS for this page -->
 
 </head>
@@ -282,28 +297,32 @@ if(isset($_SESSION['alert'])){
 												</tr>
 											</thead>
 											<tbody>
-												<form action="footer.php" method="post">
-													<!-- form paper -->
-													<?php $a = 1; ?>
-													<?php while ($row2 = mysqli_fetch_array($q2)) { ?>
-													<tr>
-														<td>
-															<?php echo $a .".)"?>
-														</td>
-														<td><input class="form-control" type="text" name="paper_text_<?php echo $a ?>" value="<?php echo $row2['text'] ?>"></td>
-														<td>
-															<?php echo $row2['real_name'] ?>
-														</td>
-														<td><input class="form-control btn" type="file" name="paper_file_<?php echo $a ?>"></td>
-														<?php if ($row2['hide'] == 0) { ?>
-														<td class="text-center"><input type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>"></td>
-														<?php } else { ?>
-														<td class="text-center"><input type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>"
-															 checked></td>
-														<?php } ?>
-													</tr>
-													<?php $a = $a + 1;
-                            					} ?>
+												<!-- form paper -->
+												<?php $a = 1; ?>
+												<?php while ($row2 = mysqli_fetch_array($q2)) { ?>
+												<tr>
+													<td>
+														<?php echo $a .".)"?>
+													</td>
+													<td><input form="form_1" class="form-control" type="text" name="paper_text_<?php echo $a ?>" value="<?php echo $row2['text'] ?>"></td>
+													<td>
+														<?php echo $row2['real_name'] ?>
+													</td>
+													<td><input form="form_1" class="form-control btn" type="file" name="paper_file_<?php echo $a ?>"></td>
+													<?php 
+														if ($row2['hide'] == 0) { 
+													?>
+													<td class="text-center"><input form="form_1" type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>"></td>
+													<?php 
+														} else { 
+													?>
+													<td class="text-center"><input form="form_1" type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>"
+														 checked></td>
+													<?php 
+														} 
+													?>
+												</tr>
+												<?php $a = $a + 1; } ?>
 											</tbody>
 										</table><br>
 										<div class="text-center">
@@ -323,15 +342,16 @@ if(isset($_SESSION['alert'])){
 															<p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
 														</div>
 														<div class="modal-footer text-center">
-															<button type="submit" class="btn btn-danger btn-sm" name="new_btn_2">Yes</button>
-															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+															<form action="footer.php" method="post" enctype="multipart/form-data" id="form_1">
+																<button form="form_1" type="submit" class="btn btn-danger btn-sm" name="new_btn_2">Yes</button>
+																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+															</form>
 														</div>
 													</div>
 												</div>
 											</div>
 											<!--end modal 3-->
 										</div>
-										</form>
 										<!--end form paper -->
 									</div>
 									<!--end table 2 -->
@@ -425,6 +445,11 @@ if(isset($_SESSION['alert'])){
 
 		});
 	</script>
+
+	
+
+	<!-- alert all -->
+	<?php require '../alert.php'; ?>
 
 	<!-- END Java Script for this page -->
 
