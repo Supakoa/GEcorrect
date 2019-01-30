@@ -56,14 +56,30 @@
 		}
 	}
 
-	// edit student
-	if( isset($_POST['edit_btn']) ){
-		// make it easy
-		$real_id = $_POST['real_edit_id'];
-		$id = $_POST['edit_id'];
-		$name = $_POST['edit_name'];
+	// edit
+	if($_POST){
+		$id = $_POST['real_edit_id'];
+		$edit_id = $_POST['edit_id'];
+		$edit_name = $_POST['edit_name'];
 
-		echo $real_id." ".$id." ".$name;
+		if( !mysqli_fetch_array(mysqli_query($con, "SELECT * FROM student WHERE std_id = '$edit_id' " )) ){
+			if( mysqli_query( $con,"UPDATE `student` SET `std_id`= '$edit_id' ,`name`= '$edit_name' WHERE std_id = '$id' " ) ){
+				// edit success
+				$_SESSION['alert'] = 10;
+			}else{
+				// edit fail
+				$_SESSION['alert'] = 11;
+			}
+		}else{
+			// have in database
+			$_SESSION['alert'] = 19;
+		}
+		// refresh to clear $_FORM[]
+		header("Location: search1.php");
+		exit();
+
+		// traverse
+		echo $id."<br>".$edit_id."<br>".$edit_name."<br>";
 	}
 	
 ?>
@@ -111,6 +127,10 @@
 	<div id="main">
 
 		<?php //require 'menu/navmenu.php'; ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 368bc2e2dd4d2dce9fc994610b3307c156c548ee
 
 		<div class="content-page">
 			<!-- start content-page-->
@@ -253,28 +273,28 @@
 
 
 											<!-- Modal 1-->
-											<div class="modal fade" id="edit<?php echo $r['std_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="loca"
-											 aria-hidden="true">
-											 	<input form="form_3" type="hidden" name="real_edit_id" value="<?php echo $r['std_id']; ?>">
+											<div class="modal fade" id="edit<?php echo $r['std_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
 												<div class="modal-dialog" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
-															<h5 class="modal-title" id="loca">แก้ไข</h5>
+															<h5 class="modal-title" id="loca">แก้ไข <?php echo $r['std_id'];?></h5>
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>
+														<!-- real id to send to update -->
+														<input form="form_3" type="hidden" name="real_edit_id" value="<?php echo $r['std_id']; ?>">
 														<div class="modal-body">
 															<div class="container">
 																<div class="form-group">
 																	<div class="row">
 																		<div class="col-md-7">
 																			<label for="id">รหัสนักศึกษา</label>
-																			<input id="id" name="edit_id" form="form_3" class="form-control" type="text" value="<?php echo $r['std_id']; ?>" requierd>
+																			<input name="edit_id" form="form_3" id="id" class="form-control" type="text" value="<?php echo $r['std_id']; ?>" required>
 																		</div>
 																		<div class="col-md-6">
 																			<label for="fname">ชื่อ-นามสกุล</label>
-																			<input id="fname" name="edit_name" form="form_3" class="form-control" type="text" value="<?php echo $r['name']; ?>" requierd>
+																			<input name="edit_name" form="form_3" id="fname" class="form-control" type="text" value="<?php echo $r['name']; ?>" required>
 																		</div>
 																	</div>
 																</div>
@@ -284,7 +304,7 @@
 														<div class="modal-footer">
 															<form action="search1.php" method="post" id="form_3">
 																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																<button type="submit" name="edit_btn" form="form_3" class="btn btn-primary btn-sm">Save</button>
+																<button name="edit_btn" type="submit" form="form_3" class="btn btn-primary btn-sm">Save</button>
 															</form>
 														</div>
 													</div>
