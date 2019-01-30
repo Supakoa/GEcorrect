@@ -373,7 +373,7 @@
                                                         <h3 class="text-center">Computer</h3>
                                                     </div>
                                                     <div class="card-body" id="computer_main">
-                                                        <div class="row form-group" id="computer">
+                                                        <div class="row form-group">
                                                             <div class="col-md-4 ">
                                                                 <!-- room & Value -->
                                                                 <label for="room1">1.ห้อง</label>

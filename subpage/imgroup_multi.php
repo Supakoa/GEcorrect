@@ -432,7 +432,7 @@
                                                     </div>
                                                     <div class="card-body" id="computer_main">
                                                         <div class="row form-group">
-                                                            <div class="col-md-3 ">
+                                                            <div class="col-md-3">
                                                                 <!-- room & Value -->
                                                                 <label for="room1">1.ห้อง</label>
                                                                 <select name="com_room[]" class="form-control select2"
