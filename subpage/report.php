@@ -762,9 +762,9 @@ if (isset($_POST['gogo'])) {
                             </div><!-- end table -->
 
                         </div>
-                    </div><!-- card 2 -->
+                    </div><!-- card 2 --><br>
 
-                    <div class="crad mb-3">
+                    <div class="card mb-3">
                         <!-- signature card-->
                         <div class="card-header">
                             <h4 class="text-center">signature</h4>
@@ -785,7 +785,7 @@ if (isset($_POST['gogo'])) {
                                 <div class="row">
                                     <div class="col-md-4"></div>
                                     <div class="col-md-2 text-center">
-                                        <input form="upload_sig" name="sig_file" type="file" class="form-control btn">
+                                        <input form="upload_sig" name="sig_file" type="file" class="form-control btn" accept="image/*">
                                     </div>
                                     <div class="col-md-2 text-center">
                                         <form action="report.php" method="post" enctype="multipart/form-data" id="upload_sig">
@@ -802,11 +802,9 @@ if (isset($_POST['gogo'])) {
             </div>
             <!--end signature card-->
 
-        </div><!-- END container-fluid -->
+        </div><!-- END container-page -->
     </div>
-    <!--end content-->
-    </div>
-    <!-- END content-page -->
+    <!-- END main -->
 
     <footer class="footer">
 
