@@ -78,7 +78,7 @@ if (isset($_POST['new_btn_2'])) {//paper
         $new_taget_name = 'pdf_' . uniqid() . "." . $ext;
         $target_path = "uploads/";
         $upload_path = $target_path . $new_taget_name;
-        $uploadOk = 1;
+        // $uploadOk = 1;
 
         $imageFileType = strtolower(pathinfo($new_taget_name, PATHINFO_EXTENSION));
 
