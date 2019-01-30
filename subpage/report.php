@@ -1,6 +1,7 @@
 <?php
 // connect database 
 require 'server/server.php';
+
 if(!isset($_SESSION['signature'])){
     $_SESSION['signature'] = 0 ;
 }
@@ -281,10 +282,12 @@ $q_sub = "SELECT * FROM `subject` order by `subject_id`";
 $re_sub = mysqli_query($con, $q_sub);
 $i = 0;
 $option_sub = '';
+
 while ($row_sub = mysqli_fetch_array($re_sub)) {
     $option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
     $i++;
 }
+
 if (isset($_POST['gogo'])) {
 
     $term = $_POST['term'];
@@ -309,17 +312,62 @@ if (isset($_POST['gogo'])) {
             LIKE '$type_exam%' 
             GROUP BY detail.detail_id";
     $re_show = mysqli_query($con, $q_show);
-} else {
+    } else {
 
-    $term = "";
-    $year = "";
-    $subject = "";
-    $group_exam = "";
-    $type_exam = "";
-    $q_show = "SELECT room_detail.detail_id,room_detail.sub_id,room_detail.sub_group,detail.term,detail.year,detail.type,detail.day,detail.time_start ,detail.time_end 
-	FROM `room_detail`,`detail`  WHERE 0";
-    $re_show = mysqli_query($con, $q_show);
-}
+        $term = "";
+        $year = "";
+        $subject = "";
+        $group_exam = "";
+        $type_exam = "";
+        $q_show = "SELECT room_detail.detail_id
+                        ,room_detail.sub_id
+                        ,room_detail.sub_group
+                        ,detail.term
+                        ,detail.year
+                        ,detail.type
+                        ,detail.day
+                        ,detail.time_start 
+                        ,detail.time_end 
+        FROM `room_detail`,`detail`  
+        WHERE 0";
+        $re_show = mysqli_query($con, $q_show);
+    }
+
+    if( isset($_POST['sig_btn']) ){
+
+        $target_dir = "banner/";
+        $target_file = $target_dir . basename($_FILES["sig_file"]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        
+        // Check file size
+        if ($_FILES["sig_file"]["size"] > 500000) {
+            $_SESSION['alert'] = 15;
+            header("Location: report.php");
+            exit();
+        }
+
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            $_SESSION['alert'] = 17;
+            header("Location: report.php");
+            exit();
+        }
+        
+        if (move_uploaded_file($_FILES["sig_file"]["tmp_name"], $target_file)) {
+            $nameTarget = $_FILES["sig_file"]["name"];
+            if( mysqli_query($con, "UPDATE web_show_time SET signature = '$nameTarget' WHERE 1" )){
+                $_SESSION['alert'] = 3;
+            }else{
+                $_SESSION['alert'] = 4;
+            }
+        } else {
+            $_SESSION['alert'] = 4;
+        }
+        header("Location: report.php");
+        exit();
+
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -350,6 +398,9 @@ if (isset($_POST['gogo'])) {
     <!-- END CSS for this page -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+    <!-- sweet alert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
+
 </head>
 
 <body class="adminbody" ng-app="">
@@ -357,7 +408,6 @@ if (isset($_POST['gogo'])) {
     <div id="main">
 
         <?php require 'menu/navmenu.php'    ?>
-
 
         <div class="content-page">
             <!-- content-page -->
@@ -627,13 +677,12 @@ if (isset($_POST['gogo'])) {
                                                                         </thead>
                                                                         <tbody>
                                                                             <?php
-                                                                                                $i = 1;
-                                                                                                $q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
-                                                                                                $re_room = mysqli_query($con, $q_room);
-                                                                                                while ($row_room = mysqli_fetch_array($re_room)) {
-                                                                                                    ?>
+                                                                                $i = 1;
+                                                                                $q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
+                                                                                $re_room = mysqli_query($con, $q_room);
+                                                                                while ($row_room = mysqli_fetch_array($re_room)) {
+                                                                            ?>
                                                                             <tr>
-
                                                                                 <td class="text-center">
                                                                                     <?php echo $i++ ?>
                                                                                 </td>
@@ -653,7 +702,6 @@ if (isset($_POST['gogo'])) {
                                                                                     <?php echo $row_room['tool'] ?>
                                                                                 </td>
                                                                             </tr>
-
                                                                             <?php } ?>
                                                                         </tbody>
                                                                     </table>
@@ -721,24 +769,29 @@ if (isset($_POST['gogo'])) {
                         <div class="card-header">
                             <h4 class="text-center">signature</h4>
                         </div>
+                        <?php
+                            $r = mysqli_fetch_array( mysqli_query( $con,"SELECT signature FROM web_show_time WHERE 1" ) );
+                        ?>
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-xl-12 ">
-                                        <div class="mx-auto" style="width:400px;" >
-                                            <img src="banner/Im_Yoona_signature.png"  class="rounded mx-auto d-block"
-                                                style="width: 100%;"><br>
+                                        <div class="mx-auto" style="width: 500px;background-color:white;">
+                                            <img src="banner/<?php echo $r['signature']; ?>" class="rounded mx-auto d-block"
+                                                style="width: 100%;"><br><br>
                                         </div>
                                     </div>
                                 </div><br>
                                 <div class="row">
                                     <div class="col-md-4"></div>
                                     <div class="col-md-2 text-center">
-                                        <input type="file" class="form-control btn">
+                                        <input form="upload_sig" name="sig_file" type="file" class="form-control btn" accept="image/*">
                                     </div>
                                     <div class="col-md-2 text-center">
-                                        <button class="btn btn-sm btn-success">Upload Signature</button>
-                                        <p>Size 400*400 <br>Type*PNG*</p>
+                                        <form action="report.php" method="post" enctype="multipart/form-data" id="upload_sig">
+                                            <button form="upload_sig" name="sig_btn" type="submit" class="btn btn-sm btn-success">Upload Signature</button>
+                                            <p>Size 200*200 <br>Type*PNG*</p>
+                                        </form>
                                     </div>
                                     <div class="col-md-4"></div>
                                 </div>
@@ -801,7 +854,8 @@ if (isset($_POST['gogo'])) {
     <script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
     <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
 
-
+    <!-- alert all -->
+	<?php require '../alert.php'; ?>
 
     <!-- END Java Script for this page -->
 
