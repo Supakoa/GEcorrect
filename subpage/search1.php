@@ -57,12 +57,26 @@
 	}
 
 	// edit
-	if($_POST){
+	if( isset($_POST['edit_btn']) ){
 		$id = $_POST['real_edit_id'];
 		$edit_id = $_POST['edit_id'];
 		$edit_name = $_POST['edit_name'];
 
-		if( !mysqli_fetch_array(mysqli_query($con, "SELECT * FROM student WHERE std_id = '$edit_id' " )) ){
+		// ปัญหาแก้ไขข้อมูลที่ id เหมือนกัน
+		if( $id != $edit_id){
+			if( !mysqli_fetch_array(mysqli_query($con, "SELECT * FROM `student` WHERE `std_id` = '$edit_id' " )) ){
+				if( mysqli_query( $con,"UPDATE `student` SET `std_id`= '$edit_id' ,`name`= '$edit_name' WHERE std_id = '$id' " ) ){
+					// edit success
+					$_SESSION['alert'] = 10;
+				}else{
+					// edit fail
+					$_SESSION['alert'] = 11;
+				}
+			}else{
+				// have in database
+				$_SESSION['alert'] = 19;
+			}
+		}else{
 			if( mysqli_query( $con,"UPDATE `student` SET `std_id`= '$edit_id' ,`name`= '$edit_name' WHERE std_id = '$id' " ) ){
 				// edit success
 				$_SESSION['alert'] = 10;
@@ -70,9 +84,6 @@
 				// edit fail
 				$_SESSION['alert'] = 11;
 			}
-		}else{
-			// have in database
-			$_SESSION['alert'] = 19;
 		}
 		// refresh to clear $_FORM[]
 		header("Location: search1.php");
@@ -80,6 +91,21 @@
 
 		// traverse
 		echo $id."<br>".$edit_id."<br>".$edit_name."<br>";
+	}
+
+	// delete 1 record
+	if( isset($_POST['del_btn']) ){
+		// make it easy
+		$del_id = $_POST['hide_del_id'];
+
+		if( mysqli_query($con, "DELETE FROM student WHERE std_id = '$del_id' " ) ){
+			$_SESSION['alert'] = 12;
+		}else{
+			$_SESSION['alert'] = 13;
+		}
+		// refresh to clear $_FORM[]
+		header("Location: search1.php");
+		exit();
 	}
 	
 ?>
@@ -126,11 +152,7 @@
 
 	<div id="main">
 
-		<?php //require 'menu/navmenu.php'; ?>
-<<<<<<< HEAD
-=======
-
->>>>>>> 368bc2e2dd4d2dce9fc994610b3307c156c548ee
+		<?php require 'menu/navmenu.php'; ?>
 
 		<div class="content-page">
 			<!-- start content-page-->
@@ -266,7 +288,7 @@
 												<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit<?php echo $r['std_id']; ?>">
 													<i class="fa fa-pencil"></i>
 												</a>
-												<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i
+												<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#del<?php echo $r['std_id']; ?>"><i
 													 class="fa fa-minus"></i></a>
 
 											</div>
@@ -313,19 +335,24 @@
 											<!--end modal 1-->
 
 											<!-- Small modal 3-->
-											<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+											<div class="modal fade bd-example-modal-sm" id="del<?php echo $r['std_id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
 												<div class="modal-dialog modal-sm">
 													<div class="modal-content">
 														<div class="modal-header">
-															<h5 class="modal-title">ลบข้อมูล</h5>
+															<h5 class="modal-title">ลบข้อมูล <?php echo $r['std_id']; ?></h5>
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>
 
+														<!-- hidden value id -->
+														<input form="form_4" type="hidden" name="hide_del_id" value="<?php echo $r['std_id']; ?>">
+
 														<div class="modal-footer">
-															<button type="button" class="btn btn-danger btn-sm">Yes</button>
-															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+															<form action="search1.php" method="post" id="form_4">
+																<button name="del_btn" form="form_4" type="submit" class="btn btn-danger btn-sm">Yes</button>
+																<button type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+															</form>
 														</div>
 													</div>
 												</div>
