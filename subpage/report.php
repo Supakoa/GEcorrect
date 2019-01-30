@@ -502,7 +502,7 @@ if (isset($_POST['gogo'])) {
                                         </div>
                                         <div class="col-lg-2 text-center">
                                             <p>
-                                              
+
                                                 <?php
                                         if($_SESSION['signature']){
                                             echo ' <select class="form-control select2" id="signature_select">
@@ -526,7 +526,8 @@ if (isset($_POST['gogo'])) {
                                     </div>
                                     <thead>
                                         <tr>
-                                            <th class="text-center"><label class="checkbox-inline"><input type="checkbox" ng-model="all">
+                                            <th class="text-center"><label class="checkbox-inline"><input type="checkbox"
+                                                        ng-model="all">
                                                     Check All</label></th>
                                             <th></th>
                                             <th>เทอม</th>
@@ -729,23 +730,28 @@ if (isset($_POST['gogo'])) {
                                                 style="width: 100%;"><br><br>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="text-center">
-                                        <br>
+                                </div><br>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-2 text-center">
+                                        <input type="file" class="form-control btn">
+                                    </div>
+                                    <div class="col-md-2 text-center">
                                         <button class="btn btn-sm btn-success">Upload Signature</button>
                                         <p>Size 200*200 <br>Type*PNG*</p>
                                     </div>
+                                    <div class="col-md-4"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--end signature card-->
+            </div>
+            <!--end signature card-->
 
-            </div><!-- END container-fluid -->
-        </div>
-        <!--end content-->
+        </div><!-- END container-fluid -->
+    </div>
+    <!--end content-->
     </div>
     <!-- END content-page -->
 
