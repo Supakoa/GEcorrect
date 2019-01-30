@@ -495,15 +495,17 @@ if (isset($_POST['gogo'])) {
                                             </td>
                                             <td>
                                                 <div class="text-center">
-
+                                                    <form action="report.php" method="post" id="form_signature"> 
+                                                    <button class="btn btn-sm btn-warning" form="form_signature"
+                                                        formtarget="_blank" type="submit" name="create_pdf">PDF</button>
+                                                   
+                                                    <input type="hidden" name="detail_id" value="<?php echo $de_id ?>">
+                                                    </form>
                                                     <button href="#" class="btn btn-info btn-sm" data-toggle="modal"
                                                         data-target="#info<?php echo $de_id ?>">
                                                         <i class="fa fa-file"></i>
                                                     </button><!-- modal 0 -->
-                                                    <form action="report.php" method="post" id="form_signature"></form>
-                                                    <button form="form_signature" class="btn btn-sm btn-warning" form="form_signature"
-                                                        formtarget="_blank" type="submit" name="create_pdf">PDF</button>
-                                                    <input form="form_signature" type="hidden" name="detail_id" value="<?php echo $de_id ?>">
+                                                   
 
                                                 </div>
 
@@ -665,7 +667,7 @@ if (isset($_POST['gogo'])) {
                                     <div class="col-lg-12 text-center">
                                         <p>
                                             <input id="signa" class="w3-check" type="checkbox" name="signature" form="form_signature"
-                                                value="1" checked="checked">
+                                                value="1" >
                                             <label for="signa">เพื่อแสดงลายเซ็นต์</label>
                                         </p>
                                     </div>
