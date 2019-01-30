@@ -83,9 +83,12 @@ if (isset($_POST['create_pdf'])) {
                 ';
 
                 if($_POST['signature']){
+                    $_SESSION['signature'] = 1 ;
                     $head .= ' 
                     <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:250mm;margin-left:170mm">
                 ';
+               }else{
+                $_SESSION['signature'] = 0 ;
                }
                $head .= '</htmlpageheader>
 		</body>
