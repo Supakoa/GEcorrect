@@ -314,6 +314,7 @@ if (isset($_POST['gogo'])) {
     <!-- BEGIN CSS for this page -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
     <!-- END CSS for this page -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
 
@@ -491,18 +492,18 @@ if (isset($_POST['gogo'])) {
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="row text-center">
-                                                    <div class="col-lg-6">
-                                                        <a role="button" href="#" class="btn btn-info btn-sm"
-                                                            data-toggle="modal" data-target="#info<?php echo $de_id ?>">
-                                                            <i class="fa fa-file"></i></a><!-- modal 0 -->
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <form action="report.php" method="post" id ="form_signature">
-                                                            <button class="btn btn-sm btn-warning" form ="form_signature" formtarget="_blank" type="submit" name="create_pdf">PDF</button>
-                                                            <input type="hidden" name="detail_id" form ="form_signature" value="<?php echo $de_id ?>">
-                                                        </form>
-                                                    </div>
+                                                <div class="text-center">
+                                                    <form action="report.php" method="post" id="form_signature"> 
+                                                    <button class="btn btn-sm btn-warning" form="form_signature"
+                                                        formtarget="_blank" type="submit" name="create_pdf">PDF</button>
+                                                   
+                                                    <input type="hidden" name="detail_id" value="<?php echo $de_id ?>">
+                                                    </form>
+                                                    <button href="#" class="btn btn-info btn-sm" data-toggle="modal"
+                                                        data-target="#info<?php echo $de_id ?>">
+                                                        <i class="fa fa-file"></i>
+                                                    </button><!-- modal 0 -->
+                                                   
 
                                                 </div>
 
@@ -519,95 +520,87 @@ if (isset($_POST['gogo'])) {
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <div class="container">
-                                                                    <div class="card mb-3">
-                                                                        <div class="card-body">
-                                                                            <div class="table-responsive">
-                                                                                <table class="table table-borderless">
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <th scope="row">ปีการศึกษา</th>
-                                                                                            <td>
-                                                                                                <?php echo $row_show['year'] ?>
-                                                                                            </td>
-                                                                                        </tr>
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-borderless">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th scope="row">ปีการศึกษา</th>
+                                                                                <td>
+                                                                                    <?php echo $row_show['year'] ?>
+                                                                                </td>
+                                                                            </tr>
 
-                                                                                        <tr>
-                                                                                            <th scope="row">เวลา</th>
-                                                                                            <td>
-                                                                                                <?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <th scope="row">วันที่</th>
-                                                                                            <td>
-                                                                                                <?php echo DateThai($row_show['day']) ?>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <th scope="row">ประเภท</th>
-                                                                                            <td>
-                                                                                                <?php echo $row_show['type'] ?>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-
-                                                                            <div class="table-responsive">
-                                                                                <table class="table">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>#</th>
-                                                                                            <th>วิชา</th>
-                                                                                            <th>กลุ่มเรียน</th>
-                                                                                            <th>ห้อง</th>
-                                                                                            <th>จำนวน</th>
-                                                                                            <th>อุปกรณ์</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody>
-                                                                                        <?php
+                                                                            <tr>
+                                                                                <th scope="row">เวลา</th>
+                                                                                <td>
+                                                                                    <?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row">วันที่</th>
+                                                                                <td>
+                                                                                    <?php echo DateThai($row_show['day']) ?>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row">ประเภท</th>
+                                                                                <td>
+                                                                                    <?php echo $row_show['type'] ?>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>#</th>
+                                                                                <th>วิชา</th>
+                                                                                <th>กลุ่มเรียน</th>
+                                                                                <th>ห้อง</th>
+                                                                                <th>จำนวน</th>
+                                                                                <th>อุปกรณ์</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <?php
                                                                                                 $i = 1;
                                                                                                 $q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
                                                                                                 $re_room = mysqli_query($con, $q_room);
                                                                                                 while ($row_room = mysqli_fetch_array($re_room)) {
                                                                                                     ?>
-                                                                                        <tr>
-                                                                                            <td class="text-center">
-                                                                                                <?php echo $i++ ?>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <?php echo $row_room['sub_id'] ?>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <?php echo $row_room['sub_group'] ?>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <?php echo $row_room['name_location'] ?>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <?php echo $row_room['num'] ?>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <?php echo $row_room['tool'] ?>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <?php } ?>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                            <tr>
 
+                                                                                <td class="text-center">
+                                                                                    <?php echo $i++ ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $row_room['sub_id'] ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $row_room['sub_group'] ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $row_room['name_location'] ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $row_room['num'] ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $row_room['tool'] ?>
+                                                                                </td>
+                                                                            </tr>
+
+                                                                            <?php } ?>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!--end modal 0-->
-
-
 
                                             </td>
                                             <td>
@@ -652,50 +645,59 @@ if (isset($_POST['gogo'])) {
                                                 <?php echo $row_show['type'] . "----" . $de_id ?>
                                             </td>
 
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div><!-- end table -->
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div><!-- end table -->
 
-                            </div>
-                        </div><!-- card 2 -->
+                        </div>
+                    </div><!-- card 2 -->
 
-                        <div class="crad mb-3"><!-- signature card-->
-                            <div class="card-header">
-                                <h4 class="text-center">signature</h4>
-                                <input type="checkbox" name="signature" form ="form_signature" value = "1">
-                            </div>
-                            <div class="card-body">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-xl-12 ">
-                                            <div class="mx-auto" style="width: 500px;background-color:white;" >
-                                                <img src="banner/Im_Yoona_signature.png" class="rounded mx-auto d-block" style="width: 100%;" ><br><br>
-                                            </div>
+                    <div class="crad mb-3">
+                        <!-- signature card-->
+                        <div class="card-header">
+                            <h4 class="text-center">signature</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 text-center">
+                                        <p>
+                                            <input id="signa" class="w3-check" type="checkbox" name="signature" form="form_signature"
+                                                value="1" >
+                                            <label for="signa">เพื่อแสดงลายเซ็นต์</label>
+                                        </p>
+                                    </div>
+                                    <div class="col-xl-12 ">
+                                        <div class="mx-auto" style="width: 500px;background-color:white;">
+                                            <img src="banner/Im_Yoona_signature.png" class="rounded mx-auto d-block"
+                                                style="width: 100%;"><br><br>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="text-center">
-                                            <button class="btn btn-sm btn-success">Upload Signature</button>
-                                            <p>Size 200*200 <br>Type*PNG*</p>
-                                        </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="text-center">
+                                        <br>
+                                        <button class="btn btn-sm btn-success">Upload Signature</button>
+                                        <p>Size 200*200 <br>Type*PNG*</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--end signature card-->
+                </div>
+                <!--end signature card-->
 
-                </div><!-- END container-fluid -->
-            </div>
-            <!--end content-->
+            </div><!-- END container-fluid -->
         </div>
-        <!-- END content-page -->
+        <!--end content-->
+    </div>
+    <!-- END content-page -->
 
-        <footer class="footer">
+    <footer class="footer">
 
-        </footer>
+    </footer>
 
     </div>
     <!-- END main -->

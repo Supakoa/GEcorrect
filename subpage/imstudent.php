@@ -103,8 +103,8 @@
                                             </div>
                                             <div class="row ">
                                                 <div class="col-lg-4"></div>
-                                                <div class="col-lg-4"></div>
-                                                <div class="col-lg-4 text-right"><br>
+                                                <div class="col-lg-6"></div>
+                                                <div class="col-lg-2"><br>
                                                     <p>* .csv<br>* ข้อมูลนักศึกษาที่นำเข้า <br>- รหัสนักศึกษา <br>- ชื่อนักศึกษา<br>- Username <br>- Password</p>
                                                 </div>
                                             </div>
