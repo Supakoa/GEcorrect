@@ -211,7 +211,7 @@ $row_banner = mysqli_fetch_array($result_banner);
 
         <div id="main">
 
-            <?php //require 'menu/navmenu.php' ?>
+            <?php require 'menu/navmenu.php' ?>
 
 
             <div class="content-page">
