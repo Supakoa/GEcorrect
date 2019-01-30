@@ -3,7 +3,7 @@
 require 'server/server.php';
 
 function DateThai($strDate) {
-    $strYear = date("Y", strtotime($strDate)) + 543;
+    $strYear = date("Y", strtotime($strDate)) -2500 + 543;
     $strMonth = date("n", strtotime($strDate));
     $strDay = date("j", strtotime($strDate));
     $strMonthCut = Array("", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.");
@@ -35,8 +35,6 @@ if (isset($_POST['create_pdf'])) {
         ]);
 
 
-        $mpdf->open_layer_pane = true;
-        $mpdf->BeginLayer($z-index);
         $keep_table_proportions = true;
         $ignore_table_percents = true;
         $ignore_table_width = true;
@@ -44,6 +42,7 @@ if (isset($_POST['create_pdf'])) {
 
 			$num_page = 0;
         while ($row_sl_room = mysqli_fetch_array($re_sl_room)) {
+            
             $r_d_id = $row_sl_room['room_detail_id'];
             $q_head = "SELECT detail.* , subject.subject_name,location_table.name_location FROM `room_detail`,`detail`,`subject`,`location_table` WHERE location_table.order = room_detail.room_id AND detail.detail_id =room_detail.detail_id AND room_detail.sub_id = subject.subject_id AND room_detail.room_detail_id = '$r_d_id' AND room_detail.detail_id = '$detail_id' ";
             $re_head = mysqli_query($con, $q_head);
@@ -73,11 +72,19 @@ if (isset($_POST['create_pdf'])) {
 			<htmlpageheader name="MyHeader1">
 				<div>
 						
-						<div style="text-align: center; font-weight: bold; font-size: 13pt;padding-top: 10px;">
-						<span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
-						</div>
-				</div><br><br>
-			</htmlpageheader>
+						<div style="text-align: center; font-weight: bold; font-size: 12pt;padding-top: 10px;">
+                        <span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
+                        </div>
+                </div>
+                
+                ';
+
+                if(isset($_POST['signature'])){
+                    $head .= ' 
+                    <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:250mm;margin-left:170mm">
+                ';
+               }
+               $head .= '</htmlpageheader>
 		</body>
 	</html>
 
@@ -96,9 +103,9 @@ if (isset($_POST['create_pdf'])) {
 					}
 					table{
 						table-layout: auto;
-						margin-left:10px;
+						margin-left:20px;
 						width:100%;
-						margin-right:10px;
+						margin-right:20px;
 					}
 					table.layout {
 						text-align:center;
@@ -120,14 +127,14 @@ if (isset($_POST['create_pdf'])) {
 				<table autosize="1">
 					<thead>
 						<tr>
-							<th>ลำดับ</th>
-							<th>รหัสนักศึกษา</th>
-							<th>ชื่อ-นามสกุล</th>
-							<th>วิชาที่สอบ</th>
-							<th>วันที่สอบ</th>
-							<th>เวลาที่สอบ</th>
-							<th>ห้องสอบ</th>
-							<th style="width:80pt;">ลายเซ็น</th>
+							<th style="width:20pt;">ลำดับ</th>
+							<th style="width:60pt;">รหัสนักศึกษา</th>
+							<th style="width:120pt;">ชื่อ-นามสกุล</th>
+							<th style="width:120pt;">วิชาที่สอบ</th>
+							<th style="width:50pt;">วันที่สอบ</th>
+							<th style="width:60pt;">เวลาที่สอบ</th>
+							<th style="width:30pt;">ห้องสอบ</th>
+							<th style="width:120pt;">ลายเซ็น</th>
 						</tr>
 					</thead>
 				';
@@ -139,9 +146,9 @@ if (isset($_POST['create_pdf'])) {
 				$seat =$row_show['seat'];
 				$std_id = $row_show['std_id'];
 				$name =$row_show['name'];
-				$sub = $row_show['subject_id'];
+				$sub = $row_show['subject_id']." ".$row_show['subject_name'] ; 
 				$date = DateThai($row_show['day']);
-				$time = substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ;
+				$time = substr($row_show['time_start'], 0, 5) . " - " . substr($row_show['time_end'], 0, 5)  ;
 				$lo_name =substr($row_show['name_location'], 0, 4) ;
                 $tbody.= '	<tr>
 								<td style="text-align:center">' . $seat . '</td>
@@ -187,17 +194,8 @@ if (isset($_POST['create_pdf'])) {
 			<span>กรรมการคุมสอบ 1 ...................................................................................................</span><br>
 			<span>กรรมการคุมสอบ 2 ...................................................................................................</span><br>
             <span>กรรมการคุมสอบ 3 ...................................................................................................</span><br>
-            
-        ';
-        if(isset($_POST['signature'])){
-            $footer.= '</div>
-        <div style="text-align:right;position: absolute; left:0; right: 0; top: 0; bottom: 0;margin-right:10px;margin-top:250mm">
-            <img src="banner/Im_Yoona_signature.png" 
-              style="width: 50mm; height: 50mm; margin: 0;" />
-        </div>';
-        }
+        </div>
         
-        $footer.='
 		</body>
 	</html>
 	';
@@ -208,35 +206,35 @@ if (isset($_POST['create_pdf'])) {
 			++$num_page;
 			if($num_page<$num_room){
                 $head = '
-			<html>
-				<head>
-					<style>
-						@page {
-							size: auto;
-							odd-header-name: html_MyHeader1;
-						}
-						
-					</style>
-				</head>
-				<body>
-					<htmlpageheader name="MyHeader1">
-						<div>
-								
-								<div style="text-align: center; font-weight: bold; font-size: 13pt;padding-top: 10;">
-								<span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $row_head['term'] . '/' . $row_head['year'] . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . DateThai($row_head['day']) . ' เวลา ' . substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น." . ' ห้อง ' . $row_head['name_location'] . '</span>
-								</div>
-						</div><br><br>
-					</htmlpageheader>
-				</body>
-			</html>
-		
-			';
-                $mpdf->WriteHTML($head);
-				$mpdf->AddPage();
+                <html>
+                    <head>
+                        <style>
+                            @page {
+                                size: auto;
+                                odd-header-name: html_MyHeader1;
+                            }
+                            
+                        </style>
+                    </head>
+                    <body>
+                        <htmlpageheader name="MyHeader1">
+                            <div>
+                                    
+                                    <div style="text-align: center; font-weight: bold; font-size: 12pt;padding-top: 10px;">
+                                    <span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
+                                    </div>
+                            </div>
+                            
+                          
+                    </body>
+                </html>
+                ';
+                $mpdf->AddPage();
+                // $mpdf->WriteHTML($head);
+				
 					}
 			
         }
-        $mpdf->EndLayer();
         $mpdf->Output();
     } else {
         header("Location: report.php");
@@ -502,7 +500,7 @@ if (isset($_POST['gogo'])) {
                                                     <div class="col-lg-6">
                                                         <form action="report.php" method="post" id ="form_signature">
                                                             <button class="btn btn-sm btn-warning" form ="form_signature" formtarget="_blank" type="submit" name="create_pdf">PDF</button>
-                                                            <input type="hidden" name="detail_id" value="<?php echo $de_id ?>">
+                                                            <input type="hidden" name="detail_id" form ="form_signature" value="<?php echo $de_id ?>">
                                                         </form>
                                                     </div>
 
