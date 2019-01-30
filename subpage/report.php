@@ -24,7 +24,7 @@ if (isset($_POST['create_pdf'])) {
         require_once __DIR__ . '/vendor/autoload.php';
 
         $mpdf = new \Mpdf\Mpdf([
-            'default_font_size' => 14,
+            'default_font_size' => 12,
             'default_font' => 'sarabun',
             "sarabun" => 'B',
             'format' => 'A4',
@@ -35,7 +35,8 @@ if (isset($_POST['create_pdf'])) {
         ]);
 
 
-
+        $mpdf->open_layer_pane = true;
+        $mpdf->BeginLayer($z-index);
         $keep_table_proportions = true;
         $ignore_table_percents = true;
         $ignore_table_width = true;
@@ -71,10 +72,8 @@ if (isset($_POST['create_pdf'])) {
 		<body>
 			<htmlpageheader name="MyHeader1">
 				<div>
-						<div style="text-align:right;">
-							<p style="text-alig:right;padding-right: 30px;padding-top: -20px;"></p>
-						</div>
-						<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
+						
+						<div style="text-align: center; font-weight: bold; font-size: 13pt;padding-top: 10px;">
 						<span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
 						</div>
 				</div><br><br>
@@ -142,7 +141,7 @@ if (isset($_POST['create_pdf'])) {
 				$name =$row_show['name'];
 				$sub = $row_show['subject_id'];
 				$date = DateThai($row_show['day']);
-				$time = substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ;
+				$time = substr($row_show['time_start'], 0, 5) . " - " . substr($row_show['time_end'], 0, 5)  ;
 				$lo_name = $row_show['name_location'];
                 $tbody.= '	<tr>
 								<td style="text-align:center">' . $seat . '</td>
@@ -171,26 +170,34 @@ if (isset($_POST['create_pdf'])) {
 			
 			<div style="text-align:left;margin-right:10px;margin-left:10px">
 				<span>ปัญหาที่พบ ';
-            for ($i = 0; $i < 1000 - 241; $i++) {
+            for ($i = 0; $i < 500+90; $i++) {
                 $footer.= '.';
             }
             $footer.='<br>การแก้ปัญหาเบื้องต้น ';
 
-            for ($i = 0; $i < 1000 - 241; $i++) {
+            for ($i = 0; $i < 500+90; $i++) {
                 $footer.= '.';
             }
 
             $footer.= ' </span><br>
 		<input type="checkbox"> <span> ไม่พบปัญหา</span>
 		</div><br/><br/>
-		<div style="text-align:right;margin-right:10px">
+        <div style="text-align:right;margin-right:10px">
+        
 			<span>กรรมการคุมสอบ 1 ...................................................................................................</span><br>
 			<span>กรรมการคุมสอบ 2 ...................................................................................................</span><br>
-			<span>กรรมการคุมสอบ 3 ...................................................................................................</span><br>
-		</div>	
-		
-		
-		
+            <span>กรรมการคุมสอบ 3 ...................................................................................................</span><br>
+            
+        ';
+        if(isset($_POST['signature'])){
+            $footer.= '</div>
+        <div style="text-align:right;position: absolute; left:0; right: 0; top: 0; bottom: 0;margin-right:10px;margin-top:250mm">
+            <img src="banner/Im_Yoona_signature.png" 
+              style="width: 50mm; height: 50mm; margin: 0;" />
+        </div>';
+        }
+        
+        $footer.='
 		</body>
 	</html>
 	';
@@ -214,10 +221,8 @@ if (isset($_POST['create_pdf'])) {
 				<body>
 					<htmlpageheader name="MyHeader1">
 						<div>
-								<div style="text-align:right;">
-									<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
-								</div>
-								<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
+								
+								<div style="text-align: center; font-weight: bold; font-size: 13pt;padding-top: 10;">
 								<span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $row_head['term'] . '/' . $row_head['year'] . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . DateThai($row_head['day']) . ' เวลา ' . substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น." . ' ห้อง ' . $row_head['name_location'] . '</span>
 								</div>
 						</div><br><br>
@@ -234,6 +239,7 @@ if (isset($_POST['create_pdf'])) {
 			
             
         }
+        $mpdf->EndLayer();
         $mpdf->Output();
     } else {
         header("Location: report.php");
@@ -477,8 +483,8 @@ if (isset($_POST['gogo'])) {
                                                         <div class="text-center">
                                                             <a role="button" href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#info<?php echo $de_id ?>">
                                                                 <i class="fa fa-file"></i></a><!-- modal 0 -->
-                                                            <form action="report.php" method="post">
-                                                                <button type="submit" name = "create_pdf">gogo</button>
+                                                            <form action="report.php" id = "form_signature" method="post">
+                                                                <button type="submit" name = "create_pdf" form ="form_signature">gogo</button>
                                                                 <input type="hidden" name="detail_id" value = "<?php echo $de_id ?>" >
                                                             </form>
 
@@ -611,13 +617,14 @@ if (isset($_POST['gogo'])) {
                         <div class="crad mb-3"><!-- signature card-->
                             <div class="card-header">
                                 <h4 class="text-center">signature</h4>
+                                <input type="checkbox" name="signature" form ="form_signature" value = "1">
                             </div>
                             <div class="card-body">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-xl-12 ">
-                                            <div class="mx-auto" style="width: 40px;">
-                                                <img src="..." class="rounded mx-auto d-block"><br><br>
+                                            <div class="mx-auto" style="width: 500px;background-color:white;" >
+                                                <img src="banner/Im_Yoona_signature.png" class="rounded mx-auto d-block" style="width: 100%;" ><br><br>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
