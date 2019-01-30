@@ -714,9 +714,9 @@ if (isset($_POST['gogo'])) {
                             </div><!-- end table -->
 
                         </div>
-                    </div><!-- card 2 -->
+                    </div><!-- card 2 --><br>
 
-                    <div class="crad mb-3">
+                    <div class="card mb-3">
                         <!-- signature card-->
                         <div class="card-header">
                             <h4 class="text-center">signature</h4>
@@ -749,11 +749,9 @@ if (isset($_POST['gogo'])) {
             </div>
             <!--end signature card-->
 
-        </div><!-- END container-fluid -->
+        </div><!-- END container-page -->
     </div>
-    <!--end content-->
-    </div>
-    <!-- END content-page -->
+    <!-- END main -->
 
     <footer class="footer">
 
