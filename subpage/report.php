@@ -1,7 +1,9 @@
 <?php
 // connect database 
 require 'server/server.php';
-
+if(!isset($_SESSION['signature'])){
+    $_SESSION['signature'] = 0 ;
+}
 function DateThai($strDate) {
     $strYear = date("Y", strtotime($strDate)) -2500 + 543;
     $strMonth = date("n", strtotime($strDate));
@@ -13,6 +15,7 @@ function DateThai($strDate) {
 
 if (isset($_POST['create_pdf'])) {
     $detail_id = $_POST['detail_id'];
+    echo $detail_id;
     $q_sl_room = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$detail_id'";
     if ($re_sl_room = mysqli_query($con, $q_sl_room)) {
 		$num_room = 0 ;
@@ -79,7 +82,7 @@ if (isset($_POST['create_pdf'])) {
                 
                 ';
 
-                if(isset($_POST['signature'])){
+                if($_POST['signature']){
                     $head .= ' 
                     <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:250mm;margin-left:170mm">
                 ';
@@ -236,6 +239,7 @@ if (isset($_POST['create_pdf'])) {
 			
         }
         $mpdf->Output();
+        exit();
     } else {
         header("Location: report.php");
         $_SESSION['alert'] = 4;
@@ -493,12 +497,12 @@ if (isset($_POST['gogo'])) {
                                             </td>
                                             <td>
                                                 <div class="text-center">
-                                                    <form action="report.php" method="post" id="form_signature"> 
-                                                    <button class="btn btn-sm btn-warning" form="form_signature"
+                                                    <form action="report.php" method="post" id="form_signature<?php echo $de_id ?>"> </form>
+                                                    <button class="btn btn-sm btn-warning signature_bt" form="form_signature<?php echo $de_id ?>"
                                                         formtarget="_blank" type="submit" name="create_pdf">PDF</button>
                                                    
-                                                    <input type="hidden" name="detail_id" value="<?php echo $de_id ?>">
-                                                    </form>
+                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden" name="detail_id" value="<?php echo $de_id ?>" > 
+                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden" class = "signature_hide" name="signature" value="0" > 
                                                     <button href="#" class="btn btn-info btn-sm" data-toggle="modal"
                                                         data-target="#info<?php echo $de_id ?>">
                                                         <i class="fa fa-file"></i>
@@ -664,8 +668,25 @@ if (isset($_POST['gogo'])) {
                                 <div class="row">
                                     <div class="col-lg-12 text-center">
                                         <p>
-                                            <input id="signa" class="w3-check" type="checkbox" name="signature" form="form_signature"
-                                                value="1" >
+                                        <?php
+                                        if($_SESSION['signature']){
+                                            echo ' <select id="signature_select">
+                                           
+                                            <option value="1">แสดง</option>
+                                            <option value="0">ไม่แสดง</option>
+                                         
+                                        </select>';
+                                        }else{
+                                            echo ' <select id="signature_select">
+                                            
+                                            <option value="0">ไม่แสดง</option>
+                                            <option value="1">แสดง</option>
+                                            
+                                         
+                                        </select>' ;
+                                        }
+                                        ?>
+                                            
                                             <label for="signa">เพื่อแสดงลายเซ็นต์</label>
                                         </p>
                                     </div>
@@ -727,7 +748,16 @@ if (isset($_POST['gogo'])) {
     <!-- Counter-Up-->
     <script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
     <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
-
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".signature_bt").click(function(){
+                $(".signature_hide").val($("#signature_select").val());
+            });
+           
+        });
+    </script>                                   
     <script>
         $(document).ready(function () {
             // data-tables
