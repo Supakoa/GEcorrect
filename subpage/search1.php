@@ -55,6 +55,16 @@
 			exit();
 		}
 	}
+
+	// edit student
+	if( isset($_POST['edit_btn']) ){
+		// make it easy
+		$real_id = $_POST['real_edit_id'];
+		$id = $_POST['edit_id'];
+		$name = $_POST['edit_name'];
+
+		echo $real_id." ".$id." ".$name;
+	}
 	
 ?>
 
@@ -100,8 +110,7 @@
 
 	<div id="main">
 
-		<?php require 'menu/navmenu.php'; ?>
-
+		<?php //require 'menu/navmenu.php'; ?>
 
 		<div class="content-page">
 			<!-- start content-page-->
@@ -115,13 +124,14 @@
 					<div class="card-body">
 						<div class="container">
 							<div class="form-group">
-								
+
 								<form action="server/search_search1.php" method="post">
 									<div class="row">
 										<!-- w3.js filter -->
 										<!-- <input oninput="w3.filterHTML('#search1', '.item', this.value)" class="w3-input" placeholder="Search for names.."> -->
 										<div class="col-sm-4"></div>
-										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' placeholder="รหัสนักศึกษา"  required></div>
+										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' placeholder="รหัสนักศึกษา"
+											 required></div>
 										<div class="col-sm-4"><input class="btn btn-md btn-success" type="submit" value="Submit" name="btn_search"></div>
 									</div>
 								</form>
@@ -146,42 +156,42 @@
 
 										<!-- Modal -->
 										<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<div class="container">
-																<div class="form-group">
-																	<div class="row">
-																		<div class="col-md-7">
-																			<label for="id1">รหัสนักศึกษา</label>
-																			<input form="form_2" id="id1" name="id_std" class="form-control" type="text" maxlength="11" required>
-																		</div>
-																		<div class="col-md-6">
-																			<label for="fname1">ชื่อ(คำนำหน้าตามด้วยชื่อ)</label>
-																			<input form="form_2" id="fname1" name="std_fname" class="form-control" type="text" required>
-																		</div>
-																		<div class="col-md-6">
-																			<label for="lname1">นามสกุล</label>
-																			<input form="form_2" id="lname1" name="std_lname" class="form-control" type="text" required>
-																		</div>
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="loca">เพิ่มข้อมูล</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div class="container">
+															<div class="form-group">
+																<div class="row">
+																	<div class="col-md-7">
+																		<label for="id1">รหัสนักศึกษา</label>
+																		<input form="form_2" id="id1" name="id_std" class="form-control" type="text" maxlength="11" required>
+																	</div>
+																	<div class="col-md-6">
+																		<label for="fname1">ชื่อ(คำนำหน้าตามด้วยชื่อ)</label>
+																		<input form="form_2" id="fname1" name="std_fname" class="form-control" type="text" required>
+																	</div>
+																	<div class="col-md-6">
+																		<label for="lname1">นามสกุล</label>
+																		<input form="form_2" id="lname1" name="std_lname" class="form-control" type="text" required>
 																	</div>
 																</div>
 															</div>
 														</div>
-														<div class="modal-footer">
-															<form action="search1.php" method="post" id="form_2">
-																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																<button type="submit" name="insert_btn" class="btn btn-primary btn-sm">Save</button>
-															</form>
-														</div>
+													</div>
+													<div class="modal-footer">
+														<form action="search1.php" method="post" id="form_2">
+															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+															<button type="submit" name="insert_btn" class="btn btn-primary btn-sm">Save</button>
+														</form>
 													</div>
 												</div>
+											</div>
 										</div>
 										<!--end modal -->
 
@@ -206,9 +216,10 @@
 											</div>
 										</div>
 										<!--end modal -->
-										<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
+										<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox" ng-model="all">
+												Check All</label></th>
 										<th></th>
-										<th >รหัสนักศึกษา</th>
+										<th>รหัสนักศึกษา</th>
 										<th>ชื่อ-นามสกุล</th>
 									</tr>
 								</thead>
@@ -224,14 +235,15 @@
 
 										<td class="text-center">
 											<div class="form-check">
-												<input form="form_1" type="checkbox" name="del_cb[]" value="<?php echo $r['std_id']; ?>" class="form-check-input" ng-checked="all">
+												<input form="form_1" type="checkbox" name="del_cb[]" value="<?php echo $r['std_id']; ?>" class="form-check-input"
+												 ng-checked="all">
 											</div>
 										</td>
 
 										<td>
 
 											<div class="text-center">
-												<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
+												<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit<?php echo $r['std_id']; ?>">
 													<i class="fa fa-pencil"></i>
 												</a>
 												<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm"><i
@@ -241,7 +253,9 @@
 
 
 											<!-- Modal 1-->
-											<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
+											<div class="modal fade" id="edit<?php echo $r['std_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="loca"
+											 aria-hidden="true">
+											 	<input form="form_3" type="hidden" name="real_edit_id" value="<?php echo $r['std_id']; ?>">
 												<div class="modal-dialog" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
@@ -256,15 +270,11 @@
 																	<div class="row">
 																		<div class="col-md-7">
 																			<label for="id">รหัสนักศึกษา</label>
-																			<input id="id" class="form-control" type="text">
+																			<input id="id" name="edit_id" form="form_3" class="form-control" type="text" value="<?php echo $r['std_id']; ?>" requierd>
 																		</div>
 																		<div class="col-md-6">
-																			<label for="fname">ชื่อ</label>
-																			<input id="fname" class="form-control" type="text">
-																		</div>
-																		<div class="col-md-6">
-																			<label for="lname">นามสกุล</label>
-																			<input id="lname" class="form-control" type="text">
+																			<label for="fname">ชื่อ-นามสกุล</label>
+																			<input id="fname" name="edit_name" form="form_3" class="form-control" type="text" value="<?php echo $r['name']; ?>" requierd>
 																		</div>
 																	</div>
 																</div>
@@ -272,8 +282,10 @@
 
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-															<button type="button" class="btn btn-primary btn-sm">Save</button>
+															<form action="search1.php" method="post" id="form_3">
+																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																<button type="submit" name="edit_btn" form="form_3" class="btn btn-primary btn-sm">Save</button>
+															</form>
 														</div>
 													</div>
 												</div>
