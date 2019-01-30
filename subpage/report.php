@@ -498,7 +498,6 @@ if (isset($_POST['gogo'])) {
                                                     <form action="report.php" method="post" id="form_signature"> 
                                                     <button class="btn btn-sm btn-warning" form="form_signature"
                                                         formtarget="_blank" type="submit" name="create_pdf">PDF</button>
-                                                   
                                                     <input type="hidden" name="detail_id" value="<?php echo $de_id ?>">
                                                     </form>
                                                     <button href="#" class="btn btn-info btn-sm" data-toggle="modal"
