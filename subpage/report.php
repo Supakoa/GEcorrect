@@ -506,14 +506,14 @@ if (isset($_POST['gogo'])) {
                                                 <?php
                                         if($_SESSION['signature']){
                                             echo ' <select class="form-control select2" id="signature_select">
-                                            <option value="1">แสดง</option>
-                                            <option value="0">ไม่แสดง</option>
+                                            <option value="1">แสดงลายเซ็นต์</option>
+                                            <option value="0">ไม่แสดงลายเซ็นต์</option>
                                          
                                         </select>';
                                         }else{
                                             echo ' <select class="form-control select2" id="signature_select">
-                                            <option value="0">ไม่แสดง</option>
-                                            <option value="1">แสดง</option>
+                                            <option value="0">ไม่แสดงลายเซ็นต์</option>
+                                            <option value="1">แสดงลายเซ็นต์</option>
                                             
                                          
                                         </select>' ;
