@@ -143,7 +143,7 @@ if (isset($_POST['create_pdf'])) {
 				$sub = $row_show['subject_id'];
 				$date = DateThai($row_show['day']);
 				$time = substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ;
-				$lo_name = $row_show['name_location'];
+				$lo_name =substr($row_show['name_location'], 0, 4) ;
                 $tbody.= '	<tr>
 								<td style="text-align:center">' . $seat . '</td>
 								<td style="text-align:center">' . $std_id . '</td>
@@ -214,9 +214,6 @@ if (isset($_POST['create_pdf'])) {
 				<body>
 					<htmlpageheader name="MyHeader1">
 						<div>
-								<div style="text-align:right;">
-									<p style="text-alig:right;padding-right: 30px;padding-top: -20px;">{PAGENO}</p>
-								</div>
 								<div style="text-align: center; font-weight: bold; font-size: 16pt;padding-top: -25px;">
 								<span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $row_head['term'] . '/' . $row_head['year'] . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . DateThai($row_head['day']) . ' เวลา ' . substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น." . ' ห้อง ' . $row_head['name_location'] . '</span>
 								</div>
@@ -226,13 +223,10 @@ if (isset($_POST['create_pdf'])) {
 			</html>
 		
 			';
-
                 $mpdf->WriteHTML($head);
-
 				$mpdf->AddPage();
 					}
 			
-            
         }
         $mpdf->Output();
     } else {
@@ -289,115 +283,123 @@ if (isset($_POST['gogo'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Admin Template-รายงาน</title>
-        <meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
-        <meta name="author" content="Pike Web Development - https://www.pikephp.com">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <title>Admin Template-รายงาน</title>
+    <meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
+    <meta name="author" content="Pike Web Development - https://www.pikephp.com">
 
-        <!-- Bootstrap CSS -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-        <!-- Font Awesome CSS -->
-        <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-        <!-- Custom CSS -->
-        <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome CSS -->
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
-        <!-- BEGIN CSS for this page -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
-        <!-- END CSS for this page -->
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 
-    </head>
+    <!-- BEGIN CSS for this page -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+    <!-- END CSS for this page -->
 
-    <body class="adminbody">
+</head>
 
-        <div id="main">
+<body class="adminbody" ng-app="">
 
-            <?php //require 'menu/navmenu.php'    ?>
+    <div id="main">
+
+        <?php require 'menu/navmenu.php'    ?>
 
 
-            <div class="content-page"><!-- content-page -->
-                <div class="content"><!-- content -->
-                    <div class="container-fluid"><!--container-fluid -->
+        <div class="content-page">
+            <!-- content-page -->
+            <div class="content">
+                <!-- content -->
+                <div class="container-fluid">
+                    <!--container-fluid -->
 
-                        <div class="card mb-3"><!-- filter card -->
-                            <div class="card-header">
-                                <h4 class="text-center">รายงาน PDF</h4>
-                            </div>
-                            <div class="card-body">
-                                <form action="report.php" method="post">
-                                    <div class="container"><!-- container -->
-                                        <div class="row "><!-- row -->
-                                            <div class="col-lg-2 "></div>
-                                            <div class="col-lg-8 ">
-                                                <div class="card"><!-- card 1 -->
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <label for="term">เทอม</label>
-                                                                <select name="term" class="form-control select2">
-                                                                    <?php
+                    <div class="card mb-3">
+                        <!-- filter card -->
+                        <div class="card-header">
+                            <h4 class="text-center">รายงาน PDF</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="report.php" method="post">
+                                <div class="container">
+                                    <!-- container -->
+                                    <div class="row ">
+                                        <!-- row -->
+                                        <div class="col-lg-2 "></div>
+                                        <div class="col-lg-8 ">
+                                            <div class="card">
+                                                <!-- card 1 -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label for="term">เทอม</label>
+                                                            <select name="term" class="form-control select2">
+                                                                <?php
                                                                     if ($term == '') {
                                                                         echo '<option hidden selected  value="">ทั้งหมด</option>';
                                                                     } else {
                                                                         echo '<option hidden selected  value="' . $term . '">' . $term . '</option>';
                                                                     }
                                                                     ?>
-                                                                    <option value = "">ทั้งหมด</option>
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                </select>
+                                                                <option value="">ทั้งหมด</option>
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                            </select>
 
-                                                            </div>
-                                                            <!-- <div class="col-md-2">
+                                                        </div>
+                                                        <!-- <div class="col-md-2">
                                                                             <br><br><label >/</label>
                                                             </div> -->
-                                                            <div class="col-md-3">
-                                                                <label for="year">ปีการศึกษา</label>
-                                                                <select name="year" class="form-control select2">
-                                                                    <?php
+                                                        <div class="col-md-3">
+                                                            <label for="year">ปีการศึกษา</label>
+                                                            <select name="year" class="form-control select2">
+                                                                <?php
                                                                     if ($year == '') {
                                                                         echo '<option hidden selected  value="">ทั้งหมด</option>';
                                                                     } else {
                                                                         echo '<option hidden selected  value="' . $year . '">' . $year . '</option>';
                                                                     }
                                                                     ?>
-                                                                    <option value = "">ทั้งหมด</option>
-                                                                    <option>2561</option>
-                                                                    <option>2562</option>
-                                                                    <option>2563</option>
-                                                                    <option>2564</option>
-                                                                    <option>2565</option>
-                                                                    <option>2566</option>
-                                                                    <option>2567</option>
-                                                                    <option>2568</option>
-                                                                    <option>2569</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="subject">วิชา</label>
-                                                                <select name="subject" class="form-control select2">
-                                                                    <?php
+                                                                <option value="">ทั้งหมด</option>
+                                                                <option>2561</option>
+                                                                <option>2562</option>
+                                                                <option>2563</option>
+                                                                <option>2564</option>
+                                                                <option>2565</option>
+                                                                <option>2566</option>
+                                                                <option>2567</option>
+                                                                <option>2568</option>
+                                                                <option>2569</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="subject">วิชา</label>
+                                                            <select name="subject" class="form-control select2">
+                                                                <?php
                                                                     if ($subject == '') {
                                                                         echo '<option hidden selected  value="">ทั้งหมด</option>';
                                                                     } else {
                                                                         echo '<option hidden selected  value="' . $subject . '">' . $subject . '</option>';
                                                                     }
                                                                     ?>
-                                                                    <option value = "">ทั้งหมด</option>
-                                                                    <?php echo $option_sub ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="group">กลุ่มเรียน</label>
-                                                                <?php
+                                                                <option value="">ทั้งหมด</option>
+                                                                <?php echo $option_sub ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="group">กลุ่มเรียน</label>
+                                                            <?php
                                                                 if ($group_exam == '') {
                                                                     echo '<input name = "group_exam" type="text"  placeholder = "ทั้งหมด" value = "" maxlength="3"  class="form-control" >';
                                                                 } else {
@@ -405,52 +407,59 @@ if (isset($_POST['gogo'])) {
                                                                 }
                                                                 ?>
 
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="subject">ประเภท</label>
-                                                                <select name = "type_exam" class="form-control select2" >
-                                                                    <?php
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="subject">ประเภท</label>
+                                                            <select name="type_exam" class="form-control select2">
+                                                                <?php
                                                                     if ($type_exam == '') {
                                                                         echo '<option hidden selected  value="">ทั้งหมด</option>';
                                                                     } else {
                                                                         echo '<option hidden selected  value="' . $type_exam . '">' . $type_exam . '</option>';
                                                                     }
                                                                     ?>
-                                                                    <option value="">ทั้งหมด</option>
-                                                                    <option>กลางภาค</option>
-                                                                    <option>ปลายภาค</option>
-                                                                    <option>แก้ผลการเรียน(I)</option>	
-                                                                    <option>ย้อนหลัง</option>
-                                                                </select>
-                                                                </select>
-                                                            </div>	
+                                                                <option value="">ทั้งหมด</option>
+                                                                <option>กลางภาค</option>
+                                                                <option>ปลายภาค</option>
+                                                                <option>แก้ผลการเรียน(I)</option>
+                                                                <option>ย้อนหลัง</option>
+                                                            </select>
+                                                            </select>
                                                         </div>
                                                     </div>
-                                                </div><!--end card 1 --> <br>
+                                                </div>
                                             </div>
-                                        </div><!-- end row -->
-                                        <div class="text-center">
-                                            <button class="btn btn-sm btn-success" type="submit">submit</button>
+                                            <!--end card 1 --> <br>
                                         </div>
-                                    </div><!--end container -->
-                                    <input type="hidden" name="gogo">
-                                </form>
-                            </div>
-                        </div><!--end filter card -->
+                                    </div><!-- end row -->
+                                    <div class="text-center">
+                                        <button class="btn btn-sm btn-success" type="submit">submit</button>
+                                    </div>
+                                </div>
+                                <!--end container -->
+                                <input type="hidden" name="gogo">
+                            </form>
+                        </div>
+                    </div>
+                    <!--end filter card -->
 
-                        <div class="card"><!-- card 2 -->
-                            <div class="card-body">
-                                <form id="big_form" action="search2.php" method="post">
-                                    <input type="hidden" name="big_form">
-                                </form>
-                                <div class="table-responsive"><!--table -->
-                                    <table id="report" class="table table-bordered">
-                                        <thead>
+                    <div class="card">
+                        <!-- card 2 -->
+                        <div class="card-body">
+                            <form id="big_form" action="search2.php" method="post">
+                                <input type="hidden" name="big_form">
+                            </form>
+                            <div class="table-responsive">
+                                <!--table -->
+                                <table id="report" class="table table-bordered">
+                                    <thead>
                                         <div class="text-center">
-                                            <a role="button" href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete_select"><i class="fa fa-minus"></i> ลบที่เลือก</a>
+                                            <a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal"
+                                                data-target="#delete_select"><i class="fa fa-minus"></i> ลบที่เลือก</a>
                                         </div>
                                         <tr>
-                                            <th><label class="checkbox-inline"><input type="checkbox"  ng-model="all"> Check All</label></th>
+                                            <th><label class="checkbox-inline"><input type="checkbox" ng-model="all">
+                                                    Check All</label></th>
                                             <th></th>
                                             <th>เทอม</th>
                                             <th>ปีการศึกษา</th>
@@ -461,116 +470,147 @@ if (isset($_POST['gogo'])) {
                                             <th>ประเภท</th>
 
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
+                                    </thead>
+                                    <tbody>
+                                        <?php
                                             while ($row_show = mysqli_fetch_array($re_show)) {
                                                 $de_id = $row_show['detail_id'];
                                                 ?>
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <div class="form-check">
-                                                            <input name="del_cb[]" value = "<?php echo $de_id ?>" type="checkbox" class="form-check-input"   ng-checked="all" form = "big_form">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <a role="button" href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#info<?php echo $de_id ?>">
-                                                                <i class="fa fa-file"></i></a><!-- modal 0 -->
-                                                            <form action="report.php" method="post">
-                                                                <button type="submit" name = "create_pdf">gogo</button>
-                                                                <input type="hidden" name="detail_id" value = "<?php echo $de_id ?>" >
-                                                            </form>
+                                        <tr>
+                                            <td class="text-center">
+                                                <div class="form-check">
+                                                    <input name="del_cb[]" value="<?php echo $de_id ?>" type="checkbox"
+                                                        class="form-check-input" ng-checked="all" form="big_form">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="row text-center">
+                                                    <div class="col-lg-6">
+                                                        <a role="button" href="#" class="btn btn-info btn-sm"
+                                                            data-toggle="modal" data-target="#info<?php echo $de_id ?>">
+                                                            <i class="fa fa-file"></i></a><!-- modal 0 -->
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <form action="report.php" method="post">
+                                                            <button class="btn btn-sm btn-warning" formtarget="_blank" type="submit" name="create_pdf">PDF</button>
+                                                            <input type="hidden" name="detail_id" value="<?php echo $de_id ?>">
+                                                        </form>
+                                                    </div>
 
+                                                </div>
 
-                                                        </div>
+                                                <!-- Modal 0-->
+                                                <div class="modal fade" id="info<?php echo $de_id ?>" tabindex="-1"
+                                                    role="dialog" aria-labelledby="sea3" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="sea3">ข้อมูล</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="container">
+                                                                    <div class="card mb-3">
+                                                                        <div class="card-body">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-borderless">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <th scope="row">ปีการศึกษา</th>
+                                                                                            <td>
+                                                                                                <?php echo $row_show['year'] ?>
+                                                                                            </td>
+                                                                                        </tr>
 
-                                                        <!-- Modal 0-->
-                                                        <div class="modal fade" id="info<?php echo $de_id ?>" tabindex="-1" role="dialog" aria-labelledby="sea3" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="sea3">ข้อมูล</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div class="container">
-                                                                            <div class="card mb-3">
-                                                                                <div class="card-body">
-                                                                                    <div class="table-responsive">
-                                                                                        <table class="table table-borderless">
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <th scope="row">ปีการศึกษา</th>
-                                                                                                    <td><?php echo $row_show['year'] ?></td>
-                                                                                                </tr>
+                                                                                        <tr>
+                                                                                            <th scope="row">เวลา</th>
+                                                                                            <td>
+                                                                                                <?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th scope="row">วันที่</th>
+                                                                                            <td>
+                                                                                                <?php echo DateThai($row_show['day']) ?>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th scope="row">ประเภท</th>
+                                                                                            <td>
+                                                                                                <?php echo $row_show['type'] ?>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-                                                                                                <tr>
-                                                                                                    <th scope="row">เวลา</th>
-                                                                                                    <td><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <th scope="row">วันที่</th>
-                                                                                                    <td><?php echo DateThai($row_show['day']) ?></td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <th scope="row">ประเภท</th>
-                                                                                                    <td><?php echo $row_show['type'] ?></td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </div>
-
-                                                                                    <div class="table-responsive">
-                                                                                        <table class="table">
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <th>#</th>
-                                                                                                    <th>วิชา</th>
-                                                                                                    <th>กลุ่มเรียน</th>
-                                                                                                    <th>ห้อง</th>
-                                                                                                    <th>จำนวน</th>
-                                                                                                    <th>อุปกรณ์</th>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                <?php
+                                                                            <div class="table-responsive">
+                                                                                <table class="table">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>#</th>
+                                                                                            <th>วิชา</th>
+                                                                                            <th>กลุ่มเรียน</th>
+                                                                                            <th>ห้อง</th>
+                                                                                            <th>จำนวน</th>
+                                                                                            <th>อุปกรณ์</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <?php
                                                                                                 $i = 1;
                                                                                                 $q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
                                                                                                 $re_room = mysqli_query($con, $q_room);
                                                                                                 while ($row_room = mysqli_fetch_array($re_room)) {
                                                                                                     ?>
-                                                                                                    <tr>
-                                                                                                        <td class="text-center"><?php echo $i++ ?></td>
-                                                                                                        <td><?php echo $row_room['sub_id'] ?></td>
-                                                                                                        <td><?php echo $row_room['sub_group'] ?></td>
-                                                                                                        <td><?php echo $row_room['name_location'] ?></td>
-                                                                                                        <td><?php echo $row_room['num'] ?></td>
-                                                                                                        <td><?php echo $row_room['tool'] ?></td>
-                                                                                                    </tr>
-                                                                                                <?php } ?>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </div>
-                                                                                </div>
+                                                                                        <tr>
+                                                                                            <td class="text-center">
+                                                                                                <?php echo $i++ ?>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <?php echo $row_room['sub_id'] ?>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <?php echo $row_room['sub_group'] ?>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <?php echo $row_room['name_location'] ?>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <?php echo $row_room['num'] ?>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <?php echo $row_room['tool'] ?>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <?php } ?>
+                                                                                    </tbody>
+                                                                                </table>
                                                                             </div>
                                                                         </div>
-
                                                                     </div>
                                                                 </div>
+
                                                             </div>
-                                                        </div>								
-                                                        <!--end modal 0-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end modal 0-->
 
 
 
-                                                    </td>
-                                                    <td><?php echo $row_show['term'] ?></td>
-                                                    <td><?php echo $row_show['year'] ?></td>
-                                                    <td>
-                                                        <?php
+                                            </td>
+                                            <td>
+                                                <?php echo $row_show['term'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row_show['year'] ?>
+                                            </td>
+                                            <td>
+                                                <?php
                                                         $q_check = "SELECT `sub_id` FROM `room_detail` WHERE `detail_id` = '$de_id' GROUP BY `sub_id` ";
                                                         $re_check = mysqli_query($con, $q_check);
                                                         $num_check = 0;
@@ -585,8 +625,8 @@ if (isset($_POST['gogo'])) {
                                                             echo $row_show['sub_id'];
                                                         }
                                                         ?>
-                                                    </td>
-                                                    <?php
+                                            </td>
+                                            <?php
                                                     if (isset($mutiple)) {
                                                         echo "<td>หลายกลุ่ม</td>";
                                                         unset($mutiple);
@@ -595,86 +635,98 @@ if (isset($_POST['gogo'])) {
                                                     }
                                                     ?>
 
-                                                    <td><?php echo DateThai($row_show['day']) ?></td>
-                                                    <td><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
-                                                    <td><?php echo $row_show['type'] . "----" . $de_id ?></td>
+                                            <td>
+                                                <?php echo DateThai($row_show['day']) ?>
+                                            </td>
+                                            <td>
+                                                <?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row_show['type'] . "----" . $de_id ?>
+                                            </td>
 
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div><!-- end table -->
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div><!-- end table -->
 
-                            </div>
-                        </div><!-- card 2 -->
+                        </div>
+                    </div><!-- card 2 -->
 
-                        <div class="crad mb-3"><!-- signature card-->
-                            <div class="card-header">
-                                <h4 class="text-center">signature</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-xl-12 ">
-                                            <div class="mx-auto" style="width: 40px;">
-                                                <img src="..." class="rounded mx-auto d-block"><br><br>
-                                            </div>
+                    <div class="crad mb-3">
+                        <!-- signature card-->
+                        <div class="card-header">
+                            <h4 class="text-center">signature</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-xl-12 ">
+                                        <div class="mx-auto" style="width: 40px;">
+                                            <img src="..." class="rounded mx-auto d-block"><br><br>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="text-center">
-                                                <button class="btn btn-sm btn-success">Upload Signature</button>
-                                                <p>Size 200*200 <br>Type*PNG*</p>
-                                            </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="text-center">
+                                            <button class="btn btn-sm btn-success">Upload Signature</button>
+                                            <p>Size 200*200 <br>Type*PNG*</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div><!--end signature card-->
+                        </div>
+                    </div>
+                    <!--end signature card-->
 
-                    </div><!-- END container-fluid -->
-                </div><!--end content-->
+                </div><!-- END container-fluid -->
             </div>
-            <!-- END content-page -->
-
-            <footer class="footer">
-
-            </footer>
-
+            <!--end content-->
         </div>
-        <!-- END main -->
+        <!-- END content-page -->
 
-        <script src="assets/js/modernizr.min.js"></script>
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/moment.min.js"></script>
+        <footer class="footer">
 
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+        </footer>
 
-        <script src="assets/js/detect.js"></script>
-        <script src="assets/js/fastclick.js"></script>
-        <script src="assets/js/jquery.blockUI.js"></script>
-        <script src="assets/js/jquery.nicescroll.js"></script>
+    </div>
+    <!-- END main -->
 
-        <!-- App js -->
-        <script src="assets/js/pikeadmin.js"></script>
+    <script src="assets/js/modernizr.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
 
-        <!-- BEGIN Java Script for this page -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
 
-        <!-- Counter-Up-->
-        <script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
-        <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>			
+    <script src="assets/js/detect.js"></script>
+    <script src="assets/js/fastclick.js"></script>
+    <script src="assets/js/jquery.blockUI.js"></script>
+    <script src="assets/js/jquery.nicescroll.js"></script>
 
-        <script>
-                                                            $(document).ready(function () {
-                                                                // data-tables
-                                                                $('#report').DataTable();
-                                                                $('.select2').select2();
-                                                            });
-        </script>
-        <!-- END Java Script for this page -->
+    <!-- App js -->
+    <script src="assets/js/pikeadmin.js"></script>
 
-    </body>
+    <!-- BEGIN Java Script for this page -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+    <!-- Counter-Up-->
+    <script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // data-tables
+            $('#report').DataTable();
+            $('.select2').select2();
+        });
+    </script>
+    <!-- END Java Script for this page -->
+
+</body>
+
 </html>
