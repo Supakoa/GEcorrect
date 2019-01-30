@@ -725,9 +725,9 @@ if (isset($_POST['gogo'])) {
                             <div class="container">
                                 <div class="row">
                                     <div class="col-xl-12 ">
-                                        <div class="mx-auto" style="width: 500px;background-color:white;">
-                                            <img src="banner/Im_Yoona_signature.png" class="rounded mx-auto d-block"
-                                                style="width: 100%;"><br><br>
+                                        <div class="mx-auto" style="width:400px;" >
+                                            <img src="banner/Im_Yoona_signature.png"  class="rounded mx-auto d-block"
+                                                style="width: 100%;"><br>
                                         </div>
                                     </div>
                                 </div><br>
@@ -738,7 +738,7 @@ if (isset($_POST['gogo'])) {
                                     </div>
                                     <div class="col-md-2 text-center">
                                         <button class="btn btn-sm btn-success">Upload Signature</button>
-                                        <p>Size 200*200 <br>Type*PNG*</p>
+                                        <p>Size 400*400 <br>Type*PNG*</p>
                                     </div>
                                     <div class="col-md-4"></div>
                                 </div>
