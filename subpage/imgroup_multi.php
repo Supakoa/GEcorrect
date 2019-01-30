@@ -431,7 +431,7 @@
                                                         <h3 class="text-center">Computer</h3>
                                                     </div>
                                                     <div class="card-body" id="computer_main">
-                                                        <div class="row form-group" id="computer">
+                                                        <div class="row form-group">
                                                             <div class="col-md-3 ">
                                                                 <!-- room & Value -->
                                                                 <label for="room1">1.ห้อง</label>
@@ -474,15 +474,15 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="text-center">
-                                                        <a class="btn btn-sm btn-info" id="btn1"><i class="fa fa-plus"></i></a>
+                                                        <a class="btn btn-sm btn-info" id="btn1-add"><i class="fa fa-plus"></i></a>
 
-                                                        <a class="btn btn-sm btn-danger" id="btn11"><i class="fa fa-minus"></i></a>
+                                                        <a class="btn btn-sm btn-danger" id="btn1-minus"><i class="fa fa-minus"></i></a>
                                                     </div><br>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="text-center">
-                                                        <a class="btn btn-sm btn-info" id="btn2"><i class="fa fa-plus"></i></a>
-                                                        <a class="btn btn-sm btn-danger" id="btn22"><i class="fa fa-minus"></i></a>
+                                                        <a class="btn btn-sm btn-info" id="btn2-add"><i class="fa fa-plus"></i></a>
+                                                        <a class="btn btn-sm btn-danger" id="btn2-minus"><i class="fa fa-minus"></i></a>
                                                     </div><br>
                                                 </div>
                                             </div>
@@ -561,7 +561,7 @@
             var i = 1;
             var j = 1;
             var sum = '<?php echo $option_location; ?>'
-            $("#btn1").click(function () {
+            $("#btn1-add").click(function () {
                 $("#tablet_main").append(function () {
                     i++;
                     var tablet = '';
@@ -574,12 +574,12 @@
                     return tablet;
                 });
             });
-            $("#btn2").click(function () {
+            $("#btn2-add").click(function () {
                 $("#computer_main").append(function () {
                     j++;
                     var computer = '';
                     computer +=
-                        '<div class="row form-group" id ="computer" ><div class="col-md-3 "><label for="room">' +
+                        '<div class="row form-group" id = "computer" ><div class="col-md-3 "><label for="room">' +
                         j +
                         '.ห้อง</label><select name="com_room[]"  class="form-control select2" required>' +
                         sum +
@@ -592,14 +592,14 @@
             $("#submit").click(function () {
                 $("#form1").submit();
             });
-            $("#btn11").click(function () {
+            $("#btn1-minus").click(function () {
                 if (i > 1) {
                     i--;
                 }
 
                 $("#tablet:last-child").remove();
             });
-            $("#btn22").click(function () {
+            $("#btn2-minus").click(function () {
                 if (j > 1) {
                     j--;
                 }
