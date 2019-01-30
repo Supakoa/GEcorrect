@@ -169,6 +169,8 @@ if(isset($_POST['new_btn_2'])){//paper
 	<!-- Bootstrap CSS -->
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
+	<!-- <link rel="stylesheet" href="assets/css/bootstrap-checkbox.css"> -->
+
 	<!-- Font Awesome CSS -->
 	<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
@@ -217,7 +219,7 @@ if(isset($_POST['new_btn_2'])){//paper
 													<th>ลำดับ</th>
 													<th>ข้อความ</th>
 													<th>ที่อยู่</th>
-													<th>ซ่อน</th>
+													<th class="text-center">ซ่อน</th>
 												</tr>
 											</thead>
 											<form action="footer.php" method="post">
@@ -234,10 +236,10 @@ if(isset($_POST['new_btn_2'])){//paper
 														<td><input class="form-control" type="text" name="web_url_<?php echo $i ?>" value="<?php echo $row1['url'] ?>"
 															 require></td>
 														<?php if ($row1['hide'] == 0) { ?>
-														<td class="text-center"><input type="checkbox" class="form-checkbox" name="web_check_<?php echo $i ?>"></td>
+														<td class="text-center "><input type="checkbox" class="form-checkbox form-control" name="web_check_<?php echo $i ?>"></td>
 														<?php 
                                     						} else { ?>
-														<td class="text-center"><input type="checkbox" class="form-checkbox" name="web_check_<?php echo $i ?>"
+														<td class="text-center "><input type="checkbox" class="form-checkbox form-control" name="web_check_<?php echo $i ?>"
 															 checked></td>
 														<?php 
                                     						} ?>
@@ -293,7 +295,7 @@ if(isset($_POST['new_btn_2'])){//paper
 													<th>ข้อความ</th>
 													<th>ชื่อไฟล์</th>
 													<th>เพิ่มไฟล์ PDF</th>
-													<th>ซ่อน</th>
+													<th class="text-center">ซ่อน</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -312,11 +314,11 @@ if(isset($_POST['new_btn_2'])){//paper
 													<?php 
 														if ($row2['hide'] == 0) { 
 													?>
-													<td class="text-center"><input form="form_1" type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>"></td>
+													<td class="text-center"><input form="form_1" type="checkbox" class="form-checkbox form-control" name="paper_check_<?php echo $a ?>"></td>
 													<?php 
 														} else { 
 													?>
-													<td class="text-center"><input form="form_1" type="checkbox" class="form-checkbox" name="paper_check_<?php echo $a ?>"
+													<td class="text-center"><input form="form_1" type="checkbox" class="form-checkbox form-control" name="paper_check_<?php echo $a ?>"
 														 checked></td>
 													<?php 
 														} 
