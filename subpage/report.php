@@ -43,58 +43,63 @@ if (isset($_POST['create_pdf'])) {
         $ignore_table_width = true;
         $mpdf->shrink_tables_to_fit = 1;
 
-			$num_page = 0;
-        while ($row_sl_room = mysqli_fetch_array($re_sl_room)) {
-            
+            $num_page = 0;
+            $row_sl_room = mysqli_fetch_array($re_sl_room);
             $r_d_id = $row_sl_room['room_detail_id'];
             $q_head = "SELECT detail.* , subject.subject_name,location_table.name_location FROM `room_detail`,`detail`,`subject`,`location_table` WHERE location_table.order = room_detail.room_id AND detail.detail_id =room_detail.detail_id AND room_detail.sub_id = subject.subject_id AND room_detail.room_detail_id = '$r_d_id' AND room_detail.detail_id = '$detail_id' ";
             $re_head = mysqli_query($con, $q_head);
             $row_head = mysqli_fetch_array($re_head);
-            $q_show = "SELECT student_room.student_room_id,student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,`subject`.subject_id,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
-			FROM `student_room`,`location_table`,`room_detail`,`student`,`subject`,`detail`
-			WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
-			AND detail.detail_id = '$detail_id' AND room_detail.room_detail_id = '$r_d_id' order by student_room.seat ";
-            $re_show = mysqli_query($con, $q_show);
+          
+           
 			$head_term =$row_head['term'];
 			$head_year = $row_head['year'];
 			$head_date =DateThai($row_head['day']);
 			$head_time =substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น.";
-			$head_location = $row_head['name_location'];
+            $head_location = $row_head['name_location'];
             $head = '
-	<html>
-		<head>
-			<style>
-				@page {
-					size: auto;
-					odd-header-name: html_MyHeader1;
-				}
-				
-			</style>
-		</head>
-		<body>
-			<htmlpageheader name="MyHeader1">
-				<div>
-						
-						<div style="text-align: center; font-weight: bold; font-size: 12pt;padding-top: 10px;">
-                        <span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
+            <html>
+                <head>
+                    <style>
+                        @page {
+                            size: auto;
+                            odd-header-name: html_MyHeader1;
+                        }
+                        
+                    </style>
+                </head>
+                <body>
+                    <htmlpageheader name="MyHeader1">
+                        <div>
+                                
+                                <div style="text-align: center; font-weight: bold; font-size: 12pt;padding-top: 10px;">
+                                <span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
+                                </div>
                         </div>
-                </div>
-                
-                ';
+                        
+                        ';
+        
+                        if($_POST['signature']){
+                            $_SESSION['signature'] = 1 ;
+                            $head .= ' 
+                            <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:250mm;margin-left:170mm">
+                        ';
+                       }else{
+                        $_SESSION['signature'] = 0 ;
+                       }
+                       $head .= '</htmlpageheader>
+                </body>
+            </html>
+        
+            ';
+        while ($num_page<$num_room) {
+            
+         
+            $q_show = "SELECT student_room.student_room_id,student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,`subject`.subject_id,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
+			FROM `student_room`,`location_table`,`room_detail`,`student`,`subject`,`detail`
+			WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
+            AND detail.detail_id = '$detail_id' AND room_detail.room_detail_id = '$r_d_id' order by student_room.seat ";
+            $re_show = mysqli_query($con, $q_show);
 
-                if($_POST['signature']){
-                    $_SESSION['signature'] = 1 ;
-                    $head .= ' 
-                    <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:250mm;margin-left:170mm">
-                ';
-               }else{
-                $_SESSION['signature'] = 0 ;
-               }
-               $head .= '</htmlpageheader>
-		</body>
-	</html>
-
-	';
 
             $thead = '
 	<html>
@@ -211,6 +216,17 @@ if (isset($_POST['create_pdf'])) {
 			$mpdf->WriteHTML($footer);
 			++$num_page;
 			if($num_page<$num_room){
+                $row_sl_room = mysqli_fetch_array($re_sl_room);
+                $r_d_id = $row_sl_room['room_detail_id'];
+                $q_head = "SELECT detail.* , subject.subject_name,location_table.name_location FROM `room_detail`,`detail`,`subject`,`location_table` WHERE location_table.order = room_detail.room_id AND detail.detail_id =room_detail.detail_id AND room_detail.sub_id = subject.subject_id AND room_detail.room_detail_id = '$r_d_id' AND room_detail.detail_id = '$detail_id' ";
+                $re_head = mysqli_query($con, $q_head);
+                $row_head = mysqli_fetch_array($re_head);
+              
+                $head_term =$row_head['term'];
+                $head_year = $row_head['year'];
+                $head_date =DateThai($row_head['day']);
+                $head_time =substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น.";
+                $head_location = $row_head['name_location'];
                 $head = '
                 <html>
                     <head>
@@ -231,12 +247,23 @@ if (isset($_POST['create_pdf'])) {
                                     </div>
                             </div>
                             
-                          
+                            ';
+            
+                            if($_POST['signature']){
+                                $_SESSION['signature'] = 1 ;
+                                $head .= ' 
+                                <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:230mm;margin-left:170mm">
+                            ';
+                           }else{
+                            $_SESSION['signature'] = 0 ;
+                           }
+                           $head .= '</htmlpageheader>
                     </body>
                 </html>
+            
                 ';
+                $mpdf->WriteHTML($head);
                 $mpdf->AddPage();
-                // $mpdf->WriteHTML($head);
 				
 					}
 			
