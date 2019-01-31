@@ -776,9 +776,8 @@ if (isset($_POST['gogo'])) {
                             <div class="container">
                                 <div class="row">
                                     <div class="col-xl-12 ">
-                                        <div class="mx-auto" style="width: 500px;background-color:white;">
-                                            <img src="banner/<?php echo $r['signature']; ?>" class="rounded mx-auto d-block"
-                                                style="width: 100%;"><br><br>
+                                        <div class="mx-auto" style="width: 300px;background-color:white;">
+                                            <img src="banner/<?php echo $r['signature']; ?>" class="rounded mx-auto d-block" style="width: 100%;"><br><br>
                                         </div>
                                     </div>
                                 </div><br>
