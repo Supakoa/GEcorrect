@@ -93,7 +93,7 @@ $table_result = mysqli_query($con,$table);
 <body>
 
     <header>
-        <img src="image/ge-test.png" width="100%" height="auto" class="img-fluid" alt="Responsive image">
+        <img src="../subpage/banner/<?php echo $_SESSION['banner'] ?>" width="100%" height="auto" class="img-fluid" alt="Responsive image">
 
     </header>
 

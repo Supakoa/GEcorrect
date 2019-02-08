@@ -57,8 +57,8 @@ $row = mysqli_fetch_array($result);
 
 <body>
     <header>
-       
-        <img src="image/ge-test.png"width="100%" height="auto" class="img-fluid" alt="Responsive image">
+    <img src="../subpage/banner/<?php echo $_SESSION['banner'] ?>" width="100%" height="auto" class="img-fluid" alt="Responsive image">
+
 
     </header>
 

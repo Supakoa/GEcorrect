@@ -40,8 +40,8 @@
 </head>
 
 <body>
-    <header>
-        <img src="image/ge-test.png" width="100%" height="auto" class="img-fluid" alt="Responsive image">
+    <header>        
+    <img src="../subpage/banner/<?php echo $_SESSION['banner'] ?>" width="100%" height="auto" class="img-fluid" alt="Responsive image">
     </header>
 
 
@@ -82,14 +82,14 @@
                             </div>
                             <div class="row text-center">
                                 <div class="col-lg-1"></div>
-                                <div class="col-lg-10">
+                                <div class="col-lg-10" style="text-align:center" >
                                     <div class="g-recaptcha" data-sitekey="6LedMIwUAAAAANsXFa3FG4g2kX6K2NJC2DB2BSNw"></div><br>
                                 </div>
                                 <div class="col-lg-1"></div>
                             </div>
                             <div class="row ">
                                 <div class="col-lg-1"></div>
-                                <div class="col-lg-10">
+                                <div class="col-lg-10" style="text-align:center">
                                     <input class="btn btn-md" style="background:#55236d;color:white" type="submit"
                                         value="เข้าสู่ระบบ">
                                 </div>
