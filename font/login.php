@@ -10,6 +10,7 @@
   if (!$captcha) {
       echo '<h2>โปรดยืนยันตัวตนของคุณ</h2>';
       $_SESSION['status'] = 1; //not match
+      $_SESSION['alert'] = 26;
       header("Location: index.php");
       exit;
   }
@@ -21,6 +22,7 @@
       $_SESSION['status'] = 1; //not match
       header("Location: index.php");
       echo '<h2>โปรดทำการยันยืนให้ถูกต้อง</h2>';
+      $_SESSION['alert'] = 27;
       exit();
   } else {
       $login_id = mysqli_real_escape_string($con, $_POST['text']);
@@ -38,6 +40,7 @@
           header("Location: main.php");
       } else {
           $_SESSION['status'] = 1; //not match
+          $_SESSION['alert'] = 28;
           header("Location: index.php");
       }
       exit();

@@ -14,6 +14,7 @@
     $web_row = mysqli_fetch_array($web_result);
     $_SESSION['footer'] = $web_row['footer'];
     $_SESSION['banner'] = $web_row['banner'];
+    
 
 
 ?>
@@ -70,12 +71,12 @@
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                 <div class="card card-signin my-5">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Sign In</h5>
+                        <h5 class="card-title text-center">ค้นหาตารางสอบ</h5>
                         <form action="login.php" method="POST">
                             <div class="row text-center">
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-10">
-                                    <input type="text" name="text" class="form-control" placeholder="ใส่รหัสนักศึกษา"
+                                    <input type="text" name="text" pattern="[0-9]{11}" title="กรุณากรอกเฉพาะรหัสนักศึกษาและตรวจสอบให้ครบ 11 หลัก" class="form-control" placeholder="ใส่รหัสนักศึกษา"
                                         required autofocus><br>
                                 </div>
                                 <div class="col-lg-1"></div>
@@ -83,7 +84,7 @@
                             <div class="row text-center">
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-10" style="text-align:center" >
-                                    <div class="g-recaptcha" data-sitekey="6LedMIwUAAAAANsXFa3FG4g2kX6K2NJC2DB2BSNw"></div><br>
+                                    <div class="g-recaptcha" data-sitekey="6LedMIwUAAAAANsXFa3FG4g2kX6K2NJC2DB2BSNw" required></div><br>
                                 </div>
                                 <div class="col-lg-1"></div>
                             </div>

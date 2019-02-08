@@ -294,12 +294,45 @@
                     <script>
                         Swal({
                             type: 'warning',
-                            title: 'การอัพโหลดเกิดปัญหา',
+                            title: 'การอัพโหลดเกิดปัญหา.',
                             text: 'เกิดการทับซ้อนกันของข้อมูลแต่ข้อมูลเก่ายังอยู่ในฐานข้อมูล.',
                             // footer: '<a href>Why do I have this issue?</a>'
                         });                    
                     </script>";
             break;
+            case '26':
+                echo "
+                    <script>
+                        Swal({
+                            type: 'warning',
+                            title: 'โปรดยืนยันตัวตน.',
+                            text: 'กรุณาลองใหม่อีกครั้ง.',
+                            // footer: '<a href>Why do I have this issue?</a>'
+                        });                    
+                    </script>";
+            break;
+            case '27':
+                echo "
+                    <script>
+                        Swal({
+                            type: 'warning',
+                            title: 'โปรดทำรายการให้ถูกต้องก่อนส่งข้อมูล.',
+                            text: 'กรุณาลองใหม่อีกครั้ง.',
+                            // footer: '<a href>Why do I have this issue?</a>'
+                        });                    
+                    </script>";
+            break;
+            case '28':
+            echo "
+                <script>
+                    Swal({
+                        type: 'warning',
+                        title: 'ไม่พบข้อมูลของท่าน.',
+                        text: 'กรุณาตรวจสอบความถูกต้องอีกครั้ง.',
+                        // footer: '<a href>Why do I have this issue?</a>'
+                    });                    
+                </script>";
+        break;
 
             // $_SESSION['alert'] = 0 or null
             default:

@@ -1,7 +1,12 @@
 <?php
  require 'server.php';
   session_start();
-
+  
+  if(!isset($_SESSION['id'])){
+    $_SESSION['alert'] = 2;
+    header("Location: index.php");
+    exit();
+}
   //Pre footer
 $q1 =  "SELECT * FROM `show_url` WHERE group_url = '1' AND hide=0 ";
 $q2 =  "SELECT * FROM `show_url` WHERE group_url = '2' AND hide=0";
