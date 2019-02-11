@@ -292,7 +292,7 @@
                                                         <div class="col-md-2 text-center"><label style="text-align:center;">ถึง</label></div>
                                                         <div class="col-md-5">
                                                             <div class="input-group clockpicker" data-autoclose="true"
-                                                                data-placement="right" data-default='00.00'>
+                                                            data-placement="left"  data-default='00.00'>
                                                                 <input type="text" class="form-control" name="e_time"
                                                                     placeholder="เวลาสิ้นสุด" required>
                                                                 <span class="input-group-addon">

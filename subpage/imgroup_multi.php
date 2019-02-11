@@ -147,7 +147,7 @@ if (isset($_POST['tab_room'])) {
             $s = 0;
             $r = 0;
             if ($sum_num < $sum_std) {
-                header("Location: imgroup.php");
+                // header("Location: imgroup.php");
                 $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
                 if ($re_del_rm = mysqli_query($con, $q_del_rm)) {
                     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
@@ -166,7 +166,7 @@ if (isset($_POST['tab_room'])) {
                 $_SESSION['alert'] = 21; //จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
                 exit();
             } elseif ($sum_num > $sum_std) {
-                header("Location: imgroup.php");
+                // header("Location: imgroup.php");
                 $q_del_rm = "DELETE FROM `room_detail` WHERE `detail_id` ='$detail_id'";
                 if ($re_del_rm = mysqli_query($con, $q_del_rm)) {
                     $q_del_dt = "DELETE FROM `detail` WHERE `detail_id` ='$detail_id'";
@@ -330,7 +330,7 @@ if (isset($_POST['tab_room'])) {
                                                             <div class="col-md-2 text-center"><label style="text-align:center;">ถึง</label></div>
                                                             <div class="col-md-5">
                                                                 <div class="input-group clockpicker" data-autoclose="true"
-                                                                     data-placement="right" data-default='00.00'>
+                                                                data-placement="left" data-default='00.00'>
                                                                     <input type="text" class="form-control" name="e_time"
                                                                            placeholder="เวลาสิ้นสุด" required>
                                                                     <span class="input-group-addon">
