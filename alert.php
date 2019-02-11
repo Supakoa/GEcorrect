@@ -1,4 +1,5 @@
 <?php
+	//P@ssw0rdGE
     if (isset($_SESSION['alert'])) {
         switch ($_SESSION['alert']) {
             // กรอกข้อมูลไม่ถูกต้อง
