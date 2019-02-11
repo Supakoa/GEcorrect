@@ -347,7 +347,7 @@
                                                         <h3 class="text-center">Tablet</h3>
                                                     </div>
                                                     <div class="card-body " id="tablet_main">
-                                                        <div class="row form-group">
+                                                        <div class="row form-group" id = "tablet" >
                                                             <div class="col-md-4">
                                                                 <!-- room & Value -->
                                                                 <label for="room">1.ห้อง</label>
@@ -373,7 +373,7 @@
                                                         <h3 class="text-center">Computer</h3>
                                                     </div>
                                                     <div class="card-body" id="computer_main">
-                                                        <div class="row form-group">
+                                                        <div class="row form-group" id ="computer">
                                                             <div class="col-md-4 ">
                                                                 <!-- room & Value -->
                                                                 <label for="room1">1.ห้อง</label>
@@ -521,14 +521,14 @@
                 $("#form1").submit();
             });
             $("#btn11").click(function () {
-                if (i > 1) {
+                if (i > 0) {
                     i--;
                 }
 
                 $("#tablet:last-child").remove();
             });
             $("#btn22").click(function () {
-                if (j > 1) {
+                if (j > 0) {
                     j--;
                 }
                 $("#computer:last-child").remove();
