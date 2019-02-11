@@ -56,32 +56,40 @@
             $i = 0;
             $num[] = '';
             $sum_num = 0;
-            foreach ($_POST['tab_num'] as $value) {
+            if(isset($_POST['tab_num'])){
+                foreach ($_POST['tab_num'] as $value) {
+                $num[$i] = $value;
+                $sum_num += $value;
+                $i++;
+             }
+            }
+            if(isset($_POST['com_num'])){
+                foreach ($_POST['com_num'] as $value) {
                 $num[$i] = $value;
                 $sum_num += $value;
                 $i++;
             }
-            foreach ($_POST['com_num'] as $value) {
-                $num[$i] = $value;
-                $sum_num += $value;
-                $i++;
             }
+            
             $i = 0;
             $room[] = '';
-            foreach ($_POST['tab_room'] as $value) {
-                $std_num = $num[$i];
-                $room_id = "RD" . getToken(10);
+            if(isset($_POST['tab_room'])){
+                foreach ($_POST['tab_room'] as $value) {
+                    $std_num = $num[$i];
+                    $room_id = "RD" . getToken(10);
 
-                $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub','$group_exam','$std_num','TABLET')";
-                if ($re_room = mysqli_query($con, $q_room)) {
-                    $room[$i++] = $room_id;
-                } else {
-                    header("Location: imgroup.php");
-                    $_SESSION['alert'] = 4;
-                    exit();
-                }
+                    $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub','$group_exam','$std_num','TABLET')";
+                    if ($re_room = mysqli_query($con, $q_room)) {
+                        $room[$i++] = $room_id;
+                    } else {
+                        header("Location: imgroup.php");
+                        $_SESSION['alert'] = 4;
+                        exit();
+                    }
+                } 
             }
-            foreach ($_POST['com_room'] as $value) {
+           if(isset($_POST['com_room'])){
+               foreach ($_POST['com_room'] as $value) {
                 $std_num = $num[$i];
                 $room_id = "RD" . getToken(10);
                 $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub','$group_exam','$std_num','COMPUTER')";
@@ -93,6 +101,8 @@
                     exit();
                 }
             }
+           }
+            
 
             if (($handle = fopen("$file", "r")) !== FALSE) {
                 $i = 0;
@@ -114,12 +124,12 @@
                         if ($re_del_dt = mysqli_query($con, $q_del_dt)) {
                             $_SESSION['alert'] = 12;
                         } else {
-                            header("Location: search2.php");
+                            header("Location: imgroup.php");
                             $_SESSION['alert'] = 4;
                             exit();
                         }
                     } else {
-                        header("Location: search2.php");
+                        header("Location: imgroup.php");
                         $_SESSION['alert'] = 4;
                         exit();
                     }
@@ -134,12 +144,12 @@
                         if ($re_del_dt = mysqli_query($con, $q_del_dt)) {
                             $_SESSION['alert'] = 12;
                         } else {
-                            header("Location: search2.php");
+                            header("Location: imgroup.php");
                             $_SESSION['alert'] = 4;
                             exit();
                         }
                     } else {
-                        header("Location: search2.php");
+                        header("Location: imgroup.php");
                         $_SESSION['alert'] = 4;
                         exit();
                     }

@@ -61,29 +61,36 @@ if (isset($_POST['tab_room'])) {
         $num[] = '';
         $group_exam[] = '';
         $sub[] = '';
-        foreach ($_POST['tab_num'] as $value) {
-            $sub[$i] = $_POST['tab_sub'][$n];
-            $group_exam[$i] = $_POST['tab_group_exam'][$n];
-            $num[$i] = $value;
-            $sum_num += $value;
-            $i++;
-            $n++;
+        if(isset($_POST['tab_num'])){
+            foreach ($_POST['tab_num'] as $value) {
+                $sub[$i] = $_POST['tab_sub'][$n];
+                $group_exam[$i] = $_POST['tab_group_exam'][$n];
+                $num[$i] = $value;
+                $sum_num += $value;
+                $i++;
+                $n++;
+            }
         }
+        
         $n = 0;
-        foreach ($_POST['com_num'] as $value) {
-            $sub[$i] = $_POST['com_sub'][$n];
-            $group_exam[$i] = $_POST['com_group_exam'][$n];
-            $num[$i] = $value;
-            $sum_num += $value;
-            $i++;
-            $n++;
+        if(isset($_POST['com_num'])){
+            foreach ($_POST['com_num'] as $value) {
+                $sub[$i] = $_POST['com_sub'][$n];
+                $group_exam[$i] = $_POST['com_group_exam'][$n];
+                $num[$i] = $value;
+                $sum_num += $value;
+                $i++;
+                $n++;
+            }
         }
+        
         $n = 0;
         $i = 0;
         $r = 0;
         $room[] = '';
         $sum_room[] = '';
-        foreach ($_POST['tab_room'] as $value) {
+        if(isset($_POST['tab_room'])){
+          foreach ($_POST['tab_room'] as $value) {
             if ($i != 0) {
                 if ($_POST['tab_room'][$n] == $_POST['tab_room'][($n - 1)]) {
                     $sum_room[$r++] = $i;
@@ -104,10 +111,13 @@ if (isset($_POST['tab_room'])) {
                 $_SESSION['alert'] = 4;
                 exit();
             }
+        }  
         }
+        
         $n = 0;
         $k = 0;
-        foreach ($_POST['com_room'] as $value) {
+        if(isset($_POST['com_room'])){
+         foreach ($_POST['com_room'] as $value) {
             if ($k != 0) {
                 if ($_POST['com_room'][$n] == $_POST['com_room'][($n - 1)]) {
                     $sum_room[$r++] = $i;
@@ -129,7 +139,9 @@ if (isset($_POST['tab_room'])) {
                 $_SESSION['alert'] = 4;
                 exit();
             }
+        }   
         }
+        
 
 
 
@@ -154,15 +166,17 @@ if (isset($_POST['tab_room'])) {
                     if ($re_del_dt = mysqli_query($con, $q_del_dt)) {
                         $_SESSION['alert'] = 12;
                     } else {
-                        header("Location: search2.php");
+                        header("Location: imgroup_multi.php");
                         $_SESSION['alert'] = 4;
                         exit();
                     }
                 } else {
-                    header("Location: search2.php");
+                    header("Location: imgroup_multi.php");
                     $_SESSION['alert'] = 4;
                     exit();
                 }
+                header("Location: imgroup_multi.php");
+
                 $_SESSION['alert'] = 21; //จำนวนรวมน้อยกว่าจำนวนรายชื่อในไฟล์
                 exit();
             } elseif ($sum_num > $sum_std) {
@@ -173,15 +187,17 @@ if (isset($_POST['tab_room'])) {
                     if ($re_del_dt = mysqli_query($con, $q_del_dt)) {
                         $_SESSION['alert'] = 12;
                     } else {
-                        header("Location: search2.php");
+                        header("Location: imgroup_multi.php");
                         $_SESSION['alert'] = 4;
                         exit();
                     }
                 } else {
-                    header("Location: search2.php");
+                    header("Location: imgroup_multi.php");
                     $_SESSION['alert'] = 4;
                     exit();
                 }
+                header("Location: imgroup_multi.php");
+
                 $_SESSION['alert'] = 22; //จำนวนรวมมากกว่าจำนวนรายชื่อในไฟล์
 
                 exit();
