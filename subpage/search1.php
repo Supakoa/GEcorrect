@@ -13,10 +13,12 @@
 	if(!isset($_SESSION['search'])){
 		$sql = "SELECT * FROM student WHERE 0 ";
 		$re = mysqli_query($con,$sql);
+		$search_now = "";
 	}else{
 		$search = $_SESSION['search'];
-		$sql = "SELECT * FROM student WHERE std_id LIKE '$search%' ";
-    	$re = mysqli_query($con,$sql);
+		$sql = "SELECT * FROM student WHERE std_id LIKE '%$search%' ";
+		$re = mysqli_query($con,$sql);
+		$search_now =$search ;
 	}
 
 	// insert new student
@@ -172,7 +174,7 @@
 										<!-- w3.js filter -->
 										<!-- <input oninput="w3.filterHTML('#search1', '.item', this.value)" class="w3-input" placeholder="Search for names.."> -->
 										<div class="col-sm-4"></div>
-										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' placeholder="รหัสนักศึกษา"
+										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' value = "<?php echo $search_now ?>" placeholder="รหัสนักศึกษา"
 											 required></div>
 										<div class="col-sm-4"><input class="btn btn-md btn-success" type="submit" value="Submit" name="btn_search"></div>
 									</div>
