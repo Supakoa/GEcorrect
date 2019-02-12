@@ -286,7 +286,7 @@ if (isset($_POST['tab_room'])) {
                     <!-- content -->
                     <div class="card mb-3">
                         <div class="card-header">
-                            <h4 class="text-center">นำเข้าข้อมูลแบบกลุ่มเรียน</h4>
+                            <h4 class="text-center">นำเข้าข้อมูลแบบกลุ่มเรียน(หลายวิชา)</h4>
                         </div>
 
                         <div class="card-body">
