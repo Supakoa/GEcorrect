@@ -291,15 +291,21 @@
             break;
 
             case '25':
-                echo "
+            $err = "<br>";
+                for($i=0;$i<count($_SESSION['err_std']);$i++){
+                    $err .= $_SESSION['err_std'][$i];
+                }
+                $sum =  "
                     <script>
                         Swal({
                             type: 'warning',
                             title: 'การอัพโหลดเกิดปัญหา.',
                             text: 'เกิดการทับซ้อนกันของข้อมูลแต่ข้อมูลเก่ายังอยู่ในฐานข้อมูล.',
-                            // footer: '<a href>Why do I have this issue?</a>'
+                            html: '<p>เกิดการทับซ้อนกันของข้อมูลแต่ข้อมูลเก่ายังอยู่ในฐานข้อมูล.</p><hr><p style=\"font-size:30px\">รายชื่อที่ซ้ำกัน</p>".$err."'
                         });                    
                     </script>";
+                    echo $sum;
+                    unset($_SESSION['err_std']);
             break;
             case '26':
                 echo "
