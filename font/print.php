@@ -56,12 +56,12 @@
       <div class="col-lg-3"></div>
     </div>
     <div class="row">
-      <div class="col-lg-3"></div>
-      <div class="col-lg-6 text-center">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8 text-center">
         <h3>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์</h3>
 
       </div>
-      <div class="col-lg-3"></div>
+      <div class="col-lg-2"></div>
     </div>
     <div class="row">
       <div class="col-lg-3"></div>

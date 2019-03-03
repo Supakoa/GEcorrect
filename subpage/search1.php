@@ -186,7 +186,7 @@
 					</div>
 
 					<div class="card-body">
-						<div class="table-responsive" style="overflow-x:auto;">
+						<div class="table-responsive text-nowrap" style="overflow-x:auto;">
 							<!-- table -->
 							<table id="search1" class="table table-bordered">
 								<thead>
@@ -262,11 +262,11 @@
 											</div>
 										</div>
 										<!--end modal -->
+										<th>รหัสนักศึกษา</th>
+										<th>ชื่อ-นามสกุล</th>
 										<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox" ng-model="all">
 												Check All</label></th>
 										<th></th>
-										<th>รหัสนักศึกษา</th>
-										<th>ชื่อ-นามสกุล</th>
 									</tr>
 								</thead>
 
@@ -278,7 +278,12 @@
 									while( $r = mysqli_fetch_array($re) ){
 								?>
 									<tr class="item">
-
+										<td>
+											<?php echo $r['std_id']; ?>
+										</td>
+										<td>
+											<?php echo $r['name'];?>
+										</td>
 										<td class="text-center">
 											<div class="form-check">
 												<input form="form_1" type="checkbox" name="del_cb[]" value="<?php echo $r['std_id']; ?>" class="form-check-input"
@@ -363,12 +368,6 @@
 											</div>
 											<!--end modal 3-->
 
-										</td>
-										<td>
-											<?php echo $r['std_id']; ?>
-										</td>
-										<td>
-											<?php echo $r['name'];?>
 										</td>
 									</tr>
 									<!-- end of php loop -->

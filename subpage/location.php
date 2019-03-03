@@ -139,9 +139,9 @@
 							</h4>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive" style="overflow-x:auto;">
+							<div class="table-responsive text-nowrap" style="overflow-x:auto;">
 								<!-- <form action="server/del_select.php" id="cb_del" method="get"> -->
-									<table id="locat" class="table table-bordered">
+									<table id="locat" class="table table-bordered w-auto table-fixed">
 
 										<input form="form_1" type="hidden" name="hide_del_select" value="2">
 										<thead>
@@ -154,11 +154,11 @@
 														 class="fa fa-minus"></i> ลบที่เลือก</a>
 
 												</div>
-
+												
+												<th style="width:500px;">ชื่อของสถานที่สอบ</th>
+												<th>URL</th>
 												<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
 												<th>Action</th>
-												<th>สถานที่</th>
-												<th>URL</th>
 
 											</tr>
 										</thead>
@@ -169,6 +169,13 @@
 											while($row1 = mysqli_fetch_array($re)){
 										?>
 											<tr>
+												
+												<td >
+													<?php echo $row1['name_location']; ?>
+												</td>
+												<td >
+													<?php echo $row1['url_location']; ?>
+												</td>
 												<td class="text-center">
 													<!-- <form action="server/del_select.php" id="form_1" method="get"> -->
 														<div class="form-check">
@@ -251,12 +258,6 @@
 													</div>
 													<!--end modal 3-->
 
-												</td>
-												<td>
-													<?php echo $row1['name_location']; ?>
-												</td>
-												<td>
-													<?php echo $row1['url_location']; ?>
 												</td>
 											</tr>
 											<?php } ?>
