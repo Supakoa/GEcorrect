@@ -34,6 +34,8 @@
             $_SESSION['err_std'][] = "</tbody></table>";
             if($_SESSION['alert']!=25){
                 $_SESSION['alert'] = 3;
+                // $_SESSION['arr_err'] change to array if alert = 25
+                $_SESSION['arr_err'] = $arr_err;
             }
             fclose($handle);
             header("Location: imstudent.php");
@@ -74,19 +76,20 @@
 
         <!-- sweet alert2 -->
 	    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
-
+        
     </head>
 
     <body class="adminbody">
         <div id="main">
 
-            <?php //require 'menu/navmenu.php' ?>
+            <?php require 'menu/navmenu.php' ?>
 
 
             <div class="content-page">
-                <!-- content-page -->
 
+                <!-- content-page -->
                 <div class="content">
+
                     <!-- content -->
                     <div class="card mb-3">
                         <div class="card-header">
@@ -126,10 +129,7 @@
             </div>
             <!-- END content-page -->
 
-            <footer class="footer">
-
-            </footer>
-
+            <footer class="footer"></footer>
         </div>
         <!-- END main -->
 
@@ -171,5 +171,4 @@
         <!-- END Java Script for this page -->
 
     </body>
-
 </html>
