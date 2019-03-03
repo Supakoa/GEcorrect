@@ -1,4 +1,5 @@
 <?php
+	//P@ssw0rdGE
     if (isset($_SESSION['alert'])) {
         switch ($_SESSION['alert']) {
             // กรอกข้อมูลไม่ถูกต้อง
@@ -290,23 +291,55 @@
             break;
 
             case '25':
-                // check array isn't make
-                $pt_ar = "";
-                if(isset($_SESSION['arr_err'])){
-                    for ($i=0; $i < count($_SESSION['arr_err']); $i++) { 
-                        $pt_ar =  $pt_ar.$_SESSION['arr_err'][$i].'<br>';
-                    }
+            $err = "<br>";
+                for($i=0;$i<count($_SESSION['err_std']);$i++){
+                    $err .= $_SESSION['err_std'][$i];
                 }
+                $sum =  "
+                    <script>
+                        Swal({
+                            type: 'warning',
+                            title: 'การอัพโหลดเกิดปัญหา.',
+                            text: 'เกิดการทับซ้อนกันของข้อมูลแต่ข้อมูลเก่ายังอยู่ในฐานข้อมูล.',
+                            html: '<p>เกิดการทับซ้อนกันของข้อมูลแต่ข้อมูลเก่ายังอยู่ในฐานข้อมูล.</p><hr><p style=\"font-size:30px\">รายชื่อที่ซ้ำกัน</p>".$err."'
+                        });                    
+                    </script>";
+                    echo $sum;
+                    unset($_SESSION['err_std']);
+            break;
+            case '26':
                 echo "
                     <script>
                         Swal({
-                            type:   'warning',
-                            title:  'การอัพโหลดเกิดปัญหา',
-                            text:   'เกิดการทับซ้อนกันของข้อมูลแต่ข้อมูลเก่ายังอยู่ในฐานข้อมูล.',
-                            footer: '".$pt_ar."'
+                            type: 'warning',
+                            title: 'โปรดยืนยันตัวตน.',
+                            text: 'กรุณาลองใหม่อีกครั้ง.',
+                            // footer: '<a href>Why do I have this issue?</a>'
                         });                    
                     </script>";
             break;
+            case '27':
+                echo "
+                    <script>
+                        Swal({
+                            type: 'warning',
+                            title: 'โปรดทำรายการให้ถูกต้องก่อนส่งข้อมูล.',
+                            text: 'กรุณาลองใหม่อีกครั้ง.',
+                            // footer: '<a href>Why do I have this issue?</a>'
+                        });                    
+                    </script>";
+            break;
+            case '28':
+            echo "
+                <script>
+                    Swal({
+                        type: 'warning',
+                        title: 'ไม่พบข้อมูลของท่าน.',
+                        text: 'กรุณาตรวจสอบความถูกต้องอีกครั้ง.',
+                        // footer: '<a href>Why do I have this issue?</a>'
+                    });                    
+                </script>";
+        break;
 
             // $_SESSION['alert'] = 0 or null
             default:

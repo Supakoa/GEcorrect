@@ -85,7 +85,7 @@
                     <a><i class="fa fa-fw fa-cogs"></i><span> ตั้งค่า </span><span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="banner.php"> Banner </a></li>
-                        <li><a href="footer.php"> Footer </a></li>
+                        <li><a href="footer.php"> Website </a></li>
                     </ul>
                 </li>
             </ul>

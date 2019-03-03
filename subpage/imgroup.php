@@ -56,32 +56,40 @@
             $i = 0;
             $num[] = '';
             $sum_num = 0;
-            foreach ($_POST['tab_num'] as $value) {
+            if(isset($_POST['tab_num'])){
+                foreach ($_POST['tab_num'] as $value) {
+                $num[$i] = $value;
+                $sum_num += $value;
+                $i++;
+             }
+            }
+            if(isset($_POST['com_num'])){
+                foreach ($_POST['com_num'] as $value) {
                 $num[$i] = $value;
                 $sum_num += $value;
                 $i++;
             }
-            foreach ($_POST['com_num'] as $value) {
-                $num[$i] = $value;
-                $sum_num += $value;
-                $i++;
             }
+            
             $i = 0;
             $room[] = '';
-            foreach ($_POST['tab_room'] as $value) {
-                $std_num = $num[$i];
-                $room_id = "RD" . getToken(10);
+            if(isset($_POST['tab_room'])){
+                foreach ($_POST['tab_room'] as $value) {
+                    $std_num = $num[$i];
+                    $room_id = "RD" . getToken(10);
 
-                $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub','$group_exam','$std_num','TABLET')";
-                if ($re_room = mysqli_query($con, $q_room)) {
-                    $room[$i++] = $room_id;
-                } else {
-                    header("Location: imgroup.php");
-                    $_SESSION['alert'] = 4;
-                    exit();
-                }
+                    $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub','$group_exam','$std_num','TABLET')";
+                    if ($re_room = mysqli_query($con, $q_room)) {
+                        $room[$i++] = $room_id;
+                    } else {
+                        header("Location: imgroup.php");
+                        $_SESSION['alert'] = 4;
+                        exit();
+                    }
+                } 
             }
-            foreach ($_POST['com_room'] as $value) {
+           if(isset($_POST['com_room'])){
+               foreach ($_POST['com_room'] as $value) {
                 $std_num = $num[$i];
                 $room_id = "RD" . getToken(10);
                 $q_room = "INSERT INTO `room_detail`(`room_detail_id`, `room_id`, `detail_id`, `sub_id`, `sub_group`,`num`,`tool`) VALUES ('$room_id','$value','$detail_id','$sub','$group_exam','$std_num','COMPUTER')";
@@ -93,6 +101,8 @@
                     exit();
                 }
             }
+           }
+            
 
             if (($handle = fopen("$file", "r")) !== FALSE) {
                 $i = 0;
@@ -114,12 +124,12 @@
                         if ($re_del_dt = mysqli_query($con, $q_del_dt)) {
                             $_SESSION['alert'] = 12;
                         } else {
-                            header("Location: search2.php");
+                            header("Location: imgroup.php");
                             $_SESSION['alert'] = 4;
                             exit();
                         }
                     } else {
-                        header("Location: search2.php");
+                        header("Location: imgroup.php");
                         $_SESSION['alert'] = 4;
                         exit();
                     }
@@ -134,12 +144,12 @@
                         if ($re_del_dt = mysqli_query($con, $q_del_dt)) {
                             $_SESSION['alert'] = 12;
                         } else {
-                            header("Location: search2.php");
+                            header("Location: imgroup.php");
                             $_SESSION['alert'] = 4;
                             exit();
                         }
                     } else {
-                        header("Location: search2.php");
+                        header("Location: imgroup.php");
                         $_SESSION['alert'] = 4;
                         exit();
                     }
@@ -292,7 +302,7 @@
                                                         <div class="col-md-2 text-center"><label style="text-align:center;">ถึง</label></div>
                                                         <div class="col-md-5">
                                                             <div class="input-group clockpicker" data-autoclose="true"
-                                                                data-placement="right" data-default='00.00'>
+                                                            data-placement="left"  data-default='00.00'>
                                                                 <input type="text" class="form-control" name="e_time"
                                                                     placeholder="เวลาสิ้นสุด" required>
                                                                 <span class="input-group-addon">
@@ -347,7 +357,7 @@
                                                         <h3 class="text-center">Tablet</h3>
                                                     </div>
                                                     <div class="card-body " id="tablet_main">
-                                                        <div class="row form-group">
+                                                        <div class="row form-group" id = "tablet" >
                                                             <div class="col-md-4">
                                                                 <!-- room & Value -->
                                                                 <label for="room">1.ห้อง</label>
@@ -373,7 +383,7 @@
                                                         <h3 class="text-center">Computer</h3>
                                                     </div>
                                                     <div class="card-body" id="computer_main">
-                                                        <div class="row form-group">
+                                                        <div class="row form-group" id ="computer">
                                                             <div class="col-md-4 ">
                                                                 <!-- room & Value -->
                                                                 <label for="room1">1.ห้อง</label>
@@ -521,14 +531,14 @@
                 $("#form1").submit();
             });
             $("#btn11").click(function () {
-                if (i > 1) {
+                if (i > 0) {
                     i--;
                 }
 
                 $("#tablet:last-child").remove();
             });
             $("#btn22").click(function () {
-                if (j > 1) {
+                if (j > 0) {
                     j--;
                 }
                 $("#computer:last-child").remove();

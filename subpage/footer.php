@@ -8,7 +8,18 @@ if (!(isset($_SESSION['admin_id']))) {
     exit();
 }
 
+if(isset($_POST['new_btn_5'])){
+    $web_year = $_POST['year'];
+    $web_term = $_POST['term'];
+    $q_web = "UPDATE `web_show_time` SET `web_year`= '$web_year' , `web_term`= '$web_term' WHERE `id`= '1' ";
+    $re_web = mysqli_query($con, $q_web);
+    if ($re_web) {
+        $_SESSION['alert'] = 10;
+    } else {
+        $_SESSION['alert'] = 11;
+    }
 
+}
 
 $a = "SELECT * FROM show_url WHERE group_url = 1";
 $b = "SELECT * FROM show_url WHERE group_url = 2";
@@ -224,6 +235,74 @@ $row_banner = mysqli_fetch_array($result_banner);
                         <!--container-fluid -->
                         <div class="card mb-3">
                             <div class="card-header">
+                                <h3 class="text-center">ภาคการศึกษาที่แสดงบนหน้าเว็บ</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <form action="footer.php" method="post">
+                                        <div class="form-section">
+                                            <div class="row">
+                                            <div class="col-md-2"></div>
+                                                <div class="col-md-3">
+                                                <label for="term">เทอม</label>
+                                                <select name="term" class="form-control select2" required>
+                                                    <option hidden selected value="<?php echo $row_banner['web_term'] ?>"><?php echo $row_banner['web_term'] ?></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                </select>
+                                                </div>
+                                                <div class="col-md-2 text-center"> <br><h2>/</h2> </div>
+                                                <div class="col-md-3">
+                                                <label for="year">ปีการศึกษา</label>
+                                                <select name="year" class="form-control select2" required>
+                                                    <option hidden selected value="<?php echo $row_banner['web_year'] ?>"><?php echo $row_banner['web_year'] ?></option>
+                                                    <option>2561</option>
+                                                    <option>2562</option>
+                                                    <option>2563</option>
+                                                    <option>2564</option>
+                                                    <option>2565</option>
+                                                    <option>2566</option>
+                                                    <option>2567</option>
+                                                    <option>2568</option>
+                                                    <option>2569</option>
+                                                </select>
+                                                </div>
+                                            <div class="col-md-2"></div>
+
+                                            </div>
+                                            
+                                        </div><br>
+                                        <div class="text-center">
+                                            <a href="#custom-modal" class="btn btn-success m-r-5 m-b-10 btn-sm" data-target="#up5" data-toggle="modal">Update</a>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="up5" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel2">ยืนยัน</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>เมื่อกดยืนยันแล้วข้อความจะถูกอัพไปยังหน้าเว็บไซต์.</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary btn-sm" name="new_btn_5">Yes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="card mb-3">
+                            <div class="card-header">
                                 <h3 class="text-center">เอกสารที่เผยแพร่และเว็บไซต์ที่เกี่ยวข้อง</h3>
                             </div>
                             <div class="card-body">
@@ -231,7 +310,7 @@ $row_banner = mysqli_fetch_array($result_banner);
                                     <!-- card table 1 -->
                                     <div class="card-body">
                                         <h4 class="text-center">เว็บไซต์ที่เกี่ยวข้อง</h4>
-                                        <div class="table-responsive" style="overflow-x:auto;">
+                                        <div class="table-responsive text-nowrap" style="overflow-x:auto;">
                                             <form action="footer.php" method="post">
                                                 <table class="table">
                                                     <!-- table 1 -->

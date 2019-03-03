@@ -541,7 +541,7 @@ if (isset($_POST['gogo'])) {
                             <form id="big_form" action="search2.php" method="post">
                                 <input type="hidden" name="big_form">
                             </form>
-                            <div class="table-responsive">
+                            <div class="table-responsive text-nowrap">
                                 <!--table -->
                                 <table id="report" class="table table-bordered">
                                     <div class="row text-center">
@@ -576,10 +576,6 @@ if (isset($_POST['gogo'])) {
                                     </div>
                                     <thead>
                                         <tr>
-                                            <th class="text-center"><label class="checkbox-inline"><input type="checkbox"
-                                                        ng-model="all">
-                                                    Check All</label></th>
-                                            <th></th>
                                             <th>เทอม</th>
                                             <th>ปีการศึกษา</th>
                                             <th>วิชา</th>
@@ -587,6 +583,10 @@ if (isset($_POST['gogo'])) {
                                             <th>วันที่</th>
                                             <th>เวลา</th>
                                             <th>ประเภท</th>
+                                            <th class="text-center"><label class="checkbox-inline"><input type="checkbox"
+                                                        ng-model="all">
+                                                    Check All</label></th>
+                                            <th></th>
 
                                         </tr>
                                     </thead>
@@ -596,6 +596,48 @@ if (isset($_POST['gogo'])) {
                                                 $de_id = $row_show['detail_id'];
                                                 ?>
                                         <tr>
+                                            
+                                            <td>
+                                                <?php echo $row_show['term'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row_show['year'] ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                        $q_check = "SELECT `sub_id` FROM `room_detail` WHERE `detail_id` = '$de_id' GROUP BY `sub_id` ";
+                                                        $re_check = mysqli_query($con, $q_check);
+                                                        $num_check = 0;
+                                                        while ($row_check = mysqli_fetch_array($re_check)) {
+                                                            $num_check++;
+                                                        }
+
+                                                        if ($num_check > 1) {
+                                                            echo "หลายวิชา";
+                                                            $mutiple = 1;
+                                                        } else {
+                                                            echo $row_show['sub_id'];
+                                                        }
+                                                        ?>
+                                            </td>
+                                            <?php
+                                                    if (isset($mutiple)) {
+                                                        echo "<td>หลายกลุ่ม</td>";
+                                                        unset($mutiple);
+                                                    } else {
+                                                        echo '<td>' . $row_show['sub_group'] . '</td>';
+                                                    }
+                                                    ?>
+
+                                            <td>
+                                                <?php echo DateThai($row_show['day']) ?>
+                                            </td>
+                                            <td>
+                                                <?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row_show['type'] . "----" . $de_id ?>
+                                            </td>
                                             <td class="text-center">
                                                 <div class="form-check">
                                                     <input name="del_cb[]" value="<?php echo $de_id ?>" type="checkbox"
@@ -712,47 +754,6 @@ if (isset($_POST['gogo'])) {
                                                 </div>
                                                 <!--end modal 0-->
 
-                                            </td>
-                                            <td>
-                                                <?php echo $row_show['term'] ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row_show['year'] ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                        $q_check = "SELECT `sub_id` FROM `room_detail` WHERE `detail_id` = '$de_id' GROUP BY `sub_id` ";
-                                                        $re_check = mysqli_query($con, $q_check);
-                                                        $num_check = 0;
-                                                        while ($row_check = mysqli_fetch_array($re_check)) {
-                                                            $num_check++;
-                                                        }
-
-                                                        if ($num_check > 1) {
-                                                            echo "หลายวิชา";
-                                                            $mutiple = 1;
-                                                        } else {
-                                                            echo $row_show['sub_id'];
-                                                        }
-                                                        ?>
-                                            </td>
-                                            <?php
-                                                    if (isset($mutiple)) {
-                                                        echo "<td>หลายกลุ่ม</td>";
-                                                        unset($mutiple);
-                                                    } else {
-                                                        echo '<td>' . $row_show['sub_group'] . '</td>';
-                                                    }
-                                                    ?>
-
-                                            <td>
-                                                <?php echo DateThai($row_show['day']) ?>
-                                            </td>
-                                            <td>
-                                                <?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row_show['type'] . "----" . $de_id ?>
                                             </td>
 
                                         </tr>

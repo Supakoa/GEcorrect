@@ -63,7 +63,7 @@
 							<h3 class="text-center">ตารางข้อมูพนักงาน</h3>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive" style="overflow-x:auto;">
+							<div class="table-responsive text-nowrap" style="overflow-x:auto;">
 								<table id="admin" class="table table-bordered">
 									<thead>
 										<tr>
@@ -166,14 +166,14 @@
 											</div>
 
 											<!--end modal -->
-											<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
-											<th></th>
 											<th>รหัสพนักงาน</th>
 											<th>ชื่อ</th>
 											<th>Username</th>
 											<th>Password</th>
 											<th>ระดับ</th>
 											<th>active</th>
+											<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
+											<th></th>
 										</tr>
 									</thead>
 
@@ -186,6 +186,24 @@
 											while( $r = mysqli_fetch_array($re) ){
 										?>
 										<tr>
+											<td>
+												<?php echo $r['admin_id']; ?>
+											</td>
+											<td>
+												<?php echo $r['admin_name']; ?>
+											</td>
+											<td>
+												<?php echo $r['admin_username']; ?>
+											</td>
+											<td>
+												<?php echo $r['admin_password']; ?>
+											</td>
+											<td>
+												<?php echo $r['role']; ?>
+											</td>
+											<td>
+												<?php echo $r['status']; ?>
+											</td>
 											<td class="text-center">
 												<div class="form-check">
 													<input form="form_1" name="del_cb[]" value="<?php echo $r['admin_id']; ?>" ng-checked="all" type="checkbox" class="form-check-input">
@@ -304,24 +322,6 @@
 													</form>
 												</div>
 												<!--end modal 3-->
-											</td>
-											<td>
-												<?php echo $r['admin_id']; ?>
-											</td>
-											<td>
-												<?php echo $r['admin_name']; ?>
-											</td>
-											<td>
-												<?php echo $r['admin_username']; ?>
-											</td>
-											<td>
-												<?php echo $r['admin_password']; ?>
-											</td>
-											<td>
-												<?php echo $r['role']; ?>
-											</td>
-											<td>
-												<?php echo $r['status']; ?>
 											</td>
 										</tr>
 										<?php } ?>

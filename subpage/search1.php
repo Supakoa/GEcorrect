@@ -13,10 +13,12 @@
 	if(!isset($_SESSION['search'])){
 		$sql = "SELECT * FROM student WHERE 0 ";
 		$re = mysqli_query($con,$sql);
+		$search_now = "";
 	}else{
 		$search = $_SESSION['search'];
-		$sql = "SELECT * FROM student WHERE std_id LIKE '$search%' ";
-    	$re = mysqli_query($con,$sql);
+		$sql = "SELECT * FROM student WHERE std_id LIKE '%$search%' ";
+		$re = mysqli_query($con,$sql);
+		$search_now =$search ;
 	}
 
 	// insert new student
@@ -172,9 +174,11 @@
 										<!-- w3.js filter -->
 										<!-- <input oninput="w3.filterHTML('#search1', '.item', this.value)" class="w3-input" placeholder="Search for names.."> -->
 										<div class="col-sm-4"></div>
-										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' placeholder="รหัสนักศึกษา"
+
+										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' value = "<?php echo $search_now ?>" placeholder="รหัสนักศึกษา"
 											 required></div>
 										<div class="col-sm-4"><input class="btn btn-md btn-success" type="submit" value="Submit" name="btn_search"></div>
+
 									</div>
 								</form>
 							</div>
@@ -182,7 +186,7 @@
 					</div>
 
 					<div class="card-body">
-						<div class="table-responsive" style="overflow-x:auto;">
+						<div class="table-responsive text-nowrap" style="overflow-x:auto;">
 							<!-- table -->
 							<table id="search1" class="table table-bordered">
 								<thead>
@@ -258,11 +262,11 @@
 											</div>
 										</div>
 										<!--end modal -->
+										<th>รหัสนักศึกษา</th>
+										<th>ชื่อ-นามสกุล</th>
 										<th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox" ng-model="all">
 												Check All</label></th>
 										<th></th>
-										<th>รหัสนักศึกษา</th>
-										<th>ชื่อ-นามสกุล</th>
 									</tr>
 								</thead>
 
@@ -274,7 +278,12 @@
 									while( $r = mysqli_fetch_array($re) ){
 								?>
 									<tr class="item">
-
+										<td>
+											<?php echo $r['std_id']; ?>
+										</td>
+										<td>
+											<?php echo $r['name'];?>
+										</td>
 										<td class="text-center">
 											<div class="form-check">
 												<input form="form_1" type="checkbox" name="del_cb[]" value="<?php echo $r['std_id']; ?>" class="form-check-input"
@@ -359,12 +368,6 @@
 											</div>
 											<!--end modal 3-->
 
-										</td>
-										<td>
-											<?php echo $r['std_id']; ?>
-										</td>
-										<td>
-											<?php echo $r['name'];?>
 										</td>
 									</tr>
 									<!-- end of php loop -->
