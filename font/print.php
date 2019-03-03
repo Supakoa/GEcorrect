@@ -56,12 +56,12 @@
       <div class="col-lg-3"></div>
     </div>
     <div class="row">
-      <div class="col-lg-3"></div>
-      <div class="col-lg-6 text-center">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8 text-center">
         <h3>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์</h3>
 
       </div>
-      <div class="col-lg-3"></div>
+      <div class="col-lg-2"></div>
     </div>
     <div class="row">
       <div class="col-lg-3"></div>
@@ -93,7 +93,7 @@
   <section class="container-fluid" style="height: 100%">
     <div class="container">
       <div id="resultsTable">
-        <div class="table-responsive">
+        <div class="table-responsive text-nowrap">
         <table class="table table-striped table-sm table-bordered" style="width:100%">
                 <thead>
                     <tr>

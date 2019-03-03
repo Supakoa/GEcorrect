@@ -310,7 +310,7 @@ $row_banner = mysqli_fetch_array($result_banner);
                                     <!-- card table 1 -->
                                     <div class="card-body">
                                         <h4 class="text-center">เว็บไซต์ที่เกี่ยวข้อง</h4>
-                                        <div class="table-responsive" style="overflow-x:auto;">
+                                        <div class="table-responsive text-nowrap" style="overflow-x:auto;">
                                             <form action="footer.php" method="post">
                                                 <table class="table">
                                                     <!-- table 1 -->

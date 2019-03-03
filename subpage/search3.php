@@ -354,7 +354,7 @@
                     </div><!--end card 1-->
                     <div class="card"><!--card 2-->
                         <div class="card-body">
-                            <div class="table-responsive" style="overflow-x:auto;">
+                            <div class="table-responsive text-nowrap" style="overflow-x:auto;">
                                 <table id="search3" class="table table-bordered">
                                     <thead>
 
@@ -389,8 +389,6 @@
                                         </div>
                                     </div><!--end modal -->
                                     <tr>
-                                        <th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
-                                        <th></th>
 										<th >รหัสนักศึกษา</th>
 										<th>ชื่อ - นามสกุล</th>
                                         <th>ห้อง</th>
@@ -402,6 +400,8 @@
                                         <th>ปีการศึกษา</th>
                                         <th>ประเภท</th>
                                         <th><span class="text-danger">*</span>หมายเหตุ</th>
+                                        <th class="text-center"><label class="checkbox-inline" id="chb"><input id="chb" type="checkbox"  ng-model="all"> Check All</label></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -409,6 +409,18 @@
 											while($row_show = mysqli_fetch_array($re_show)){
 										?>
                                         <tr>
+                                            
+                                            <td><?php echo $row_show['std_id'] ?></td>
+											<td style = "width:200px "><?php echo $row_show['name'] ?></td>
+                                            <td><?php echo $row_show['name_location'] ?></td>
+                                            <td><?php echo $row_show['sub_id']." ".$row_show['subject_name'] ?></td>
+                                            <td style = "width:10px "><?php echo $row_show['sub_group'] ?></td>
+											<td><?php echo $row_show['seat'] ?></td>
+                                            <td style = "width:80px "><?php echo DateThai($row_show['day']) ?></td>
+                                            <td style = "width:120px " ><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
+                                            <td><?php echo $row_show['year'] ?></td>
+                                            <td><?php echo $row_show['type'] ?></td>
+                                            <td><?php echo $row_show['note'] ?></td>
                                             <td class="text-center" style = "width:100px " >
                                                 <div class="form-check">
                                                     <input type="checkbox" form="form_1" name="del_cb[]" value="<?php echo $row_show['student_room_id']  ?>" ng-checked="all" class="form-check-input">
@@ -479,17 +491,6 @@
                                                 </div><!--end modal 2-->
 												</form>
                                             </td>
-                                            <td><?php echo $row_show['std_id'] ?></td>
-											<td style = "width:200px "><?php echo $row_show['name'] ?></td>
-                                            <td><?php echo $row_show['name_location'] ?></td>
-                                            <td><?php echo $row_show['sub_id']." ".$row_show['subject_name'] ?></td>
-                                            <td style = "width:10px "><?php echo $row_show['sub_group'] ?></td>
-											<td><?php echo $row_show['seat'] ?></td>
-                                            <td style = "width:80px "><?php echo DateThai($row_show['day']) ?></td>
-                                            <td style = "width:120px " ><?php echo substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5) . " น." ?></td>
-                                            <td><?php echo $row_show['year'] ?></td>
-                                            <td><?php echo $row_show['type'] ?></td>
-                                            <td><?php echo $row_show['note'] ?></td>
                                         </tr>
 										<?php } ?>
                                     </tbody>
