@@ -181,7 +181,7 @@ $table_result = mysqli_query($con,$table);
     </div><br>
 
     <div class="container">
-        <div class="table-responsive">
+        <div class="table-responsive text-nowrap">
             <table class="table table-striped table-sm table-bordered" style="width:100%">
                 <thead>
                     <tr>
