@@ -292,82 +292,13 @@
 										</td>
 
 										<td>
-
 											<div class="text-center">
-												<a role="button" href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit<?php echo $r['std_id']; ?>">
-													<i class="fa fa-pencil"></i>
+												<a role="button" href="#" class="btn btn-warning btn-sm" onclick = "modal_edit(<?php echo $r['std_id']; ?>)">
+														<i class="fa fa-pencil"></i>
 												</a>
-												<a role="button" href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#del<?php echo $r['std_id']; ?>"><i
+												<a role="button" href="#" class="btn btn-danger btn-sm" onclick = "modal_del(<?php echo $r['std_id']; ?>)"><i
 													 class="fa fa-minus"></i></a>
-
 											</div>
-
-
-											<!-- Modal 1-->
-											<div class="modal fade" id="edit<?php echo $r['std_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="loca" aria-hidden="true">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="loca">แก้ไข <?php echo $r['std_id'];?></h5>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<!-- real id to send to update -->
-														<input form="form_3" type="hidden" name="real_edit_id" value="<?php echo $r['std_id']; ?>">
-														<div class="modal-body">
-															<div class="container">
-																<div class="form-group">
-																	<div class="row">
-																		<div class="col-md-7">
-																			<label for="id">รหัสนักศึกษา</label>
-																			<input name="edit_id" form="form_3" id="id" class="form-control" type="text" value="<?php echo $r['std_id']; ?>" required>
-																		</div>
-																		<div class="col-md-6">
-																			<label for="fname">ชื่อ-นามสกุล</label>
-																			<input name="edit_name" form="form_3" id="fname" class="form-control" type="text" value="<?php echo $r['name']; ?>" required>
-																		</div>
-																	</div>
-																</div>
-															</div>
-
-														</div>
-														<div class="modal-footer">
-															<form action="search1.php" method="post" id="form_3">
-																<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-																<button name="edit_btn" type="submit" form="form_3" class="btn btn-primary btn-sm">Save</button>
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
-											<!--end modal 1-->
-
-											<!-- Small modal 3-->
-											<div class="modal fade bd-example-modal-sm" id="del<?php echo $r['std_id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-												<div class="modal-dialog modal-sm">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title">ลบข้อมูล <?php echo $r['std_id']; ?></h5>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-
-														<!-- hidden value id -->
-														<input form="form_4" type="hidden" name="hide_del_id" value="<?php echo $r['std_id']; ?>">
-
-														<div class="modal-footer">
-															<form action="search1.php" method="post" id="form_4">
-																<button name="del_btn" form="form_4" type="submit" class="btn btn-danger btn-sm">Yes</button>
-																<button type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
-											<!--end modal 3-->
-
 										</td>
 									</tr>
 									<!-- end of php loop -->
@@ -378,7 +309,7 @@
 						<!--end table -->
 					</div>
 				</div>
-
+										<div id = "edit_modal"></div>
 			</div>
 			<!--end content-->
 		</div>
@@ -398,7 +329,7 @@
 	</div>
 
 	<!-- alert all -->
-	<?php require '../alert.php'; ?>
+	
 
 	<script src="assets/js/modernizr.min.js"></script>
 	<script src="assets/js/jquery.min.js"></script>
@@ -431,11 +362,39 @@
 			$('#search1').DataTable();
 
 		});
+		
+	</script>
+	<script>
+	function modal_edit (id) { 
+				// alert("I am an alert box!");
+				// $("#edit_modal").append("eieieissssss");
+			
+				$.post("search1_edit.php",{data1 : id},
+					function(result){
+						$("#edit_modal").html(result);
+						$("#edit").modal("show");
+						}
+				
+			);
+		};
+		function modal_del (id) {
+				// alert("I am an alert box!");
+				// $("#edit_modal").append("eieieissssss");
+			
+				$.post("search1_del.php",{data1 : id},
+					function(result){
+						$("#edit_modal").html(result);
+						$("#del").modal("show");
+						}
+				
+			);
+		};
+	 
 	</script>
 	<!-- END Java Script for this page -->
 
 	<?php unset($_SESSION['search']); ?>
-
+	<?php require '../alert.php'; ?>
 </body>
 
 </html>
