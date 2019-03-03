@@ -93,7 +93,7 @@
   <section class="container-fluid" style="height: 100%">
     <div class="container">
       <div id="resultsTable">
-        <div class="table-responsive">
+        <div class="table-responsive text-nowrap">
         <table class="table table-striped table-sm table-bordered" style="width:100%">
                 <thead>
                     <tr>
