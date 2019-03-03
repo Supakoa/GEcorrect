@@ -14,6 +14,9 @@
         // set collaction 
         mysqli_set_charset($con,'tis620');
 
+        // set value start arr_err->save value to index of array
+        $arr_err[] = null;
+
         // open file
         $a = $_FILES["File"]["tmp_name"];
         // $file = fopen($a,'r');
@@ -25,22 +28,23 @@
                 $resault = mysqli_query($con,$q);
                 if(!$resault){
                     $_SESSION['alert'] = 25;
+                    $arr_err[] = "0";
                 }
             }
             if($_SESSION['alert']!=25){
                 $_SESSION['alert'] = 3;
+                // $_SESSION['arr_err'] change to array if alert = 25
+                $_SESSION['arr_err'] = $arr_err;
             }
             fclose($handle);
             header("Location: imstudent.php");
             exit();
         }
     }
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,20 +71,17 @@
 
         <!-- sweet alert2 -->
 	    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
-
+        
     </head>
 
     <body class="adminbody">
-
         <div id="main">
-
-            <?php require 'menu/navmenu.php' ?>
-
-
+            <?php //require 'menu/navmenu.php' ?>
             <div class="content-page">
-                <!-- content-page -->
 
+                <!-- content-page -->
                 <div class="content">
+
                     <!-- content -->
                     <div class="card mb-3">
                         <div class="card-header">
@@ -120,10 +121,7 @@
             </div>
             <!-- END content-page -->
 
-            <footer class="footer">
-
-            </footer>
-
+            <footer class="footer"></footer>
         </div>
         <!-- END main -->
 
@@ -165,5 +163,4 @@
         <!-- END Java Script for this page -->
 
     </body>
-
 </html>

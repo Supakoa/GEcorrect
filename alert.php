@@ -290,13 +290,20 @@
             break;
 
             case '25':
+                // check array isn't make
+                $pt_ar = "";
+                if(isset($_SESSION['arr_err'])){
+                    for ($i=0; $i < count($_SESSION['arr_err']); $i++) { 
+                        $pt_ar =  $pt_ar.$_SESSION['arr_err'][$i].'<br>';
+                    }
+                }
                 echo "
                     <script>
                         Swal({
-                            type: 'warning',
-                            title: 'การอัพโหลดเกิดปัญหา',
-                            text: 'เกิดการทับซ้อนกันของข้อมูลแต่ข้อมูลเก่ายังอยู่ในฐานข้อมูล.',
-                            // footer: '<a href>Why do I have this issue?</a>'
+                            type:   'warning',
+                            title:  'การอัพโหลดเกิดปัญหา',
+                            text:   'เกิดการทับซ้อนกันของข้อมูลแต่ข้อมูลเก่ายังอยู่ในฐานข้อมูล.',
+                            footer: '".$pt_ar."'
                         });                    
                     </script>";
             break;
