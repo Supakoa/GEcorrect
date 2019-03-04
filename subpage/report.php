@@ -1,15 +1,16 @@
 <?php
-// connect database 
+ // connect database 
 require 'server/server.php';
 
-if(!isset($_SESSION['signature'])){
-    $_SESSION['signature'] = 0 ;
+if (!isset($_SESSION['signature'])) {
+    $_SESSION['signature'] = 0;
 }
-function DateThai($strDate) {
-    $strYear = date("Y", strtotime($strDate)) -2500 + 543;
+function DateThai($strDate)
+{
+    $strYear = date("Y", strtotime($strDate)) - 2500 + 543;
     $strMonth = date("n", strtotime($strDate));
     $strDay = date("j", strtotime($strDate));
-    $strMonthCut = Array("", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.");
+    $strMonthCut = array("", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.");
     $strMonthThai = $strMonthCut[$strMonth];
     return "$strDay $strMonthThai $strYear";
 }
@@ -19,11 +20,11 @@ if (isset($_POST['create_pdf'])) {
     echo $detail_id;
     $q_sl_room = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$detail_id'";
     if ($re_sl_room = mysqli_query($con, $q_sl_room)) {
-		$num_room = 0 ;
-		while ($row_sl_room = mysqli_fetch_array($re_sl_room)) {
-			$num_room++;
-		}
-		$re_sl_room = mysqli_query($con, $q_sl_room);
+        $num_room = 0;
+        while ($row_sl_room = mysqli_fetch_array($re_sl_room)) {
+            $num_room++;
+        }
+        $re_sl_room = mysqli_query($con, $q_sl_room);
 
         require_once __DIR__ . '/vendor/autoload.php';
 
@@ -44,20 +45,20 @@ if (isset($_POST['create_pdf'])) {
         $ignore_table_width = true;
         $mpdf->shrink_tables_to_fit = 1;
 
-            $num_page = 0;
-            $row_sl_room = mysqli_fetch_array($re_sl_room);
-            $r_d_id = $row_sl_room['room_detail_id'];
-            $q_head = "SELECT detail.* , subject.subject_name,location_table.name_location FROM `room_detail`,`detail`,`subject`,`location_table` WHERE location_table.order = room_detail.room_id AND detail.detail_id =room_detail.detail_id AND room_detail.sub_id = subject.subject_id AND room_detail.room_detail_id = '$r_d_id' AND room_detail.detail_id = '$detail_id' ";
-            $re_head = mysqli_query($con, $q_head);
-            $row_head = mysqli_fetch_array($re_head);
-          
-           
-			$head_term =$row_head['term'];
-			$head_year = $row_head['year'];
-			$head_date =DateThai($row_head['day']);
-			$head_time =substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น.";
-            $head_location = $row_head['name_location'];
-            $head = '
+        $num_page = 0;
+        $row_sl_room = mysqli_fetch_array($re_sl_room);
+        $r_d_id = $row_sl_room['room_detail_id'];
+        $q_head = "SELECT detail.* , subject.subject_name,location_table.name_location FROM `room_detail`,`detail`,`subject`,`location_table` WHERE location_table.order = room_detail.room_id AND detail.detail_id =room_detail.detail_id AND room_detail.sub_id = subject.subject_id AND room_detail.room_detail_id = '$r_d_id' AND room_detail.detail_id = '$detail_id' ";
+        $re_head = mysqli_query($con, $q_head);
+        $row_head = mysqli_fetch_array($re_head);
+
+
+        $head_term = $row_head['term'];
+        $head_year = $row_head['year'];
+        $head_date = DateThai($row_head['day']);
+        $head_time = substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น.";
+        $head_location = $row_head['name_location'];
+        $head = '
             <html>
                 <head>
                     <style>
@@ -78,23 +79,23 @@ if (isset($_POST['create_pdf'])) {
                         </div>
                         
                         ';
-        
-                        if($_POST['signature']){
-                            $_SESSION['signature'] = 1 ;
-                            $head .= ' 
+
+        if ($_POST['signature']) {
+            $_SESSION['signature'] = 1;
+            $head .= ' 
                             <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:250mm;margin-left:170mm">
                         ';
-                       }else{
-                        $_SESSION['signature'] = 0 ;
-                       }
-                       $head .= '</htmlpageheader>
+        } else {
+            $_SESSION['signature'] = 0;
+        }
+        $head .= '</htmlpageheader>
                 </body>
             </html>
         
             ';
-        while ($num_page<$num_room) {
-            
-         
+        while ($num_page < $num_room) {
+
+
             $q_show = "SELECT student_room.student_room_id,student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,`subject`.subject_id,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
 			FROM `student_room`,`location_table`,`room_detail`,`student`,`subject`,`detail`
 			WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
@@ -155,14 +156,14 @@ if (isset($_POST['create_pdf'])) {
 
             $tbody = '<tbody>';
             while ($row_show = mysqli_fetch_array($re_show)) {
-				$seat =$row_show['seat'];
-				$std_id = $row_show['std_id'];
-				$name =$row_show['name'];
-				$sub = $row_show['subject_id']." ".$row_show['subject_name'] ; 
-				$date = DateThai($row_show['day']);
-				$time = substr($row_show['time_start'], 0, 5) . " - " . substr($row_show['time_end'], 0, 5)  ;
-				$lo_name =substr($row_show['name_location'], 0, 4) ;
-                $tbody.= '	<tr>
+                $seat = $row_show['seat'];
+                $std_id = $row_show['std_id'];
+                $name = $row_show['name'];
+                $sub = $row_show['subject_id'] . " " . $row_show['subject_name'];
+                $date = DateThai($row_show['day']);
+                $time = substr($row_show['time_start'], 0, 5) . " - " . substr($row_show['time_end'], 0, 5);
+                $lo_name = substr($row_show['name_location'], 0, 4);
+                $tbody .= '	<tr>
 								<td style="text-align:center">' . $seat . '</td>
 								<td style="text-align:center">' . $std_id . '</td>
 								<td>' . $name . '</td>
@@ -174,7 +175,7 @@ if (isset($_POST['create_pdf'])) {
 							</tr>';
             }
 
-            $tbody.='				</tbody>
+            $tbody .= '				</tbody>
 					</table>
 			
 	';
@@ -189,16 +190,16 @@ if (isset($_POST['create_pdf'])) {
 			
 			<div style="text-align:left;margin-right:10px;margin-left:10px">
 				<span>ปัญหาที่พบ ';
-            for ($i = 0; $i < 500+90; $i++) {
-                $footer.= '.';
+            for ($i = 0; $i < 500 + 90; $i++) {
+                $footer .= '.';
             }
-            $footer.='<br>การแก้ปัญหาเบื้องต้น ';
+            $footer .= '<br>การแก้ปัญหาเบื้องต้น ';
 
-            for ($i = 0; $i < 500+90; $i++) {
-                $footer.= '.';
+            for ($i = 0; $i < 500 + 90; $i++) {
+                $footer .= '.';
             }
 
-            $footer.= ' </span><br>
+            $footer .= ' </span><br>
 		<input type="checkbox"> <span> ไม่พบปัญหา</span>
 		</div><br/><br/>
         <div style="text-align:right;margin-right:10px">
@@ -214,19 +215,19 @@ if (isset($_POST['create_pdf'])) {
             $mpdf->WriteHTML($head);
             $mpdf->WriteHTML($thead);
             $mpdf->WriteHTML($tbody);
-			$mpdf->WriteHTML($footer);
-			++$num_page;
-			if($num_page<$num_room){
+            $mpdf->WriteHTML($footer);
+            ++$num_page;
+            if ($num_page < $num_room) {
                 $row_sl_room = mysqli_fetch_array($re_sl_room);
                 $r_d_id = $row_sl_room['room_detail_id'];
                 $q_head = "SELECT detail.* , subject.subject_name,location_table.name_location FROM `room_detail`,`detail`,`subject`,`location_table` WHERE location_table.order = room_detail.room_id AND detail.detail_id =room_detail.detail_id AND room_detail.sub_id = subject.subject_id AND room_detail.room_detail_id = '$r_d_id' AND room_detail.detail_id = '$detail_id' ";
                 $re_head = mysqli_query($con, $q_head);
                 $row_head = mysqli_fetch_array($re_head);
-              
-                $head_term =$row_head['term'];
+
+                $head_term = $row_head['term'];
                 $head_year = $row_head['year'];
-                $head_date =DateThai($row_head['day']);
-                $head_time =substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น.";
+                $head_date = DateThai($row_head['day']);
+                $head_time = substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น.";
                 $head_location = $row_head['name_location'];
                 $head = '
                 <html>
@@ -249,25 +250,23 @@ if (isset($_POST['create_pdf'])) {
                             </div>
                             
                             ';
-            
-                            if($_POST['signature']){
-                                $_SESSION['signature'] = 1 ;
-                                $head .= ' 
+
+                if ($_POST['signature']) {
+                    $_SESSION['signature'] = 1;
+                    $head .= ' 
                                 <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:230mm;margin-left:170mm">
                             ';
-                           }else{
-                            $_SESSION['signature'] = 0 ;
-                           }
-                           $head .= '</htmlpageheader>
+                } else {
+                    $_SESSION['signature'] = 0;
+                }
+                $head .= '</htmlpageheader>
                     </body>
                 </html>
             
                 ';
                 $mpdf->WriteHTML($head);
                 $mpdf->AddPage();
-				
-					}
-			
+            }
         }
         $mpdf->Output();
         exit();
@@ -284,7 +283,7 @@ $i = 0;
 $option_sub = '';
 
 while ($row_sub = mysqli_fetch_array($re_sub)) {
-    $option_sub.="<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
+    $option_sub .= "<option value = \"" . $row_sub['subject_id'] . "\">" . $row_sub['subject_id'] . " : " . $row_sub['subject_name'] . "</option>";
     $i++;
 }
 
@@ -312,14 +311,14 @@ if (isset($_POST['gogo'])) {
             LIKE '$type_exam%' 
             GROUP BY detail.detail_id";
     $re_show = mysqli_query($con, $q_show);
-    } else {
+} else {
 
-        $term = "";
-        $year = "";
-        $subject = "";
-        $group_exam = "";
-        $type_exam = "";
-        $q_show = "SELECT room_detail.detail_id
+    $term = "";
+    $year = "";
+    $subject = "";
+    $group_exam = "";
+    $type_exam = "";
+    $q_show = "SELECT room_detail.detail_id
                         ,room_detail.sub_id
                         ,room_detail.sub_group
                         ,detail.term
@@ -330,43 +329,42 @@ if (isset($_POST['gogo'])) {
                         ,detail.time_end 
         FROM `room_detail`,`detail`  
         WHERE 0";
-        $re_show = mysqli_query($con, $q_show);
+    $re_show = mysqli_query($con, $q_show);
+}
+
+if (isset($_POST['sig_btn'])) {
+
+    $target_dir = "banner/";
+    $target_file = $target_dir . basename($_FILES["sig_file"]["name"]);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Check file size
+    if ($_FILES["sig_file"]["size"] > 500000) {
+        $_SESSION['alert'] = 15;
+        header("Location: report.php");
+        exit();
     }
 
-    if( isset($_POST['sig_btn']) ){
+    // Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+        $_SESSION['alert'] = 17;
+        header("Location: report.php");
+        exit();
+    }
 
-        $target_dir = "banner/";
-        $target_file = $target_dir . basename($_FILES["sig_file"]["name"]);
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        
-        // Check file size
-        if ($_FILES["sig_file"]["size"] > 500000) {
-            $_SESSION['alert'] = 15;
-            header("Location: report.php");
-            exit();
-        }
-
-        // Allow certain file formats
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-            $_SESSION['alert'] = 17;
-            header("Location: report.php");
-            exit();
-        }
-        
-        if (move_uploaded_file($_FILES["sig_file"]["tmp_name"], $target_file)) {
-            $nameTarget = $_FILES["sig_file"]["name"];
-            if( mysqli_query($con, "UPDATE web_show_time SET signature = '$nameTarget' WHERE 1" )){
-                $_SESSION['alert'] = 3;
-            }else{
-                $_SESSION['alert'] = 4;
-            }
+    if (move_uploaded_file($_FILES["sig_file"]["tmp_name"], $target_file)) {
+        $nameTarget = $_FILES["sig_file"]["name"];
+        if (mysqli_query($con, "UPDATE web_show_time SET 'signature' = '$nameTarget' WHERE 1")) {
+            $_SESSION['alert'] = 3;
         } else {
             $_SESSION['alert'] = 4;
         }
-        header("Location: report.php");
-        exit();
-
+    } else {
+        $_SESSION['alert'] = 4;
     }
+    header("Location: report.php");
+    exit();
+}
 
 ?>
 
@@ -399,7 +397,7 @@ if (isset($_POST['gogo'])) {
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <!-- sweet alert2 -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
 
 </head>
 
@@ -437,12 +435,12 @@ if (isset($_POST['gogo'])) {
                                                             <label for="term">เทอม</label>
                                                             <select name="term" class="form-control select2">
                                                                 <?php
-                                                                    if ($term == '') {
-                                                                        echo '<option hidden selected  value="">ทั้งหมด</option>';
-                                                                    } else {
-                                                                        echo '<option hidden selected  value="' . $term . '">' . $term . '</option>';
-                                                                    }
-                                                                    ?>
+                                                                if ($term == '') {
+                                                                    echo '<option hidden selected  value="">ทั้งหมด</option>';
+                                                                } else {
+                                                                    echo '<option hidden selected  value="' . $term . '">' . $term . '</option>';
+                                                                }
+                                                                ?>
                                                                 <option value="">ทั้งหมด</option>
                                                                 <option>1</option>
                                                                 <option>2</option>
@@ -457,12 +455,12 @@ if (isset($_POST['gogo'])) {
                                                             <label for="year">ปีการศึกษา</label>
                                                             <select name="year" class="form-control select2">
                                                                 <?php
-                                                                    if ($year == '') {
-                                                                        echo '<option hidden selected  value="">ทั้งหมด</option>';
-                                                                    } else {
-                                                                        echo '<option hidden selected  value="' . $year . '">' . $year . '</option>';
-                                                                    }
-                                                                    ?>
+                                                                if ($year == '') {
+                                                                    echo '<option hidden selected  value="">ทั้งหมด</option>';
+                                                                } else {
+                                                                    echo '<option hidden selected  value="' . $year . '">' . $year . '</option>';
+                                                                }
+                                                                ?>
                                                                 <option value="">ทั้งหมด</option>
                                                                 <option>2561</option>
                                                                 <option>2562</option>
@@ -479,12 +477,12 @@ if (isset($_POST['gogo'])) {
                                                             <label for="subject">วิชา</label>
                                                             <select name="subject" class="form-control select2">
                                                                 <?php
-                                                                    if ($subject == '') {
-                                                                        echo '<option hidden selected  value="">ทั้งหมด</option>';
-                                                                    } else {
-                                                                        echo '<option hidden selected  value="' . $subject . '">' . $subject . '</option>';
-                                                                    }
-                                                                    ?>
+                                                                if ($subject == '') {
+                                                                    echo '<option hidden selected  value="">ทั้งหมด</option>';
+                                                                } else {
+                                                                    echo '<option hidden selected  value="' . $subject . '">' . $subject . '</option>';
+                                                                }
+                                                                ?>
                                                                 <option value="">ทั้งหมด</option>
                                                                 <?php echo $option_sub ?>
                                                             </select>
@@ -492,24 +490,24 @@ if (isset($_POST['gogo'])) {
                                                         <div class="col-md-6">
                                                             <label for="group">กลุ่มเรียน</label>
                                                             <?php
-                                                                if ($group_exam == '') {
-                                                                    echo '<input name = "group_exam" type="text"  placeholder = "ทั้งหมด" value = "" maxlength="3"  class="form-control" >';
-                                                                } else {
-                                                                    echo '<input name = "group_exam" type="text"  placeholder = "" value = "' . $group_exam . '" maxlength="3"  class="form-control" >';
-                                                                }
-                                                                ?>
+                                                            if ($group_exam == '') {
+                                                                echo '<input name = "group_exam" type="text"  placeholder = "ทั้งหมด" value = "" maxlength="3"  class="form-control" >';
+                                                            } else {
+                                                                echo '<input name = "group_exam" type="text"  placeholder = "" value = "' . $group_exam . '" maxlength="3"  class="form-control" >';
+                                                            }
+                                                            ?>
 
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="subject">ประเภท</label>
                                                             <select name="type_exam" class="form-control select2">
                                                                 <?php
-                                                                    if ($type_exam == '') {
-                                                                        echo '<option hidden selected  value="">ทั้งหมด</option>';
-                                                                    } else {
-                                                                        echo '<option hidden selected  value="' . $type_exam . '">' . $type_exam . '</option>';
-                                                                    }
-                                                                    ?>
+                                                                if ($type_exam == '') {
+                                                                    echo '<option hidden selected  value="">ทั้งหมด</option>';
+                                                                } else {
+                                                                    echo '<option hidden selected  value="' . $type_exam . '">' . $type_exam . '</option>';
+                                                                }
+                                                                ?>
                                                                 <option value="">ทั้งหมด</option>
                                                                 <option>กลางภาค</option>
                                                                 <option>ปลายภาค</option>
@@ -547,28 +545,27 @@ if (isset($_POST['gogo'])) {
                                     <div class="row text-center">
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-2">
-                                            <a role="button" href="#" class="btn btn-danger btn-md" data-toggle="modal"
-                                                data-target="#delete_select"><i class="fa fa-minus"></i> ลบที่เลือก</a>
+                                            <a role="button" href="#" class="btn btn-danger btn-md" data-toggle="modal" data-target="#delete_select"><i class="fa fa-minus"></i> ลบที่เลือก</a>
                                         </div>
                                         <div class="col-lg-2 text-center">
                                             <p>
 
                                                 <?php
-                                        if($_SESSION['signature']){
-                                            echo ' <select class="form-control select2" id="signature_select">
+                                                if ($_SESSION['signature']) {
+                                                    echo ' <select class="form-control select2" id="signature_select">
                                             <option value="1">แสดงลายเซ็นต์</option>
                                             <option value="0">ไม่แสดงลายเซ็นต์</option>
                                          
                                         </select>';
-                                        }else{
-                                            echo ' <select class="form-control select2" id="signature_select">
+                                                } else {
+                                                    echo ' <select class="form-control select2" id="signature_select">
                                             <option value="0">ไม่แสดงลายเซ็นต์</option>
                                             <option value="1">แสดงลายเซ็นต์</option>
                                             
                                          
-                                        </select>' ;
-                                        }
-                                        ?>
+                                        </select>';
+                                                }
+                                                ?>
                                             </p>
                                         </div>
                                         <div class="col-lg-4"></div>
@@ -583,8 +580,7 @@ if (isset($_POST['gogo'])) {
                                             <th>วันที่</th>
                                             <th>เวลา</th>
                                             <th>ประเภท</th>
-                                            <th class="text-center"><label class="checkbox-inline"><input type="checkbox"
-                                                        ng-model="all">
+                                            <th class="text-center"><label class="checkbox-inline"><input type="checkbox" ng-model="all">
                                                     Check All</label></th>
                                             <th></th>
 
@@ -592,11 +588,11 @@ if (isset($_POST['gogo'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                            while ($row_show = mysqli_fetch_array($re_show)) {
-                                                $de_id = $row_show['detail_id'];
-                                                ?>
+                                        while ($row_show = mysqli_fetch_array($re_show)) {
+                                            $de_id = $row_show['detail_id'];
+                                            ?>
                                         <tr>
-                                            
+
                                             <td>
                                                 <?php echo $row_show['term'] ?>
                                             </td>
@@ -605,29 +601,29 @@ if (isset($_POST['gogo'])) {
                                             </td>
                                             <td>
                                                 <?php
-                                                        $q_check = "SELECT `sub_id` FROM `room_detail` WHERE `detail_id` = '$de_id' GROUP BY `sub_id` ";
-                                                        $re_check = mysqli_query($con, $q_check);
-                                                        $num_check = 0;
-                                                        while ($row_check = mysqli_fetch_array($re_check)) {
-                                                            $num_check++;
-                                                        }
+                                                $q_check = "SELECT `sub_id` FROM `room_detail` WHERE `detail_id` = '$de_id' GROUP BY `sub_id` ";
+                                                $re_check = mysqli_query($con, $q_check);
+                                                $num_check = 0;
+                                                while ($row_check = mysqli_fetch_array($re_check)) {
+                                                    $num_check++;
+                                                }
 
-                                                        if ($num_check > 1) {
-                                                            echo "หลายวิชา";
-                                                            $mutiple = 1;
-                                                        } else {
-                                                            echo $row_show['sub_id'];
-                                                        }
-                                                        ?>
+                                                if ($num_check > 1) {
+                                                    echo "หลายวิชา";
+                                                    $mutiple = 1;
+                                                } else {
+                                                    echo $row_show['sub_id'];
+                                                }
+                                                ?>
                                             </td>
                                             <?php
-                                                    if (isset($mutiple)) {
-                                                        echo "<td>หลายกลุ่ม</td>";
-                                                        unset($mutiple);
-                                                    } else {
-                                                        echo '<td>' . $row_show['sub_group'] . '</td>';
-                                                    }
-                                                    ?>
+                                            if (isset($mutiple)) {
+                                                echo "<td>หลายกลุ่ม</td>";
+                                                unset($mutiple);
+                                            } else {
+                                                echo '<td>' . $row_show['sub_group'] . '</td>';
+                                            }
+                                            ?>
 
                                             <td>
                                                 <?php echo DateThai($row_show['day']) ?>
@@ -640,36 +636,29 @@ if (isset($_POST['gogo'])) {
                                             </td>
                                             <td class="text-center">
                                                 <div class="form-check">
-                                                    <input name="del_cb[]" value="<?php echo $de_id ?>" type="checkbox"
-                                                        class="form-check-input" ng-checked="all" form="big_form">
+                                                    <input name="del_cb[]" value="<?php echo $de_id ?>" type="checkbox" class="form-check-input" ng-checked="all" form="big_form">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="text-center">
                                                     <form action="report.php" method="post" id="form_signature<?php echo $de_id ?>">
                                                     </form>
-                                                    <button class="btn btn-sm btn-warning signature_bt" form="form_signature<?php echo $de_id ?>"
-                                                        formtarget="_blank" type="submit" name="create_pdf">PDF</button>
+                                                    <button class="btn btn-sm btn-warning signature_bt" form="form_signature<?php echo $de_id ?>" formtarget="_blank" type="submit" name="create_pdf">PDF</button>
 
-                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden" name="detail_id"
-                                                        value="<?php echo $de_id ?>">
-                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden"
-                                                        class="signature_hide" name="signature" value="0">
-                                                    <button href="#" class="btn btn-info btn-sm" data-toggle="modal"
-                                                        data-target="#info<?php echo $de_id ?>">
+                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden" name="detail_id" value="<?php echo $de_id ?>">
+                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden" class="signature_hide" name="signature" value="0">
+                                                    <button href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#info<?php echo $de_id ?>">
                                                         <i class="fa fa-file"></i>
                                                     </button><!-- modal 0 -->
                                                 </div>
 
                                                 <!-- Modal 0-->
-                                                <div class="modal fade" id="info<?php echo $de_id ?>" tabindex="-1"
-                                                    role="dialog" aria-labelledby="sea3" aria-hidden="true">
+                                                <div class="modal fade" id="info<?php echo $de_id ?>" tabindex="-1" role="dialog" aria-labelledby="sea3" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="sea3">ข้อมูล</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
@@ -719,11 +708,11 @@ if (isset($_POST['gogo'])) {
                                                                         </thead>
                                                                         <tbody>
                                                                             <?php
-                                                                                $i = 1;
-                                                                                $q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
-                                                                                $re_room = mysqli_query($con, $q_room);
-                                                                                while ($row_room = mysqli_fetch_array($re_room)) {
-                                                                            ?>
+                                                                            $i = 1;
+                                                                            $q_room = "SELECT * FROM `room_detail`,`location_table` WHERE room_detail.room_id = location_table.order  AND room_detail.detail_id = '$de_id' ORDER BY `name_location`,`sub_id`,`tool` ";
+                                                                            $re_room = mysqli_query($con, $q_room);
+                                                                            while ($row_room = mysqli_fetch_array($re_room)) {
+                                                                                ?>
                                                                             <tr>
                                                                                 <td class="text-center">
                                                                                     <?php echo $i++ ?>
@@ -744,7 +733,8 @@ if (isset($_POST['gogo'])) {
                                                                                     <?php echo $row_room['tool'] ?>
                                                                                 </td>
                                                                             </tr>
-                                                                            <?php } ?>
+                                                                            <?php 
+                                                                        } ?>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -757,7 +747,8 @@ if (isset($_POST['gogo'])) {
                                             </td>
 
                                         </tr>
-                                        <?php } ?>
+                                        <?php 
+                                    } ?>
                                     </tbody>
                                 </table>
                             </div><!-- end table -->
@@ -771,7 +762,7 @@ if (isset($_POST['gogo'])) {
                             <h4 class="text-center">signature</h4>
                         </div>
                         <?php
-                            $r = mysqli_fetch_array( mysqli_query( $con,"SELECT signature FROM web_show_time WHERE 1" ) );
+                        $r = mysqli_fetch_array(mysqli_query($con, "SELECT 'signature' FROM web_show_time WHERE 1"));
                         ?>
                         <div class="card-body">
                             <div class="container">
@@ -781,6 +772,7 @@ if (isset($_POST['gogo'])) {
                                             <img src="banner/<?php echo $r['signature']; ?>" class="rounded mx-auto d-block" style="width: 100%;"><br><br>
                                         </div>
                                     </div>
+
                                 </div><br>
                                 <div class="row">
                                     <div class="col-md-4"></div>
@@ -835,15 +827,15 @@ if (isset($_POST['gogo'])) {
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $(".signature_bt").click(function () {
+        $(document).ready(function() {
+            $(".signature_bt").click(function() {
                 $(".signature_hide").val($("#signature_select").val());
             });
 
         });
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // data-tables
             $('#report').DataTable();
             $('.select2').select2();
@@ -855,10 +847,10 @@ if (isset($_POST['gogo'])) {
     <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
 
     <!-- alert all -->
-	<?php require '../alert.php'; ?>
+    <?php require '../alert.php'; ?>
 
     <!-- END Java Script for this page -->
 
 </body>
 
-</html>
+</html> 

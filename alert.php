@@ -44,7 +44,7 @@
                         Swal({
                             type: 'error',
                             title: 'เพิ่มข้อมูลไม่สำเร็จ',
-                            text: 'เกิดข้อผลิตพลาดในการนำเข้าข้อมูล.',
+                            text: 'เกิดข้อผิดพลาดในการนำเข้าข้อมูล.',
                             // footer: '<a href>Why do I have this issue?</a>'
                         });                    
                     </script>";
@@ -128,7 +128,7 @@
                         Swal({
                             type: 'error',
                             title: 'แก้ไขข้อมูลไม่สำเร็จ',
-                            text: 'เกิดข้อผลิตพลาดในการนำเข้าข้อมูล.',
+                            text: 'เกิดข้อผิดพลาดในการนำเข้าข้อมูล.',
                             // footer: '<a href>Why do I have this issue?</a>'
                         });                    
                     </script>";
@@ -152,7 +152,7 @@
                         Swal({
                             type: 'error',
                             title: 'ลบข้อมูลไม่สำเร็จ',
-                            text: 'เกิดข้อผลิตพลาดในการลบข้อมูล.',
+                            text: 'เกิดข้อผิดพลาดในการลบข้อมูล.',
                             // footer: '<a href>Why do I have this issue?</a>'
                         });                    
                     </script>";
