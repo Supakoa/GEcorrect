@@ -1,5 +1,5 @@
 <?php 
-  require 'server/server.php';
+  require '../server/server.php';
   $id = $_POST['data1'];
   $sql = "SELECT * FROM student WHERE std_id  = '$id' ";
   $re = mysqli_query($con,$sql);

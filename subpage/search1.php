@@ -369,7 +369,7 @@
 				// alert("I am an alert box!");
 				// $("#edit_modal").append("eieieissssss");
 			
-				$.post("search1_edit.php",{data1 : id},
+				$.post("modal_search/search1_edit.php",{data1 : id},
 					function(result){
 						$("#edit_modal").html(result);
 						$("#edit").modal("show");
@@ -381,7 +381,7 @@
 				// alert("I am an alert box!");
 				// $("#edit_modal").append("eieieissssss");
 			
-				$.post("search1_del.php",{data1 : id},
+				$.post("modal_search/search1_del.php",{data1 : id},
 					function(result){
 						$("#edit_modal").html(result);
 						$("#del").modal("show");
