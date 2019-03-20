@@ -365,7 +365,7 @@
 		
 	</script>
 	<script>
-	function modal_edit (id) { 
+		function modal_edit (id) { 
 				// alert("I am an alert box!");
 				// $("#edit_modal").append("eieieissssss");
 			
@@ -373,10 +373,11 @@
 					function(result){
 						$("#edit_modal").html(result);
 						$("#edit").modal("show");
-						}
+					}
 				
 			);
 		};
+
 		function modal_del (id) {
 				// alert("I am an alert box!");
 				// $("#edit_modal").append("eieieissssss");
@@ -385,9 +386,8 @@
 					function(result){
 						$("#edit_modal").html(result);
 						$("#del").modal("show");
-						}
-				
-			);
+					}
+				);
 		};
 	 
 	</script>
