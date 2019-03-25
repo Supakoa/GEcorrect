@@ -2,6 +2,13 @@
  // connect database 
 require 'server/server.php';
 
+  // check login
+  if( !(isset($_SESSION['admin_id'])) ){
+    $_SESSION['alert'] = 2;
+    header("Location: ../index.php");
+    exit();
+}
+
 if (!isset($_SESSION['signature'])) {
     $_SESSION['signature'] = 0;
 }
@@ -334,9 +341,11 @@ if (isset($_POST['gogo'])) {
 
 if (isset($_POST['sig_btn'])) {
 
-    $target_dir = "banner/";
-    $target_file = $target_dir . basename($_FILES["sig_file"]["name"]);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $ext = pathinfo(basename($_FILES["sig_file"]["name"]), PATHINFO_EXTENSION);
+    $new_taget_name = 'sig_' . uniqid() . "." . $ext;
+    $target_path = "banner/";
+    $upload_path = $target_path . $new_taget_name;
+    $imageFileType = strtolower(pathinfo($upload_path, PATHINFO_EXTENSION));
 
     // Check file size
     if ($_FILES["sig_file"]["size"] > 500000) {
@@ -352,9 +361,8 @@ if (isset($_POST['sig_btn'])) {
         exit();
     }
 
-    if (move_uploaded_file($_FILES["sig_file"]["tmp_name"], $target_file)) {
-        $nameTarget = $_FILES["sig_file"]["name"];
-        if (mysqli_query($con, "UPDATE web_show_time SET 'signature' = '$nameTarget' WHERE 1")) {
+    if (move_uploaded_file($_FILES["sig_file"]["tmp_name"], $upload_path)) {
+        if (mysqli_query($con, "UPDATE web_show_time SET `signature` = '$new_taget_name' WHERE 1")) {
             $_SESSION['alert'] = 3;
         } else {
             $_SESSION['alert'] = 4;
@@ -405,7 +413,7 @@ if (isset($_POST['sig_btn'])) {
 
     <div id="main">
 
-        <?php require 'menu/navmenu.php'    ?>
+        <?php //require 'menu/navmenu.php'    ?>
 
         <div class="content-page">
             <!-- content-page -->
@@ -762,7 +770,7 @@ if (isset($_POST['sig_btn'])) {
                             <h4 class="text-center">signature</h4>
                         </div>
                         <?php
-                        $r = mysqli_fetch_array(mysqli_query($con, "SELECT 'signature' FROM web_show_time WHERE 1"));
+                        $r = mysqli_fetch_array(mysqli_query($con, "SELECT `signature` FROM `web_show_time` WHERE 1"));
                         ?>
                         <div class="card-body">
                             <div class="container">
