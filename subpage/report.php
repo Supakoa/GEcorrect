@@ -545,7 +545,8 @@ if (isset($_POST['sig_btn'])) {
                                     <div class="row text-center">
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-2">
-                                            <a role="button" href="#" class="btn btn-danger btn-md" data-toggle="modal" data-target="#delete_select"><i class="fa fa-minus"></i> ลบที่เลือก</a>
+                                            <!-- ลบที่เลือก *เอาออกนะ -->
+                                            <!-- <a role="button" href="#" class="btn btn-danger btn-md" data-toggle="modal" data-target="#delete_select"><i class="fa fa-minus"></i> ลบที่เลือก</a> -->
                                         </div>
                                         <div class="col-lg-2 text-center">
                                             <p>
@@ -580,8 +581,8 @@ if (isset($_POST['sig_btn'])) {
                                             <th>วันที่</th>
                                             <th>เวลา</th>
                                             <th>ประเภท</th>
-                                            <th class="text-center"><label class="checkbox-inline"><input type="checkbox" ng-model="all">
-                                                    Check All</label></th>
+                                            <!-- เอา check all ออกนะ ที่สุดเลยเว้ยแก -->
+                                            <th class="text-center"><!-- <label class="checkbox-inline"><input type="checkbox" ng-model="all">Check All</label> --></th>
                                             <th></th>
 
                                         </tr>
@@ -592,7 +593,6 @@ if (isset($_POST['sig_btn'])) {
                                             $de_id = $row_show['detail_id'];
                                             ?>
                                         <tr>
-
                                             <td>
                                                 <?php echo $row_show['term'] ?>
                                             </td>
