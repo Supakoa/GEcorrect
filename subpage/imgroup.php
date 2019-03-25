@@ -37,7 +37,7 @@
         $option_location.='<option value = "' . $row_location['order'] . '"> ห้อง ' . $row_location['name_location'] . '</option>';
         $j++;
     }
-    if (isset($_POST['tab_room'])) {
+    if (isset($_POST['upload'])) {
 
         $term = $_POST['term'];
         $year = $_POST['year'];
@@ -429,6 +429,7 @@
                                         <div class="col-lg-12">
                                             <div class="text-center">
                                                 <hr>
+                                                <input type="hidden" name="upload" value = "up" >
                                                 <button class="btn btn-xm btn-success text-center" id="submit" type="submit">submit</button>
                                                 <br><br>
                                             </div>
