@@ -79,7 +79,7 @@
 		WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
 		AND student_room.std_id LIKE '$std_id%' AND location_table.order LIKE '$room%' AND room_detail.sub_id LIKE '$subject%' 
 		AND room_detail.sub_group LIKE '$group_exam%' AND detail.day LIKE '$date%' AND detail.year LIKE '$year%' AND detail.term LIKE '$term%' 
-		AND detail.type LIKE '$type_exam%'";
+		AND detail.type LIKE '$type_exam%' AND student.name LIKE '%%' ";
 		$re_show = mysqli_query($con, $q_show);
 	} else {
 	
