@@ -582,7 +582,7 @@ if (isset($_POST['sig_btn'])) {
                                             <th>เวลา</th>
                                             <th>ประเภท</th>
                                             <!-- เอา check all ออกนะ ที่สุดเลยเว้ยแก -->
-                                            <th class="text-center"><!-- <label class="checkbox-inline"><input type="checkbox" ng-model="all">Check All</label> --></th>
+                                            <!-- <th class="text-center"><label class="checkbox-inline"><input type="checkbox" ng-model="all">Check All</label></th> -->
                                             <th></th>
 
                                         </tr>
@@ -634,11 +634,11 @@ if (isset($_POST['sig_btn'])) {
                                             <td>
                                                 <?php echo $row_show['type'] . "----" . $de_id ?>
                                             </td>
-                                            <td class="text-center">
+                                            <!-- <td class="text-center">
                                                 <div class="form-check">
                                                     <input name="del_cb[]" value="<?php echo $de_id ?>" type="checkbox" class="form-check-input" ng-checked="all" form="big_form">
                                                 </div>
-                                            </td>
+                                            </td> -->
                                             <td>
                                                 <div class="text-center">
                                                     <form action="report.php" method="post" id="form_signature<?php echo $de_id ?>">
