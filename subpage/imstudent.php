@@ -13,7 +13,7 @@
     // import student .csv
     if (isset($_POST['upload_btn'])) {
         // set collaction 
-        // mysqli_set_charset($con,'tis620');
+        mysqli_set_charset($con,'tis620');
         $i = 0;
         // open file
         $a = $_FILES["File"]["tmp_name"];

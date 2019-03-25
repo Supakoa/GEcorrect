@@ -176,7 +176,7 @@
 										<div class="col-sm-4"></div>
 
 										<div class="col-sm-4"><input id="id" class="form-control" type="text" name='value_search' value = "<?php echo $search_now ?>" placeholder="รหัสนักศึกษา"
-											 required></div>
+											 ></div>
 										<div class="col-sm-4"><input class="btn btn-md btn-success" type="submit" value="Submit" name="btn_search"></div>
 
 									</div>
