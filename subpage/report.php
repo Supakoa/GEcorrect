@@ -26,6 +26,8 @@ if (isset($_POST['create_pdf'])) {
     $detail_id = $_POST['detail_id'];
     echo $detail_id;
     $q_sl_room = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+    $row = mysqli_fetch_array(mysqli_query($con,"SELECT `signature` FROM `web_show_time` WHERE 1"));
+     $sig  = $row['signature'];
     if ($re_sl_room = mysqli_query($con, $q_sl_room)) {
         $num_room = 0;
         while ($row_sl_room = mysqli_fetch_array($re_sl_room)) {
@@ -90,7 +92,7 @@ if (isset($_POST['create_pdf'])) {
         if ($_POST['signature']) {
             $_SESSION['signature'] = 1;
             $head .= ' 
-                            <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:250mm;margin-left:170mm">
+                            <img src="banner/'.$sig.'" style="width: 50mm; height: 50mm;margin-top:220mm;margin-left:170mm">
                         ';
         } else {
             $_SESSION['signature'] = 0;
@@ -260,8 +262,9 @@ if (isset($_POST['create_pdf'])) {
 
                 if ($_POST['signature']) {
                     $_SESSION['signature'] = 1;
+                    
                     $head .= ' 
-                                <img src="banner/Im_Yoona_signature.png" style="width: 50mm; height: 50mm;margin-top:230mm;margin-left:170mm">
+                                <img src="banner/'.$sig.'" style="width: 50mm; height: 50mm;margin-top:230mm;margin-left:170mm">
                             ';
                 } else {
                     $_SESSION['signature'] = 0;
