@@ -63,6 +63,7 @@
 	}
 
 	if (isset($_POST['gogo'])) {
+       
 		$term = $_POST['term'];
 		$year = $_POST['year'];
 		$subject = $_POST['sub'];
@@ -71,15 +72,27 @@
 		$room = $_POST['room'];
 		$date = $_POST['date'];
 		$s_time = $_POST['s_time'];
-		$e_time = $_POST['e_time'];
+        $e_time = $_POST['e_time'];
+        
 		$std_id =  $_POST['std_id'];
-		// echo $term . $year . $subject . $group_exam;
-		$q_show = "SELECT student_room.student_room_id,student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
+        // echo $term . $year . $subject . $group_exam;
+        if (isset($_POST['std_search'])) {
+            $q_show = "SELECT student_room.student_room_id,student_room.std_id,student_room.note,student.name,location_table.name_location,`subject`.subject_name,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
 		FROM `student_room`,`location_table`,`room_detail`,`student`,`subject`,`detail`
 		WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
-		AND student_room.std_id LIKE '$std_id%' AND location_table.order LIKE '$room%' AND room_detail.sub_id LIKE '$subject%' 
+		AND (student_room.std_id LIKE '%$std_id%' OR location_table.name_location LIKE '%$std_id%' OR room_detail.sub_id LIKE '%$std_id%' 
+		OR room_detail.sub_group LIKE '%$std_id%' OR detail.day LIKE '%$std_id%' OR detail.year LIKE '%$std_id%' OR detail.term LIKE '%$std_id%' OR `subject`.subject_name LIKE '%$std_id%'
+        OR detail.type LIKE '%$std_id%' OR student_room.note LIKE '%$std_id%' OR student.name LIKE '%$std_id%')";
+        // echo '<script> alert("eieiei"); </script>';
+        }else{
+           $q_show = "SELECT student_room.student_room_id,student_room.std_id,student.name,location_table.name_location,`subject`.subject_name,room_detail.sub_id,room_detail.sub_group,student_room.seat,detail.day,detail.time_start,detail.time_end,detail.term,detail.year,detail.type,student_room.note 
+		FROM `student_room`,`location_table`,`room_detail`,`student`,`subject`,`detail`
+		WHERE student_room.std_id = student.std_id AND location_table.order=room_detail.room_id AND room_detail.sub_id =`subject`.subject_id AND student_room.room_detail_id = room_detail.room_detail_id AND room_detail.detail_id = detail.detail_id 
+		AND location_table.order LIKE '$room%' AND room_detail.sub_id LIKE '$subject%' 
 		AND room_detail.sub_group LIKE '$group_exam%' AND detail.day LIKE '$date%' AND detail.year LIKE '$year%' AND detail.term LIKE '$term%' 
-		AND detail.type LIKE '$type_exam%'";
+		AND detail.type LIKE '$type_exam%'"; 
+        }
+		
 		$re_show = mysqli_query($con, $q_show);
 	} else {
 	
@@ -326,7 +339,7 @@
                                                 <div class="row"><!-- row 2 -->
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="id">รหัสนักศึกษา</label>
+                                                            <label for="id">ค้นหาจากคำเฉพาะ</label>
                                                             <input name = "std_id" class="form-control" form = "form_search" type="text" <?php
 																if ($std_id == '') {
 																	echo 'value = "" ';
@@ -338,7 +351,7 @@
                                                     </div>
                                                     <div class="col-md-6">
 													<br>
-													<button class="btn btn-lm btn-info" style ="margin-top :8px" type="submit" form = "form_search" >submit</button>
+													<button class="btn btn-lm btn-info" style ="margin-top :8px" name="std_search" type="submit" form = "form_search" >submit</button>
 													</div>
 
                                                 </div><!--end row 2 -->
