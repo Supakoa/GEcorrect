@@ -202,11 +202,11 @@ if (isset($_POST['upload'])) {
 
                 exit();
             } else {
-
                 foreach ($room as $a) {
                     $j = 1;
-                    if (isset($sum_room[$r + 1])) {
+                    if (isset($sum_room[$r])&&$i!=0) {
                         if ($i == $sum_room[$r]) {
+                            // echo '<script> alert("'.$i.'"); </script>';
                             $j += $num[($i - 1)];
                             $cout = $num[$i] + $num[($i - 1)];
                             $r++;
