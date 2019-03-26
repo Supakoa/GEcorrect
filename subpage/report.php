@@ -152,11 +152,11 @@ if (isset($_POST['create_pdf'])) {
 							<th style="width:20pt;">ลำดับ</th>
 							<th style="width:60pt;">รหัสนักศึกษา</th>
 							<th style="width:120pt;">ชื่อ-นามสกุล</th>
-							<th style="width:120pt;">วิชาที่สอบ</th>
+							<th style="width:170pt;">วิชาที่สอบ</th>
 							<th style="width:50pt;">วันที่สอบ</th>
 							<th style="width:60pt;">เวลาที่สอบ</th>
 							<th style="width:30pt;">ห้องสอบ</th>
-							<th style="width:120pt;">ลายเซ็น</th>
+							<th style="width:80pt;">ลายเซ็น</th>
 						</tr>
 					</thead>
 				';

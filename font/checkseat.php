@@ -261,7 +261,7 @@ $table_result = mysqli_query($con,$table);
                             *** หากไม่พบข้อมูล ติดต่อได้ที่จุด one stop service
                         </td>
                         <td>
-                            <a href="print.php?id=" target="_blank" class="btn btn-link">Print</a>
+                            <a href="print.php" target="_blank" class="btn btn-link">Print</a>
                         </td>
                     </tr>
                 </tbody>
