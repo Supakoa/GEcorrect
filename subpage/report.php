@@ -416,7 +416,7 @@ if (isset($_POST['sig_btn'])) {
 
     <div id="main">
 
-        <?php //require 'menu/navmenu.php'    ?>
+        <?php require 'menu/navmenu.php'    ?>
 
         <div class="content-page">
             <!-- content-page -->
