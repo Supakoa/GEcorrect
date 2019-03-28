@@ -161,10 +161,10 @@ if (isset($_POST['create_pdf'])) {
 						<tr>
 							<th style="width:20pt;">ลำดับ</th>
 							<th style="width:60pt;">รหัสนักศึกษา</th>
-							<th style="width:130pt;">ชื่อ-นามสกุล</th>
-							<th style="width:170pt;">วิชาที่สอบ</th>
-							<th style="width:40pt;">วันที่สอบ</th>
-							<th style="width:80pt;">เวลาที่สอบ</th>
+							<th style="width:135pt;">ชื่อ-นามสกุล</th>
+							<th style="width:175pt;">วิชาที่สอบ</th>
+							<th style="width:55pt;">วันที่สอบ</th>
+							<th style="width:60pt;">เวลาที่สอบ</th>
 							<th style="width:30pt;">ห้องสอบ</th>
 							<th style="width:80pt;">ลายเซ็น</th>
 						</tr>
@@ -180,7 +180,7 @@ if (isset($_POST['create_pdf'])) {
                 $name = $row_show['name'];
                 $sub = $row_show['subject_id'] . " " . $row_show['subject_name'];
                 $date = DateThai($row_show['day']);
-                $time = substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5);
+                $time = substr($row_show['time_start'], 0, 5) . "-" . substr($row_show['time_end'], 0, 5) . " น.";
                 $lo_name = substr($row_show['name_location'], 0, 4);
                 $tbody .= '	<tr>
 								<td style="text-align:center">' . $seat . '</td>
@@ -188,7 +188,7 @@ if (isset($_POST['create_pdf'])) {
 								<td>' . $name . '</td>
 								<td style="text-align:center">' . $sub . '</td>
 								<td style="text-align:center">' . $date . '</td>
-								<td style="text-align:center">' . $time . ' น. </td>
+								<td style="text-align:center">' . $time . '</td>
 								<td style="text-align:center">' . $lo_name . '</td>
 								<td></td>
 							</tr>';
