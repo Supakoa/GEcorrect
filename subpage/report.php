@@ -21,6 +21,15 @@ function DateThai($strDate)
     $strMonthThai = $strMonthCut[$strMonth];
     return "$strDay $strMonthThai $strYear";
 }
+function DateThai_full($strDate)
+{
+    $strYear = date("Y", strtotime($strDate)) + 543;
+    $strMonth = date("n", strtotime($strDate));
+    $strDay = date("j", strtotime($strDate));
+    $strMonthCut = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม");
+    $strMonthThai = $strMonthCut[$strMonth];
+    return "$strDay $strMonthThai พ.ศ. $strYear";
+}
 
 if (isset($_POST['create_pdf'])) {
     $detail_id = $_POST['detail_id'];
@@ -64,7 +73,8 @@ if (isset($_POST['create_pdf'])) {
 
         $head_term = $row_head['term'];
         $head_year = $row_head['year'];
-        $head_date = DateThai($row_head['day']);
+        $head_type = $row_head['type'];
+        $head_date = DateThai_full($row_head['day']);
         $head_time = substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น.";
         $head_location = $row_head['name_location'];
         $head = '
@@ -83,7 +93,7 @@ if (isset($_POST['create_pdf'])) {
                         <div>
                                 
                                 <div style="text-align: center; font-weight: bold; font-size: 12pt;padding-top: 10px;">
-                                <span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
+                                <span>รายชื่อนักศึกษาสอบ '.$head_type.' ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
                                 </div>
                         </div>
                         
@@ -151,10 +161,10 @@ if (isset($_POST['create_pdf'])) {
 						<tr>
 							<th style="width:20pt;">ลำดับ</th>
 							<th style="width:60pt;">รหัสนักศึกษา</th>
-							<th style="width:120pt;">ชื่อ-นามสกุล</th>
+							<th style="width:130pt;">ชื่อ-นามสกุล</th>
 							<th style="width:170pt;">วิชาที่สอบ</th>
-							<th style="width:50pt;">วันที่สอบ</th>
-							<th style="width:60pt;">เวลาที่สอบ</th>
+							<th style="width:40pt;">วันที่สอบ</th>
+							<th style="width:80pt;">เวลาที่สอบ</th>
 							<th style="width:30pt;">ห้องสอบ</th>
 							<th style="width:80pt;">ลายเซ็น</th>
 						</tr>
@@ -170,7 +180,7 @@ if (isset($_POST['create_pdf'])) {
                 $name = $row_show['name'];
                 $sub = $row_show['subject_id'] . " " . $row_show['subject_name'];
                 $date = DateThai($row_show['day']);
-                $time = substr($row_show['time_start'], 0, 5) . " - " . substr($row_show['time_end'], 0, 5);
+                $time = substr($row_show['time_start'], 0, 5) . " น. - " . substr($row_show['time_end'], 0, 5);
                 $lo_name = substr($row_show['name_location'], 0, 4);
                 $tbody .= '	<tr>
 								<td style="text-align:center">' . $seat . '</td>
@@ -178,7 +188,7 @@ if (isset($_POST['create_pdf'])) {
 								<td>' . $name . '</td>
 								<td style="text-align:center">' . $sub . '</td>
 								<td style="text-align:center">' . $date . '</td>
-								<td style="text-align:center">' . $time . '</td>
+								<td style="text-align:center">' . $time . ' น. </td>
 								<td style="text-align:center">' . $lo_name . '</td>
 								<td></td>
 							</tr>';
@@ -235,7 +245,8 @@ if (isset($_POST['create_pdf'])) {
 
                 $head_term = $row_head['term'];
                 $head_year = $row_head['year'];
-                $head_date = DateThai($row_head['day']);
+                $head_type = $row_head['type'];
+                $head_date = DateThai_full($row_head['day']);
                 $head_time = substr($row_head['time_start'], 0, 5) . " น. - " . substr($row_head['time_end'], 0, 5) . " น.";
                 $head_location = $row_head['name_location'];
                 $head = '
@@ -254,7 +265,7 @@ if (isset($_POST['create_pdf'])) {
                             <div>
                                     
                                     <div style="text-align: center; font-weight: bold; font-size: 12pt;padding-top: 10px;">
-                                    <span>รายชื่อนักศึกษาสอบ ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
+                                    <span>รายชื่อนักศึกษาสอบ '.$head_type.' ภาคเรียนที่ ' . $head_term . '/' . $head_year . '</span><br><span>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์ : มหาวิทยาลัยราชภัฎสวนสุนันทา</span><br><span>วันที่ ' . $head_date . ' เวลา ' . $head_time . ' ห้อง ' . $head_location . '</span>
                                     </div>
                             </div>
                             
@@ -403,7 +414,8 @@ if (isset($_POST['sig_btn'])) {
     <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 
     <!-- BEGIN CSS for this page -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
     <!-- END CSS for this page -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -652,24 +664,32 @@ if (isset($_POST['sig_btn'])) {
                                             </td> -->
                                             <td>
                                                 <div class="text-center">
-                                                    <form action="report.php" method="post" id="form_signature<?php echo $de_id ?>">
+                                                    <form action="report.php" method="post"
+                                                        id="form_signature<?php echo $de_id ?>">
                                                     </form>
-                                                    <button class="btn btn-sm btn-warning signature_bt" form="form_signature<?php echo $de_id ?>" formtarget="_blank" type="submit" name="create_pdf">PDF</button>
+                                                    <button class="btn btn-sm btn-warning signature_bt"
+                                                        form="form_signature<?php echo $de_id ?>" formtarget="_blank"
+                                                        type="submit" name="create_pdf">PDF</button>
 
-                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden" name="detail_id" value="<?php echo $de_id ?>">
-                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden" class="signature_hide" name="signature" value="0">
-                                                    <button href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#info<?php echo $de_id ?>">
+                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden"
+                                                        name="detail_id" value="<?php echo $de_id ?>">
+                                                    <input form="form_signature<?php echo $de_id ?>" type="hidden"
+                                                        class="signature_hide" name="signature" value="0">
+                                                    <button href="#" class="btn btn-info btn-sm" data-toggle="modal"
+                                                        data-target="#info<?php echo $de_id ?>">
                                                         <i class="fa fa-file"></i>
                                                     </button><!-- modal 0 -->
                                                 </div>
 
                                                 <!-- Modal 0-->
-                                                <div class="modal fade" id="info<?php echo $de_id ?>" tabindex="-1" role="dialog" aria-labelledby="sea3" aria-hidden="true">
+                                                <div class="modal fade" id="info<?php echo $de_id ?>" tabindex="-1"
+                                                    role="dialog" aria-labelledby="sea3" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="sea3">ข้อมูล</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
@@ -780,7 +800,8 @@ if (isset($_POST['sig_btn'])) {
                                 <div class="row">
                                     <div class="col-xl-12 ">
                                         <div class="mx-auto" style="width: 300px;background-color:white;">
-                                            <img src="banner/<?php echo $r['signature']; ?>" class="rounded mx-auto d-block" style="width: 100%;"><br><br>
+                                            <img src="banner/<?php echo $r['signature']; ?>"
+                                                class="rounded mx-auto d-block" style="width: 100%;"><br><br>
                                         </div>
                                     </div>
 
@@ -788,11 +809,14 @@ if (isset($_POST['sig_btn'])) {
                                 <div class="row">
                                     <div class="col-md-4"></div>
                                     <div class="col-md-2 text-center">
-                                        <input form="upload_sig" name="sig_file" type="file" class="form-control btn" accept="image/*">
+                                        <input form="upload_sig" name="sig_file" type="file" class="form-control btn"
+                                            accept="image/*">
                                     </div>
                                     <div class="col-md-2 text-center">
-                                        <form action="report.php" method="post" enctype="multipart/form-data" id="upload_sig">
-                                            <button form="upload_sig" name="sig_btn" type="submit" class="btn btn-sm btn-success">Upload Signature</button>
+                                        <form action="report.php" method="post" enctype="multipart/form-data"
+                                            id="upload_sig">
+                                            <button form="upload_sig" name="sig_btn" type="submit"
+                                                class="btn btn-sm btn-success">Upload Signature</button>
                                             <p>Size 200*200 <br>Type*PNG*</p>
                                         </form>
                                     </div>
@@ -838,15 +862,15 @@ if (isset($_POST['sig_btn'])) {
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $(".signature_bt").click(function() {
+        $(document).ready(function () {
+            $(".signature_bt").click(function () {
                 $(".signature_hide").val($("#signature_select").val());
             });
 
         });
     </script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // data-tables
             $('#report').DataTable();
             $('.select2').select2();
@@ -864,4 +888,4 @@ if (isset($_POST['sig_btn'])) {
 
 </body>
 
-</html> 
+</html>
