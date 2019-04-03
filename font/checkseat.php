@@ -186,7 +186,7 @@ $table_result = mysqli_query($con,$table);
                 <thead>
                     <tr>
                         <?php 
-                                $pitook = '<th style="color:white;background-color: #55236d;border-radius:5px" colspan="7"><h4 >ตารางสอบวัดความรู้ '.$d." ปีการศึกษา" . $_SESSION['term'] . "/" .$_SESSION['year'].'</h4></th>';
+                                $pitook = '<th style="color:white;background-color: #55236d;border-radius:5px" colspan="7"><h4 >ตารางสอบวัดความรู้ '.$d." ปีการศึกษา " . $_SESSION['term'] . "/" .$_SESSION['year'].'</h4></th>';
                                 $pitook2 = '<th style="color:white;background-color: #55236d;border-radius:5px" colspan="7"><h4 >ตารางสอบวัดความรู้ '.$d.'</h4></th>';
                                 
                                 if ($d == "แก้ไขผลการเรียน(I)") {
