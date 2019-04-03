@@ -34,7 +34,7 @@ function DateThai_full($strDate)
 if (isset($_POST['create_pdf'])) {
     $detail_id = $_POST['detail_id'];
     echo $detail_id;
-    $q_sl_room = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$detail_id'";
+    $q_sl_room = "SELECT `room_detail_id` FROM `room_detail` WHERE `detail_id` ='$detail_id' ORDER BY `room_detail`.`tool` DESC, `room_detail`.`room_id` ASC";
     $row = mysqli_fetch_array(mysqli_query($con,"SELECT `signature` FROM `web_show_time` WHERE 1"));
      $sig  = $row['signature'];
     if ($re_sl_room = mysqli_query($con, $q_sl_room)) {
