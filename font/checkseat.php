@@ -258,7 +258,8 @@ $table_result = mysqli_query($con,$table);
                                     } ?>
                     <tr style="border-collapse: collapse">
                         <td colspan="6">
-                            *** หากไม่พบข้อมูล ติดต่อได้ที่จุด one stop service
+                            *** หากไม่พบข้อมูล ติดต่อได้ที่จุด one stop service<br>
+                            * กรณี นักศึกษาที่ขอเลื่อนสอบ สามารถตรวจสอบวัน-เวลา และสถานที่สอบใหม่ ได้ที่ หน้าเว็บไซต์ www.gen-ed.ssru.ac.th  (ประกาศรายชื่อสอบ)
                         </td>
                         <td>
                             <a href="print.php" target="_blank" class="btn btn-link">Print</a>
