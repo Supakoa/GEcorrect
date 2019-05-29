@@ -102,7 +102,7 @@ if (isset($_POST['create_pdf'])) {
         if ($_POST['signature']) {
             $_SESSION['signature'] = 1;
             $head .= ' 
-                            <img src="banner/'.$sig.'" style="width: 50mm; height: 50mm;margin-top:220mm;margin-left:170mm">
+                            <img src="banner/'.$sig.'" style="width: 50mm; height: 50mm;margin-top:970px;margin-left:690px;">
                         ';
         } else {
             $_SESSION['signature'] = 0;
@@ -181,7 +181,7 @@ if (isset($_POST['create_pdf'])) {
                 $sub = $row_show['subject_id'] . " " . $row_show['subject_name'];
                 $date = DateThai($row_show['day']);
                 $time = substr($row_show['time_start'], 0, 5) . "-" . substr($row_show['time_end'], 0, 5) . " น.";
-                $lo_name = substr($row_show['name_location'], 0, 4);
+                $lo_name = substr($row_show['name_location'], 0, 5);
                 $tbody .= '	<tr>
 								<td style="text-align:center">' . $seat . '</td>
 								<td style="text-align:center">' . $std_id . '</td>
@@ -275,7 +275,7 @@ if (isset($_POST['create_pdf'])) {
                     $_SESSION['signature'] = 1;
                     
                     $head .= ' 
-                                <img src="banner/'.$sig.'" style="width: 50mm; height: 50mm;margin-top:230mm;margin-left:170mm">
+                            <img src="banner/'.$sig.'" style="width: 50mm; height: 50mm;margin-top:970px;margin-left:690px;">
                             ';
                 } else {
                     $_SESSION['signature'] = 0;
