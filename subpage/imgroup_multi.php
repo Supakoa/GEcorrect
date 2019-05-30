@@ -207,8 +207,17 @@ if (isset($_POST['upload'])) {
                     if (isset($sum_room[$r])&&$i!=0) {
                         if ($i == $sum_room[$r]) {
                             // echo '<script> alert("'.$i.'"); </script>';
+                            $temp_i = $i-1;
+                            $temp_r = $r-1;
+                            $temp_count= 0;
+                            while($temp_i>0&&$temp_r>=0&&$temp_i == $sum_room[$temp_r]){
+                                $j += $num[($temp_i -1)];
+                                $temp_count = $temp_count+$num[($temp_i - 1)];
+                                $temp_i--;
+                                $temp_r--;
+                            }
                             $j += $num[($i - 1)];
-                            $cout = $num[$i] + $num[($i - 1)];
+                            $cout = $num[$i] + $num[($i - 1)]+$temp_count;
                             $r++;
                         } else {
                             $cout = $num[$i];

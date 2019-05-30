@@ -287,6 +287,9 @@ if (isset($_POST['create_pdf'])) {
                 ';
                 $mpdf->WriteHTML($head);
                 $mpdf->AddPage();
+
+            }else{
+                $mpdf->AddPage();
             }
         }
         $mpdf->Output();
