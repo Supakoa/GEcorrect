@@ -166,10 +166,10 @@ $table_result = mysqli_query($con,$table);
                                 <a class="btn btn-light btn-md dropdown-toggle" style="background:#dd99ff"
                                     id="drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">อื่นๆ
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="drop" style="background:#dd99ff">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-menu" aria-labelledby="drop" style="background:#dd99ff;width:88% ">
+                                    <a class="dropdown-item" href="checkseat.php?id=ย้อนหลัง">ย้อนหลัง</a>
+                                    <!-- <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a> -->
                                 </div>
                             </div>
                         </div>
