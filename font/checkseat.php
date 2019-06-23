@@ -87,7 +87,7 @@ $table_result = mysqli_query($con,$table);
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
         crossorigin="anonymous">
     <link rel="stylesheet" href="node_modules/font.css">
-    <title>ระบบตรวจสอบที่นั่ง</title>
+    <title>ระบบเช็คที่นั่งสอบ GE ราชภัฏสวนสุนันทา - ตรวจสอบที่นั่ง</title>
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142541804-2"></script>
