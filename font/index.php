@@ -36,7 +36,7 @@
     <!-- sweet alert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
 
-    <title>Login</title>
+    <title>ระบบเช็คที่นั่งสอบ GE ราชภัฏสวนสุนันทา - Login</title>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142541804-2"></script>
