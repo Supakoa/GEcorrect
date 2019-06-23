@@ -58,6 +58,16 @@ $row = mysqli_fetch_array($result);
                 background: #ffffff;color: #000; }
     </style>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-142541804-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-142541804-2');
+</script>
+
 </head>
 
 <body>

@@ -88,6 +88,17 @@ $table_result = mysqli_query($con,$table);
         crossorigin="anonymous">
     <link rel="stylesheet" href="node_modules/font.css">
     <title>ระบบตรวจสอบที่นั่ง</title>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-142541804-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-142541804-2');
+</script>
+
 </head>
 
 <body>
